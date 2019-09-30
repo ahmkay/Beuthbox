@@ -1,0 +1,85 @@
+<% include partials/head %>
+
+    <body>
+        <header>
+            <% include partials/header %>
+        </header>
+
+        <!-- Slider-->
+        <div class="slider owl-carousel">
+
+                <% mainslider.forEach(function(slide, k){ %>
+                    <div class="slide-1" style='background-image: url("<%= apiUrl %>/slider<%= slide.imagepath %>");'>
+                        <a class="slider-caption" href="<%= slide.buttonlink %>">
+                            <h2><%= slide.title %></h2>
+                            <br>
+                            <p>
+                                    <%- slide.description %>
+                            </p>
+                            <br>
+                            <button class="btn btn-primary btn-slider" href="<%= slide.buttonlink %>">
+                                <span class="glyphicon glyphicon-play"></span><%= slide.buttontext %>
+                            </button>
+                        </a>
+                    </div>
+                <% }) %>
+
+        </div>
+        <!-- End Slider -->
+
+        <div class="container-fluid content">
+
+            <% sliders.forEach(function(slider, k){ %>
+                <h3 class="carousel-title"><%= slider.name %></h3>
+                <%- include('partials/carousel', {videos: slider.videos}); %>
+            <% }) %>
+
+
+        </div>
+
+        <!-- End Container -->
+        <script>
+
+            $('.slider').owlCarousel({
+                loop: true,
+                margin: 0,
+                responsive: {
+                    768: {
+                        dots: true,
+                        nav: true,
+                        navText: [
+                            '<span class="glyphicon glyphicon-chevron-left"></span>',
+                            '<span class="glyphicon glyphicon-chevron-right"></span>'
+                        ]
+                    }
+                },
+                dots: true,
+                items: 1,
+                animateOut: 'fadeOut',
+                lazyLoad: true,
+            })
+
+            $('.carousel').owlCarousel({
+                stagePadding: 50,
+                loop: false,
+                margin: 10,
+                nav: true,
+                navText: [
+                    '<span class="glyphicon glyphicon-menu-left"></span>',
+                    '<span class="glyphicon glyphicon-menu-right"></span>'
+                ],
+                dots: false,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            })
+        </script>
+        <% include partials/footer %>

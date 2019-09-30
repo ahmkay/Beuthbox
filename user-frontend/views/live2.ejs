@@ -1,0 +1,190 @@
+<% include partials/head-player %>
+
+    <body>
+        <header>
+            <% include partials/header %>
+                <style>
+                    .flowplayer .fp-ui {
+                        cursor: default
+                    }
+
+                    .flowplayer .fp-embed,
+                    .flowplayer .fp-time,
+                    .flowplayer .fp-duration,
+                    .flowplayer .fp-remaining,
+                    .flowplayer .fp-timeline .is-paused,
+                    .flowplayer .fp-ui,
+                    .flowplayer.is-playing {
+                        background-image: none;
+                        background: none !important;
+                        background-color: transparent !important;
+                    }
+
+                    .flowplayer .fp-help,
+                    .flowplayer .fp-fullscreen,
+                    .flowplayer .fp-controls,
+                    .flowplayer .fp-time {
+                        display: none;
+                    }
+
+                    .dual-view-player {
+                        background: black;
+                        height: 100%;
+                        min-height: 500px;
+                        width: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        align-items: center;
+                    }
+
+                    .control-bar {
+                        padding: 5px;
+                        background: grey;
+                        align-self: flex-end;
+                        flex: 0 0 100%;
+                        z-index: 9999;
+                    }
+
+                    .split,
+                    .split-flex {
+                        -webkit-box-sizing: border-box;
+                        -moz-box-sizing: border-box;
+                        box-sizing: border-box;
+                    }
+
+                    .split-horizontal,
+                    .gutter-horizontal {
+                        max-height: calc(100% - 50px);
+                    }
+
+                    .gutter {
+                        background-color: #eee;
+                        background-repeat: no-repeat;
+                        background-position: 50%;
+                        height: calc(100% - 50px);
+                        min-height: 450px;
+                    }
+
+                    .gutter.gutter-horizontal {
+                        cursor: ew-resize;
+                    }
+                    .max-height {
+                        max-height: 450px
+                    }
+                </style>
+        </header>
+
+
+        <div class="dual-view-player container-fluid split-flex" id="playercontainer">
+            <div id="player1Container" style="padding: 0px;" class="split-flex split-horizontal">
+                <div id="player1" class="flowplayer fp-slim max-height" data-ratio="0.5625">
+                    <video autoplay>
+                        <source type="application/x-mpegurl" src="http://141.64.64.18:1935/live/ngrp:beuthbox2_all/playlist.m3u8">
+                    </video>
+                </div>
+
+
+            </div>
+            <div id="player2Container" style="padding: 0px;" class="split-flex split-horizontal">
+                <div id="player2" class="flowplayer fp-slim max-height" data-ratio="0.5625">
+                    <video autoplay>
+                        <source type="application/x-mpegurl" src="http://141.64.64.18:1935/live/ngrp:beuthbox_all/playlist.m3u8">
+                    </video>
+                </div>
+            </div>
+            <div class="control-bar">
+                <button id="playbutton" class="btn">Play</button>
+                <button id="pausebutton" class="btn">Pause</button>
+                <button id="toggle-fullscreen" class="btn">Fullscreen</button>
+            </div>
+        </div>
+
+        <script>
+            Split(['#player1Container', '#player2Container'], {
+                sizes: [35, 65],
+                minSize: [200, 200],
+                elementStyle: function (dimension, size, gutterSize) {
+                    return {
+                        'flex-basis': 'calc(' + size + '% - ' + gutterSize + 'px)'
+                    }
+                },
+                gutterStyle: function (dimension, gutterSize) {
+                    return {
+                        'flex-basis': gutterSize + 'px'
+                    }
+                }
+            });
+            $('#toggle-fullscreen').on('click', function () {
+                // if already full screen; exit
+                // else go fullscreen
+                if (
+                    document.fullscreenElement ||
+                    document.webkitFullscreenElement ||
+                    document.mozFullScreenElement ||
+                    document.msFullscreenElement
+                ) {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                        $('.flowplayer').addClass("max-height")
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                        $('.flowplayer').addClass("max-height")
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                        $('.flowplayer').addClass("max-height")
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                        $('.flowplayer').addClass("max-height")
+                    }
+                } else {
+                    element = $('#playercontainer').get(0);
+                    if (element.requestFullscreen) {
+                        element.requestFullscreen();
+                        $('.flowplayer').removeClass("max-height")
+                    } else if (element.mozRequestFullScreen) {
+                        element.mozRequestFullScreen();
+                        $('.flowplayer').removeClass("max-height")
+                    } else if (element.webkitRequestFullscreen) {
+                        element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                        $('.flowplayer').removeClass("max-height")
+                    } else if (element.msRequestFullscreen) {
+                        element.msRequestFullscreen();
+                        $('.flowplayer').removeClass("max-height")
+                    }
+                }
+            });
+            $(function () {
+                player1 = flowplayer('#player1');
+                player2 = flowplayer('#player2');
+            });
+
+            $('#playbutton').click(function () {
+                player1.play();
+                player2.play();
+            });
+            $('#pausebutton').click(function () {
+                player1.pause();
+                player2.pause();
+            });
+            $('.jump-btn').click(function () {
+                var time = $(this).attr('data-time');
+                player1.seek(time);
+                player2.seek(time);
+            });
+            flowplayer(function (api, root) {
+                // remove big play/pause button
+                $(".fp-ui>.fp-play, .fp-ui>.fp-pause", root).remove();
+
+                // disable click on screen
+                $(".fp-ui", root).click(function (ev) {
+                    // but do not disable click on other UI elements
+                    // i.e. confine to parent element with class="fp-ui"
+                    if ($(ev.target).hasClass("fp-ui")) {
+                        ev.stopPropagation();
+                    }
+                });
+            });
+        </script>
+
+        <% include partials/footer %>

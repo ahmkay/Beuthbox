@@ -1,0 +1,57 @@
+<% include partials/head %>
+
+    <body>
+        <header>
+            <% include partials/header %>
+        </header>
+
+        <div class="container-fluid content1">
+            
+            <h3 class="carousel-title" style="padding-top: 10px">Suchergebniss für <%= query %></h3>
+
+            <% if(videos.length < 1) { %>
+
+                <p class="col-xs-12">Dazu haben wir nichts gefunden. Bitte passen Sie Ihre Suche an und versuchen es erneut.</p>
+
+            <% } %>
+            <div class="row " style="display: flex; flex-wrap: wrap;">
+            <% videos.forEach(function(video, k){ %>
+                
+                <div class="item col-md-3 col-xs-12" style="padding-top: 15px">
+                    <div class="tile">
+
+                        <a href="/vorlesung/<%= video._id %>">
+                            <% if(video.posterImagePath.indexOf('engage-player') > 1){%>
+                                <img class="tile-image" src="<%= video.posterImagePath %>">
+                                <%}else {%>
+                                    <img class="tile-image" src="<%= apiUrl %>/videos<%= video.posterImagePath %>">
+                                    <%}%>
+                        </a>
+                        <div class="tile-info">
+                            <a href="/vorlesung/<%= video._id %>">
+                                <div class="title">
+                                    <%= video.name %>
+                                </div>
+                                <div class="details">
+                                    <div class="created">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                        <%= moment(video.created).format('DD.MM.YYYY') %>
+                                    </div>
+                                    <div class="time">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                        <%= moment('2000-01-01 00:00:00').add(moment.duration(Number(video.videoDuration))).format('mm:ss') %>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            
+                <% }) %>
+
+            </div>
+        </div>
+
+        <% include partials/footer %>

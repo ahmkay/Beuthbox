@@ -1,0 +1,170 @@
+﻿<% include partials/head-player %>
+
+    <body>
+        <header>
+            <% include partials/header %>
+        </header>
+
+        <div class="container">
+
+          
+                <div id="starTrekContainer">
+
+                    <div id="ContainerTitle">
+                            <h1 class="hero-title">Tag der Mathematik an der Beuth Hochschule in Berlin</h1><br>
+                            <h3 class="hero-subtitle">11.05.2019  9:00 - 18:00 Uhr</h3>    
+                    </div>
+                        
+                        
+                        <img src="../assets/background_symp.jpg" id="StarTrekImage">
+                        <div id="live" class="flowplayer playerLive"></div>
+                        <p id="chromeWarning">Google Chrome may cause error with live stream. Please use Firefox or Internet Explorer instead.</p>
+                        
+                        <p id="linkbox_live">  <!--<p id="linkbox_live" style="display: none;">-->
+                                Webseite zum  <a href=" https://projekt.beuth-hochschule.de/tdm/" target="_blank"> Tag der Mathematik</a></p>
+
+                        <% include partials/footerStraTrek %>
+                    </div>
+           
+
+
+                    <!--
+            <div class="row liveplayer-container">
+                <div class="bg-black col-lg-8 col-lg-offset-2">
+                    <h2 class="hero-title">Antrittsvorlesung Professor Sakschewski</h2>
+    			    <h4 class="hero-subtitle">“Perspectives of Renewable Power Generation for On-grid and Off-grid Power Supply” - 6th - 9th June 2018</h4>
+
+                    
+                    <div class="liveplayer center-block">
+
+                        
+                        <div id="live" class="flowplayer"></div>
+			                <p style="text-align: center;">Google Chrome may cause error with live stream. Please use Firefox or Internet Explorer instead. 
+                        </div>
+                         
+                        
+
+           
+                        <div id="live2" class="flowplayer"></div>
+                            <p style="text-align: center;">Google Chrome may cause error with live stream. Please use Firefox or Internet Explorer instead. 
+                        </div>
+                 
+
+                    </div>
+                </div>
+            </div>
+        -->
+
+        </div>
+
+        <script>
+        
+
+
+            flowplayer("#live", {
+                live: true,
+                autoplay: true,
+                ratio: 9 / 16,
+                key: "$863732616083910, $168467931371094",
+
+                // optional: HLS levels offered for manual selection
+                hlsQualities: true,
+
+                clip: {
+                    sources: [
+                        {
+                            type: "application/x-mpegurl",
+                            src: "http://141.64.64.18:1935/live/ngrp:beuthbox_all/playlist.m3u8"
+                        }
+                    ],
+                    hlsjs: {
+                        // catch otherwise non-fatal levelLoadTimeout
+                        listeners: ["hlsError"]
+                    }
+                },
+                swf: "//releases.flowplayer.org/5.4.6/flowplayer.swf",
+                adaptiveRatio: true, 
+
+
+                //                    }).on("ready", function (e, api, video) {
+                //                        document.querySelector("#live .fp-title").innerHTML =
+                //                                api.engine.engineName + " engine playing " + video.type;
+
+            }).on("hlsError", function (e, api, error) {
+                if (error.details === 'levelLoadError' && error.type === 'networkError') {
+                    // trigger player network error
+                    api.trigger("error", [api, { code: 2 }]);
+                }
+            }).on("error", function (e, api, err) {
+                var container = document.getElementById("live"),
+                messagecontainer = document.createElement("div");
+                    detail = document.createElement("p"),
+                    header = document.createElement("h2");
+                    messagecontainer.setAttribute('class', 'error-message-container');
+                    container.querySelector('.fp-message').appendChild(messagecontainer);
+                    container.querySelector('.error-message-container').appendChild(header);
+                    container.querySelector('.error-message-container').appendChild(detail);
+                detail.innerHTML = "";
+                header.innerHTML = "Stay tuned!";
+                if (flowplayer.support.flashVideo) {
+                    api.on("flashdisabled", function () {
+                        container.querySelector(".fp-flash-disabled").style.display = "none";
+                    });
+                }
+            });
+
+            /*
+            flowplayer("#live2", {
+                live: true,
+                autoplay: true,
+                ratio: 9 / 16,
+                key: "$863732616083910, $168467931371094",
+
+                // optional: HLS levels offered for manual selection
+                hlsQualities: true,
+
+                clip: {
+                    sources: [
+                        {
+                            type: "application/x-mpegurl",
+                            src: "http://141.64.64.18:1935/live/ngrp:beuthbox_all/playlist.m3u8"
+                        }
+                    ],
+                    hlsjs: {
+                        // catch otherwise non-fatal levelLoadTimeout
+                        listeners: ["hlsError"]
+                    }
+                },
+
+
+                //                    }).on("ready", function (e, api, video) {
+                //                        document.querySelector("#live .fp-title").innerHTML =
+                //                                api.engine.engineName + " engine playing " + video.type;
+
+            }).on("hlsError", function (e, api, error) {
+                if (error.details === 'levelLoadError' && error.type === 'networkError') {
+                    // trigger player network error
+                    api.trigger("error", [api, { code: 2 }]);
+                }
+            }).on("error", function (e, api, err) {
+                var container = document.getElementById("live"),
+                messagecontainer = document.createElement("div");
+                    detail = document.createElement("p"),
+                    header = document.createElement("h2");
+                    messagecontainer.setAttribute('class', 'error-message-container');
+                    container.querySelector('.fp-message').appendChild(messagecontainer);
+                    container.querySelector('.error-message-container').appendChild(header);
+                    container.querySelector('.error-message-container').appendChild(detail);
+                detail.innerHTML = "Broadcast will start on 6th june 2018 at 6:30pm.";
+                header.innerHTML = "Stay tuned!";
+                if (flowplayer.support.flashVideo) {
+                    api.on("flashdisabled", function () {
+                        container.querySelector(".fp-flash-disabled").style.display = "none";
+                    });
+                }
+            });
+            */
+
+        </script>
+
+        <!-- <% include partials/footer %> -->

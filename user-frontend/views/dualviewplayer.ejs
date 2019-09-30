@@ -1,0 +1,55 @@
+<% include partials/head-player %>
+
+<body>
+<header>
+    <% include partials/header %>
+</header>
+
+
+<div class="container-fluid content">
+
+
+    <div class="row player-container">
+        <div class="col-md-8 col-sm-12">
+            <!-- the player -->
+
+            <!-- <iframe allowfullscreen src="http://beuthbox-opencast.beuth-hochschule.de/paella/ui/embed.html?id=<%= video.id %>" style="border: none; width: 100%; height: 70vh" name="Paella Player" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px"></iframe> -->
+            <iframe allowfullscreen src="/paella/ui/embed.html?id=<%= video.id %>" style="border: none; width: 100%; height: 70vh" name="Paella Player" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px"></iframe>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <div class="video-info">
+                <div class="video-title">
+                    <%= video.name %>
+                </div>
+
+                <% if(video.description){ %>
+                <div class="video-header">
+                    Beschreibung
+                </div>
+                <p>
+
+                    <%= video.description %>
+                </p>
+                <% } %>
+
+                <div class="video-header">
+                    Produktion
+                </div>
+                <p>
+
+                    
+                    
+
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+    <!--end player-->
+
+</div>
+
+
+<% include partials/footer %>

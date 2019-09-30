@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html ng-app='opencastEngagePlayer'>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+		<title>BeuthBox: Video</title>
+
+		<link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
+		<link rel="manifest" href="images/favicons/manifest.json">
+		<link rel="mask-icon" href="images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="images/favicons/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="BeuthBox">
+		<meta name="application-name" content="BeuthBox">
+		<meta name="msapplication-config" content="images/favicons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+
+		<script type="text/javascript" src="lib/jquery/jquery.js"></script>
+        <script type="text/javascript" src="lib/moment/moment.js"></script>
+        <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+        <script type="text/javascript" src="javascript/traceur-compiler.js"></script>
+		<script type="text/javascript" src="javascript/base.js"></script>
+		<script type="text/javascript" src="javascript/jquery.js"></script>
+		<script type="text/javascript" src="javascript/lunr.min.js"></script>
+		<script type="text/javascript" src="javascript/require.js"></script>
+		<script type="text/javascript" src="javascript/paella_player.js"></script>
+        <script type="text/javascript" src="javascript/player-watch.js"></script>
+
+        <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="resources/style/style_beuth.css" id="paellaSkin" type="text/css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="css/custom.css"/>
+        <style>
+            html,
+            body {
+                background: #e0efef !important;
+                min-height: 100%;
+                position: relative;
+            }
+        </style>
+		<script>
+			function authenticationUrl(redirect) {
+				redirect = redirect ? "?redirect=" + encodeURIComponent(redirect): "";
+				return "https://www.upv.es/auth" + redirect;
+			}
+			function videoData(onSuccess) {
+				onSuccess({
+					permissions: {
+						canRead: true,
+						canContribute: false,
+						canWrite: false,
+						loadError: false,
+						isAnonymous: true
+					},
+					userData: {
+						username: 'anonymous',
+						name: 'Anonymous',
+						avatar: 'resources/images/default_avatar.png'
+					}
+				});
+			}
+		</script>
+	</head>
+    <body id="body" ng-controller="OpencastEngagePlayerController">
+        <header class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbarheader">
+                    <a class="navbarbrand beuth-logo" href="/paella/ui/index.html">
+                        <img alt="opencast" src="images/beuthbox-logo.svg">
+                    </a>
+                </div>
+                <div class="nav-container">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                                <span class="input" ng-class="{'input-filled': searchItem.length > 0}">
+                                    <input class="input-field" type="text" id="search" ng-model="searchItem">
+                                    <label class="input-label" for="search">
+                                        <span class="input-label-content">Suchen</span>
+                                    </label>
+                                </span>
+                        </div>
+                        <button type="submit" class="btn btn-default fa fa-search" ng-click="search()"></button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <main class="container player-container">
+            <h1 class="player-title">{{currentItem.dcTitle}}</h1>
+            <div id="playerContainer"></div>
+            <div class="info-container">
+                <p class="description" ng-if="currentItem.dcDescription">
+                    <span>Beschreibung:</span> {{currentItem.dcDescription}}
+                </p>
+                <p class="created" ng-if="currentItem.dcCreated">
+                    <span>Erstellt am:</span> {{dateToText(currentItem.dcCreated)}}
+                </p>
+                <p class="length" ng-if="currentItem.dcExtent">
+                    <span>Länge:</span> {{secondsToText(currentItem.dcExtent)}}
+                </p>
+            </div>
+        </main>
+        <footer>
+            <ul class="links links-left">
+                <li>
+                    <a class="impressum" href="https://www.beuth-hochschule.de/impressum/">Impressum/Datenschutz</a>
+                </li>
+            </ul>
+            <ul class="links links-right">
+                <li>
+                    <a class="logo-beuth" href="https://www.beuth-hochschule.de/">
+                        <img src="images/beuth-logo.png" alt="Beuth Hochschule für Technik Berlin" />
+                    </a>
+                </li>
+            </ul>
+        </footer>
+        <script>
+            body.onload = function() {
+                /* LIVE */
+                loadOpencastPaella('playerContainer').then(function() {
+                    paella.utils.skin.set("beuth");
+                });
+                /* TEST */
+                /*
+                paella.load('playerContainer', {
+                    data: {
+                        "streams": [{
+                            "sources": {
+                                "mp4": [{
+                                    "src": "http://141.64.153.82:8080/static/mh_default_org/engage-player/deffbbfb-7bf2-4692-bbf0-b1e8f6d4b672/37df9e81-7fdb-4af7-8e40-b10229e09db3/ZDF_Beuth_Bergretter_ARprojekt.mp4",
+                                    "mimetype": "video/mp4",
+                                    "res": {
+                                        "w": 640,
+                                        "h": 360
+                                    }
+                                }]
+                            },
+                            "preview": "http://141.64.153.82:8080/static/mh_default_org/engage-player/deffbbfb-7bf2-4692-bbf0-b1e8f6d4b672/e335c919-a68e-4a73-a67a-34a9bcd89aeb/coverimage.png",
+                            "type":"video"
+                        }, {
+                            "sources": {
+                                "mp4": [{
+                                    "src": "http://141.64.153.82:8080/static/mh_default_org/engage-player/deffbbfb-7bf2-4692-bbf0-b1e8f6d4b672/37df9e81-7fdb-4af7-8e40-b10229e09db3/ZDF_Beuth_Bergretter_ARprojekt.mp4",
+                                    "mimetype": "video/mp4",
+                                    "res": {
+                                        "w": 480,
+                                        "h": 360
+                                    }
+                                }]
+                            },
+                            "preview": "http://141.64.153.82:8080/static/mh_default_org/engage-player/deffbbfb-7bf2-4692-bbf0-b1e8f6d4b672/e335c919-a68e-4a73-a67a-34a9bcd89aeb/coverimage.png",
+                            "type":"video"
+                        }]
+                    }
+                });
+                */
+            };
+        </script>
+	</body>
+</html>

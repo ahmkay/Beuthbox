@@ -1,0 +1,70 @@
+<% include partials/head %>
+
+    <body>
+        <header>
+            <% include partials/header %>
+        </header>
+
+        <!-- Slider-->
+        <div class="slider">
+
+            <div class="slide-1" style='background-image: url("<%= apiUrl %>/category<%= category.imagepath %>");'>
+                <div class="slider-caption">
+                    <h2>
+                        <%= category.name %>
+                    </h2>
+                    <br>
+                    <p>
+                        <%= category.description %>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <!-- End Slider -->
+
+        <div class="container-fluid">
+
+            <h3 class="carousel-title">Videos</h3>
+            <div class="row">
+            <% videos.forEach(function(video, k){ %>
+                <div class="item col-md-3 col-xs-12">
+                    <div class="tile">
+
+                        <a href="/vorlesung/<%= video._id %>">
+                            <% if(video.posterImagePath.indexOf('engage-player') > 1){%>
+                                <img class="tile-image" src="<%= video.posterImagePath %>">
+                                <%}else {%>
+                                    <img class="tile-image" src="<%= apiUrl %>/videos<%= video.posterImagePath %>">
+                                    <%}%>
+                        </a>
+                        <div class="tile-info">
+                            <a href="/vorlesung/<%= video._id %>">
+                                <div class="title">
+                                    <%= video.name %>
+                                </div>
+                                <div class="details">
+                                    <div class="created">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                        <%= moment(video.created).format('DD.MM.YYYY') %>
+                                    </div>
+                                    <div class="time">
+                                        <span class="glyphicon glyphicon-time"></span>
+
+                                        <%= moment('2000-01-01 00:00:00').add(moment.duration(Number(video.videoDuration))).format('mm:ss') %>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+
+        </div>
+
+        <!-- End Container -->
+
+        <% include partials/footer %>

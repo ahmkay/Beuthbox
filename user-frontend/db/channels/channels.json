@@ -1,0 +1,64 @@
+{"channels": [
+  {
+    "id": "1234",
+    "name": "Hochschultage",
+    "img": "../img/channels/beuth_900x600.jpg",
+    "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    "contact": "channel@beuth-hochschule.de",
+    "url": "prof.beuth-hochschule.de/prof",
+    "fachgebiet": "fachgebiet",
+    "kategorien": "Events, Campus",
+    "videos": "24",
+    "serien": "2"
+  },
+  {
+    "id": "1231",
+    "name": "Professor X",
+    "img": "../img/channels/prof_x_1280x720.jpg",
+    "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no",
+    "contact": "channel@beuth-hochschule.de",
+    "url": "prof.beuth-hochschule.de/prof",
+    "fachgebiet": "fachgebiet",
+    "kategorien": "Vorlesung, Campus",
+    "videos": "24",
+    "serien": "2"
+  },
+  {
+    "id": "1232",
+    "name": "Fachbereich V",
+    "img": "../img/channels/fb_V_350x234.jpg",
+    "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    "contact": "channel@beuth-hochschule.de",
+    "url": "prof.beuth-hochschule.de/prof",
+    "fachgebiet": "fachgebiet",
+    "kategorien": "Events, Campus",
+    "videos": "24",
+    "serien": "2"
+  },
+  {
+    "id": "1233",
+    "name": "Architektur Bachelor",
+    "img": "../img/channels/architektur_650x340.jpg",
+    "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit",
+    "contact": "channel@beuth-hochschule.de",
+    "url": "prof.beuth-hochschule.de/prof",
+    "fachgebiet": "fachgebiet",
+    "kategorien": "Events, Campus",
+    "videos": "24",
+    "serien": "2"
+  },
+  {
+    "id": "1235",
+    "name": "Beuth - so bunt wie Berlin",
+    "img": "../img/channels/bwb_1280x720-Bs_.jpg",
+    "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    "contact": "channel@beuth-hochschule.de",
+    "url": "prof.beuth-hochschule.de/prof",
+    "fachgebiet": "fachgebiet",
+    "kategorien": "Campus",
+    "videos": "24",
+    "serien": "2"
+  }
+]
+}
+

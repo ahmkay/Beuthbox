@@ -1,0 +1,10 @@
+<div class="opencast-video" id="{{episode.id}}" ng-click="viewVideo()">
+	<div class="content" style="background-image: url('{{getSearchImage()}}');"></div>
+	<div class="info-data">
+		<h4>{{episode.dcTitle}}</h4>
+		<div class="info">
+			<div class="date"><span class="fa fa-calendar"></span> {{dateToText(episode.dcCreated)}}</div>
+			<div class="duration"><span class="fa fa-clock-o"></span> {{secondsToText(episode.mediapackage.duration)}}</div>
+		</div>
+	</div>
+</div>

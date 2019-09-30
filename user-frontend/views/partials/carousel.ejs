@@ -1,0 +1,36 @@
+<div class="carousel owl-carousel">
+    <% videos.forEach(function(video, k){ %>
+        <div class="item">
+            <div class="tile">
+
+                <a href="/vorlesung/<%= video._id._id %>">
+                    <% if(video._id.posterImagePath.indexOf('engage-player') > 1){%>
+                        <img class="tile-image" src="<%= video._id.posterImagePath %>">
+                        <%}else {%>
+                            <img class="tile-image" src="<%= apiUrl %>/videos<%= video._id.posterImagePath %>">
+                            <%}%>
+                </a>
+                <div class="tile-info">
+                    <a href="/vorlesung/<%= video._id._id %>">
+                        <div class="title">
+                            <%= video._id.name %>
+                        </div>
+                        <div class="details">
+                            <div class="created">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                    <%= moment(video._id.created).format('DD.MM.YYYY') %>
+                            </div>
+                            <div class="time">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                
+                                    <%= moment('2000-01-01 00:00:00').add(moment.duration(Number(video._id.videoDuration))).format('mm:ss') %>
+                            </div>
+  
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <% }) %>
+</div>

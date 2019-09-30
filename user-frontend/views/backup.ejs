@@ -1,0 +1,161 @@
+<% include partials/head %>
+<style>
+    /** single-item multi carousel */
+    .carousel-inner.onebyone-carosel {
+        margin: auto;
+        width: 90%;
+    }
+    @media all and (transform-3d), (-webkit-transform-3d) {
+        .carousel-inner.onebyone-carosel > .item {
+            -webkit-transition: -webkit-transform 0.6s ease-in-out;
+            -o-transition: -o-transform 0.6s ease-in-out;
+            transition: transform 0.6s ease-in-out;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            perspective: 1000;
+        }
+
+        .carousel-inner.onebyone-carosel > .item.active.right,
+        .carousel-inner.onebyone-carosel > .item.next {
+            left: 0;
+            -webkit-transform: translate3d(33.33%, 0, 0);
+            transform: translate3d(33.33%, 0, 0);
+        }
+
+        .carousel-inner.onebyone-carosel > .item.active.left,
+        .carousel-inner.onebyone-carosel > .item.prev {
+            left: 0;
+            -webkit-transform: translate3d(-33.33%, 0, 0);
+            transform: translate3d(-33.33%, 0, 0);
+        }
+
+        .carousel-inner.onebyone-carosel > .item.active,
+        .carousel-inner.onebyone-carosel > .item.next.left,
+        .carousel-inner.onebyone-carosel > .item.prev.right {
+            left: 0;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    .carousel-inner.onebyone-carosel > .active,
+    .carousel-inner.onebyone-carosel > .next,
+    .carousel-inner.onebyone-carosel > .prev {
+        display: block;
+    }
+
+    .carousel-inner.onebyone-carosel > .active {
+        left: 0;
+    }
+
+    .carousel-inner.onebyone-carosel > .next,
+    .carousel-inner.onebyone-carosel > .prev {
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    .carousel-inner.onebyone-carosel > .next {
+        left: 33.33%;
+    }
+
+    .carousel-inner.onebyone-carosel > .prev {
+        left: -33.33%;
+    }
+
+    .carousel-inner.onebyone-carosel > .next.left,
+    .carousel-inner.onebyone-carosel > .prev.right {
+        left: 0;
+    }
+
+    .carousel-inner.onebyone-carosel > .active.left {
+        left: -33.33%;
+    }
+
+    .carousel-inner.onebyone-carosel > .active.right {
+        left: 33.33%;
+    }
+
+</style>
+<body>
+    <header>
+        <% include partials/header %>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="well">
+                    <div id="myCarousel" class="carousel fdi-Carousel slide">
+                        <!-- Carousel items -->
+                        <div class="carousel fdi-Carousel slide" id="eventCarousel" data-interval="0">
+                            <div class="carousel-inner onebyone-carosel">
+                                <div class="item active">
+                                    <div class="col-md-4">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-responsive center-block"></a>
+                                        <div class="text-center">1</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-md-4">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-responsive center-block"></a>
+                                        <div class="text-center">2</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-md-4">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-responsive center-block"></a>
+                                        <div class="text-center">3</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-md-4">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-responsive center-block"></a>
+                                        <div class="text-center">4</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-md-4">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-responsive center-block"></a>
+                                        <div class="text-center">5</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-md-4">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-responsive center-block"></a>
+                                        <div class="text-center">6</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#eventCarousel" data-slide="prev"></a>
+                            <a class="right carousel-control" href="#eventCarousel" data-slide="next"></a>
+                        </div>
+                        <!--/carousel-inner-->
+                    </div>
+                    <!--/myCarousel-->
+                </div>
+                <!--/well-->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#myCarousel').carousel({interval: 10000})
+            $('.fdi-Carousel .item').each(function() {
+                var next = $(this).next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+                next.children(':first-child').clone().appendTo($(this));
+
+                if (next.next().length > 0) {
+                    next.next().children(':first-child').clone().appendTo($(this));
+                } else {
+                    $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+                }
+            });
+        });
+    </script>
+
+    <% include partials/footer %>

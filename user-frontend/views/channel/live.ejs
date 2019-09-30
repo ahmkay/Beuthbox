@@ -1,0 +1,119 @@
+<% include ./../partials/head-player %>
+
+    <body>
+        <header>
+            <% include ./../partials/header %>
+        </header>
+
+        <div class="container">
+
+            <% if (!channel.liveevent.islive) { %>
+                <div class="row liveplayer-container">
+                    <div class="bg-black col-lg-8 col-lg-offset-2">
+                        <h2 class="hero-title">
+                            Aktuell ist kein Live-Stream geplant.
+                        </h2>
+
+                        <div class="liveplayer center-block">
+
+                            <!-- the player -->
+                            <div id="live" class="flowplayer"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <% } else { %>
+
+                    <div class="row liveplayer-container">
+                        <div class="bg-black col-lg-8 col-lg-offset-2">
+                            <h2 class="hero-title">
+                                <%= channel.liveevent.title %>
+                            </h2>
+                            <br>
+                            <p>
+                                <%= channel.liveevent.subtitle %>
+                            </p>
+
+                            <div class="liveplayer center-block">
+                                <!-- the player -->
+                                <div id="live" class="flowplayer"></div>
+                            </div>
+                            <div class="video-info">
+                                    <div class="video-header">
+                                            Live-Stream des Channels "<%= channel.name %>"
+                                        </div>
+                                        <p style="min-height: 40px">
+                                        <img src="<%= apiUrl %>/channel<%= channel.iconpath %>" class="user"> <a class="link-unstyled" href="/channel/<%= channel._id %>"><%= channel.name %></a>
+                                    </p>
+                                <div class="video-header">
+                                    Beschreibung
+                                </div>
+                                <p>
+                                    <%= channel.liveevent.description %>
+                                </p>
+                                <div class="video-header">
+                                    Startdatum
+                                </div>
+                                <p>
+                                    <%= channel.liveevent.date %> um <%= channel.liveevent.time %> Uhr
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+
+
+        </div>
+
+        <script>
+
+            flowplayer("#live", {
+                live: true,
+                autoplay: true,
+                ratio: 9 / 16,
+                key: "$863732616083910, $168467931371094",
+
+                // optional: HLS levels offered for manual selection
+                hlsQualities: true,
+
+                clip: {
+                    sources: [
+                        {
+                            type: "application/x-mpegurl",
+                            src: "http://141.64.64.18:1935/beuthbox-live/ngrp:<%= channel.liveevent.key %>_all/playlist.m3u8"
+                        }
+                    ],
+                    hlsjs: {
+                        // catch otherwise non-fatal levelLoadTimeout
+                        listeners: ["hlsError"]
+                    }
+                },
+
+
+            }).on("hlsError", function (e, api, error) {
+                if (error.details === 'levelLoadError' && error.type === 'networkError') {
+                    // trigger player network error
+                    api.trigger("error", [api, { code: 2 }]);
+                }
+            }).on("error", function (e, api, err) {
+                var container = document.getElementById("live"),
+                    messagecontainer = document.createElement("div");
+                detail = document.createElement("p"),
+                    header = document.createElement("h2");
+                messagecontainer.setAttribute('class', 'error-message-container');
+                container.querySelector('.fp-message').appendChild(messagecontainer);
+                container.querySelector('.error-message-container').appendChild(header);
+                container.querySelector('.error-message-container').appendChild(detail);
+                header.innerHTML = "Aktuell steht kein Live-Stream zur Verfügung!";
+                detail.innerHTML = "Der Live-Stream ist am <%= channel.liveevent.date %> um <%= channel.liveevent.time %> Uhr angesetzt.";
+                if (flowplayer.support.flashVideo) {
+                    api.on("flashdisabled", function () {
+                        container.querySelector(".fp-flash-disabled").style.display = "none";
+                    });
+                }
+            });
+
+        </script>
+
+        <% include ./../partials/footer %>

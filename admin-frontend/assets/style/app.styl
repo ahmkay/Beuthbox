@@ -1,0 +1,41 @@
+// Import custom theme
+@require './theme.styl'
+
+// Import Vuetify styling
+@require '~vuetify/src/stylus/main.styl'
+
+body, html {
+  overflow: auto;
+  height: auto;
+}
+
+
+//always make room for nav-drawer
+
+
+.page
+  @extend .fade-transition
+
+
+table.table thead th {
+  outline: none
+}
+
+.data-table-desc {
+   overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 200px;
+}
+
+.submit-btn {
+  float: right;
+}
+
+.flex-shrink {
+  flex: 0 1 auto;
+}
+
+.flex-grow {
+  flex: 1 0 auto;
+}

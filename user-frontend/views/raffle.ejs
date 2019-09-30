@@ -1,0 +1,42 @@
+﻿<% include partials/head %>
+
+  <body>
+    <header>
+      <% include partials/header %>
+    </header>
+
+    <div class="container">
+
+      <div class="row liveplayer-container">
+        <div class="bg-black col-lg-8 col-lg-offset-2">
+          <h2 class="hero-title">Kinokarten-Verlosung</h2>
+          <br>
+
+          <h3 class="hero-subtitle">Aus der studentischen Umfrage zu den Video-Services an der Beuth</h3>
+
+          <h4>
+            Finde heraus, ob Du gewonnen hast und gebe deine Nummer ein, die Du bei der Befragung am Ende angegeben hast.
+          </h4>
+          <br>
+
+          <div class="raffle_container">
+
+            <form action="/raffle/result" method="POST">
+              <div class="form-group">
+                <input type="text" class="form-control" id="raffle_number" placeholder="Nummer eingeben" name="number">
+              </div>
+              <button class="btn btn-success" type="submit">Überprüfen</button>
+            </form>
+
+          </div>
+          <br><br>
+
+          <p>Wir entschuldigen uns, dass die Verlosung erst ab dem 6.9.18 - statt vom 3.9.18 wie ursprünglich in der Befragung
+            angegeben - freigeschaltet wurde. Wir hatten leider einige unvorhergesehene technische und organisatorische Probleme.</p>
+
+        </div>
+      </div>
+
+    </div>
+
+    <% include partials/footer %>

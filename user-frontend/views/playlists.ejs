@@ -1,0 +1,33 @@
+<% include partials/head %>
+
+<body>
+<header>
+    <% include partials/header %>
+</header>
+
+<div class="container-fluid content">
+
+    <h3 class="carousel-title">Playlists</h3>
+
+    <% categories.forEach(function(category, k){ %>
+    <div class="col-md-6 category-single">
+        <div class="col-md-6">
+            <img src="<%= apiUrl %>/category<%= category.imagepath %>">
+        </div>
+        <div class="col-md-6 info">
+            <img src="<%= apiUrl %>/category<%= category.iconpath %>" class="user">
+            <a href="/playlist/<%= category._id %>" class="title link-unstyled"><%= category.name %></a>
+            <p class="description"><%= category.description %></p>
+        </div>   
+    </div>
+
+    <% }) %>
+    
+
+
+
+</div>
+
+
+
+<% include partials/footer %>
