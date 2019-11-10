@@ -11,8 +11,11 @@
 
             <div class="row player-container">
                 <div class="col-md-8 col-xs-12 no-padding">
+
+
                     <!-- the player -->
-                    <% if(video.playerType == "Flowplayer-Single" || video.playerType == null){ %>
+    
+                    <!-- <% if(video.playerType == "Flowplayer-Single" || video.playerType == null){ %>
                     <div class="flowplayer" data-key="$863732616083910, $168467931371094">
                         <video autoplay>
                             <source type="video/mp4" src="<%= video.videoPath %>">
@@ -21,13 +24,15 @@
                     <% } %>
                     <% if(video.playerType == "paella"){ %>
                         <iframe allowfullscreen src="http://beuthbox-opencast.beuth-hochschule.de/paella/ui/embed.html?id=<%= video.opencastId %>" style="border: none; width: 100%; height: 70vh" name="Paella Player" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px"></iframe>
-                        <% } %>
+                        <iframe allowfullscreen src="http://beuthbox-opencast.beuth-hochschule.de/paella/ui/embed.html?id=<%= video.id %>" style="border: none; width: 100%; height: 70vh" name="Paella Player" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px"></iframe>
+                        <iframe allowfullscreen src="/paella/ui/embed.html?id=<%= video.id %>" style="border: none; width: 100%; height: 70vh" name="Paella Player" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px"></iframe>
+                        <% } %>  -->
 
-                         <!-- <iframe allowfullscreen src="http://beuthbox-opencast.beuth-hochschule.de/paella/ui/embed.html?id=<%= video.id %>"
-                    style="border: none; width: 100%; height: 70vh" name="Paella Player" scrolling="no" frameborder="0"
-                    marginheight="0px" marginwidth="0px"></iframe> -->
-                <!-- <iframe allowfullscreen src="/paella/ui/embed.html?id=<%= video.id %>" style="border: none; width: 100%; height: 70vh" name="Paella Player" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px"></iframe> -->
+                        <!-- --------------------- -->
 
+                        <iframe allowfullscreen src='http://beuthbox-opencast.beuth-hochschule.de/paella/ui/embed.html?id=<%= video.ocid %>' style="border: none; width: 100%; height: 70vh" name="Paella Player" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px"></iframe>
+    
+                     <!-- the player -->
                 
                 </div>
 

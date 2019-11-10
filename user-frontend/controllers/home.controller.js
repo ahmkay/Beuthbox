@@ -49,23 +49,15 @@ const videos = [
 
 function dualViewPlayer(req, res, next) {
   let video;
-  if (req.params.id == "33de636b-90be-4f35-bf1c-a5994c7c2674") {
-    video = { name: "HST 2017 - 4 - Preisauszeichnung DUAL VIEW", id: "33de636b-90be-4f35-bf1c-a5994c7c2674" }
+  if (req.params.id == "37263301-bae0-402a-b018-fea2df94ae72") {
+    video = { name: "HST 2017 - 4 - Preisauszeichnung DUALVIEW", id: "37263301-bae0-402a-b018-fea2df94ae72" }
   }
-  if (req.params.id == "ac9983a0-f531-45ea-a116-a8f56c459cbe") {
-    video = { name: "HST 2017 - 4 - Ausz. Absolvent_innen DUAL VIEW", id: "ac9983a0-f531-45ea-a116-a8f56c459cbe" }
+  if (req.params.id == "d0164f82-34da-43be-88ae-824d414ab4c1") {
+    video = { name: "HST 2017 - 4 - Ausz. Absolvent_innen DUALVIEW", id: "d0164f82-34da-43be-88ae-824d414ab4c1" }
   }
-  if (req.params.id == "83ea1f1e-0592-42ad-acf2-9f52f10b492d") {
-    video = { name: "Flimme Präsentation", id: "83ea1f1e-0592-42ad-acf2-9f52f10b492d" }
-  }
-  if (req.params.id == "da492afc-b853-4f39-bf71-26076fc1844c") {
-    video = { name: "Testvideo Dualview", id: "da492afc-b853-4f39-bf71-26076fc1844c" }
-  }
-  
-
-  if (req.params.id == "264d2b02-aa43-420e-9de5-d3e69c1c6510") {
-    video = { name: "E-Lecture Tutorial - Prozess Beuthbox", id: "264d2b02-aa43-420e-9de5-d3e69c1c6510" }
-  }
+  if (req.params.id == "60f28751-f7f4-41e8-97ff-0334e47c775d") {
+    video = { name: "Flimme Präsentation DUALVIEW", id: "60f28751-f7f4-41e8-97ff-0334e47c775d" }
+  } 
   res.render('dualviewplayer', { video: video })
 }
 
