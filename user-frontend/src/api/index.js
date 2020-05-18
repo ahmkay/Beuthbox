@@ -1,0 +1,1 @@
+// Alle Routen, Axios Einstellungen für das fetchen der Daten, etc. werden in diesem File definiert
