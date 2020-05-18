@@ -2,7 +2,7 @@ const aboutusController = require('./../controllers/aboutus.controller');
 
 module.exports = function(app) {
   app.get("/aboutus", aboutusController.viewAboutUs);
-
+  console.log(app)
 };
 
 
