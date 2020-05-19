@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-// import OwlCarousel from 'react-owl-carousel'
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import ReactFlowPlayer from "react-flow-player";
@@ -94,7 +93,6 @@ const Home = (props) => {
     if( sliders) {
        return (
            <>
-              
 
             <div class='container-fluid content'>
                 {showSlider()}

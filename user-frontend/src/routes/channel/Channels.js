@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react'
 import axios from 'axios'
 
-const Channels = (props) => {
+const Channels = () => {
     const baseURL = 'http://beuthbox.beuth-hochschule.de/api'
     const [channels, setChannels ] = useState([])
 
@@ -19,7 +19,6 @@ const Channels = (props) => {
             catch(error) { console.log(error)}
         }
         fetchData()
-        console.log(props, 'props')
     }, [])
 
    
