@@ -7,6 +7,7 @@ import Video from '../routes/video/Video';
 import Channel from '../routes/channel/Channel';
 import Channels from '../routes/channel/Channels';
 import Home from '../routes/home/Home';
+import Styles from './styles.sass';
 
 const App = () => {
   return (
@@ -43,7 +44,6 @@ const App = () => {
       component={Home}
       />
     </Router>
-    
   )
 }
 
