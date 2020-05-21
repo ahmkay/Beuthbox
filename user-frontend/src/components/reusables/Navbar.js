@@ -5,7 +5,7 @@ import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import FiberManualRecordOutlinedIcon from '@material-ui/icons/FiberManualRecordOutlined';
 import { NavLink } from 'react-router-dom'
-import './Navbar.css'
+import './Navbar.sass'
 
 const Navbar = (props) => {
     const [activeTab, setActiveTab] = useState('')

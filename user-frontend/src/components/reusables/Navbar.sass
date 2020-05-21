@@ -1,0 +1,95 @@
+@import '../_colors'
+
+.nav 
+    height: 110px
+    display: flex
+    background-color: $color-primary
+    position: relative
+
+
+
+.nav-inner-container 
+    width: 70%
+    margin: auto
+    display: flex
+    align-items: center
+
+
+div.tabIndicator 
+    position: absolute
+    bottom: 0
+    border: 2px solid $color-black
+    width: 50px    
+
+
+.input-container 
+    width: 60%
+    display: flex
+    justify-content: space-between
+
+
+input 
+    width: 100%
+    padding: 10px 30px
+    background-color: transparent
+    outline: none
+    border: 1px solid $color-primary-light
+    color: $color-primary-light
+    border-radius: 3px
+    font-size: 18px
+   
+
+
+::placeholder 
+    color: $color-primary-light
+
+
+
+div.icon-container 
+    width: 40%
+
+
+
+
+ul 
+   width: 100%
+   display: flex
+   list-style-type: none
+   padding-left: 0
+   justify-content: space-between
+
+
+li:first-child 
+    margin-left: 30px
+
+
+li
+    margin: 0
+    display: flex
+    flex-direction: column
+    align-items: center
+
+
+
+a 
+    color: $color-white
+    text-decoration: none
+
+span 
+    svg 
+        path
+            color: $color-white
+
+    
+a.selected, a.selected span  svg:not(.live--icon) > path
+    color: black
+
+
+span .live--icon  circle
+    color: $color-red
+
+
+.iconWrapper 
+    text-align: center
+    display: block
+

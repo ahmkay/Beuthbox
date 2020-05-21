@@ -9,7 +9,7 @@ import Channels from '../routes/channel/Channels';
 import Home from '../routes/home/Home';
 import './styles.sass';
 import Live from '../routes/live/Live';
-import Navbar from './shared/Navbar';
+import Navbar from './reusables/Navbar';
 
 const App = () => {
   return (
