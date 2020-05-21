@@ -11,9 +11,13 @@ import './styles.sass';
 import Live from '../routes/live/Live';
 import Navbar from './reusables/Navbar';
 
+
+
 const App = () => {
+  
   return (
     <Router>
+      
       <Navbar />
 
       <Route
@@ -44,7 +48,6 @@ const App = () => {
       component={Channel}
       />
      
-      
       <Route
       exact
       path={'/'}

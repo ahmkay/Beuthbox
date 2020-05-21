@@ -2,13 +2,13 @@ import React, {useState, useEffect } from 'react'
 import axios from 'axios'
 
 const Video = (props) => {
-    const baseURL = 'http://beuthbox.beuth-hochschule.de/api'
+    const BASEURL = 'http://beuthbox.beuth-hochschule.de/api'
     const [video, setVideo ] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const video = await axios.get( `${baseURL}/graphql?query={video(id:"${props.match.params.id}"){name, description, created, uploaded, playerType, tags, status, source, uploadedByUser, access, videoDuration, dualView, isOpencast, posterImagePath, videoPath, modified, _id, views}}`)
+                const video = await axios.get( `${BASEURL}/graphql?query={video(id:"${props.match.params.id}"){name, description, created, uploaded, playerType, tags, status, source, uploadedByUser, access, videoDuration, dualView, isOpencast, posterImagePath, videoPath, modified, _id, views}}`)
 
                 let videoPathString = video.data.data.video.videoPath.toString();
                 let string = videoPathString.replace("http://beuthbox-opencast.beuth-hochschule.de/static/mh_default_org/engage-player/", "");

@@ -15,7 +15,7 @@
     align-items: center
 
 
-div.tabIndicator 
+.tabIndicator 
     position: absolute
     bottom: 0
     border: 2px solid $color-black
@@ -28,7 +28,7 @@ div.tabIndicator
     justify-content: space-between
 
 
-input 
+.searchBar 
     width: 100%
     padding: 10px 30px
     background-color: transparent
@@ -44,14 +44,11 @@ input
     color: $color-primary-light
 
 
-
-div.icon-container 
+.icon-container 
     width: 40%
 
 
-
-
-ul 
+.nav-ul 
    width: 100%
    display: flex
    list-style-type: none
@@ -59,37 +56,43 @@ ul
    justify-content: space-between
 
 
-li:first-child 
+.nav-li:first-child 
     margin-left: 30px
 
 
-li
+.nav-li
     margin: 0
     display: flex
     flex-direction: column
     align-items: center
 
 
-
-a 
+.nav-link 
     color: $color-white
     text-decoration: none
 
-span 
+.icon-wrapper 
     svg 
         path
             color: $color-white
 
     
-a.selected, a.selected span  svg:not(.live--icon) > path
-    color: black
+.nav-link.selected
+    color: black  
+
+.nav-link.selected 
+    .icon-wrapper  
+        svg:not(.live--icon) > path
+            color: black
 
 
-span .live--icon  circle
-    color: $color-red
+.icon-wrapper 
+    .live--icon  
+        circle
+            color: $color-red
 
 
-.iconWrapper 
+.icon-wrapper 
     text-align: center
     display: block
 

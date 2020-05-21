@@ -1,8 +1,8 @@
 import React, {useState, useEffect } from 'react'
 import axios from 'axios'
+import { BASEURL } from '../../api'
 
 const Channel = (props) => {
-    const baseURL = 'http://beuthbox.beuth-hochschule.de/api'
     const [channel, setChannel ] = useState([])
     const [numberOfVideos, setNumberOfVideos ] = useState([])
     const [categories, setCategories ] = useState([])
@@ -12,11 +12,11 @@ const Channel = (props) => {
         const fetchData = async () => {
             try {
 
-    const response = await axios.get(`${baseURL}/graphql?query={channel(id:"${props.match.params.id}"){_id, name,description, iconfilename, imagefilename, iconpath, imagepath, liveenabled, ispublic, users{username, _id}, liveevent{islive, title, subtitle, description, date, time, duration, haspassword, password, key, url}}}`);
-    const responseCount = await axios.get(`${baseURL}/graphql?query={channelVideoCount(id: "${props.match.params.id}"){_id, total}}`);
-    const responseVideos = await axios.get(`${baseURL}/graphql?query={videos(filter: {channelid: "${props.match.params.id}"}){_id, name, posterImagePath, created, status, access, views, videoDuration, categories{name, description, created, imagepath, iconpath _id}}}`);
+    const response = await axios.get(`${BASEURL}/graphql?query={channel(id:"${props.match.params.id}"){_id, name,description, iconfilename, imagefilename, iconpath, imagepath, liveenabled, ispublic, users{username, _id}, liveevent{islive, title, subtitle, description, date, time, duration, haspassword, password, key, url}}}`);
+    const responseCount = await axios.get(`${BASEURL}/graphql?query={channelVideoCount(id: "${props.match.params.id}"){_id, total}}`);
+    const responseVideos = await axios.get(`${BASEURL}/graphql?query={videos(filter: {channelid: "${props.match.params.id}"}){_id, name, posterImagePath, created, status, access, views, videoDuration, categories{name, description, created, imagepath, iconpath _id}}}`);
     
-    const responsecategories = await axios.get(baseURL + "/graphql?query={categories{_id, name, description, created, imagepath, iconpath}}");
+    const responsecategories = await axios.get(BASEURL + "/graphql?query={categories{_id, name, description, created, imagepath, iconpath}}");
     const categoryArray = [];
 
     const videos = responseVideos.data.data.videos.filter(video => {
@@ -73,7 +73,7 @@ const Channel = (props) => {
                     <div class="col-md-4 category-single">
                 <div class="categoryContainer">
                         <a href={`/playlist/${category._id}`}>
-                            <img src={`${baseURL}/category${category.imagepath}`} class="categoryImage" />
+                            <img src={`${BASEURL}/category${category.imagepath}`} class="categoryImage" />
                         </a>
                     <a href={`/playlist/${category._id}`} class="title link-unstyled titleCatNew">{category.name}</a>
                     <p class="descriptionSmall">{category.description}</p>
@@ -99,7 +99,7 @@ const Channel = (props) => {
             ?
             <img class="tile-image" src={video.posterImagePath} />
                 :
-            <img class="tile-image" src={`${baseURL}/videos${video.posterImagePath}`} />   
+            <img class="tile-image" src={`${BASEURL}/videos${video.posterImagePath}`} />   
         }
         </a>
         <div class="tile-info">
@@ -136,7 +136,7 @@ const Channel = (props) => {
 
                 <div class="slide-1" >
                     <div class="slider-caption">
-                       <img src={`"${baseURL}/channel${channel.iconpath}`} class="channel-icon" />
+                       <img src={`"${BASEURL}/channel${channel.iconpath}`} class="channel-icon" />
                     </div>
                 </div>
             </div>
