@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import facebook from '../../public/img/f_logo_RGB-White_72.png'
+import facebook from '../../assets/img/icons/facebook-logo.svg'
 
 const Footer = () => {
     return (
