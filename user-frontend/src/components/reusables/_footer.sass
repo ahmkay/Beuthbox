@@ -1,6 +1,6 @@
 @import '../_colors'
 
-footer
+.footer
     width: 100%
     background-color: $color-primary
     padding: 60px 0
@@ -8,23 +8,26 @@ footer
     flex-direction: column
     justify-content: center
     align-items: center
-
     > *
         color: white
         margin: 20px 0
-    nav ul
-        padding: 0
-        li
-            display: inline-block
-            margin: 0 20px
-            @media screen and (max-width: 540px)
-                display: block
-                margin: auto
-                text-align: center
-                margin: .5em 0
-        h5
-            color: white
-    a
-        text-decoration: none
-        img
-            width: 36px
+
+.footer__nav-list
+    padding: 0
+
+.footer__nav-element
+    display: inline-block
+    margin: 0 20px
+    @media screen and (max-width: 540px)
+        display: block
+        margin: auto
+        text-align: center
+        margin: .5em 0
+
+.footer__nav-link
+    text-decoration: none
+    color: $color-white
+    font-size: $h5-size
+    font-weight: $h5-weight
+.nav-link--icon
+    width: 36px
