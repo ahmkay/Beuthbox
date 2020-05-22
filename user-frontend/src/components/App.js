@@ -9,10 +9,16 @@ import Channels from '../routes/channel/Channels';
 import Home from '../routes/home/Home';
 import './styles.sass';
 import Footer from './reusables/Footer'
+import Live from '../routes/live/Live';
+import Navbar from './reusables/Navbar';
 
 const App = () => {
+  
   return (
     <Router>
+      
+      <Navbar />
+
       <Route
       path={'/aboutus'}
       component={AboutUs}
@@ -30,6 +36,7 @@ const App = () => {
       path={'/video/:id'}
       component={Video}
       />
+      
       <Route
       exact
       path={'/channel/'}
@@ -39,12 +46,20 @@ const App = () => {
       path={'/channel/:id'}
       component={Channel}
       />
+     
       <Route
       exact
       path={'/'}
       component={Home}
       />
-      <Footer />
+
+      <Route
+      exact
+      path={'/live'}
+      component={Live}
+      />
+      
+        <Footer />
     </Router>
   )
 }

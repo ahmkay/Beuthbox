@@ -1,16 +1,16 @@
 import React, {useState, useEffect } from 'react'
 import axios from 'axios'
+import { BASEURL } from '../../api'
 
 const Playlist = (props) => {
-    const baseURL = 'http://beuthbox.beuth-hochschule.de/api'
     const [category, setCategory ] = useState([])
     const [video, setVideo ] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const singleCategory = await axios.get(`${baseURL}/graphql?query={category(id:"${props.match.params.id}"){name,description, iconfilename, imagefilename, iconpath, imagepath}}`)
-                const responseVideos = await axios.get(`${baseURL}/graphql?query={videos(filter: {categoryid: "${props.match.params.id}"}){name, posterImagePath, created, status, access, views, videoDuration _id}}`);
+                const singleCategory = await axios.get(`${BASEURL}/graphql?query={category(id:"${props.match.params.id}"){name,description, iconfilename, imagefilename, iconpath, imagepath}}`)
+                const responseVideos = await axios.get(`${BASEURL}/graphql?query={videos(filter: {categoryid: "${props.match.params.id}"}){name, posterImagePath, created, status, access, views, videoDuration _id}}`);
         
                 const videos = responseVideos.data.data.videos.filter(video => {
                     return video.access == "public" && video.status == "finished"
@@ -34,7 +34,7 @@ const Playlist = (props) => {
                         <a href={`/video/${video._id}`}>
                         {video.posterImagePath.indexOf('engage-player') > 1 ?
                             <img class="tile-image" src={video.posterImagePath}/> :
-                            <img class="tile-image" src={`${baseURL}/videos${video.posterImagePath}`}/>
+                            <img class="tile-image" src={`${BASEURL}/videos${video.posterImagePath}`}/>
                     }
                         </a>
                         <p>

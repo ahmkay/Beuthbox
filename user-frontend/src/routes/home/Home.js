@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-// import OwlCarousel from 'react-owl-carousel'
+import { BASEURL } from '../../api'
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import ReactFlowPlayer from "react-flow-player";
@@ -8,7 +8,6 @@ import axios from 'axios'
 
 
 const Home = (props) => {
-    const baseURL = 'http://beuthbox.beuth-hochschule.de/api'
     const [sliders, setSliders ] = useState([])
     const [mainslider, setMainslider ] = useState([])
     const [imagePath, setImagepath ] = useState([])
@@ -24,8 +23,8 @@ const Home = (props) => {
           }
         const fetchData = async () => {
             try {
-                const slider = await axios.get(`${baseURL}/graphql?query={sliders{name, position, occurrence, active, videos{position, _id{name, posterImagePath, _id, videoDuration, created }}}}`)
-                const mainslider = await axios.get(`${baseURL}/slider`)
+                const slider = await axios.get(`${BASEURL}/graphql?query={sliders{name, position, occurrence, active, videos{position, _id{name, posterImagePath, _id, videoDuration, created }}}}`)
+                const mainslider = await axios.get(`${BASEURL}/slider`)
                 
                 mainslider.data.sort(compare);
                 slider.data.data.sliders.sort(compare);
@@ -58,7 +57,7 @@ const Home = (props) => {
                 <a href={`/video/${video._id._id}`}>
                 {video._id.posterImagePath.indexOf('engage-player') > 1 ?
                             <img class="" src={video._id.posterImagePath}/> :
-                            <img class="" src={`${baseURL}/videos${video._id.posterImagePath}`}/>
+                            <img class="" src={`${BASEURL}/videos${video._id.posterImagePath}`}/>
                     }
                 </a>
                 <div class="">
@@ -94,7 +93,6 @@ const Home = (props) => {
     if( sliders) {
        return (
            <>
-              
 
             <div class='container-fluid content'>
                 {showSlider()}
