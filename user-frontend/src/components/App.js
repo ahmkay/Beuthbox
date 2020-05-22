@@ -59,7 +59,7 @@ const App = () => {
       component={Live}
       />
       
-        <Footer />
+      <Footer />
     </Router>
   )
 }
