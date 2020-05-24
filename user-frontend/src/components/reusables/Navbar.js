@@ -18,12 +18,10 @@ const Navbar = () => {
 
     return (
         <nav className="nav">
-            <div className='nav-inner-container'>
-                <div className='input-container'>
-                <input className='searchBar' type='text' name='suche' placeholder='Video, Playlist, Channel...'/>
-                </div>
-                <div className='icon-container'>
                 <ul className='nav-ul'>
+                    <li className='nav-li'>
+                    <input className='searchBar' type='text' name='suche' placeholder='Video, Playlist, Channel...'/>
+                    </li>
                     <li className='nav-li'> 
                         <NavLink to ='/' exact className={`nav-link ${activeTab === '/' ? 'selected' : ''}`} isActive={(match, location) => getActiveRoute('/', location, match)}>
                             <span className='icon-wrapper'>
@@ -61,10 +59,10 @@ const Navbar = () => {
                         {activeTab === '/live' && <div className='tabIndicator'/>}
                     </li>
                 </ul>
-                </div>
+                {/* </div> */}
                 
             
-            </div>
+            {/* </div> */}
         </nav>
     )
 }
