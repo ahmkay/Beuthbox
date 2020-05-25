@@ -32,7 +32,7 @@ const Live = (props) => {
         console.log(props, 'props')
     }, [id])
 
-    const shareVideo = () => document.execCommand('copy');
+    const shareVideo = () => navigator.clipboard.writeText('Copy this text to clipboard');
     
     const showTags = () =>  video.tags.map((tag, index) => <Link to={`/search?tag=${tag}`} className={`video--tag ${index === 0 ? 'firstchild' : '' }`} ><h5>#{tag}</h5></Link>)
 
@@ -64,7 +64,7 @@ const Live = (props) => {
                     </small>
                 </div>
                 <Link to={`/video/5c4641dfcf3c87061cbb43f6`} className='video-link'>
-                    <img className="video-thumbnail" src={`${BASEURL}/videos${video.posterImagePath}`}/>        
+                    <img className="video-thumbnail" src={`${BASEURL}/videos${video.posterImagePath}`}/>   
                 </Link>
             </div>
 
@@ -104,7 +104,8 @@ const Live = (props) => {
 
     if(video) {
        return (
-           <div className='medium-container'>
+           <>
+           <div className='container-60'>
                <div className='video-container'>
                     <iframe allowfullscreen 
                         src={`http://beuthbox-opencast.beuth-hochschule.de/paella/ui/embed.html?id=${video.ocid}`}
@@ -136,10 +137,12 @@ const Live = (props) => {
                    {video.description}
                </p>
                <SecondaryButton text={'Teilen'} onClick={shareVideo} icon={ShareIcon} additionalClasses='share-button'></SecondaryButton>
-                
-                <h3 className='last-livestreams'>Vergangene Livestreams</h3>
+           </div>
+           <div className='container-80'>
+           <h3 className='last-livestreams'>Vergangene Livestreams</h3>
                 {showLastLivestreams()}
            </div>
+           </>
        )
     }
     return (

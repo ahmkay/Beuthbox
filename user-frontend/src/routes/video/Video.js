@@ -104,7 +104,8 @@ const Video = (props) => {
 
     if(video) {
        return (
-           <div className='medium-container'>
+           <>
+           <div className='container-60'>
                <div className='video-container'>
                     <iframe allowfullscreen 
                         src={`http://beuthbox-opencast.beuth-hochschule.de/paella/ui/embed.html?id=${video.ocid}`}
@@ -136,10 +137,12 @@ const Video = (props) => {
                    {video.description}
                </p>
                <SecondaryButton text={'Teilen'} onClick={shareVideo} icon={ShareIcon} additionalClasses='share-button'></SecondaryButton>
-                
-                <h3 className='last-livestreams'>Vergangene Livestreams</h3>
-                {showLastLivestreams()}
            </div>
+           <div className='container-80'>
+           <h3 className='last-livestreams'>Vergangene Livestreams</h3>
+           {showLastLivestreams()}
+           </div>
+           </>
        )
     }
     return (
