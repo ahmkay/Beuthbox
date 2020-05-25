@@ -2,6 +2,7 @@ import React, {useState, useEffect } from 'react'
 import axios from 'axios'
 import { BASEURL } from '../../api'
 import PlaylistHeader from './PlaylistHeader'
+import { calculateVideoDuration } from '../../utils'
 
 const Playlist = (props) => {
     const [category, setCategory ] = useState([])
@@ -50,19 +51,24 @@ const Playlist = (props) => {
         )
     }
     if( category && video) {
+
+        console.log(video, 'Playlist Video')
+
        return (
-           <main className="main-container">
+           <>
                 <PlaylistHeader 
                     titleImg={`http://beuthbox.beuth-hochschule.de/api/category${category.imagepath}`} 
                     title={category.name} 
                     description={category.description}
-                    channelLink={'linkdings'}
+                    channelText=""
+                    channelLink={''}
+                    totalVideos={video.length}
+                    totalDuration={calculateVideoDuration(video.reduce((totlaDuration, video) => totlaDuration + video.videoDuration, []))}
                 />
-               <h2>
-                   Videos
-               </h2>
-        {showVideos()}
-           </main>
+                <main className="main-container">
+                    {showVideos()}
+                </main>
+           </>
        )
     }
     return (
