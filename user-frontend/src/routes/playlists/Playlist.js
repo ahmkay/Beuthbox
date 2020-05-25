@@ -1,6 +1,7 @@
 import React, {useState, useEffect } from 'react'
 import axios from 'axios'
 import { BASEURL } from '../../api'
+import PlaylistHeader from './PlaylistHeader'
 
 const Playlist = (props) => {
     const [category, setCategory ] = useState([])
@@ -33,8 +34,8 @@ const Playlist = (props) => {
                     <div>
                         <a href={`/video/${video._id}`}>
                         {video.posterImagePath.indexOf('engage-player') > 1 ?
-                            <img class="tile-image" src={video.posterImagePath}/> :
-                            <img class="tile-image" src={`${BASEURL}/videos${video.posterImagePath}`}/>
+                            <img className="tile-image" src={video.posterImagePath}/> :
+                            <img className="tile-image" src={`${BASEURL}/videos${video.posterImagePath}`}/>
                     }
                         </a>
                         <p>
@@ -50,23 +51,18 @@ const Playlist = (props) => {
     }
     if( category && video) {
        return (
-           <div>
-               <div style={{backgroundImage: `url(http://beuthbox.beuth-hochschule.de/api/category${category.imagepath})`, height: 100}}>
-                
-               </div>
-               <p>
-                   {category.name}
-               </p>
-               <p>
-                   {category.description}
-               </p>
-
-
+           <main className="main-container">
+                <PlaylistHeader 
+                    titleImg={`http://beuthbox.beuth-hochschule.de/api/category${category.imagepath}`} 
+                    title={category.name} 
+                    description={category.description}
+                    channelLink={'linkdings'}
+                />
                <h2>
                    Videos
                </h2>
         {showVideos()}
-           </div>
+           </main>
        )
     }
     return (
