@@ -16,17 +16,23 @@ import axios from 'axios';
 
 const App = () => {
   const [channels, setChannels ] = useState([])
+  const [playlists, setPlaylists ] = useState([])
   useEffect(() => {
       const fetchData = async () => {
-          try {
-             
-              const response = await axios.get(BASEURL + "/graphql?query={channels{name, description, created, imagepath, iconpath, _id, ispublic}}")
-              const channels = response.data.data.channels.filter(channel => {
-                  return channel.ispublic
-              });
-              setChannels(channels)
+          try { 
+            const response = await axios.get(BASEURL + "/graphql?query={channels{name, description, created, imagepath, iconpath, _id, ispublic}}")
+            const channels = response.data.data.channels.filter(channel => {
+                return channel.ispublic
+            });
+            setChannels(channels)
           }
           catch(error) { console.log(error)}
+
+          try {
+            const response = await axios.get(BASEURL + "/graphql?query={categories{name, description, created, imagepath, iconpath _id}}")
+            setPlaylists(response.data.data.categories)
+        }
+        catch(error) { console.log(error)}
       }
       fetchData()
   }, [])
@@ -67,7 +73,7 @@ const App = () => {
       <Route
       exact
       path={'/'}
-      component={() => <Home channelData={channels}/>}
+      component={() => <Home channelData={channels} playlistData={playlists}/>}
       />
 
       <Route

@@ -11,8 +11,8 @@ const ChannelOverview = ({channelData, channelInfo}) => {
     const renderChannelOverview = (channelData, channelInfo) => {
        return (
        <section className='channels-section'>
-        <header className='channels-section__header'>
-            <h1 className='channel-header__headline'>Channels</h1>
+        <header className='section-header'>
+            <h1 className='.section-header__headline'>Channels</h1>
            {channelInfo &&
             <h2 className='channel-header__info'>{channelInfo}</h2>}
         </header>

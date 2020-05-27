@@ -22,11 +22,9 @@ const Playlist = (props) => {
             catch(error) { console.log(error)}
         }
         fetchData()
-        console.log(props, 'props')
     }, [])
 
     const showVideos = () => {
-        console.log(video)
         return (
             video.map(video => {
                 return (
