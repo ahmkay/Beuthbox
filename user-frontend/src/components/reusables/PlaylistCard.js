@@ -9,9 +9,9 @@ const PlaylistCard = ({playlistData}) => {
             <div className="playlist-card-container__content">
                 <img src={playlistData.imagepath? `http://beuthbox.beuth-hochschule.de/api/category${playlistData.imagepath}` : PlaylistPlaceholder} className="playlist-card-container__thumbnail-img" alt="Paylist Titelbild"/>
                 <div className="playlist-card-container__info-box">
-                    <h4>{playlistData.name}</h4>
-                    <p>{playlistData.description}</p>
-                    <div className="info-box__video-count">
+                    <h4 className="playlist-card-container__title">{playlistData.name}</h4>
+                    <p className="playlist-card-container__description">{playlistData.description}</p>
+                    <div className="playlist-card-container__video-count">
                         <Videocam />
                         <h5 className="video-count__number">{playlistData.videoCount ? playlistData.videoCount : '-'}</h5>
                     </div>
