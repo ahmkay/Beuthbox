@@ -12,21 +12,21 @@
     margin-bottom: 150px
 
 .channel-container
+    background-color: $color-background
     width: 100%
     display: flex
     margin-bottom: 120px
     text-decoration: none
-    transition: transform .3s ease-out
+    transition: transform .2s ease-out, filter .2s ease-out
+    &:hover
+        transform: translateY(-10px)
+        filter: drop-shadow(0 6px 12px rgba(0,35,35,.15))
 
 .channel-container--left
     flex-direction: row
-    &:hover
-        transform: translateX(-20px)
 
 .channel-container--right
     flex-direction: row-reverse
-    &:hover
-        transform: translateX(20px)
 
 /*thumbnail box aspect*/
 .channel-thumbnail-box
