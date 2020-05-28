@@ -19,7 +19,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 const SecondaryButton = (props) => {
 
     return (
-        <button onClick={props.onClick} className="button-secondary">{props.icon? <SvgIcon component={props.icon} className="button-secondary__icon" alt={props.iconAlt} /> : null}{props.text ? props.text : "Button"}</button>
+        <button onClick={props.onClick} className={`button-secondary ${props.additionalClasses ? props.additionalClasses : ''}`}>{props.icon? <SvgIcon component={props.icon} className="button-secondary__icon" alt={props.iconAlt} /> : null}{props.text ? props.text : "Button"}</button>
     )
 }
 

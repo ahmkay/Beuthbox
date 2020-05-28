@@ -1,104 +1,112 @@
-import React, {useState, useEffect, useRef } from 'react'
-import axios from 'axios'
-import { BASEURL } from '../../api'
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { BASEURL } from "../../api";
+import ChannelOverview from "../../components/reusables/ChannelOverview";
+import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import ReactFlowPlayer from "react-flow-player";
 
+const Home = ({ channelData, playlistData }) => {
+  const [sliders, setSliders] = useState([]);
+  const [mainslider, setMainslider] = useState([]);
+  const [imagePath, setImagepath] = useState([]);
+  const list = useRef(null);
 
-
-const Home = (props) => {
-    const [sliders, setSliders ] = useState([])
-    const [mainslider, setMainslider ] = useState([])
-    const [imagePath, setImagepath ] = useState([])
-    const list = useRef(null)
-
-    useEffect(() => {
-        function compare(a, b) {
-            if (a.position < b.position)
-              return -1;
-            if (a.position > b.position)
-              return 1;
-            return 0;
-          }
-        const fetchData = async () => {
-            try {
-                const slider = await axios.get(`${BASEURL}/graphql?query={sliders{name, position, occurrence, active, videos{position, _id{name, posterImagePath, _id, videoDuration, created }}}}`)
-                const mainslider = await axios.get(`${BASEURL}/slider`)
-                
-                mainslider.data.sort(compare);
-                slider.data.data.sliders.sort(compare);
-                slider.data.data.sliders.forEach((slider, k) => {
-                  slider.videos.sort(compare)
-                });
-
-                setSliders(slider.data.data.sliders)
-                setMainslider(mainslider.data)            }
-            catch(error) { console.log(error)}
-        }
-        fetchData()
-    }, [])
-
-    // owl carousel
-
-    const showSlider = () => {
-        console.log(sliders, 'sliders')
-        return (
-            sliders.map(slide => {
-                return (
-                    <>
-                    <h3 class="">{slide.name}</h3>
-                    <div class="">
-                        {slide.videos.map(video => {
-                            return (
-                                <div class="">
-            <div class="">
-
-                <a href={`/video/${video._id._id}`}>
-                {video._id.posterImagePath.indexOf('engage-player') > 1 ?
-                            <img class="" src={video._id.posterImagePath}/> :
-                            <img class="" src={`${BASEURL}/videos${video._id.posterImagePath}`}/>
-                    }
-                </a>
-                <div class="">
-                    <a href={`/video/${video._id._id}`}>
-                        <div class="">
-                            {video._id.name}
-                        </div>
-                        <div class="">
-                            <div class="">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                   {video._id_created}
-                            </div>
-                            <div class="">
-                                    <span class="glyphicon glyphicon-time"></span>
-                                
-                                   {video._id.videoDuration}
-                            </div>
-  
-                        </div>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-                            )
-                        })}
-                    </div>
-                    </>
-                )
-            })
-        )
+  useEffect(() => {
+    function compare(a, b) {
+      if (a.position < b.position) return -1;
+      if (a.position > b.position) return 1;
+      return 0;
     }
-    if( sliders) {
-       return (
-           <>
+    const fetchData = async () => {
+      try {
+        const slider = await axios.get(
+          `${BASEURL}/graphql?query={sliders{name, position, occurrence, active, videos{position, _id{name, posterImagePath, _id, videoDuration, created }}}}`
+        );
+        const mainslider = await axios.get(`${BASEURL}/slider`);
 
-            <div class='container-fluid content'>
-                {showSlider()}
-            </div>
-            
-            {/* <ReactFlowPlayer
+        mainslider.data.sort(compare);
+        slider.data.data.sliders.sort(compare);
+        slider.data.data.sliders.forEach((slider, k) => {
+          slider.videos.sort(compare);
+        });
+
+        setSliders(slider.data.data.sliders);
+        setMainslider(mainslider.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // owl carousel
+
+  const showSlider = () => {
+    //console.log(sliders, "sliders");
+    return sliders.map((slide) => {
+      return (
+        <>
+          <h3 class="">{slide.name}</h3>
+          <div class="">
+            {slide.videos.map((video) => {
+              return (
+                <div class="">
+                  <div class="">
+                    <a href={`/video/${video._id._id}`}>
+                      {video._id.posterImagePath.indexOf("engage-player") >
+                      1 ? (
+                        <img class="" src={video._id.posterImagePath} />
+                      ) : (
+                        <img
+                          class=""
+                          src={`${BASEURL}/videos${video._id.posterImagePath}`}
+                        />
+                      )}
+                    </a>
+                    <div class="">
+                      <a href={`/video/${video._id._id}`}>
+                        <div class="">{video._id.name}</div>
+                        <div class="">
+                          <div class="">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            {video._id_created}
+                          </div>
+                          <div class="">
+                            <span class="glyphicon glyphicon-time"></span>
+                            {video._id.videoDuration}
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      );
+    });
+  };
+  if (sliders) {
+
+    return (
+      <main className="main">
+        <ChannelOverview
+          channelData={channelData}
+          channelInfo="Test Info Beschreibung"
+        />
+        <section className="main__section">
+          <header className="section-header">
+            <h1>Playlists</h1>
+            <h2>Entdecke die Sammlung der neusten Playlisten</h2>
+          </header>
+          <PlaylistsCarousel playlists={playlistData}/>
+        </section>
+        <div class="container-fluid content">{showSlider()}</div>
+
+        {/* <ReactFlowPlayer
             live
             autoplay
             aspectRatio='16:9'
@@ -135,52 +143,53 @@ const Home = (props) => {
   ]}
 />; */}
 
-<ul ref={list} className={'clicker'}>
-    <li>
-        1
-    </li>
-    <li>
-        2
-    </li>
-</ul>
+        <ul ref={list} className={"clicker"}>
+          <li>1</li>
+          <li>2</li>
+        </ul>
 
-<p className='testeintrag'>
-    Testeinbtrag
-</p>
-<div class="container">
-
-
-        <div id="starTrekContainer">
-
+        <p className="testeintrag">Testeinbtrag</p>
+        <div class="container">
+          <div id="starTrekContainer">
             <div id="ContainerTitle">
-                <h1 class="hero-title">Vortragsveranstaltung der Regionalgruppe Berlin</h1><br/>
-                <h3 class="hero-subtitle">28. Januar 2020, 13:00 Uhr Haus Gauß, Raum B501</h3>   
-        </div>
-
-            <div id="player_Container">
-                <img src="../assets/HG-bild-HST2019-weich.jpg" id="StarTrekImage" />
-                <div id="live" class="flowplayer playerLive"></div>
-                <p id="chromeWarning">Google Chrome may cause error with live stream. Please use Firefox or Internet
-                    Explorer instead.</p>
+              <h1 class="hero-title">
+                Vortragsveranstaltung der Regionalgruppe Berlin
+              </h1>
+              <br />
+              <h3 class="hero-subtitle">
+                28. Januar 2020, 13:00 Uhr Haus Gauß, Raum B501
+              </h3>
             </div>
 
-            <p id="linkbox_live"> Informationen zur Veranstaltung:  
-                <a href="https://www.fed.de/veranstaltungen/termin/vortragsveranstaltung-der-regionalgruppe-berlin-8/" target="_blank"> hier</a></p>
-        
-           
+            <div id="player_Container">
+              <img
+                src="../assets/HG-bild-HST2019-weich.jpg"
+                id="StarTrekImage"
+              />
+              <div id="live" class="flowplayer playerLive"></div>
+              <p id="chromeWarning">
+                Google Chrome may cause error with live stream. Please use
+                Firefox or Internet Explorer instead.
+              </p>
+            </div>
+
+            <p id="linkbox_live">
+              {" "}
+              Informationen zur Veranstaltung:
+              <a
+                href="https://www.fed.de/veranstaltungen/termin/vortragsveranstaltung-der-regionalgruppe-berlin-8/"
+                target="_blank"
+              >
+                {" "}
+                hier
+              </a>
+            </p>
+          </div>
         </div>
-        </div>
-            </>
-       )
-    }
-    return (
-        <div>
-            Home
-        </div>
-    )
-}
+      </main>
+    );
+  }
+  return <div>Home</div>;
+};
 
-
-
-
-export default Home
+export default Home;

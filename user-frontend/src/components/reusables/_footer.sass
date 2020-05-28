@@ -1,23 +1,22 @@
-@import '../_colors'
-
 .footer
     width: 100%
+    margin-top: $margin-xl
     background-color: $color-primary
-    padding: 60px 0
+    padding: $margin-m 0
     display: flex
     flex-direction: column
     justify-content: center
     align-items: center
     > *
         color: white
-        margin: 20px 0
+        margin: $margin-s 0
 
 .footer__nav-list
     padding: 0
 
 .footer__nav-element
     display: inline-block
-    margin: 0 20px
+    margin: 0 $margin-s
     @media screen and (max-width: 540px)
         display: block
         margin: auto

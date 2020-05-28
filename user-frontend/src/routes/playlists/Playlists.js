@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react'
 import axios from 'axios'
+import PlaylistsCarousel from '../../components/reusables/PlaylistsCarousel'
 
 const Playlists = () => {
     const [categories, setCategories ] = useState([])
@@ -14,19 +15,24 @@ const Playlists = () => {
         fetchData()
     }, [])
     if( categories) {
-        return categories.map(categorie  => {
-           return ( <div>
-                <a href={`/playlist/${categorie._id}`}>
-                    {categorie.name}
-                </a>
-            </div>
-            )
-        })
+        return (
+            <main className="main">
+                <section className="playlists-section">
+                    <header className="section-header">
+                    <h1>Playlists</h1>
+                    <h2>Entdecke die Sammlung der neusten Playlisten</h2>
+                    </header>
+                    <PlaylistsCarousel playlists={categories}/>
+                </section>
+            </main>
+        )
     }
     return (
-        <div>
-            Playlists werden geladen...
-        </div>
+        <main className="main">
+            <div>
+                Playlists werden geladen...
+            </div>
+        </main>
     )
 }
 
