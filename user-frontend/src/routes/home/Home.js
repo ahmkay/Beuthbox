@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
 import ChannelOverview from "../../components/reusables/ChannelOverview";
-import PlaylistCard from "../../components/reusables/PlaylistCard"
+import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import ReactFlowPlayer from "react-flow-player";
@@ -102,12 +102,7 @@ const Home = ({ channelData, playlistData }) => {
             <h1>Playlists</h1>
             <h2>Entdecke die Sammlung der neusten Playlisten</h2>
           </header>
-          <div className="playlists-caroussel">
-            {playlistData.map((playlist) => {
-              return (<PlaylistCard playlistData={playlist}/>)
-            }
-            )}
-          </div>
+          <PlaylistsCarousel playlists={playlistData}/>
         </section>
         <div class="container-fluid content">{showSlider()}</div>
 
