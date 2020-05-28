@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
 import ChannelOverview from "../../components/reusables/ChannelOverview";
+import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import ReactFlowPlayer from "react-flow-player";
 
-const Home = ({ channelData }) => {
+const Home = ({ channelData, playlistData }) => {
   const [sliders, setSliders] = useState([]);
   const [mainslider, setMainslider] = useState([]);
   const [imagePath, setImagepath] = useState([]);
@@ -43,7 +44,7 @@ const Home = ({ channelData }) => {
   // owl carousel
 
   const showSlider = () => {
-    console.log(sliders, "sliders");
+    //console.log(sliders, "sliders");
     return sliders.map((slide) => {
       return (
         <>
@@ -89,12 +90,20 @@ const Home = ({ channelData }) => {
     });
   };
   if (sliders) {
+
     return (
       <main className="main">
         <ChannelOverview
           channelData={channelData}
           channelInfo="Test Info Beschreibung"
         />
+        <section className="playlists-section">
+          <header className="section-header">
+            <h1>Playlists</h1>
+            <h2>Entdecke die Sammlung der neusten Playlisten</h2>
+          </header>
+          <PlaylistsCarousel playlists={playlistData}/>
+        </section>
         <div class="container-fluid content">{showSlider()}</div>
 
         {/* <ReactFlowPlayer
