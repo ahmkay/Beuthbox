@@ -97,7 +97,7 @@ const Home = ({ channelData, playlistData }) => {
           channelData={channelData}
           channelInfo="Test Info Beschreibung"
         />
-        <section className="playlists-section">
+        <section className="main__section">
           <header className="section-header">
             <h1>Playlists</h1>
             <h2>Entdecke die Sammlung der neusten Playlisten</h2>
