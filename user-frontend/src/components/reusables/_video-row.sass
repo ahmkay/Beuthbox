@@ -1,0 +1,137 @@
+
+.last-videos
+    margin-bottom: 17px
+
+.last-videos-container
+    display: flex
+    justify-content: space-between
+.last-videos-container--row
+    @extend .last-livestreams-container
+    flex-direction: row
+
+.last-videos-container--column
+    @extend .last-livestreams-container
+    flex-direction: column
+
+    
+.last-videos-thumbnail-container.row--3
+    width: calc(33% - 20px)
+    height: calc(33% / 1.7)
+    position: relative
+    margin-bottom: 100px
+    @media screen and (max-width: 1550px)
+        width: calc(33% - 20px)
+        height: calc(33% / 1.7)
+    @media screen and (max-width: 1367px)
+        width: calc(33% - 20px)
+        height: calc(33% / 1.7)
+    
+.last-videos-thumbnail-container.row--4
+    width: calc(25% - 20px)
+    height: calc(25% / 1.7)
+    position: relative
+    margin-bottom: 100px
+    @media screen and (max-width: 1550px)
+        width: calc(25% - 20px)
+        height: calc(25% / 1.7)
+    @media screen and (max-width: 1367px)
+        width: calc(25% - 20px)
+        height: calc(25% / 1.7)
+    
+
+.last-videos-thumbnail-container.vertical
+    display: inline-block
+    width: 100%
+    height: calc(100% / 1.7)
+    position: relative
+    margin-bottom: 75px
+    @media screen and (max-width: 1550px)
+        width: 100%
+        height: calc(100% / 1.7)
+    @media screen and (max-width: 1367px)
+        width: 100%
+        height: calc(100% / 1.7)
+
+
+.video-thumbnail
+    object-fit: cover
+
+.thumbnail__play-button
+    pointer-events: none
+    cursor: pointer
+    opacity: 0
+    position: absolute
+    width: 48px
+    top:  50%
+    left: calc(50% - 24px)
+    transition: all .3s ease-out
+
+.last-videos-overlay-default
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    background-color: $color-overlay
+    transition: all 0.2s ease-out
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: row
+
+.overlay-video-title
+    max-width: 40ch
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+
+.overlay-video-duration
+    position: absolute
+    bottom: 1em
+    right: 1em
+    display: flex
+    align-items: center
+    align-self: flex-end
+   
+
+.overlay-video-duration
+    svg
+        height: .6em
+    
+.overlay-video-title, .overlay-video-duration svg > path, .overlay-video-duration
+    color: $color-white
+
+
+.last-videos-thumbnail-container:hover .last-videos-overlay-default
+    top: 100%
+    height: auto
+    padding: 1em .5em
+    background-color: $color-white
+    border: 10px solid $color-primary
+    justify-content: space-between
+
+.last-videos-thumbnail-container:hover .overlay-video-title
+    align-self: flex-start
+    max-width: 25ch
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+
+.last-videos-thumbnail-container:hover .overlay-video-duration
+    position: unset
+
+.last-videos-thumbnail-container:hover .thumbnail__play-button
+    opacity: 1
+    position: absolute
+    width: 48px
+    top:  calc(50% - 24px)
+    left: calc(50% - 24px)
+
+.last-videos-thumbnail-container:hover .overlay-video-title, .last-videos-thumbnail-container:hover .overlay-video-duration svg > path, .last-videos-thumbnail-container:hover  .overlay-video-duration
+    font-size: $h6-size
+    font-weight: $h6-weight
+    color: $color-black
+
+.video-link > img
+    width: 100%
+    height: 100%
