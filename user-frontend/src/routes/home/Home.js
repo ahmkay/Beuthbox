@@ -3,6 +3,7 @@ import axios from "axios";
 import { BASEURL } from "../../api";
 import ChannelOverview from "../../components/reusables/ChannelOverview";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
+import VideoRow from "../../components/reusables/VideoRow";
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import ReactFlowPlayer from "react-flow-player";
@@ -103,6 +104,15 @@ const Home = ({ channelData, playlistData }) => {
             <h2>Entdecke die Sammlung der neusten Playlisten</h2>
           </header>
           <PlaylistsCarousel playlists={playlistData}/>
+        </section>
+        <section className="main__section">
+          <header className="section-header">
+            <h1>Videos</h1>
+            <h2>Schaue dir unsere Empfehlungen der spannensten und interessanten Videos der beuthBOX an </h2>
+          </header>
+         <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={4} videos={null}/>
+         <VideoRow headline={'Neuste Videos'} amountOfVideos={4} videos={null}/>
+
         </section>
         <div class="container-fluid content">{showSlider()}</div>
 
