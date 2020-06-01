@@ -4,6 +4,8 @@ import { BASEURL } from "../../api";
 import ChannelOverview from "../../components/reusables/ChannelOverview";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import VideoRow from "../../components/reusables/VideoRow";
+import LiveInfoLayer from '../../components/LiveInfoLayer'
+
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import ReactFlowPlayer from "react-flow-player";
@@ -105,6 +107,8 @@ const Home = ({ channelData, playlistData }) => {
   if (sliders && recommendations) {
     return (
       <main className="main">
+         <LiveInfoLayer />
+
         <ChannelOverview
           channelData={channelData}
           channelInfo="Test Info Beschreibung"
@@ -128,6 +132,20 @@ const Home = ({ channelData, playlistData }) => {
         <div class="container-fluid content">{showSlider()}</div>
 
         {/* <ReactFlowPlayer
+                    </>
+                )
+            })
+        )
+    }
+    if( sliders) {
+       return (
+           <>
+            <LiveInfoLayer />
+            <div class='container-fluid content'>
+                {showSlider()}
+            </div>
+            
+            {/* <ReactFlowPlayer
             live
             autoplay
             aspectRatio='16:9'

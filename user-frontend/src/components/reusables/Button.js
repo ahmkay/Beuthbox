@@ -10,8 +10,9 @@ import React from 'react';
  */
 
 const Button = (props) => {
+    const {onClick, children, negative} = props
     return (
-        <button onClick={props.onClick} className={props.negative? 'negative' : ''} >{props.text ? props.text : "Button"}</button>
+        <button onClick={onClick} className={negative? 'negative' : ''} >{children }</button>
     )
 }
 
