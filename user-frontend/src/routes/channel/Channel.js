@@ -75,33 +75,6 @@ const Channel = (props) => {
     console.log(props, "props");
   }, []);
 
-  const showCategories = () => {
-    if (categories) {
-
-      return categories.map((category, index) => {
-        return (
-          <div class="col-md-4 category-single">
-            <div class="categoryContainer">
-              <a href={`/playlist/${category._id}`}>
-                <img
-                  src={`${BASEURL}/category${category.imagepath}`}
-                  class="categoryImage"
-                />
-              </a>
-              <a
-                href={`/playlist/${category._id}`}
-                class="title link-unstyled titleCatNew"
-              >
-                {category.name}
-              </a>
-              <p class="descriptionSmall">{category.description}</p>
-            </div>
-          </div>
-        );
-      });
-    }
-  };
-
   const showVideos = () => {
     console.log(video, "videos");
 

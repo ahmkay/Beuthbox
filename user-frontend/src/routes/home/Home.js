@@ -10,8 +10,9 @@ import VideoRow from "../../components/reusables/VideoRow";
 
 const Home = ({ channelData, playlistData }) => {
   const [sliders, setSliders] = useState([]);
+  const [recommendations, setRecommendations] = useState([])
+  const [furtherVideos, setFurtherVideos ] = useState([])
   const [mainslider, setMainslider] = useState([]);
-  const [imagePath, setImagepath] = useState([]);
   const list = useRef(null);
 
   useEffect(() => {
@@ -26,13 +27,24 @@ const Home = ({ channelData, playlistData }) => {
           `${BASEURL}/graphql?query={sliders{name, position, occurrence, active, videos{position, _id{name, posterImagePath, _id, videoDuration, created }}}}`
         );
         const mainslider = await axios.get(`${BASEURL}/slider`);
-
         mainslider.data.sort(compare);
         slider.data.data.sliders.sort(compare);
         slider.data.data.sliders.forEach((slider, k) => {
           slider.videos.sort(compare);
         });
 
+
+        let recommendedVideos =  slider.data.data.sliders.filter(slider => slider.name === 'Empfohlene Videos')
+        recommendedVideos = recommendedVideos[0].videos
+        let filteredRecommendedVideos = recommendedVideos.map(video => video._id)
+
+        let furtherVideos =  slider.data.data.sliders.filter(slider => slider.name === 'Sonstige Videos')
+        furtherVideos = furtherVideos[0].videos
+        let filteredFurtherVideos = furtherVideos.map(video => video._id)
+
+        
+        setRecommendations(filteredRecommendedVideos)
+        setFurtherVideos(filteredFurtherVideos)
         setSliders(slider.data.data.sliders);
         setMainslider(mainslider.data);
       } catch (error) {
@@ -42,10 +54,10 @@ const Home = ({ channelData, playlistData }) => {
     fetchData();
   }, []);
 
+ 
   // owl carousel
 
   const showSlider = () => {
-    //console.log(sliders, "sliders");
     return sliders.map((slide) => {
       return (
         <>
@@ -90,8 +102,7 @@ const Home = ({ channelData, playlistData }) => {
       );
     });
   };
-  if (sliders) {
-
+  if (sliders && recommendations) {
     return (
       <main className="main">
         <ChannelOverview
@@ -110,8 +121,8 @@ const Home = ({ channelData, playlistData }) => {
             <h1>Videos</h1>
             <h2>Schaue dir unsere Empfehlungen der spannensten und interessanten Videos der beuthBOX an </h2>
           </header>
-         <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={4} videos={null}/>
-         <VideoRow headline={'Neuste Videos'} amountOfVideos={4} videos={null}/>
+         <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={4} videos={recommendations}/>
+         <VideoRow headline={'Neuste Videos'} amountOfVideos={4} videos={furtherVideos}/>
 
         </section>
         <div class="container-fluid content">{showSlider()}</div>

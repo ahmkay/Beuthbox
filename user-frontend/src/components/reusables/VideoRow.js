@@ -33,66 +33,132 @@ const VideoRow = ({videos, amountOfVideos, flexDirection, headline}) => {
 
     console.log(videos, 'received videos in videorow')
 
-    const videosAll =  Object.keys(videos).map((video, index) => {
-        if ( amountOfVideos === undefined) {
-            return (
-                <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
-                    <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
-                    <div className='last-videos-overlay-default'>
-                        <small className='overlay-video-title'>{videos.name}</small>
-                        <small className='overlay-video-duration'>
-                            <AccessTimeIcon />
-                         {calculateVideoDuration(videos.videoDuration)}
-                        </small>
-                    </div>
-                    {videos.posterImagePath.indexOf('engage-player') > 1 
-                    ?
-                    <Link to={videos._id} className='video-link'>
-                        <img className="video-thumbnail" src={videos.posterImagePath}/>        
-                    </Link>
-
-                    :
-                    <Link to={videos._id} className='video-link'>
-                        <img className="video-thumbnail" src={`${BASEURL}/videos${videos.posterImagePath}`}/>        
-                    </Link>
+    const showVideoRow = () => {
+        if (Array.isArray(videos)) {
+            console.log('isArray')
+            return videos.map((video, index) => {
+                if ( amountOfVideos === undefined) {
+                    return (
+                        <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
+                            <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
+                            <div className='last-videos-overlay-default'>
+                                <small className='overlay-video-title'>{video.name}</small>
+                                <small className='overlay-video-duration'>
+                                    <AccessTimeIcon />
+                                 {calculateVideoDuration(video.videoDuration)}
+                                </small>
+                            </div>
+                            {video.posterImagePath.indexOf('engage-player') > 1 
+                            ?
+                            <Link to={video._id} className='video-link'>
+                                <img className="video-thumbnail" src={video.posterImagePath}/>        
+                            </Link>
+        
+                            :
+                            <Link to={video._id} className='video-link'>
+                                <img className="video-thumbnail" src={`${BASEURL}/videos${video.posterImagePath}`}/>        
+                            </Link>
+                             }
+                        </div>
+                    ) 
+                }
+                else {
+                    if( index + 1 <= amountOfVideos) {
+                        return (
+                             <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
+                                 <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
+                                 <div className='last-videos-overlay-default'>
+                                     <small className='overlay-video-title'>{video.name}</small>
+                                     <small className='overlay-video-duration'>
+                                         <AccessTimeIcon />
+                                      {calculateVideoDuration(video.videoDuration)}
+                                     </small>
+                                 </div>
+                                 {video.posterImagePath.indexOf('engage-player') > 1 
+                            ?
+                            <Link to={video._id} className='video-link'>
+                                <img className="video-thumbnail" src={video.posterImagePath}/>        
+                            </Link>
+        
+                            :
+                            <Link to={video._id} className='video-link'>
+                                <img className="video-thumbnail" src={`${BASEURL}/videos${video.posterImagePath}`}/>        
+                            </Link>
+                             }
+                             </div>
+                         ) 
                      }
-                </div>
-            ) 
+                }
+                
+            })
         }
         else {
-            if( index + 1 <= amountOfVideos) {
+        return Object.keys(videos).map((video, index) => {
+            if ( amountOfVideos === undefined) {
                 return (
-                     <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
-                         <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
-                         <div className='last-videos-overlay-default'>
-                             <small className='overlay-video-title'>{videos.name}</small>
-                             <small className='overlay-video-duration'>
-                                 <AccessTimeIcon />
-                              {calculateVideoDuration(videos.videoDuration)}
-                             </small>
+                    <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
+                        <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
+                        <div className='last-videos-overlay-default'>
+                            <small className='overlay-video-title'>{videos.name}</small>
+                            <small className='overlay-video-duration'>
+                                <AccessTimeIcon />
+                             {calculateVideoDuration(videos.videoDuration)}
+                            </small>
+                        </div>
+                        {videos.posterImagePath.indexOf('engage-player') > 1 
+                        ?
+                        <Link to={videos._id} className='video-link'>
+                            <img className="video-thumbnail" src={videos.posterImagePath}/>        
+                        </Link>
+    
+                        :
+                        <Link to={videos._id} className='video-link'>
+                            <img className="video-thumbnail" src={`${BASEURL}/videos${videos.posterImagePath}`}/>        
+                        </Link>
+                         }
+                    </div>
+                ) 
+            }
+            else {
+                if( index + 1 <= amountOfVideos) {
+                    return (
+                         <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
+                             <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
+                             <div className='last-videos-overlay-default'>
+                                 <small className='overlay-video-title'>{videos.name}</small>
+                                 <small className='overlay-video-duration'>
+                                     <AccessTimeIcon />
+                                  {calculateVideoDuration(videos.videoDuration)}
+                                 </small>
+                             </div>
+                             {videos.posterImagePath.indexOf('engage-player') > 1 
+                        ?
+                        <Link to={videos._id} className='video-link'>
+                            <img className="video-thumbnail" src={videos.posterImagePath}/>        
+                        </Link>
+    
+                        :
+                        <Link to={videos._id} className='video-link'>
+                            <img className="video-thumbnail" src={`${BASEURL}/videos${videos.posterImagePath}`}/>        
+                        </Link>
+                         }
                          </div>
-                         {videos.posterImagePath.indexOf('engage-player') > 1 
-                    ?
-                    <Link to={videos._id} className='video-link'>
-                        <img className="video-thumbnail" src={videos.posterImagePath}/>        
-                    </Link>
+                     ) 
+                 }
+            }
+            
+        })
 
-                    :
-                    <Link to={videos._id} className='video-link'>
-                        <img className="video-thumbnail" src={`${BASEURL}/videos${videos.posterImagePath}`}/>        
-                    </Link>
-                     }
-                     </div>
-                 ) 
-             }
-        }
-        
-    })
+    }
+
+    }
+
+    
     return (
         <>
         <h3 className='last-videos'>{headline}</h3>
         <div className={`last-videos-container${flexDirection ? '--' + flexDirection: ''}`}>
-            {videosAll}
+            {showVideoRow()}
         </div>
         </>
     ) 
