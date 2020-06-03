@@ -5,6 +5,7 @@ import ChannelOverview from "../../components/reusables/ChannelOverview";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import VideoRow from "../../components/reusables/VideoRow";
 import LiveInfoLayer from '../../components/LiveInfoLayer'
+import VideoThumbnail from "../../components/reusables/VideoThumbnail";
 
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -125,9 +126,8 @@ const Home = ({ channelData, playlistData }) => {
             <h1>Videos</h1>
             <h2>Schaue dir unsere Empfehlungen der spannensten und interessanten Videos der beuthBOX an </h2>
           </header>
-         <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={4} videos={recommendations}/>
-         <VideoRow headline={'Neuste Videos'} amountOfVideos={4} videos={furtherVideos}/>
-
+          <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={4} videos={recommendations}/>
+          <VideoRow headline={'Neuste Videos'} amountOfVideos={4} videos={furtherVideos}/>
         </section>
         <div class="container-fluid content">{showSlider()}</div>
 

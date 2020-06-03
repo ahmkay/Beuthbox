@@ -3,6 +3,7 @@ import {BASEURL} from '../../api'
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Play from '../../assets/img/Play.svg'
 import { Link } from 'react-router-dom'
+import VideoThumbnail from './VideoThumbnail';
 
 const VideoRow = ({videos, amountOfVideos, flexDirection, headline}) => {
     const calculateVideoDuration = duration => {
@@ -30,8 +31,6 @@ const VideoRow = ({videos, amountOfVideos, flexDirection, headline}) => {
                 return 'row--4'
         }
     }
-
-    console.log(videos, 'received videos in videorow')
 
     const showVideoRow = () => {
         if (Array.isArray(videos)) {
@@ -158,7 +157,14 @@ const VideoRow = ({videos, amountOfVideos, flexDirection, headline}) => {
         <>
         <h3 className='last-videos'>{headline}</h3>
         <div className={`last-videos-container${flexDirection ? '--' + flexDirection: ''}`}>
-            {showVideoRow()}
+            {videos.map((video, index) => {
+                if (index > 3) return
+                return(
+                        <VideoThumbnail title={video.name} duration={calculateVideoDuration(video.videoDuration)} img={video.posterImagePath} id={video._id}/>
+                    )
+                })
+            }
+            {/* {showVideoRow()} */}
         </div>
         </>
     ) 
