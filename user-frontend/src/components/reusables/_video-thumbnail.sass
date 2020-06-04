@@ -1,8 +1,6 @@
 .video-thumbnail-container
     display: block
     position: relative
-    width: calc(25% - 20px)
-    max-width: 420px
     background-color: $color-white
     margin-bottom: calc(1em + 2*1em + 2*10px) //the height of the title + 2*padding + 2*border
     &:not(::first-child)
@@ -11,6 +9,15 @@
         content: ''
         display: block
         padding-top: 56.25% // to get the 16:9 aspect ratio --> change for alternative aspect ratio
+
+    &--row
+        @extend .video-thumbnail-container
+        width: calc(25% - 20px)
+        max-width: 420px
+    &--column
+        @extend .video-thumbnail-container
+        width: 100%
+        max-width: 100%
 
 .video-thumbnail-container__content
     position: absolute

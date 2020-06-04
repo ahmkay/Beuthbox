@@ -3,6 +3,9 @@ import { BASEURL } from "../../api";
 import VideoThumbnail from "./VideoThumbnail";
 
 const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
+
+  console.log(flexDirection, 'listorientation')
+
   const calculateVideoDuration = (duration) => {
     let seconds = Math.floor((duration / 1000) % 60),
       minutes = Math.floor((duration / (1000 * 60)) % 60),
@@ -47,6 +50,7 @@ const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
               duration={calculateVideoDuration(video.videoDuration)}
               img={imgPath}
               id={video._id}
+              listOrientation={flexDirection}
             />
           );
         } else {
@@ -57,6 +61,7 @@ const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
                 duration={calculateVideoDuration(video.videoDuration)}
                 img={imgPath}
                 id={video._id}
+                listOrientation={flexDirection}
               />
             );
           }
@@ -78,6 +83,7 @@ const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
               duration={calculateVideoDuration(videos.videoDuration)}
               img={imgPath}
               id={videos._id}
+              listOrientation={flexDirection}
             />
           );
         } else {
@@ -88,6 +94,7 @@ const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
                 duration={calculateVideoDuration(videos.videoDuration)}
                 img={imgPath}
                 id={videos._id}
+                listOrientation={flexDirection}
               />
             );
           }
