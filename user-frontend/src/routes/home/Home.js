@@ -117,19 +117,19 @@ const Home = ({ channelData, playlistData }) => {
         <section className="main__section">
           <header className="section-header">
             <h1>Playlists</h1>
-            <h2>Entdecke die Sammlung der neusten Playlisten</h2>
+            <h2 className="section-header__description">Entdecke die Sammlung der neusten Playlisten</h2>
           </header>
           <PlaylistsCarousel playlists={playlistData}/>
         </section>
         <section className="main__section">
           <header className="section-header">
             <h1>Videos</h1>
-            <h2>Schaue dir unsere Empfehlungen der spannensten und interessanten Videos der beuthBOX an </h2>
+            <h2 className="section-header__description">Schaue dir unsere Empfehlungen der spannensten und interessanten Videos der beuthBOX an </h2>
           </header>
           <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={4} videos={recommendations}/>
           <VideoRow headline={'Neuste Videos'} amountOfVideos={4} videos={furtherVideos}/>
         </section>
-        <div class="container-fluid content">{showSlider()}</div>
+       {/*  <div class="container-fluid content">{showSlider()}</div> */}
 
         {/* <ReactFlowPlayer
                     </>
@@ -182,7 +182,7 @@ const Home = ({ channelData, playlistData }) => {
   ]}
 />; */}
 
-        <ul ref={list} className={"clicker"}>
+        {/* <ul ref={list} className={"clicker"}>
           <li>1</li>
           <li>2</li>
         </ul>
@@ -214,17 +214,16 @@ const Home = ({ channelData, playlistData }) => {
 
             <p id="linkbox_live">
               {" "}
-              Informationen zur Veranstaltung:
+              Informationen zur Veranstaltung:&nbsp;
               <a
                 href="https://www.fed.de/veranstaltungen/termin/vortragsveranstaltung-der-regionalgruppe-berlin-8/"
                 target="_blank"
               >
-                {" "}
                 hier
               </a>
             </p>
           </div>
-        </div>
+        </div> */}
       </main>
     );
   }
