@@ -126,7 +126,7 @@ const Home = ({ channelData, playlistData }) => {
             <h1>Videos</h1>
             <h2 className="section-header__description">Schaue dir unsere Empfehlungen der spannensten und interessanten Videos der beuthBOX an </h2>
           </header>
-          <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={3} videos={recommendations}/>
+          <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={4} videos={recommendations}/>
           <VideoRow headline={'Neuste Videos'} amountOfVideos={4} videos={furtherVideos}/>
         </section>
        {/*  <div class="container-fluid content">{showSlider()}</div> */}
