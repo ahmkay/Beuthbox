@@ -6,6 +6,7 @@ import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import VideoRow from "../../components/reusables/VideoRow";
 import LiveInfoLayer from '../../components/LiveInfoLayer'
 import VideoThumbnail from "../../components/reusables/VideoThumbnail";
+import CategoryIcon from "../../components/reusables/CategoryIcon";
 
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -109,6 +110,11 @@ const Home = ({ channelData, playlistData }) => {
     return (
       <main className="main">
          <LiveInfoLayer />
+
+        <CategoryIcon type="round" category="study" labeled/>
+        <CategoryIcon type="round" category="research" labeled/>
+        <CategoryIcon type="round" category="class" labeled/>
+        <CategoryIcon type="round" category="campus" labeled/>
 
         <ChannelOverview
           channelData={channelData}
