@@ -10,9 +10,13 @@
         display: block
         padding-top: 56.25% // to get the 16:9 aspect ratio --> change for alternative aspect ratio
 
-    &--row
+    &--row-4
         @extend .video-thumbnail-container
         width: calc(25% - 20px)
+        max-width: 420px
+    &--row-3
+        @extend .video-thumbnail-container
+        width: calc(33% - 20px)
         max-width: 420px
     &--column
         @extend .video-thumbnail-container

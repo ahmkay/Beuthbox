@@ -4,10 +4,10 @@ import Play from '../../assets/img/Play.svg'
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Placeholder from '../../assets/img/Placeholder_Video.svg'
 
-const VideoThumbnail = ({title, duration, img, id, listOrientation}) => {
+const VideoThumbnail = ({title, duration, img, id, listOrientation, listCount}) => {
 
     return (
-        <div className={`video-thumbnail-container${listOrientation && listOrientation !== 'row' ? '--column' : '--row'}`}>
+        <div className={`video-thumbnail-container${listOrientation && listOrientation !== 'row' ? '--column' : '--row'}${listCount && listCount === 3 ? '-3' : '-4'}`}>
             <Link to={'/video/'+id} className="video-thumbnail-container__content">
                 <img src={img ? img : Placeholder} className="video-thumbnail-container__thumbnail-img" alt="Video Thumbnail"/>
                 <img src={Play} alt="Play Button" className="video-thumbnail-container__play-button"/>

@@ -1,37 +1,9 @@
 import React from "react";
 import { BASEURL } from "../../api";
 import VideoThumbnail from "./VideoThumbnail";
+import { calculateVideoDuration } from '../../utils'
 
 const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
-
-  console.log(flexDirection, 'listorientation')
-
-  const calculateVideoDuration = (duration) => {
-    let seconds = Math.floor((duration / 1000) % 60),
-      minutes = Math.floor((duration / (1000 * 60)) % 60),
-      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-    hours = hours < 10 ? "0" + hours : hours;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-    return hours !== "00"
-      ? hours + ":" + minutes + ":" + seconds
-      : minutes + ":" + seconds;
-  };
-  const calculateVideoSize = () => {
-    if (flexDirection === "column") return "vertical";
-
-    switch (amountOfVideos) {
-      case 3:
-        return "row--3";
-      case 4:
-        return "row--4";
-
-      default:
-        return "row--4";
-    }
-  };
 
   const showVideoRow = () => {
     if (Array.isArray(videos)) {
@@ -46,22 +18,24 @@ const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
         if (amountOfVideos === undefined) {
           return (
             <VideoThumbnail
-              title={video.name}
-              duration={calculateVideoDuration(video.videoDuration)}
-              img={imgPath}
-              id={video._id}
-              listOrientation={flexDirection}
+              title = {video.name}
+              duration = {calculateVideoDuration(video.videoDuration)}
+              img = {imgPath}
+              id = {video._id}
+              listOrientation = {flexDirection}
+              listCount = {parseInt(amountOfVideos)}
             />
           );
         } else {
           if (index + 1 <= amountOfVideos) {
             return (
               <VideoThumbnail
-                title={video.name}
-                duration={calculateVideoDuration(video.videoDuration)}
-                img={imgPath}
-                id={video._id}
-                listOrientation={flexDirection}
+                title = {video.name}
+                duration = {calculateVideoDuration(video.videoDuration)}
+                img = {imgPath}
+                id = {video._id}
+                listOrientation = {flexDirection}
+                listCount = {parseInt(amountOfVideos)}
               />
             );
           }
@@ -79,22 +53,23 @@ const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
         if (amountOfVideos === undefined) {
           return (
             <VideoThumbnail
-              title={videos.name}
-              duration={calculateVideoDuration(videos.videoDuration)}
-              img={imgPath}
-              id={videos._id}
-              listOrientation={flexDirection}
+              title = {videos.name}
+              duration = {calculateVideoDuration(videos.videoDuration)}
+              img = {imgPath}
+              id = {videos._id}
+              listOrientation = {flexDirection}
+              listCount = {parseInt(amountOfVideos)}
             />
           );
         } else {
           if (index + 1 <= amountOfVideos) {
             return (
               <VideoThumbnail
-                title={videos.name}
-                duration={calculateVideoDuration(videos.videoDuration)}
-                img={imgPath}
-                id={videos._id}
-                listOrientation={flexDirection}
+                title = {videos.name}
+                duration = {calculateVideoDuration(videos.videoDuration)}
+                img = {imgPath}
+                id = {videos._id}
+                listOrientation = {flexDirection}
               />
             );
           }
