@@ -111,7 +111,7 @@ const Home = ({ channelData, playlistData }) => {
       <main className="main">
          <LiveInfoLayer />
 
-        <CategoryIcon type="round" category="study" labeled/>
+        <CategoryIcon type="round" category="study" isActive labeled/>
         <CategoryIcon type="round" category="research" labeled/>
         <CategoryIcon type="round" category="class" labeled/>
         <CategoryIcon type="round" category="campus" labeled/>

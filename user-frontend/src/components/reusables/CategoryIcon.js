@@ -5,13 +5,13 @@ import ColorLensIcon from '@material-ui/icons/ColorLens';
 import {ReactComponent as MagicIcon} from '../../assets/img/icons/magic.svg';
 import {ReactComponent as BookIcon} from '../../assets/img/icons/Icon_Book.svg';
 
-function CategoryIcon({category, labeled}) {
+function CategoryIcon({category, labeled, isActive}) {
     return (
         <div className={`category-icon category-icon--${category}`}>
-            <div className={`category-icon__icon-container category-icon__icon-container--${category}`}>
+            <div className={`category-icon__icon-container category-icon__icon-container--${category} ${isActive && 'category-icon__icon-container--isActive'}`}>
                 {category === 'study' && <ColorLensIcon className='category-icon__img' />}
                 {category === 'campus' && <SchoolIcon className='category-icon__img' />}                
-                {category === 'class' && <SvgIcon component={BookIcon} className='MuiSvgIcon-root svg-icon category-icon__img' />}
+                {category === 'class' && <SvgIcon component={BookIcon} viewBox="0 -4 24 24" className='MuiSvgIcon-root svg-icon category-icon__img' />} {/* correct viewBox to center the icon */}
                 {category === 'research' && <SvgIcon component={MagicIcon} className='MuiSvgIcon-root svg-icon category-icon__img' />}
             </div>
             { labeled &&
