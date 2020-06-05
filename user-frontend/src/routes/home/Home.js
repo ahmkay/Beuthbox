@@ -5,8 +5,7 @@ import ChannelOverview from "../../components/reusables/ChannelOverview";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import VideoRow from "../../components/reusables/VideoRow";
 import LiveInfoLayer from '../../components/LiveInfoLayer'
-import VideoThumbnail from "../../components/reusables/VideoThumbnail";
-import CategoryIcon from "../../components/reusables/CategoryIcon";
+import CategoryCheckbutton from "../../components/reusables/CategoryCheckbutton";
 
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -37,7 +36,6 @@ const Home = ({ channelData, playlistData }) => {
           slider.videos.sort(compare);
         });
 
-
         let recommendedVideos =  slider.data.data.sliders.filter(slider => slider.name === 'Empfohlene Videos')
         recommendedVideos = recommendedVideos[0].videos
         let filteredRecommendedVideos = recommendedVideos.map(video => video._id)
@@ -46,7 +44,6 @@ const Home = ({ channelData, playlistData }) => {
         furtherVideos = furtherVideos[0].videos
         let filteredFurtherVideos = furtherVideos.map(video => video._id)
 
-        
         setRecommendations(filteredRecommendedVideos)
         setFurtherVideos(filteredFurtherVideos)
         setSliders(slider.data.data.sliders);
@@ -65,12 +62,12 @@ const Home = ({ channelData, playlistData }) => {
     return sliders.map((slide) => {
       return (
         <>
-          <h3 class="">{slide.name}</h3>
-          <div class="">
+          <h3>{slide.name}</h3>
+          <div>
             {slide.videos.map((video) => {
               return (
-                <div class="">
-                  <div class="">
+                <div>
+                  <div>
                     <a href={`/video/${video._id._id}`}>
                       {video._id.posterImagePath.indexOf("engage-player") >
                       1 ? (
@@ -82,15 +79,15 @@ const Home = ({ channelData, playlistData }) => {
                         />
                       )}
                     </a>
-                    <div class="">
+                    <div>
                       <a href={`/video/${video._id._id}`}>
-                        <div class="">{video._id.name}</div>
-                        <div class="">
-                          <div class="">
+                        <div>{video._id.name}</div>
+                        <div>
+                          <div>
                             <span class="glyphicon glyphicon-calendar"></span>
                             {video._id_created}
                           </div>
-                          <div class="">
+                          <div>
                             <span class="glyphicon glyphicon-time"></span>
                             {video._id.videoDuration}
                           </div>
