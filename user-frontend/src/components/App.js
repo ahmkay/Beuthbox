@@ -13,6 +13,7 @@ import Live from '../routes/live/Live';
 import Navbar from './reusables/Navbar';
 import { BASEURL } from '../api';
 import axios from 'axios';
+import Discover from '../routes/discover/Discover';
 
 const App = () => {
   const [channels, setChannels ] = useState([])
@@ -80,6 +81,12 @@ const App = () => {
       exact
       path={'/live'}
       component={Live}
+      />
+
+      <Route
+        exact
+        path={'/discover'}
+        component={Discover}
       />
       
       <Footer />

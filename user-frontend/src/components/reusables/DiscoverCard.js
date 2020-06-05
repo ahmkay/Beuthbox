@@ -1,8 +1,12 @@
 import React from 'react'
 import Illustration from '../../assets/img/Illustration_Discover.svg'
 import Button from '../reusables/Button'
+import { useHistory } from "react-router-dom";
 
 function DiscoverCard() {
+
+    const history = useHistory()
+
     return (
         <div className="discover-card">
             <img src={Illustration} alt="Illustration Discover" className="discover-card__illustration"/>
@@ -12,7 +16,7 @@ function DiscoverCard() {
                     Lass uns Dir helfen ein Video zu finden,<br />
                     das dich wirklich interessiert.
                 </h4>
-                <Button className="discover-card__Button">Inhalte Entdecken</Button>
+                <Button onClick={() => history.push('/discover')} className="discover-card__Button">Inhalte Entdecken</Button>
             </div>
         </div>
     )
