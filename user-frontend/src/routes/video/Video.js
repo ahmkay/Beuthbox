@@ -119,11 +119,11 @@ const Video = (props) => {
                <SecondaryButton text={'Teilen'} onClick={shareVideo} icon={ShareIcon} additionalClasses='share-button'></SecondaryButton>
            </div>
            <div className='video-playlist--container' style={{height}}>
-           <VideoRow videos={video} flexDirection={'column'} headline='Mehr aus der Playlist'/>
+           <VideoRow videos={video} flexDirection="column" headline="Mehr aus der Playlist" />
            </div>
            </div>
            
-           <VideoRow videos={video} amountOfVideos={4}  headline='Ähnliche Videos'/>
+           <VideoRow videos={video} amountOfVideos={4}  headline='Ähnliche Videos' flexDirection="row" />
            </div>
            </>
        )

@@ -49,7 +49,6 @@ const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
         } else {
           imgPath = `${BASEURL}/videos${videos.posterImagePath}`;
         }
-
         if (amountOfVideos === undefined) {
           return (
             <VideoThumbnail
@@ -70,6 +69,7 @@ const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
                 img = {imgPath}
                 id = {videos._id}
                 listOrientation = {flexDirection}
+                listCount = {parseInt(amountOfVideos)}
               />
             );
           }
