@@ -1,1 +1,0 @@
-In diesem Directory liegen alle globalen Funktionen, die an mehreren Stellen der App verwendet werden
