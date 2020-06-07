@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
+import ChannelHeader from "./ChannelHeader";
 
 const Channel = (props) => {
   const [channel, setChannel] = useState([]);
@@ -114,33 +115,11 @@ const Channel = (props) => {
   };
   if (video && categories && numberOfVideos && channel) {
     return (
+      <>
+        <ChannelHeader title={channel.name} description={channel.description} img={`${BASEURL}/channel${channel.imagepath}`}/>
         <main className="main">
             <div class="container-fluid">
                 <div class="row player-container content">
-                <div class="col-md-8 col-sm-12 col-xs-12">
-                    <div class="slide-1">
-                    <div class="slider-caption">
-                        <img
-                        src={`"${BASEURL}/channel${channel.iconpath}`}
-                        class="channel-icon"
-                        />
-                    </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="video-info">
-                    <div class="video-header">Channel</div>
-                    <div class="video-title">{channel.name}</div>
-
-                    {channel.description && (
-                        <>
-                        <div class="video-header">Beschreibung</div>
-                        <p>{channel.description}</p>
-                        </>
-                    )}
-                    </div>
-                </div>
                 </div>
                 <div class="row">
                 <div class="col-sm-12 channel-info">
@@ -162,6 +141,7 @@ const Channel = (props) => {
                 </div>
             </div>
         </main>
+      </>
     );
   }
   return <div>Channel</div>;

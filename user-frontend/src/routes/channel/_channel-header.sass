@@ -1,0 +1,50 @@
+.channel-header
+    width: 100%
+    height: calc(100vh - 110px) // - height of navbar
+    min-height: 500px
+    max-height: 900px
+    position: relative
+
+.channel-header__img
+    position: absolute
+    width: 100%
+    height: 100%
+    object-fit: cover
+
+.channel-header__overlay
+    position: absolute
+    height: 100%
+    width: 100%
+    background-color: $color-overlay
+
+.channel-header__content
+    @extend .main
+    height: 100%
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+.channel-header__title-box
+    position: relative
+    border: $border-l
+    width: $col-4
+    padding: 30px
+    &::after
+        content: ''
+        display: block
+        padding-top: 100% // to get a perfect quadrad
+
+.channel-header__title
+    position: absolute
+    width: calc(100% - 2* 30px) // - padding of title box
+    height: calc(100% - 2* 30px)
+    color: $color-white
+    word-break: break-word
+    hyphens: auto
+    font-size: 3.5rem
+    display: flex;
+    align-items: center;
+
+.channel-header__description
+    color: $color-white
+    width: $col-4
