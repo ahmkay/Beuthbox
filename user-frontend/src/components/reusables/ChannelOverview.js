@@ -5,6 +5,7 @@ import SchoolIcon from '@material-ui/icons/School';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import {ReactComponent as MagicIcon} from '../../assets/img/icons/magic.svg';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import CategoryIcon from './CategoryIcon';
 
 
 const ChannelOverview = ({channelData, channelInfo}) => {
@@ -29,30 +30,8 @@ const ChannelOverview = ({channelData, channelInfo}) => {
                             <h2 className='channel-info-box__channel-name'>{channel.name}</h2>
                             <h4 className='channel-description'>{channel.description}</h4>
                             <div className='channel-container-categories'>
-                                <div className='row-element'>
-                                    <span className='container__icon container__icon--research'>
-                                        <SvgIcon component={MagicIcon} className='container-icon__category-icon container-icon__category-icon--research' />
-                                    </span>
-                                    <p className='icon--text'>
-                                        Forschung
-                                    </p>
-                                    </div>
-                                <div className='row-element'>
-                                    <span className='container__icon container__icon--campus'>
-                                        <SchoolIcon className='container-icon__category-icon container-icon__category-icon--campus' />
-                                    </span>
-                                    <p className='icon--text'>
-                                        Campus
-                                    </p>
-                                </div>
-                                <div className='row-element'>
-                                    <span className='container__icon container__icon--student'>
-                                        <ColorLensIcon className='container-icon__category-icon container-icon__category-icon--students' />
-                                    </span>
-                                    <p className='icon--text'>
-                                        Studiprojekte
-                                    </p>
-                                </div>
+                                <CategoryIcon labeled category="study" isActive/>
+                                <CategoryIcon labeled category="campus" isActive/>
                             </div>
                         </div>
                     </NavLink>

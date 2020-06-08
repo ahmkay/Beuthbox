@@ -1,153 +1,95 @@
-import React from 'react';
-import {BASEURL} from '../../api'
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import Play from '../../assets/img/Play.svg'
-import { Link } from 'react-router-dom'
-import { calculateVideoDuration } from '../../utils';
+import React from "react";
+import { BASEURL } from "../../api";
+import VideoThumbnail from "./VideoThumbnail";
+import { calculateVideoDuration } from '../../utils'
 
-const VideoRow = ({videos, amountOfVideos, flexDirection, headline}) => {
-    const calculateVideoSize = () => {
-        if (flexDirection === 'column') return 'vertical'
-        
-        switch(amountOfVideos) {
-            case 3:
-                return 'row--3'
-            case 4:
-                return 'row--4'
+const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
 
-            default:
-                return 'row--4'
+  const showVideoRow = () => {
+    if (Array.isArray(videos)) {
+      return videos.map((video, index) => {
+        let imgPath = "";
+        if (video.posterImagePath.indexOf("engage-player") > 1) {
+          imgPath = video.posterImagePath;
+        } else {
+          imgPath = `${BASEURL}/videos${video.posterImagePath}`;
         }
-    }
 
-    const showVideoRow = () => {
-        if (Array.isArray(videos)) {
-            return videos.map((video, index) => {
-                if ( amountOfVideos === undefined) {
-                    return (
-                        <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
-                            <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
-                            <div className='last-videos-overlay-default'>
-                                <small className='overlay-video-title'>{video.name}</small>
-                                <small className='overlay-video-duration'>
-                                    <AccessTimeIcon />
-                                 {calculateVideoDuration(video.videoDuration)}
-                                </small>
-                            </div>
-                            {video.posterImagePath.indexOf('engage-player') > 1 
-                            ?
-                            <Link to={video._id} className='video-link'>
-                                <img className="video-thumbnail" src={video.posterImagePath}/>        
-                            </Link>
-        
-                            :
-                            <Link to={video._id} className='video-link'>
-                                <img className="video-thumbnail" src={`${BASEURL}/videos${video.posterImagePath}`}/>        
-                            </Link>
-                             }
-                        </div>
-                    ) 
-                }
-                else {
-                    if( index + 1 <= amountOfVideos) {
-                        return (
-                             <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
-                                 <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
-                                 <div className='last-videos-overlay-default'>
-                                     <small className='overlay-video-title'>{video.name}</small>
-                                     <small className='overlay-video-duration'>
-                                         <AccessTimeIcon />
-                                      {calculateVideoDuration(video.videoDuration)}
-                                     </small>
-                                 </div>
-                                 {video.posterImagePath.indexOf('engage-player') > 1 
-                            ?
-                            <Link to={video._id} className='video-link'>
-                                <img className="video-thumbnail" src={video.posterImagePath}/>        
-                            </Link>
-        
-                            :
-                            <Link to={video._id} className='video-link'>
-                                <img className="video-thumbnail" src={`${BASEURL}/videos${video.posterImagePath}`}/>        
-                            </Link>
-                             }
-                             </div>
-                         ) 
-                     }
-                }
-                
-            })
+        if (amountOfVideos === undefined) {
+          return (
+            <VideoThumbnail
+              title = {video.name}
+              duration = {calculateVideoDuration(video.videoDuration)}
+              img = {imgPath}
+              id = {video._id}
+              listOrientation = {flexDirection}
+              listCount = {parseInt(amountOfVideos)}
+            />
+          );
+        } else {
+          if (index + 1 <= amountOfVideos) {
+            return (
+              <VideoThumbnail
+                title = {video.name}
+                duration = {calculateVideoDuration(video.videoDuration)}
+                img = {imgPath}
+                id = {video._id}
+                listOrientation = {flexDirection}
+                listCount = {parseInt(amountOfVideos)}
+              />
+            );
+          }
         }
-        else {
-        return Object.keys(videos).map((video, index) => {
-            if ( amountOfVideos === undefined) {
-                return (
-                    <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
-                        <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
-                        <div className='last-videos-overlay-default'>
-                            <small className='overlay-video-title'>{videos.name}</small>
-                            <small className='overlay-video-duration'>
-                                <AccessTimeIcon />
-                             {calculateVideoDuration(videos.videoDuration)}
-                            </small>
-                        </div>
-                        {videos.posterImagePath.indexOf('engage-player') > 1 
-                        ?
-                        <Link to={videos._id} className='video-link'>
-                            <img className="video-thumbnail" src={videos.posterImagePath}/>        
-                        </Link>
-    
-                        :
-                        <Link to={videos._id} className='video-link'>
-                            <img className="video-thumbnail" src={`${BASEURL}/videos${videos.posterImagePath}`}/>        
-                        </Link>
-                         }
-                    </div>
-                ) 
-            }
-            else {
-                if( index + 1 <= amountOfVideos) {
-                    return (
-                         <div className={`last-videos-thumbnail-container ${calculateVideoSize()}`}>
-                             <img src={Play} alt="Play Button" className="thumbnail__play-button"/>
-                             <div className='last-videos-overlay-default'>
-                                 <small className='overlay-video-title'>{videos.name}</small>
-                                 <small className='overlay-video-duration'>
-                                     <AccessTimeIcon />
-                                  {calculateVideoDuration(videos.videoDuration)}
-                                 </small>
-                             </div>
-                             {videos.posterImagePath.indexOf('engage-player') > 1 
-                        ?
-                        <Link to={videos._id} className='video-link'>
-                            <img className="video-thumbnail" src={videos.posterImagePath}/>        
-                        </Link>
-    
-                        :
-                        <Link to={videos._id} className='video-link'>
-                            <img className="video-thumbnail" src={`${BASEURL}/videos${videos.posterImagePath}`}/>        
-                        </Link>
-                         }
-                         </div>
-                     ) 
-                 }
-            }
-            
-        })
-
+      });
+    } else {
+      return Object.keys(videos).map((video, index) => {
+        let imgPath = "";
+        if (videos.posterImagePath.indexOf("engage-player") > 1) {
+          imgPath = videos.posterImagePath;
+        } else {
+          imgPath = `${BASEURL}/videos${videos.posterImagePath}`;
+        }
+        if (amountOfVideos === undefined) {
+          return (
+            <VideoThumbnail
+              title = {videos.name}
+              duration = {calculateVideoDuration(videos.videoDuration)}
+              img = {imgPath}
+              id = {videos._id}
+              listOrientation = {flexDirection}
+              listCount = {parseInt(amountOfVideos)}
+            />
+          );
+        } else {
+          if (index + 1 <= amountOfVideos) {
+            return (
+              <VideoThumbnail
+                title = {videos.name}
+                duration = {calculateVideoDuration(videos.videoDuration)}
+                img = {imgPath}
+                id = {videos._id}
+                listOrientation = {flexDirection}
+                listCount = {parseInt(amountOfVideos)}
+              />
+            );
+          }
+        }
+      });
     }
+  };
 
-    }
+  return (
+    <>
+      <h3 className="video-row_title">{headline}</h3>
+      <div
+        className={`video-row_container${
+          flexDirection ? "--" + flexDirection : ""
+        }`}
+      >
+        {showVideoRow()}
+      </div>
+    </>
+  );
+};
 
-    
-    return (
-        <>
-        <h3 className='last-videos'>{headline}</h3>
-        <div className={`last-videos-container${flexDirection ? '--' + flexDirection: ''}`}>
-            {showVideoRow()}
-        </div>
-        </>
-    ) 
-}
-
-export default VideoRow
+export default VideoRow;

@@ -150,6 +150,7 @@ const VideoFilter = ({ videoResult, channelResult, playlistResult }) => {
           amountOfVideos={3}
           videos={state.sortedvideoResult}
           headline="Videos"
+          flexDirection='row'
         />
           {videoResult.length < 1 &&
             <p>Keine Videos gefunden</p>

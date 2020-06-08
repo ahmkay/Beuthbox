@@ -5,6 +5,7 @@ import ChannelOverview from "../../components/reusables/ChannelOverview";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import VideoRow from "../../components/reusables/VideoRow";
 import LiveInfoLayer from '../../components/LiveInfoLayer'
+import CategoryCheckbutton from "../../components/reusables/CategoryCheckbutton";
 
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -35,7 +36,6 @@ const Home = ({ channelData, playlistData }) => {
           slider.videos.sort(compare);
         });
 
-
         let recommendedVideos =  slider.data.data.sliders.filter(slider => slider.name === 'Empfohlene Videos')
         recommendedVideos = recommendedVideos[0].videos
         let filteredRecommendedVideos = recommendedVideos.map(video => video._id)
@@ -44,7 +44,6 @@ const Home = ({ channelData, playlistData }) => {
         furtherVideos = furtherVideos[0].videos
         let filteredFurtherVideos = furtherVideos.map(video => video._id)
 
-        
         setRecommendations(filteredRecommendedVideos)
         setFurtherVideos(filteredFurtherVideos)
         setSliders(slider.data.data.sliders);
@@ -63,12 +62,12 @@ const Home = ({ channelData, playlistData }) => {
     return sliders.map((slide) => {
       return (
         <>
-          <h3 class="">{slide.name}</h3>
-          <div class="">
+          <h3>{slide.name}</h3>
+          <div>
             {slide.videos.map((video) => {
               return (
-                <div class="">
-                  <div class="">
+                <div>
+                  <div>
                     <a href={`/video/${video._id._id}`}>
                       {video._id.posterImagePath.indexOf("engage-player") >
                       1 ? (
@@ -80,15 +79,15 @@ const Home = ({ channelData, playlistData }) => {
                         />
                       )}
                     </a>
-                    <div class="">
+                    <div>
                       <a href={`/video/${video._id._id}`}>
-                        <div class="">{video._id.name}</div>
-                        <div class="">
-                          <div class="">
+                        <div>{video._id.name}</div>
+                        <div>
+                          <div>
                             <span class="glyphicon glyphicon-calendar"></span>
                             {video._id_created}
                           </div>
-                          <div class="">
+                          <div>
                             <span class="glyphicon glyphicon-time"></span>
                             {video._id.videoDuration}
                           </div>
@@ -108,7 +107,6 @@ const Home = ({ channelData, playlistData }) => {
     return (
       <main className="main">
         <LiveInfoLayer />
-
         <ChannelOverview
           channelData={channelData}
           channelInfo="Test Info Beschreibung"
@@ -116,20 +114,19 @@ const Home = ({ channelData, playlistData }) => {
         <section className="main__section">
           <header className="section-header">
             <h1>Playlists</h1>
-            <h2>Entdecke die Sammlung der neusten Playlisten</h2>
+            <h2 className="section-header__description">Entdecke die Sammlung der neusten Playlisten</h2>
           </header>
           <PlaylistsCarousel playlists={playlistData}/>
         </section>
         <section className="main__section">
           <header className="section-header">
             <h1>Videos</h1>
-            <h2>Schaue dir unsere Empfehlungen der spannensten und interessanten Videos der beuthBOX an </h2>
+            <h2 className="section-header__description">Schaue dir unsere Empfehlungen der spannensten und interessanten Videos der beuthBOX an </h2>
           </header>
-         <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={4} videos={recommendations}/>
-         <VideoRow headline={'Neuste Videos'} amountOfVideos={4} videos={furtherVideos}/>
-
+          <VideoRow headline={'Empfehlungen der Woche'} amountOfVideos={4} videos={recommendations}/>
+          <VideoRow headline={'Neuste Videos'} amountOfVideos={4} videos={furtherVideos}/>
         </section>
-        <div class="container-fluid content">{showSlider()}</div>
+       {/*  <div class="container-fluid content">{showSlider()}</div> */}
 
         {/* <ReactFlowPlayer
                     </>
@@ -182,7 +179,7 @@ const Home = ({ channelData, playlistData }) => {
   ]}
 />; */}
 
-        <ul ref={list} className={"clicker"}>
+        {/* <ul ref={list} className={"clicker"}>
           <li>1</li>
           <li>2</li>
         </ul>
@@ -214,17 +211,16 @@ const Home = ({ channelData, playlistData }) => {
 
             <p id="linkbox_live">
               {" "}
-              Informationen zur Veranstaltung:
+              Informationen zur Veranstaltung:&nbsp;
               <a
                 href="https://www.fed.de/veranstaltungen/termin/vortragsveranstaltung-der-regionalgruppe-berlin-8/"
                 target="_blank"
               >
-                {" "}
                 hier
               </a>
             </p>
           </div>
-        </div>
+        </div> */}
       </main>
     );
   }
