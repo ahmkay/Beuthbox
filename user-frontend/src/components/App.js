@@ -15,6 +15,7 @@ import Navbar from "./reusables/Navbar";
 import { BASEURL } from "../api";
 import axios from "axios";
 import { doSearch } from "../utils";
+import Discover from '../routes/discover/Discover';
 
 const App = () => {
   const [channels, setChannels] = useState([]);
@@ -153,9 +154,15 @@ const App = () => {
           />
         )}
       />
-
+      
       <Route exact path={"/live"} component={Live} />
 
+      <Route
+        exact
+        path={'/discover'}
+        component={Discover}
+      />
+      
       <Footer />
     </Router>
   );
