@@ -8,6 +8,7 @@ import { compareDuration, compareDates } from "../../utils";
 import VideoRow from "./VideoRow";
 import PlaylistsCarousel from "./PlaylistsCarousel";
 import ChannelOverview from "./ChannelOverview";
+import CategoryCheckbutton from "./CategoryCheckbutton";
 
 const VideoFilter = ({ videoResult, channelResult, playlistResult }) => {
   const [filterType, setFilterType] = useState("all");
@@ -130,50 +131,42 @@ const VideoFilter = ({ videoResult, channelResult, playlistResult }) => {
           <h4 className="filter-panel__title">Kategorien</h4>
           <div className="filter-panel__controller">
             <div className="filter-panel__category-option">
-              <ColorLensIcon /> <span>Studiprojekte</span>
+              <CategoryCheckbutton category="study" />
             </div>
             <div className="filter-panel__category-option">
-              <SvgIcon component={IconBook} /> <span>Vorlesung</span>
+              <CategoryCheckbutton category="class" />
             </div>
             <div className="filter-panel__category-option">
-              <SchoolIcon /> <span>Campus</span>
+              <CategoryCheckbutton category="campus" />
             </div>
             <div className="filter-panel__category-option">
-              <SvgIcon component={MagicIcon} /> <span>Froschung</span>
+              <CategoryCheckbutton category="research" />
             </div>
           </div>
         </div>
       </div>
       {filterType === "all" || filterType === "videos" ? (
-        <div className='container-90'>
-        <VideoRow
-          amountOfVideos={3}
-          videos={state.sortedvideoResult}
-          headline="Videos"
-          flexDirection='row'
-        />
-          {videoResult.length < 1 &&
-            <p>Keine Videos gefunden</p>
-          }
+        <div className="container-90">
+          <VideoRow
+            amountOfVideos={3}
+            videos={state.sortedvideoResult}
+            headline="Videos"
+            flexDirection="row"
+          />
+          {videoResult.length < 1 && <p>Keine Videos gefunden</p>}
         </div>
-      
       ) : null}
       {filterType === "all" || filterType === "playlists" ? (
-        <div className='container-90'>
-        <h1>Playlists</h1>
-        <PlaylistsCarousel playlists={state.sortedplaylistResult} />
-        {playlistResult.length < 1 &&
-        <p>Keine Playlisten gefunden</p>
-        }
+        <div className="container-90">
+          <h1>Playlists</h1>
+          <PlaylistsCarousel playlists={state.sortedplaylistResult} />
+          {playlistResult.length < 1 && <p>Keine Playlisten gefunden</p>}
         </div>
       ) : null}
-      {(filterType === "all") ||
-      filterType === "channel" ? (
-        <div className='container-90'>
-        <ChannelOverview channelData={state.sortedchannelResult} />
-        {channelResult.length < 1 &&
-        <p> Keine Channels gefunden</p>
-        }
+      {filterType === "all" || filterType === "channel" ? (
+        <div className="container-90">
+          <ChannelOverview channelData={state.sortedchannelResult} />
+          {channelResult.length < 1 && <p> Keine Channels gefunden</p>}
         </div>
       ) : null}
     </>
