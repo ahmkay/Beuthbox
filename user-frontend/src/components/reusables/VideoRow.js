@@ -3,20 +3,9 @@ import {BASEURL} from '../../api'
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Play from '../../assets/img/Play.svg'
 import { Link } from 'react-router-dom'
+import { calculateVideoDuration } from '../../utils';
 
 const VideoRow = ({videos, amountOfVideos, flexDirection, headline}) => {
-    const calculateVideoDuration = duration => {
-        let seconds = Math.floor((duration / 1000) % 60),
-        minutes = Math.floor((duration / (1000 * 60)) % 60),
-        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-        
-        hours = (hours < 10) ? "0" + hours : hours;
-        minutes = (minutes < 10) ? "0" + minutes : minutes;
-        seconds = (seconds < 10) ? "0" + seconds : seconds;
-        
-        return hours !== '00' ? hours + ":" + minutes + ":" + seconds : minutes + ":" + seconds
-    
-    }
     const calculateVideoSize = () => {
         if (flexDirection === 'column') return 'vertical'
         
@@ -31,11 +20,8 @@ const VideoRow = ({videos, amountOfVideos, flexDirection, headline}) => {
         }
     }
 
-    console.log(videos, 'received videos in videorow')
-
     const showVideoRow = () => {
         if (Array.isArray(videos)) {
-            console.log('isArray')
             return videos.map((video, index) => {
                 if ( amountOfVideos === undefined) {
                     return (

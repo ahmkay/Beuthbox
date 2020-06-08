@@ -5,7 +5,6 @@ import ChannelOverview from "../../components/reusables/ChannelOverview";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import VideoRow from "../../components/reusables/VideoRow";
 import LiveInfoLayer from '../../components/LiveInfoLayer'
-import VideoFilter from '../../components/reusables/VideoFilter'
 
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -108,7 +107,6 @@ const Home = ({ channelData, playlistData }) => {
   if (sliders && recommendations) {
     return (
       <main className="main">
-        <VideoFilter />
         <LiveInfoLayer />
 
         <ChannelOverview

@@ -1,70 +1,123 @@
-import React, {useState} from 'react'
-import HomeIcon from '@material-ui/icons/Home';
-import LiveTvIcon from '@material-ui/icons/LiveTv';
-import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import React, { useState } from "react";
+import HomeIcon from "@material-ui/icons/Home";
+import LiveTvIcon from "@material-ui/icons/LiveTv";
+import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from "react-router-dom";
 
-const Navbar = () => {
-    const [activeTab, setActiveTab] = useState('')
-    
-    const getActiveRoute = (route, location, match) => {
-        if (!match) {
-            return false;
-          }
-        location.pathname === route ? setActiveTab(route) : setActiveTab('')  
+const Navbar = ({ getQuery }) => {
+  const [activeTab, setActiveTab] = useState("");
+
+  const getActiveRoute = (route, location, match) => {
+    if (!match) {
+      return false;
     }
+    location.pathname === route ? setActiveTab(route) : setActiveTab("");
+  };
 
-    return (
-        <nav className="nav">
-                <ul className='nav-ul'>
-                    <li className='nav-li'>
-                    <input className='searchBar' type='text' name='suche' placeholder='Video, Playlist, Channel...'/>
-                    </li>
-                    <li className='nav-li'> 
-                        <NavLink to ='/' exact className={`nav-link ${activeTab === '/' ? 'selected' : ''}`} isActive={(match, location) => getActiveRoute('/', location, match)}>
-                            <span className='icon-wrapper'>
-                            <HomeIcon/>
-                            </span>
-                            Home
-                            </NavLink>
-                        {activeTab === '/' && <div className='tabIndicator'/>}
-                    </li>
-                    <li className='nav-li'> 
-                        <NavLink to ='/channel' exact className={`nav-link ${activeTab === '/channel' ? 'selected' : ''}`} activeClassName="selected" isActive={(match, location) => getActiveRoute('/channel', location, match)}>
-                            <span className='icon-wrapper'>
-                            <LiveTvIcon/>
-                            </span>
-                            Channels
-                            </NavLink>
-                        {activeTab === '/channel' && <div className='tabIndicator'/>}
-                    </li>
-                    <li className='nav-li'> 
-                        <NavLink to ='/playlist' exact className={`nav-link ${activeTab === '/playlist' ? 'selected' : ''}`} activeClassName="selected" isActive={(match, location) => getActiveRoute('/playlist', location, match)}>
-                            <span className='icon-wrapper'>
-                            <PlaylistPlayIcon/>
-                            </span>
-                            Playlists
-                            </NavLink>
-                        {activeTab === '/playlist' && <div className='tabIndicator'/>}
-                    </li>
-                    <li className='nav-li'> 
-                        <NavLink to ='/live' exact className={`nav-link ${activeTab === '/live' ? 'selected' : ''}`} activeClassName="selected" isActive={(match, location) => getActiveRoute('/live', location, match)}>
-                            <span className='icon-wrapper'>
-                            <FiberManualRecordIcon className='live--icon'/>
-                            </span>
-                            Live
-                            </NavLink>
-                        {activeTab === '/live' && <div className='tabIndicator'/>}
-                    </li>
-                </ul>
-                {/* </div> */}
-                
-            
-            {/* </div> */}
-        </nav>
-    )
-}
+  const history = useHistory();
+  const showSearchResult = (query) => {
+    history.push(`/search/name=${query}`);
+  };
 
-export default Navbar
+  const evaluateSearch = async (event) => {
+      const {key, target: {value}} = event
+    if (key === "Enter") {
+        if(!value && value === '') {
+            history.push('/')
+            return
+        }
+      getQuery(value);
+      showSearchResult(value);
+    }
+  };
+
+  return (
+    <nav className="nav">
+      <ul className="nav-ul">
+        <li className="nav-li">
+          <input
+            className="searchBar"
+            type="text"
+            name="suche"
+            placeholder="Video, Playlist, Channel..."
+            onKeyDown={evaluateSearch}
+          />
+        </li>
+        <li className="nav-li">
+          <NavLink
+            to="/"
+            exact
+            className={`nav-link ${activeTab === "/" ? "selected" : ""}`}
+            isActive={(match, location) => getActiveRoute("/", location, match)}
+          >
+            <span className="icon-wrapper">
+              <HomeIcon />
+            </span>
+            Home
+          </NavLink>
+          {activeTab === "/" && <div className="tabIndicator" />}
+        </li>
+        <li className="nav-li">
+          <NavLink
+            to="/channel"
+            exact
+            className={`nav-link ${activeTab === "/channel" ? "selected" : ""}`}
+            activeClassName="selected"
+            isActive={(match, location) =>
+              getActiveRoute("/channel", location, match)
+            }
+          >
+            <span className="icon-wrapper">
+              <LiveTvIcon />
+            </span>
+            Channels
+          </NavLink>
+          {activeTab === "/channel" && <div className="tabIndicator" />}
+        </li>
+        <li className="nav-li">
+          <NavLink
+            to="/playlist"
+            exact
+            className={`nav-link ${
+              activeTab === "/playlist" ? "selected" : ""
+            }`}
+            activeClassName="selected"
+            isActive={(match, location) =>
+              getActiveRoute("/playlist", location, match)
+            }
+          >
+            <span className="icon-wrapper">
+              <PlaylistPlayIcon />
+            </span>
+            Playlists
+          </NavLink>
+          {activeTab === "/playlist" && <div className="tabIndicator" />}
+        </li>
+        <li className="nav-li">
+          <NavLink
+            to="/live"
+            exact
+            className={`nav-link ${activeTab === "/live" ? "selected" : ""}`}
+            activeClassName="selected"
+            isActive={(match, location) =>
+              getActiveRoute("/live", location, match)
+            }
+          >
+            <span className="icon-wrapper">
+              <FiberManualRecordIcon className="live--icon" />
+            </span>
+            Live
+          </NavLink>
+          {activeTab === "/live" && <div className="tabIndicator" />}
+        </li>
+      </ul>
+      {/* </div> */}
+
+      {/* </div> */}
+    </nav>
+  );
+};
+
+export default Navbar;
