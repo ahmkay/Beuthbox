@@ -91,84 +91,108 @@ const VideoFilter = ({ videoResult, channelResult, playlistResult }) => {
     }
   }
 
-  return (
-    <>
-      <div className="filter-panel">
-        <div className="filter-panel__filter filter-panel__filter--short">
-          <h4 className="filter-panel__title">Anzeigen</h4>
-          <select
-            name="video-type"
-            id="video-type"
-            className="filter-panel-select"
-            onChange={selectFilterType}
-          >
-            <option value="all">Alle</option>
-            <option value="videos">Videos</option>
-            <option value="playlists">Playlisten</option>
-            <option value="channel">Channels</option>
-          </select>
-        </div>
-        <div className="filter-panel__filter filter-panel__filter--short">
-          <h4 className="filter-panel__title">Sortieren</h4>
-          <select
-            name="video-type"
-            id="video-type"
-            className="filter-panel-select"
-            onChange={selectSortType}
-          >
-            <option value="date-downwards">
-              Veröffentlichungsdatum &#x25BC;
-            </option>
-            <option value="date-upwards">
-              Veröffentlichungsdatum &#x25B2;
-            </option>
-            <option value="duration-downwards">Länge &#x25BC;</option>
-            <option value="duration-upwards">Länge &#x25B2;</option>
-          </select>
-        </div>
+  const renderFilterPanel = () => {
+    return (
+      <>
+        <div className="filter-panel">
+          <div className="filter-panel__filter filter-panel__filter--short">
+            <h4 className="filter-panel__title">Anzeigen</h4>
+            <select
+              name="video-type"
+              id="video-type"
+              className="filter-panel-select"
+              onChange={selectFilterType}
+            >
+              <option value="all">Alle</option>
+              <option value="videos">Videos</option>
+              <option value="playlists">Playlisten</option>
+              <option value="channel">Channels</option>
+            </select>
+          </div>
+          <div className="filter-panel__filter filter-panel__filter--short">
+            <h4 className="filter-panel__title">Sortieren</h4>
+            <select
+              name="video-type"
+              id="video-type"
+              className="filter-panel-select"
+              onChange={selectSortType}
+            >
+              <option value="date-downwards">
+                Veröffentlichungsdatum &#x25BC;
+              </option>
+              <option value="date-upwards">
+                Veröffentlichungsdatum &#x25B2;
+              </option>
+              <option value="duration-downwards">Länge &#x25BC;</option>
+              <option value="duration-upwards">Länge &#x25B2;</option>
+            </select>
+          </div>
 
-        <div className="filter-panel__filter filter-panel__filter--long">
-          <h4 className="filter-panel__title">Kategorien</h4>
-          <div className="filter-panel__controller">
-            <div className="filter-panel__category-option">
-              <CategoryCheckbutton category="study" />
-            </div>
-            <div className="filter-panel__category-option">
-              <CategoryCheckbutton category="class" />
-            </div>
-            <div className="filter-panel__category-option">
-              <CategoryCheckbutton category="campus" />
-            </div>
-            <div className="filter-panel__category-option">
-              <CategoryCheckbutton category="research" />
+          <div className="filter-panel__filter filter-panel__filter--long">
+            <h4 className="filter-panel__title">Kategorien</h4>
+            <div className="filter-panel__controller">
+              <div className="filter-panel__category-option">
+                <CategoryCheckbutton category="study" />
+              </div>
+              <div className="filter-panel__category-option">
+                <CategoryCheckbutton category="class" />
+              </div>
+              <div className="filter-panel__category-option">
+                <CategoryCheckbutton category="campus" />
+              </div>
+              <div className="filter-panel__category-option">
+                <CategoryCheckbutton category="research" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {filterType === "all" || filterType === "videos" ? (
-        <div className="container-90">
-          <VideoRow
-            amountOfVideos={3}
-            videos={state.sortedvideoResult}
-            headline="Videos"
-            flexDirection="row"
-          />
-          {videoResult.length < 1 && <p>Keine Videos gefunden</p>}
-        </div>
-      ) : null}
-      {filterType === "all" || filterType === "playlists" ? (
-        <div className="container-90">
-          <h1>Playlists</h1>
-          <PlaylistsCarousel playlists={state.sortedplaylistResult} />
-          {playlistResult.length < 1 && <p>Keine Playlisten gefunden</p>}
-        </div>
-      ) : null}
-      {filterType === "all" || filterType === "channel" ? (
-        <div className="container-90">
-          <ChannelOverview channelData={state.sortedchannelResult} />
-          {channelResult.length < 1 && <p> Keine Channels gefunden</p>}
-        </div>
-      ) : null}
+      </>
+    );
+  };
+
+  const renderResults = () => {
+    return (
+      <>
+        {filterType === "all" || filterType === "videos" ? (
+          <div className="container-90">
+            <VideoRow
+              amountOfVideos={3}
+              videos={state.sortedvideoResult}
+              headline="Videos"
+              flexDirection="row"
+            />
+            {videoResult.length < 1 && <p>Keine Videos gefunden</p>}
+          </div>
+        ) : null}
+        {filterType === "all" && (
+          <div className="filter-panel__divider container-90" />
+        )}
+
+        {filterType === "all" || filterType === "playlists" ? (
+          <div className="container-90">
+            <h3 className='result-headline' >Playlists</h3>
+            <PlaylistsCarousel playlists={state.sortedplaylistResult} />
+            {playlistResult.length < 1 && <p>Keine Playlisten gefunden</p>}
+          </div>
+        ) : null}
+        {filterType === "all" && (
+          <div className="filter-panel__divider container-90" />
+        )}
+        {filterType === "all" || filterType === "channel" ? (
+          <div className="container-90">
+            <h3 className='result-headline'>Channels</h3>
+            <ChannelOverview channelData={state.sortedchannelResult} />
+            {channelResult.length < 1 && <p> Keine Channels gefunden</p>}
+          </div>
+        ) : null}
+      </>
+    );
+  };
+
+  return (
+    <>
+      {renderFilterPanel()}
+      {renderResults()}
     </>
   );
 };
