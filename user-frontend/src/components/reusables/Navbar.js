@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useRef} from 'react'
+import React, {useState, useLayoutEffect, useEffect, useRef} from 'react'
 import HomeIcon from '@material-ui/icons/Home';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
@@ -10,6 +10,8 @@ const Navbar = () => {
     const [activeTab, setActiveTab] = useState('')
     const [leftPosition, setLeftPosition] = useState(null)
     const [indicatorWidth, setIndicatorWidht] = useState(null)
+    const [scrollPos, setScrollPos] = useState(0)
+    const [showNav, setShowNav] = useState(true)
 
     let activeRef = useRef(null)
     
@@ -32,8 +34,13 @@ const Navbar = () => {
         if (activeRef !== null) {
             window.addEventListener('resize', moveIndicator)
         }
-            return () => window.removeEventListener('resize', moveIndicator)
-        })
+        window.addEventListener('scroll', hideOnScroll)
+        return (
+            () =>  {
+                window.removeEventListener('resize', moveIndicator)
+                window.removeEventListener('scroll', hideOnScroll)
+            })
+    })
     
     const getActiveRoute = (route, location, match) => {
         if (!match) {
@@ -43,9 +50,13 @@ const Navbar = () => {
         moveIndicator()
     }
 
+    const hideOnScroll = () => {
+        setScrollPos(document.body.getBoundingClientRect().top)
+        setShowNav(document.body.getBoundingClientRect().top > scrollPos)
+    }
 
     return (
-        <nav className="nav">
+        <nav className={`nav ${showNav ? 'show' : ''}`}>
             <div className="main nav__flex-container">
                 <input className='nav__searchBar' type='text' name='suche' placeholder='Video, Playlist, Channel, Stichwort...'/>
                 <ul className='nav-ul'>

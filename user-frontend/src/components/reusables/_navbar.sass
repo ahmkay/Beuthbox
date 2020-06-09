@@ -2,8 +2,11 @@
     height: 85px
     background-color: $color-primary
     position: sticky
-    top: 0
+    top: -85px // move out of view on scroll
+    transition: top .3s ease-out
     z-index: 999
+    &.show
+        top: 0
 
 .nav__flex-container
     height: 100%
@@ -69,8 +72,20 @@
 .nav__indicator
     position: absolute
     bottom: 0
-    height: 5px
     width: 20px
     background-color: black
-    left: 0
-    transition: left .2s ease-out, width .3s ease-out
+    left: 50%
+    animation-name: indicatorIn
+    animation-duration: .2s 
+    animation-timing-function: ease-out 
+    animation-fill-mode: forwards
+    animation-delay: 1s
+    transition: left .2s ease-out, width .4s ease-out
+
+@keyframes indicatorIn
+    0%
+        height: 0
+    80%
+        height: 7px
+    100%
+        height: 5px
