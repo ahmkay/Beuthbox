@@ -12,6 +12,7 @@
     height: 100%
     display: flex
     align-items: center
+    justify-content: center
 
 .nav__searchBar 
     width: 50%
@@ -34,7 +35,6 @@
     width: 50px    
 
 .nav-ul 
-   width: 50%
    list-style-type: none
    display: flex
    align-items: center
@@ -50,8 +50,7 @@
     flex-direction: column
     align-items: center
     text-decoration: none
-    font-weight: 400
-    transition: all .3s ease
+    transition: left .3s ease-out, width .3s ease-out
 
 .nav__icon
     path
@@ -60,8 +59,7 @@
     
 .nav-link--isActive
     @extend .nav-link
-    color: black  
-    font-weight: 600
+    color: black
     path
         fill: black
 
