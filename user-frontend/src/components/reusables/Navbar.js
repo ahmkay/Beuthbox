@@ -1,4 +1,4 @@
-import React, {useState, useEffect, createRef} from 'react'
+import React, {useState, useLayoutEffect, useRef} from 'react'
 import HomeIcon from '@material-ui/icons/Home';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
@@ -8,28 +8,36 @@ import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
     const [activeTab, setActiveTab] = useState('')
-    const [leftPosition, setLeftPosition] = useState('0px')
-    const [indicatorWidth, setIndicatorWidht] = useState('0px')
+    const [leftPosition, setLeftPosition] = useState(null)
+    const [indicatorWidth, setIndicatorWidht] = useState(null)
 
-    const activeRef = createRef();
-
-    // move Indicator every time the window resizes
-    useEffect (() => {
-        window.addEventListener("resize", moveIndicator())
-        console.log('move')
-        return () => window.removeEventListener("resize", moveIndicator())
-    })
-
+    let activeRef = useRef(null)
+    
     // to move to active indicator
     const moveIndicator = () => {
-        if(activeRef.current == null) return
-        setLeftPosition(activeRef.current.getBoundingClientRect().left + 'px')
-        setIndicatorWidht(activeRef.current.getBoundingClientRect().width + 'px')
+        // Wait some time to make sure the ref is not null
+        // TODO: make async
+        setTimeout(function(){
+            setLeftPosition(activeRef.current.getBoundingClientRect().left + 'px')
+            setIndicatorWidht(activeRef.current.getBoundingClientRect().width + 'px')
+        }, 100)
+        // if(activeRef.current == null) {
+        // }
+        //setLeftPosition(activeRef.current.getBoundingClientRect().left + 'px')
+        //setIndicatorWidht(activeRef.current.getBoundingClientRect().width + 'px')
     }
+    
+    // move Indicator every time the window resizes
+    useLayoutEffect(() => {
+        if (activeRef !== null) {
+            window.addEventListener('resize', moveIndicator)
+        }
+            return () => window.removeEventListener('resize', moveIndicator)
+        })
     
     const getActiveRoute = (route, location, match) => {
         if (!match) {
-            return false;
+            return
           }
         location.pathname === route ? setActiveTab(route) : setActiveTab('')  
         moveIndicator()
