@@ -1,20 +1,18 @@
 .nav 
-    height: 110px
-    display: flex
+    height: 85px
     background-color: $color-primary
     position: sticky
     top: 0
     z-index: 999
 
-.tabIndicator 
-    position: absolute
-    bottom: 0
-    border: 2px solid $color-black
-    width: 50px    
+.nav__flex-container
+    height: 100%
+    display: flex
+    align-items: center
 
-.searchBar 
-    width: 100%
-    min-width: 60%
+.nav__searchBar 
+    width: 50%
+    margin-right: 20px
     display: inline-block
     padding: 10px 30px
     background-color: transparent
@@ -22,59 +20,50 @@
     border: 1px solid $color-primary-light
     color: $color-primary-light
     border-radius: 3px
-    font-size: 18px
-   
-
-
+    font-size: 18px 
 ::placeholder 
     color: $color-primary-light
 
+.tabIndicator 
+    position: absolute
+    bottom: 0
+    border: 2px solid $color-black
+    width: 50px    
+
 .nav-ul 
-   width: 70%
-   margin: auto
-   display: flex
+   width: 50%
    list-style-type: none
-   padding-left: 0
-   justify-content: space-between
+   display: flex
+   align-items: center
+   justify-content: flex-start
 
-
-.nav-li:first-child 
-    width: 60%
-
-
-.nav-li
-    margin: 0
+.nav__element
     display: flex
     flex-direction: column
     align-items: center
-
+    &:not(:last-child)
+        margin-right: $margin-s
 
 .nav-link 
     color: $color-white
+    text-align: center
     text-decoration: none
+    font-weight: 400
+    transition: all .3s ease
 
-.icon-wrapper 
-    svg 
-        path
-            color: $color-white
+.nav__icon
+    path
+        color: $color-white
 
     
-.nav-link.selected
+.nav-link--isActive
+    @extend .nav-link
     color: black  
+    font-weight: 600
+    path
+        fill: black
 
-.nav-link.selected 
-    .icon-wrapper  
-        svg:not(.live--icon) > path
-            color: black
-
-
-.icon-wrapper 
-    .live--icon  
-        circle
-            color: $color-red
-
-
-.icon-wrapper 
-    text-align: center
-    display: block
+.nav__icon--live
+    circle
+        color: $color-red
 
