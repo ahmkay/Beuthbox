@@ -1,0 +1,51 @@
+.category-icon
+    width: fit-content
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    &:not(:last-child)
+        margin-right: $margin-s
+
+.category-icon__icon-container
+    width: 2.4rem
+    height: 2.4rem
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 100%
+    border: 2px solid
+
+.category-icon__img svg, .category-icon__img.svg-icon
+    width: 1.4rem
+    height: 1.4rem
+    padding: 3px
+
+.category-icon__icon-container
+    border-color: $color-grey
+    & path
+        fill: $color-grey
+
+.category-icon__icon-container--isActive.category-icon__icon-container--study
+    border-color: $color-red
+    & path
+        fill: $color-red
+
+.category-icon__icon-container--isActive.category-icon__icon-container--campus
+    border-color: $color-primary
+    & path
+        fill: $color-primary
+
+.category-icon__icon-container--isActive.category-icon__icon-container--class
+    border-color: $color-yellow
+    & path
+        fill: $color-yellow
+
+.category-icon__icon-container--isActive.category-icon__icon-container--research
+    border-color: $color-blue
+    & path
+        fill: $color-blue
+
+.category-icon__label
+    margin-top: $margin-xs
+    

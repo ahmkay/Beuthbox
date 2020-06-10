@@ -1,0 +1,81 @@
+.category-checkbutton
+    width: fit-content
+    display: flex
+    align-items: center
+    min-width: 140px
+    padding: 3px 12px
+    border: 2px solid
+    border-radius: 50px
+    &:hover
+        cursor: pointer
+
+// Specific colors
+.category-checkbutton.category-checkbutton--study
+    border-color: $color-red
+    &:hover
+        background-color: $color-red
+    & path
+        fill: $color-red
+    .category-checkbutton__label
+        color: $color-red
+
+.category-checkbutton.category-checkbutton--campus
+    border-color: $color-primary
+    &:hover
+        background-color: $color-primary
+    & path
+        fill: $color-primary
+    .category-checkbutton__label
+        color: $color-primary
+
+.category-checkbutton.category-checkbutton--class
+    border-color: $color-yellow
+    &:hover
+        background-color: $color-yellow
+    & path
+        fill: $color-yellow
+    .category-checkbutton__label
+        color: $color-yellow
+
+.category-checkbutton.category-checkbutton--research
+    border-color: $color-blue
+    &:hover
+        background-color: $color-blue
+    & path
+        fill: $color-blue
+    .category-checkbutton__label
+        color: $color-blue
+// End specific colors
+
+// Active colors
+.category-checkbutton--isActive.category-checkbutton--study
+    border-color: $color-red
+    background-color: $color-red
+
+.category-checkbutton--isActive.category-checkbutton--campus
+    border-color: $color-primary
+    background-color: $color-primary
+    .category-checkbutton__label
+
+.category-checkbutton--isActive.category-checkbutton--class
+    border-color: $color-yellow
+    background-color: $color-yellow
+
+.category-checkbutton--isActive.category-checkbutton--research
+    border-color: $color-blue
+    background-color: $color-blue
+// End Active Colors
+
+.category-checkbutton--isActive.category-checkbutton, .category-checkbutton.category-checkbutton:hover
+    .category-checkbutton__label
+        color: $color-white
+    path
+        fill: $color-white
+
+svg.category-checkbutton__img
+    width: .7em
+    height: .7em
+    margin-right: 9px
+
+.category-checkbutton__label
+    display: inline-block

@@ -1,0 +1,105 @@
+.video-thumbnail-container
+    display: block
+    position: relative
+    background-color: $color-white
+    margin-bottom: calc(1em + 2*1em + 2*10px) //the height of the title + 2*padding + 2*border
+    &:not(::first-child)
+        margin-left: 20px
+    &::after
+        content: ''
+        display: block
+        padding-top: 56.25% // to get the 16:9 aspect ratio --> change for alternative aspect ratio
+
+    &--row-4
+        @extend .video-thumbnail-container
+        width: calc(25% - 20px)
+        max-width: 420px
+    &--row-3
+        @extend .video-thumbnail-container
+        width: calc(33% - 20px)
+        max-width: 420px
+    &--column
+        @extend .video-thumbnail-container
+        width: 100%
+        max-width: 100%
+
+.video-thumbnail-container__content
+    position: absolute
+    width: 100%
+    height: 100%
+
+.video-thumbnail-container__overlay
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    background-color: $color-overlay
+    transition: all 0.2s ease-out
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: row
+
+.video-thumbnail-container__video-title
+    color: $color-white
+    text-align: center
+    transition: font-size .3s ease-out, color .2s ease-out
+
+.video-thumbnail-container__video-duration
+    position: absolute
+    right: 1em
+    bottom: 1em
+    color: $color-white
+    display: flex
+    align-items: center
+    svg
+        height: .7em
+        width: .7em
+        margin-right: 3px
+        path
+            color: $color-white
+
+.video-thumbnail-container__play-button
+    opacity: 0
+    position: absolute
+    width: 48px
+    top:  50%
+    left: calc(50% - 24px)
+    transition: all .3s ease-out
+
+.video-thumbnail-container__thumbnail-img
+    width: 100%
+    height: 100%
+    object-fit: cover
+    position: absolute
+    top: 0
+    left: 0
+
+// hover styles
+.video-thumbnail-container:hover
+    .video-thumbnail-container__overlay
+        top: 100%
+        height: auto
+        padding: 1em .5em
+        background-color: $color-white
+        border: 10px solid $color-primary
+        justify-content: space-between
+    .video-thumbnail-container__play-button
+        opacity: 1
+        top: calc(50% - 24px)
+    .video-thumbnail-container__video-title
+        color: $color-black
+        text-align: left
+        align-self: flex-start
+        font-size: $small-size
+        max-width: 35ch
+        text-overflow: ellipsis
+        white-space: nowrap
+        overflow: hidden
+
+    .video-thumbnail-container__video-duration
+        position: initial
+        color: $color-black
+        svg path
+            color: $color-black

@@ -1,20 +1,22 @@
 .nav 
-    height: 110px
-    display: flex
+    height: 85px
     background-color: $color-primary
     position: sticky
-    top: 0
+    top: -85px // move out of view on scroll
+    transition: top .3s ease-out
     z-index: 999
+    &.show
+        top: 0
 
-.tabIndicator 
-    position: absolute
-    bottom: 0
-    border: 2px solid $color-black
-    width: 50px    
+.nav__flex-container
+    height: 100%
+    display: flex
+    align-items: center
+    justify-content: center
 
-.searchBar 
-    width: 100%
-    min-width: 60%
+.nav__searchBar 
+    width: 50%
+    margin-right: 20px
     display: inline-block
     padding: 10px 30px
     background-color: transparent
@@ -22,59 +24,66 @@
     border: 1px solid $color-primary-light
     color: $color-primary-light
     border-radius: 3px
-    font-size: 18px
-   
-
-
+    font-size: 18px 
 ::placeholder 
     color: $color-primary-light
 
+.tabIndicator 
+    position: absolute
+    bottom: 0
+    border: 2px solid $color-black
+    width: 50px    
+
 .nav-ul 
-   width: 70%
-   margin: auto
-   display: flex
    list-style-type: none
-   padding-left: 0
-   justify-content: space-between
+   display: flex
+   align-items: center
+   justify-content: flex-start
 
-
-.nav-li:first-child 
-    width: 60%
-
-
-.nav-li
-    margin: 0
-    display: flex
-    flex-direction: column
-    align-items: center
-
+.nav__element
+    &:not(:last-child)
+        margin-right: $margin-s
 
 .nav-link 
     color: $color-white
+    display: flex
+    flex-direction: column
+    align-items: center
     text-decoration: none
+    transition: left .3s ease-out, width .3s ease-out
 
-.icon-wrapper 
-    svg 
-        path
-            color: $color-white
+.nav__icon
+    path
+        color: $color-white
 
     
-.nav-link.selected
-    color: black  
+.nav-link--isActive
+    @extend .nav-link
+    color: black
+    path
+        fill: black
 
-.nav-link.selected 
-    .icon-wrapper  
-        svg:not(.live--icon) > path
-            color: black
+.nav__icon--live
+    circle
+        color: $color-red
 
+.nav__indicator
+    position: absolute
+    bottom: 0
+    width: 20px
+    background-color: black
+    left: 50%
+    animation-name: indicatorIn
+    animation-duration: .2s 
+    animation-timing-function: ease-out 
+    animation-fill-mode: forwards
+    animation-delay: 1s
+    transition: left .2s ease-out, width .4s ease-out
 
-.icon-wrapper 
-    .live--icon  
-        circle
-            color: $color-red
-
-
-.icon-wrapper 
-    text-align: center
-    display: block
-
+@keyframes indicatorIn
+    0%
+        height: 0
+    80%
+        height: 7px
+    100%
+        height: 5px

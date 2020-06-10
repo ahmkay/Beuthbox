@@ -14,6 +14,7 @@ import Navbar from './reusables/Navbar';
 import { BASEURL } from '../api';
 import axios from 'axios';
 import Discover from '../routes/discover/Discover';
+import VideoServices from '../routes/video-services/VideoServices';
 
 const App = () => {
   const [channels, setChannels ] = useState([])
@@ -87,6 +88,12 @@ const App = () => {
         exact
         path={'/discover'}
         component={Discover}
+      />
+
+      <Route
+        exact
+        path={'/video-services'}
+        component={VideoServices}
       />
       
       <Footer />
