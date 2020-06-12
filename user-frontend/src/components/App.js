@@ -1,104 +1,173 @@
-import React, {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom'
-import AboutUs from '../routes/aboutus/AboutUs';
-import Playlists from '../routes/playlists/Playlists';
-import Playlist from '../routes/playlists/Playlist';
-import Video from '../routes/video/Video';
-import Channel from '../routes/channel/Channel';
-import Channels from '../routes/channel/Channels';
-import Home from '../routes/home/Home';
-import './styles.sass';
-import Footer from './reusables/Footer'
-import Live from '../routes/live/Live';
-import Navbar from './reusables/Navbar';
-import { BASEURL } from '../api';
-import axios from 'axios';
-import Discover from '../routes/discover/Discover';
-import VideoServices from '../routes/video-services/VideoServices';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import AboutUs from "../routes/aboutus/AboutUs";
+import Playlists from "../routes/playlists/Playlists";
+import Playlist from "../routes/playlists/Playlist";
+import Video from "../routes/video/Video";
+import Channel from "../routes/channel/Channel";
+import Channels from "../routes/channel/Channels";
+import Home from "../routes/home/Home";
+import Search from "../routes/search/Search";
+import "./styles.sass";
+import Footer from "./reusables/Footer";
+import Live from "../routes/live/Live";
+import Navbar from "./reusables/Navbar";
+import { BASEURL } from "../api";
+import axios from "axios";
+import { doSearch } from "../utils";
+import Discover from "../routes/discover/Discover";
+import VideoServices from "../routes/video-services/VideoServices";
 
 const App = () => {
-  const [channels, setChannels ] = useState([])
-  const [playlists, setPlaylists ] = useState([])
-  useEffect(() => {
-      const fetchData = async () => {
-          try { 
-            const response = await axios.get(BASEURL + "/graphql?query={channels{name, description, created, imagepath, iconpath, _id, ispublic}}")
-            const channels = response.data.data.channels.filter(channel => {
-                return channel.ispublic
-            });
-            setChannels(channels)
-          }
-          catch(error) { console.log(error)}
+  const [channels, setChannels] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
+  const [videoData, setVideoData] = useState([]);
+  const [query, setQuery] = useState("");
+  const [videoResult, setVideoResult] = useState([]);
+  const [channelResult, setChannelResult] = useState([]);
+  const [playlistResult, setPlaylistResult] = useState([]);
 
-          try {
-            const response = await axios.get(BASEURL + "/graphql?query={categories{name, description, created, imagepath, iconpath _id}}")
-            setPlaylists(response.data.data.categories)
-        }
-        catch(error) { console.log(error)}
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          BASEURL +
+            "/graphql?query={channels{name, description, created, imagepath, iconpath, _id, ispublic}}"
+        );
+        const channels = response.data.data.channels.filter((channel) => {
+          return channel.ispublic;
+        });
+        setChannels(channels);
+      } catch (error) {
+        console.log(error);
       }
-      fetchData()
-  }, [])
-  
+
+      try {
+        const response = await axios.get(
+          BASEURL +
+            "/graphql?query={categories{name, description, created, imagepath, iconpath _id}}"
+        );
+        setPlaylists(response.data.data.categories);
+      } catch (error) {
+        console.log(error);
+      }
+
+      try {
+        function compare(a, b) {
+          if (a.position < b.position) return -1;
+          if (a.position > b.position) return 1;
+          return 0;
+        }
+
+        const slider = await axios.get(
+          `${BASEURL}/graphql?query={sliders{name, position, occurrence, active, videos{position, _id{name, posterImagePath, _id, videoDuration, created }}}}`
+        );
+        const mainslider = await axios.get(`${BASEURL}/slider`);
+        mainslider.data.sort(compare);
+        slider.data.data.sliders.sort(compare);
+        slider.data.data.sliders.forEach((slider, k) => {
+          slider.videos.sort(compare);
+        });
+
+        let recommendedVideos = slider.data.data.sliders.filter(
+          (slider) => slider.name === "Empfohlene Videos"
+        );
+        recommendedVideos = recommendedVideos[0].videos;
+        let filteredRecommendedVideos = recommendedVideos.map(
+          (video) => video._id
+        );
+
+        let furtherVideos = slider.data.data.sliders.filter(
+          (slider) => slider.name === "Sonstige Videos"
+        );
+        furtherVideos = furtherVideos[0].videos;
+        let filteredFurtherVideos = furtherVideos.map((video) => video._id);
+
+        setVideoData(filteredRecommendedVideos);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchRoute = async () => {
+      const url = getURL();
+      const searchData = await doSearch(url, channels, playlists);
+      setQuery(searchData[0]);
+      setVideoResult(searchData[1]);
+      setChannelResult(searchData[2]);
+      setPlaylistResult(searchData[3]);
+    };
+    fetchRoute();
+  }, [channels, playlists, query]);
+
+  const getURL = () => {
+    const location = window.location.pathname;
+    const url = location.split("=").pop();
+    return url;
+  };
+
+  const getQuery = (query) => {
+    setQuery(query);
+  };
+
   return (
     <Router>
-      
-      <Navbar />
+      <Navbar getQuery={getQuery} />
+
+      <Route path={"/aboutus"} component={AboutUs} />
+      <Route
+        exact
+        path={"/playlist"}
+        component={() => <Playlists playlistData={playlists} />}
+      />
+      <Route path={"/playlist/:id"} component={Playlist} />
+      <Route path={"/video/:id"} component={Video} />
 
       <Route
-      path={'/aboutus'}
-      component={AboutUs}
+        exact
+        path={"/channel/"}
+        component={() => (
+          <Channels channelData={channels} videoData={videoData} />
+        )}
       />
-      <Route
-      exact
-      path={'/playlist'}
-      component={Playlists}
-      />
-      <Route
-      path={'/playlist/:id'}
-      component={Playlist}
-      />
-      <Route
-      path={'/video/:id'}
-      component={Video}
-      />
-      
-      <Route
-      exact
-      path={'/channel/'}
-      component={() => <Channels channelData={channels} />}
-      />
-      <Route
-      path={'/channel/:id'}
-      component={Channel}
-      />
-     
-      <Route
-      exact
-      path={'/'}
-      component={() => <Home channelData={channels} playlistData={playlists}/>}
-      />
+      <Route path={"/channel/:id"} component={Channel} />
 
       <Route
-      exact
-      path={'/live'}
-      component={Live}
+        exact
+        path={"/"}
+        component={() => (
+          <Home channelData={channels} playlistData={playlists} />
+        )}
       />
 
       <Route
         exact
-        path={'/discover'}
-        component={Discover}
+        path={"/search/:id"}
+        component={() => (
+          <Search
+            playlistData={playlists}
+            channelData={channels}
+            playlistData={playlists}
+            videoResult={videoResult}
+            channelResult={channelResult}
+            playlistResult={playlistResult}
+            query={query}
+          />
+        )}
       />
 
-      <Route
-        exact
-        path={'/video-services'}
-        component={VideoServices}
-      />
-      
+      <Route exact path={"/video-services"} component={VideoServices} />
+
+      <Route exact path={"/live"} component={Live} />
+
+      <Route exact path={"/discover"} component={Discover} />
+
       <Footer />
     </Router>
-  )
-}
+  );
+};
 
 export default App;

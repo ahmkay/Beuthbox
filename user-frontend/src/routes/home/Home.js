@@ -5,7 +5,9 @@ import ChannelOverview from "../../components/reusables/ChannelOverview";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import VideoRow from "../../components/reusables/VideoRow";
 import LiveInfoLayer from '../../components/LiveInfoLayer'
+import CategoryCheckbutton from "../../components/reusables/CategoryCheckbutton";
 import DiscoverCard from "../../components/reusables/DiscoverCard";
+
 
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -130,7 +132,6 @@ const Home = ({ channelData, playlistData }) => {
           <DiscoverCard />
         </section>
         <div class="container-fluid content">{showSlider()}</div>
-       {/*  <div class="container-fluid content">{showSlider()}</div> */}
 
         {/* <ReactFlowPlayer
                     </>

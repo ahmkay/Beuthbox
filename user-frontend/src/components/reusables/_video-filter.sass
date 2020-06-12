@@ -1,0 +1,40 @@
+// Filter Panel
+.filter-panel
+    margin-bottom: 100px
+    margin-top: $margin-m
+    padding: $margin-l
+    height: 100%
+    background-color: $color-white
+    box-shadow: 0 3px 6px #00000029
+    display: flex
+    justify-content: center
+
+.filter-panel__filter.filter-panel__filter--short
+    width: 22.2%
+    margin-right: $margin-m
+    & .filter-panel-select
+        display: inline-block
+        width: 100%
+        padding: 10px 10px
+
+.filter-panel__filter.filter-panel__filter--long
+    min-width: 22.2%
+
+.filter-panel__controller
+    display: flex
+    justify-content: space-between
+
+.filter-panel__category-option:not(:last-child)
+    margin-right: $margin-s
+
+.filter-panel__title
+    margin-bottom: $margin-s
+
+.filter-panel__divider
+    border: 2px solid $color-divider
+    margin-bottom: $margin-l
+    margin-top: $margin-xl
+
+// Results
+.result-headline
+    margin-bottom: $margin-s

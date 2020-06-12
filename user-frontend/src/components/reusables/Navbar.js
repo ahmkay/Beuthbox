@@ -1,12 +1,13 @@
+
 import React, {useState, useLayoutEffect, useEffect, useRef} from 'react'
 import HomeIcon from '@material-ui/icons/Home';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import Videocam from '@material-ui/icons/Videocam';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({getQuery}) => {
     const [activeTab, setActiveTab] = useState('')
     const [leftPosition, setLeftPosition] = useState(null)
     const [indicatorWidth, setIndicatorWidht] = useState(null)
@@ -55,10 +56,31 @@ const Navbar = () => {
         setShowNav(document.body.getBoundingClientRect().top > scrollPos)
     }
 
+
+  const history = useHistory();
+  const showSearchResult = (query) => {
+    history.push(`/search/name=${query}`);
+  };
+
+  const evaluateSearch = async (event) => {
+    console.log('search triggered')
+      const {key, target: {value}} = event
+    if (key === "Enter") {
+      console.log('fuufufu')
+        if(!value && value === '') {
+            history.push('/')
+            return
+        }
+      getQuery(value);
+      showSearchResult(value);
+    }
+  };
+
+  
     return (
         <nav className={`nav ${showNav ? 'show' : ''}`}>
             <div className="main nav__flex-container">
-                <input className='nav__searchBar' type='text' name='suche' placeholder='Video, Playlist, Channel, Stichwort...'/>
+                <input className='nav__searchBar' type='text' name='suche' placeholder='Video, Playlist, Channel, Stichwort...' onKeyDown={evaluateSearch}/>
                 <ul className='nav-ul'>
                     <li className='nav__element'
                             ref={activeTab === '/' ? activeRef : null}> 
@@ -128,4 +150,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;
