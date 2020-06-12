@@ -1,8 +1,9 @@
-import React, {useState, useEffect } from 'react'
-import axios from 'axios'
-import { BASEURL } from '../../api'
-import PlaylistHeader from './PlaylistHeader'
-import { calculateVideoDuration } from '../../utils'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { BASEURL } from "../../api";
+import PlaylistHeader from "./PlaylistHeader";
+import { calculateVideoDuration, compareDates } from "../../utils";
+import PlaylistFilterPanel from "./PlaylistFilterPanel";
 
 const Playlist = (props) => {
   const [category, setCategory] = useState([]);
@@ -18,35 +19,13 @@ const Playlist = (props) => {
           `${BASEURL}/graphql?query={videos(filter: {categoryid: "${props.match.params.id}"}){name, posterImagePath, created, status, access, views, videoDuration _id}}`
         );
 
-        const videos = responseVideos.data.data.videos.filter((video) => {
+        let videos = responseVideos.data.data.videos.filter((video) => {
           return video.access == "public" && video.status == "finished";
         });
 
-    const showVideos = () => {
-        console.log(video)
-        return (
-            video.map(video => {
-                return (
-                    <div>
-                        <a href={`/video/${video._id}`}>
-                        {video.posterImagePath.indexOf('engage-player') > 1 ?
-                            <img className="tile-image" src={video.posterImagePath}/> :
-                            <img className="tile-image" src={`${BASEURL}/videos${video.posterImagePath}`}/>
-                    }
-                        </a>
-                        <p>
-                            video created: {video.created}
-                        </p>
-                        <p>
-                            video duration: {video.videoDuration}
-                        </p>
-                    </div>
-                )
-            })
-        )
-    }
+        let filteredVideos = videos.sort(compareDates);
         setCategory(singleCategory.data.data.category);
-        setVideo(videos);
+        setVideo(filteredVideos);
       } catch (error) {
         console.log(error);
       }
@@ -54,39 +33,24 @@ const Playlist = (props) => {
     fetchData();
   }, []);
 
-  const showVideos = () => {
-    return video.map((video) => {
-      return (
-        <div>
-          <a href={`/video/${video._id}`}>
-            {video.posterImagePath.indexOf("engage-player") > 1 ? (
-              <img class="tile-image" src={video.posterImagePath} />
-            ) : (
-              <img
-                class="tile-image"
-                src={`${BASEURL}/videos${video.posterImagePath}`}
-              />
-            )}
-          </a>
-          <p>video created: {video.created}</p>
-          <p>video duration: {video.videoDuration}</p>
-        </div>
-      );
-    });
-  };
-  if (category && video) {
+  if (video.length > 0) {
     return (
       <main className="main">
-          <PlaylistHeader 
-              titleImg={`http://beuthbox.beuth-hochschule.de/api/category${category.imagepath}`} 
-              title={category.name} 
-              description={category.description}
-              channelText=""
-              channelLink={''}
-              totalVideos={video.length}
-              totalDuration={calculateVideoDuration(video.reduce((totlaDuration, video) => totlaDuration + video.videoDuration, []))}
-          />
-        {showVideos()}
+        <PlaylistHeader
+          titleImg={`http://beuthbox.beuth-hochschule.de/api/category${category.imagepath}`}
+          title={category.name}
+          description={category.description}
+          channelText=""
+          channelLink={""}
+          totalVideos={video.length}
+          totalDuration={calculateVideoDuration(
+            video.reduce(
+              (totlaDuration, video) => totlaDuration + video.videoDuration,
+              []
+            )
+          )}
+        />
+        <PlaylistFilterPanel videoResult={video} />
       </main>
     );
   }

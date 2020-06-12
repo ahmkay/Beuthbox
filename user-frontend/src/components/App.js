@@ -15,7 +15,7 @@ import Navbar from "./reusables/Navbar";
 import { BASEURL } from "../api";
 import axios from "axios";
 import { doSearch } from "../utils";
-import Discover from '../routes/discover/Discover';
+import Discover from "../routes/discover/Discover";
 
 const App = () => {
   const [channels, setChannels] = useState([]);
@@ -93,7 +93,7 @@ const App = () => {
   useEffect(() => {
     const fetchRoute = async () => {
       const url = getURL();
-     const searchData = await doSearch(url, channels, playlists);
+      const searchData = await doSearch(url, channels, playlists);
       setQuery(searchData[0]);
       setVideoResult(searchData[1]);
       setChannelResult(searchData[2]);
@@ -102,7 +102,6 @@ const App = () => {
     fetchRoute();
   }, [channels, playlists, query]);
 
-  
   const getURL = () => {
     const location = window.location.pathname;
     const url = location.split("=").pop();
@@ -110,15 +109,19 @@ const App = () => {
   };
 
   const getQuery = (query) => {
-    setQuery(query)
-  }
+    setQuery(query);
+  };
 
   return (
     <Router>
       <Navbar getQuery={getQuery} />
 
       <Route path={"/aboutus"} component={AboutUs} />
-      <Route exact path={"/playlist"} component={Playlists} />
+      <Route
+        exact
+        path={"/playlist"}
+        component={() => <Playlists playlistData={playlists} />}
+      />
       <Route path={"/playlist/:id"} component={Playlist} />
       <Route path={"/video/:id"} component={Video} />
 
@@ -154,15 +157,11 @@ const App = () => {
           />
         )}
       />
-      
+
       <Route exact path={"/live"} component={Live} />
 
-      <Route
-        exact
-        path={'/discover'}
-        component={Discover}
-      />
-      
+      <Route exact path={"/discover"} component={Discover} />
+
       <Footer />
     </Router>
   );

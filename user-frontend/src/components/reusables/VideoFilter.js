@@ -1,14 +1,10 @@
-import React, { useState, useReducer, useEffect, useContext } from "react";
-import SchoolIcon from "@material-ui/icons/School";
-import ColorLensIcon from "@material-ui/icons/ColorLens";
-import SvgIcon from "@material-ui/core/SvgIcon";
-import { ReactComponent as MagicIcon } from "../../assets/img/icons/magic.svg";
-import { ReactComponent as IconBook } from "../../assets/img/icons/Icon_Book.svg";
+import React, { useState, useReducer } from "react";
 import { compareDuration, compareDates } from "../../utils";
 import VideoRow from "./VideoRow";
 import PlaylistsCarousel from "./PlaylistsCarousel";
 import ChannelOverview from "./ChannelOverview";
 import CategoryCheckbutton from "./CategoryCheckbutton";
+import DiscoverCard from "./DiscoverCard";
 
 const VideoFilter = ({ videoResult, channelResult, playlistResult }) => {
   const [filterType, setFilterType] = useState("all");
@@ -193,6 +189,7 @@ const VideoFilter = ({ videoResult, channelResult, playlistResult }) => {
     <>
       {renderFilterPanel()}
       {renderResults()}
+      <DiscoverCard />
     </>
   );
 };

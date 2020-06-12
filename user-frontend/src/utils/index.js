@@ -57,11 +57,5 @@ export const doSearch = async (result, channels, playlists) => {
   const extractSpaces = query.split("%20");
   const formattedQuery = extractSpaces.join(" ");
 
-  console.log(result, 'inside doSearch')
-  console.log(formattedQuery, 'formattedQuery')
-  console.log(filteredvideos, 'filteredvideos')
-  console.log(filteredChannels, 'filteredChannels')
-  console.log(filteredPlaylists, 'filteredPlaylists')
-
   return [formattedQuery, filteredvideos, filteredChannels, filteredPlaylists];
 };
