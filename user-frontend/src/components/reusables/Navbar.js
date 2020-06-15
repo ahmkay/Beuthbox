@@ -15,12 +15,14 @@ const Navbar = ({getQuery}) => {
     const [showNav, setShowNav] = useState(true)
 
     let activeRef = useRef(null)
-    
-    // to move to active indicator
+
     const moveIndicator = () => {
         // Wait some time to make sure the ref is not null
         // TODO: make async
         setTimeout(function(){
+            if(activeRef.current == null) {
+                return
+            }
             setLeftPosition(activeRef.current.getBoundingClientRect().left + 'px')
             setIndicatorWidht(activeRef.current.getBoundingClientRect().width + 'px')
         }, 100)
@@ -46,8 +48,8 @@ const Navbar = ({getQuery}) => {
     const getActiveRoute = (route, location, match) => {
         if (!match) {
             return
-          }
-        location.pathname === route ? setActiveTab(route) : setActiveTab('')  
+        }
+        location.pathname === route ? setActiveTab(route) : setActiveTab('') 
         moveIndicator()
     }
 
@@ -55,7 +57,6 @@ const Navbar = ({getQuery}) => {
         setScrollPos(document.body.getBoundingClientRect().top)
         setShowNav(document.body.getBoundingClientRect().top > scrollPos)
     }
-
 
   const history = useHistory();
   const showSearchResult = (query) => {
@@ -75,7 +76,6 @@ const Navbar = ({getQuery}) => {
       showSearchResult(value);
     }
   };
-
   
     return (
         <nav className={`nav ${showNav ? 'show' : ''}`}>
@@ -143,7 +143,7 @@ const Navbar = ({getQuery}) => {
                             Video&nbsp;Services
                         </NavLink>
                     </li>
-                    <span className="nav__indicator" style={{left: leftPosition, width: indicatorWidth}}></span>
+                    <span className={`nav__indicator${activeTab !== '' ?  '--show' : ''}`} style={{left: leftPosition, width: indicatorWidth}}></span>
                 </ul>
             </div>
         </nav>
