@@ -14,8 +14,7 @@ const Navbar = ({ getQuery }) => {
   const [indicatorWidth, setIndicatorWidht] = useState(null);
   const [scrollPos, setScrollPos] = useState(0);
   const [showNav, setShowNav] = useState(true);
-  const [inputValue, setInputValue ] = useState('')
-
+  const [inputValue, setInputValue] = useState("");
 
   let activeRef = useRef(null);
 
@@ -24,6 +23,9 @@ const Navbar = ({ getQuery }) => {
     // Wait some time to make sure the ref is not null
     // TODO: make async
     setTimeout(function () {
+      if (activeRef.current == null) {
+        return;
+      }
       setLeftPosition(activeRef.current.getBoundingClientRect().left + "px");
       setIndicatorWidht(activeRef.current.getBoundingClientRect().width + "px");
     }, 100);
@@ -92,17 +94,20 @@ const Navbar = ({ getQuery }) => {
   return (
     <nav className={`nav ${showNav ? "show" : ""}`}>
       <div className="main nav__flex-container">
-      <div className='nav__searchbar-flex-container'>
-        <input
-          className="nav__searchBar"
-          type="text"
-          name="suche"
-          placeholder="Video, Playlist, Channel, Stichwort..."
-          onChange={(event) => setInputValue(event.target.value)}
-          onKeyDown={(event) => evaluateSearch(event, inputValue)}
-        />
-         <SearchIcon className="nav__searchbar-flex-container-searchbar-icon" onClick={(event) => evaluateSearch(event, inputValue)} />
-         </div>
+        <div className="nav__searchbar-flex-container">
+          <input
+            className="nav__searchBar"
+            type="text"
+            name="suche"
+            placeholder="Video, Playlist, Channel, Stichwort..."
+            onChange={(event) => setInputValue(event.target.value)}
+            onKeyDown={(event) => evaluateSearch(event, inputValue)}
+          />
+          <SearchIcon
+            className="nav__searchbar-flex-container-searchbar-icon"
+            onClick={(event) => evaluateSearch(event, inputValue)}
+          />
+        </div>
         <ul className="nav-ul">
           <li
             className="nav__element"
@@ -196,7 +201,7 @@ const Navbar = ({ getQuery }) => {
             </NavLink>
           </li>
           <span
-            className="nav__indicator"
+            className={`nav__indicator${activeTab !== "" ? "--show" : ""}`}
             style={{ left: leftPosition, width: indicatorWidth }}
           ></span>
         </ul>
