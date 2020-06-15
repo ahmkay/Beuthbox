@@ -67,8 +67,6 @@ const Navbar = ({ getQuery }) => {
 
   const evaluateSearch = async (event, value) => {
     const { key, type } = event;
-    console.log(value, "value");
-    console.log(event, "wvent");
     let trimmedValue = value.trim();
 
     if (key === "Enter") {
