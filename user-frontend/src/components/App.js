@@ -23,6 +23,7 @@ const App = () => {
   const [playlists, setPlaylists] = useState([]);
   const [videoData, setVideoData] = useState([]);
   const [query, setQuery] = useState("");
+  const [url, setURL] = useState("");
   const [videoResult, setVideoResult] = useState([]);
   const [channelResult, setChannelResult] = useState([]);
   const [playlistResult, setPlaylistResult] = useState([]);
@@ -99,9 +100,10 @@ const App = () => {
       setVideoResult(searchData[1]);
       setChannelResult(searchData[2]);
       setPlaylistResult(searchData[3]);
+      setURL(url);
     };
     fetchRoute();
-  }, [channels, playlists, query]);
+  }, [channels, playlists, query, url]);
 
   const getURL = () => {
     const location = window.location.pathname;
@@ -149,12 +151,12 @@ const App = () => {
         component={() => (
           <Search
             playlistData={playlists}
-            channelData={channels}
-            playlistData={playlists}
             videoResult={videoResult}
             channelResult={channelResult}
             playlistResult={playlistResult}
             query={query}
+            getQuery={getQuery}
+            classicVideos={videoData}
           />
         )}
       />
