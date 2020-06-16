@@ -86,11 +86,13 @@ const App = () => {
         let filteredFurtherVideos = furtherVideos.map((video) => video._id);
 
         setVideoData(filteredRecommendedVideos);
+       
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
+
   }, []);
 
   useEffect(() => {
@@ -116,7 +118,9 @@ const App = () => {
     setQuery(query);
   };
 
+
   return (
+    
     <Router>
       <Navbar getQuery={getQuery} />
       <Switch>
@@ -163,7 +167,7 @@ const App = () => {
         />
 
         <Route exact path={"/video-services"} component={VideoServices} />
-        <Route exact path={"/live"} component={Live} />
+        <Route exact path={"/live"} component={(rest) => <Live  classicVideos={videoData} {...rest}/>}/>
         <Route exact path={"/discover"} component={Discover} />
         <Route component={NotFound} />
       </Switch>

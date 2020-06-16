@@ -53,7 +53,7 @@ const Video = (props) => {
         }
         return () => window.removeEventListener('resize', getHeight)
     })
-
+    console.log(video, 'videoData')
 
     if(video) {
        return (

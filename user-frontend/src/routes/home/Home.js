@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
 import ChannelOverview from "../../components/reusables/ChannelOverview";
@@ -11,13 +11,14 @@ import { Link } from "react-router-dom";
 
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
-// import ReactFlowPlayer from "react-flow-player";
+import ReactFlowPlayer from "react-flow-player";
 
 const Home = ({ channelData, playlistData }) => {
   const [sliders, setSliders] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [furtherVideos, setFurtherVideos] = useState([]);
   const [mainslider, setMainslider] = useState([]);
+  
 
   useEffect(() => {
     function compare(a, b) {
@@ -64,51 +65,6 @@ const Home = ({ channelData, playlistData }) => {
 
   // owl carousel
 
-  const showSlider = () => {
-    return sliders.map((slide) => {
-      return (
-        <>
-          <h3>{slide.name}</h3>
-          <div>
-            {slide.videos.map((video) => {
-              return (
-                <div>
-                  <div>
-                    <a href={`/video/${video._id._id}`}>
-                      {video._id.posterImagePath.indexOf("engage-player") >
-                      1 ? (
-                        <img class="" src={video._id.posterImagePath} />
-                      ) : (
-                        <img
-                          class=""
-                          src={`${BASEURL}/videos${video._id.posterImagePath}`}
-                        />
-                      )}
-                    </a>
-                    <div>
-                      <a href={`/video/${video._id._id}`}>
-                        <div>{video._id.name}</div>
-                        <div>
-                          <div>
-                            <span class="glyphicon glyphicon-calendar"></span>
-                            {video._id_created}
-                          </div>
-                          <div>
-                            <span class="glyphicon glyphicon-time"></span>
-                            {video._id.videoDuration}
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </>
-      );
-    });
-  };
   if (sliders && recommendations) {
     return (
       <main className="main">
@@ -118,8 +74,8 @@ const Home = ({ channelData, playlistData }) => {
           channelInfo="Test Info Beschreibung"
         />
         <div className="link__container-channels">
-          <Link to={"/channel"}>  
-            <Button >Alle Channels</Button>{" "}
+          <Link to={"/channel"}>
+            <Button>Alle Channels</Button>{" "}
           </Link>
         </div>
         <section className="main__section">
@@ -131,10 +87,10 @@ const Home = ({ channelData, playlistData }) => {
           </header>
           <PlaylistsCarousel playlists={playlistData} />
           <div className="link__container-playlist">
-          <Link to={"/playlist"}>  
-            <Button >Alle Playlisten</Button>{" "}
-          </Link>
-        </div>
+            <Link to={"/playlist"}>
+              <Button>Alle Playlisten</Button>{" "}
+            </Link>
+          </div>
         </section>
         <section className="main__section">
           <header className="section-header">
@@ -158,104 +114,11 @@ const Home = ({ channelData, playlistData }) => {
         <section className="main__section">
           <DiscoverCard />
         </section>
-        <div class="container-fluid content">{showSlider()}</div>
-
-        {/* <ReactFlowPlayer
-                    </>
-                )
-            })
-        )
-    }
-    if( sliders) {
-       return (
-           <>
-            <LiveInfoLayer />
-            <div class='container-fluid content'>
-                {showSlider()}
-            </div>
-            
-            {/* <ReactFlowPlayer
-            live
-            autoplay
-            aspectRatio='16:9'
-            licenceKey='$863732616083910, $168467931371094'
-            hlsQualities
-            hlsjs= {{
-                // catch otherwise non-fatal levelLoadTimeout
-                listeners: ["hlsError"]
-            }}
-            adaptiveRatio
-            onError={(obj, flow, error) => {
-                var container = document.getElementById("reactFlowPlayer")
-                var messagecontainer = document.createElement("div")
-                messagecontainer.setAttribute('class', 'prefix')
-                container.querySelector('.fp-message').appendChild(messagecontainer) 
-                    var detail = document.createElement("p")
-                   var header = document.createElement("h2")
-                    messagecontainer.setAttribute('class', 'error-message-container')
-                    container.querySelector('.fp-message').appendChild(messagecontainer)
-                    container.querySelector('.error-message-container').appendChild(header)
-                    container.querySelector('.error-message-container').appendChild(detail)
-                    detail.innerHTML = "28. Januar 2020, 13:00 Uhr"
-                    header.innerHTML = "Stay tuned!"
-                }
-            
-        }
-  playerInitScript="http://releases.flowplayer.org/7.2.1/flowplayer.min.js"
-  playerId="reactFlowPlayer"
-  sources={[
-    {
-      type: "application/x-mpegurl",
-      src: "http://141.64.64.18:1935/live/ngrp:beuthbox_all/playlist.m3u8"
-    }
-  ]}
-/>; */}
-
-        {/* <ul ref={list} className={"clicker"}>
-          <li>1</li>
-          <li>2</li>
-        </ul>
-
-        <p className="testeintrag">Testeinbtrag</p>
-        <div class="container">
-          <div id="starTrekContainer">
-            <div id="ContainerTitle">
-              <h1 class="hero-title">
-                Vortragsveranstaltung der Regionalgruppe Berlin
-              </h1>
-              <br />
-              <h3 class="hero-subtitle">
-                28. Januar 2020, 13:00 Uhr Haus Gauß, Raum B501
-              </h3>
-            </div>
-
-            <div id="player_Container">
-              <img
-                src="../assets/HG-bild-HST2019-weich.jpg"
-                id="StarTrekImage"
-              />
-              <div id="live" class="flowplayer playerLive"></div>
-              <p id="chromeWarning">
-                Google Chrome may cause error with live stream. Please use
-                Firefox or Internet Explorer instead.
-              </p>
-            </div>
-
-            <p id="linkbox_live">
-              {" "}
-              Informationen zur Veranstaltung:&nbsp;
-              <a
-                href="https://www.fed.de/veranstaltungen/termin/vortragsveranstaltung-der-regionalgruppe-berlin-8/"
-                target="_blank"
-              >
-                hier
-              </a>
-            </p>
-          </div>
-        </div> */}
       </main>
     );
   }
+
+  
   return <div>Home</div>;
 };
 

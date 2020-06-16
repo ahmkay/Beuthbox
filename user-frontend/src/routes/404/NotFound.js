@@ -7,7 +7,7 @@ const NotFound = () => {
       <section className="main__section--center">
         <h1 className="headline--center">Oh!</h1>
         <img
-            className='illustration__404'
+          className="illustration__404"
           src={Illustration}
           alt="Illustration Die Seite wurde nicht gefunden"
         />

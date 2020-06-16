@@ -1,5 +1,5 @@
 import React from "react";
-import Illustration from "../../assets/img/Illustration_NoReseults.png";
+import Illustration from "../../assets/img/Illutstration_Suche.svg";
 import Searchbar from "../../components/reusables/Searchbar";
 import { useHistory } from "react-router-dom";
 import VideoRow from "../../components/reusables/VideoRow";
