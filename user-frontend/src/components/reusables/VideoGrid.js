@@ -1,6 +1,7 @@
 import React from 'react'
 import VideoThumbnail from './VideoThumbnail'
 import { BASEURL } from "../../api";
+import { calculateVideoDuration } from '../../utils'
 
 /**
  * A reusable component to display an array of videos in a grid-layout
@@ -42,7 +43,7 @@ const VideoGrid = ({videos, columnNumber}) =>  {
                     <VideoThumbnail 
                         title={video.name}
                         listOrientation='column' 
-                        duration={video.duration}
+                        duration={calculateVideoDuration(video.videoDuration)}
                         img = {imgPath}
                         id = {video._id}
                     />

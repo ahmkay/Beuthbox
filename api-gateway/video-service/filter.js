@@ -1,5 +1,5 @@
 module.exports = `
-input VideoFilter {
+input VideoFilterPanel {
   _id: String
   created: String
   uploaded: String

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import VideoFilter from "../../components/reusables/VideoFilter";
+import VideoFilterPanel from "../../components/reusables/VideoFilterPanel";
 import SearchNoResults from "./SearchNoResults";
 import ActivityIndicator from "../../components/reusables/ActivityIndicator";
 
@@ -42,7 +42,7 @@ const Search = ({
           ergab <span className="search-result">{result}</span> Treffer
         </h2>
 
-        <VideoFilter
+        <VideoFilterPanel
           videoResult={videoResult}
           playlistResult={playlistResult}
           channelResult={channelResult}
