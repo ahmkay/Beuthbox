@@ -1,12 +1,12 @@
 import React, { useState, useReducer } from "react";
 import { compareDuration, compareDates } from "../../utils";
-import VideoRow from "./VideoRow";
+import VideoGrid from './VideoGrid'
 import PlaylistsCarousel from "./PlaylistsCarousel";
 import ChannelOverview from "./ChannelOverview";
 import CategoryCheckbutton from "./CategoryCheckbutton";
 import DiscoverCard from "./DiscoverCard";
 
-const VideoFilter = ({ videoResult, channelResult, playlistResult }) => {
+const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
   const [filterType, setFilterType] = useState("all");
   const [sort, setSort] = useState("date-downwards");
 
@@ -151,11 +151,9 @@ const VideoFilter = ({ videoResult, channelResult, playlistResult }) => {
       <>
         {filterType === "all" || filterType === "videos" ? (
           <div className="container-90">
-            <VideoRow
-              amountOfVideos={3}
+            <VideoGrid 
               videos={state.sortedvideoResult}
-              headline="Videos"
-              flexDirection="row"
+              columnNumber={4}
             />
             {videoResult.length < 1 && <p>Keine Videos gefunden</p>}
           </div>
@@ -194,4 +192,4 @@ const VideoFilter = ({ videoResult, channelResult, playlistResult }) => {
   );
 };
 
-export default VideoFilter;
+export default VideoFilterPanel;

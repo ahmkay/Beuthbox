@@ -2,6 +2,7 @@ import React, {useState, useReducer, useEffect } from 'react';
 import { compareDuration, compareDates } from "../../utils";
 import VideoRow from "../../components/reusables/VideoRow";
 import CategoryCheckbutton from "../../components/reusables/CategoryCheckbutton";
+import VideoGrid from '../../components/reusables/VideoGrid';
 
 const PlaylistFilterPanel = ({ videoResult }) => {
     const [sort, setSort] = useState("date-downwards");
@@ -113,14 +114,7 @@ const PlaylistFilterPanel = ({ videoResult }) => {
     const renderResults = () => {
       return (
         <>
-            <div className="container-90">
-              <VideoRow
-                amountOfVideos={3}
-                videos={state.sortedvideoResult}
-                flexDirection="row"
-              />
-              {videoResult.length < 1 && <p>Keine Videos gefunden</p>}
-            </div>
+          <VideoGrid videos={state.sortedvideoResult} columnNumber={3}/>
         </>
       );
     };

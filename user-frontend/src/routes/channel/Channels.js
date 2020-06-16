@@ -11,7 +11,7 @@ const Channels = ({ channelData, videoData }) => {
             channelData={channelData}
             channelInfo="Entdecke die vorgestellten neuen Channels der Fachbereiche und Studiengänge"
           />
-          {/* <VideoFilter videoData={dateDownwards}/> */}
+          {/* <VideoFilterPanel videoData={dateDownwards}/> */}
         </section>
       </main>
     );

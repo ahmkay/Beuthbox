@@ -1,5 +1,5 @@
 module.exports = `
-videos(filter: VideoFilter): [Video!]!,
+videos(filter: VideoFilterPanel): [Video!]!,
 video(id: String!): Video,
 channelVideoViewCount(id: String!): ChannelVideoViewCount,
 channelVideoCount(id: String!): ChannelVideoCount,
