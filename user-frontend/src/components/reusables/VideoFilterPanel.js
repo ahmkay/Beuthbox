@@ -5,6 +5,7 @@ import PlaylistsCarousel from "./PlaylistsCarousel";
 import ChannelOverview from "./ChannelOverview";
 import CategoryCheckbutton from "./CategoryCheckbutton";
 import DiscoverCard from "./DiscoverCard";
+import NoContent from "./NoContent";
 
 const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
   const [filterType, setFilterType] = useState("all");
@@ -151,11 +152,12 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
       <>
         {filterType === "all" || filterType === "videos" ? (
           <div className="container-90">
+            <h3 className='result-headline'>Videos</h3>
             <VideoGrid 
               videos={state.sortedvideoResult}
               columnNumber={4}
             />
-            {videoResult.length < 1 && <p>Keine Videos gefunden</p>}
+            {videoResult.length < 1 && <NoContent content="video" />}
           </div>
         ) : null}
         {filterType === "all" && (
@@ -164,9 +166,9 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
 
         {filterType === "all" || filterType === "playlists" ? (
           <div className="container-90">
-            <h3 className='result-headline' >Playlists</h3>
+            <h3 className='result-headline' >Playlisten</h3>
             <PlaylistsCarousel playlists={state.sortedplaylistResult} />
-            {playlistResult.length < 1 && <p>Keine Playlisten gefunden</p>}
+            {playlistResult.length < 1 && <NoContent content="playlist" />}
           </div>
         ) : null}
         {filterType === "all" && (
@@ -176,7 +178,7 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
           <div className="container-90">
             <h3 className='result-headline'>Channels</h3>
             <ChannelOverview channelData={state.sortedchannelResult} />
-            {channelResult.length < 1 && <p> Keine Channels gefunden</p>}
+            {channelResult.length < 1 && <NoContent content="channel"/>}
           </div>
         ) : null}
       </>
