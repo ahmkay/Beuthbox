@@ -1,29 +1,32 @@
-.video-row_title
+.video-row__title
     margin-bottom: $margin-s
 
-.video-row_container
+.video-row__container
     display: flex
     justify-content: space-between
-.video-row_container--row
-    @extend .video-row_container
+    &--short
+        justify-content: flex-start
+.video-row__container--row
+    @extend .video-row__container
     flex-direction: row
 
-.video-row_container--column
-    @extend .video-row_container
+.video-row__container--column
+    @extend .video-row__container
     flex-direction: column
 
-    
+.video-row__container--short .video-thumbnail-container--row
+    margin-right: $margin-s
+    position: relative
+    margin-bottom: 100px
+
 .last-videos-thumbnail-container.row--3
     width: calc(33% - 20px)
-    height: calc(33% / 1.7)
     position: relative
     margin-bottom: 100px
     @media screen and (max-width: 1550px)
         width: calc(33% - 20px)
-        height: calc(33% / 1.7)
     @media screen and (max-width: 1367px)
         width: calc(33% - 20px)
-        height: calc(33% / 1.7)
     
 .last-videos-thumbnail-container.row--4
     width: calc(25% - 20px)

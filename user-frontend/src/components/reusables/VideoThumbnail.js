@@ -12,7 +12,7 @@ import Placeholder from '../../assets/img/Placeholder_Video.svg'
  * @param {String} duration to display the duration of the video. The duration has to be parsed to a String!
  * @param {String} img the path to the thumbnail-img
  * @param {String} id the id of the video
- * @param {String} listOrientation the orientation of the layout in which the thumbnail is used
+ * @param {String} listOrientation the orientation of the layout in which the thumbnail is used. Note: if the orientation is 'column' a video thumbnail will take 100% width of its parent container.
  * @param {String} listCount the number of videos to show in a row. This is for the calculation of the width of the container
  * 
  * @example

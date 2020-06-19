@@ -80,11 +80,11 @@ const VideoRow = ({ videos, amountOfVideos, flexDirection, headline }) => {
 
   return (
     <>
-      <h3 className="video-row_title">{headline}</h3>
+      <h3 className="video-row__title">{headline}</h3>
       <div
-        className={`video-row_container${
+        className={`video-row__container${
           flexDirection ? "--" + flexDirection : ""
-        }`}
+        } ${amountOfVideos <= 2 ? ' video-row__container--short' : ''}`}
       >
         {showVideoRow()}
       </div>
