@@ -1,24 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
 import ChannelOverview from "../../components/reusables/ChannelOverview";
-import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
-import VideoRow from "../../components/reusables/VideoRow";
+
 import LiveInfoLayer from "../../components/LiveInfoLayer";
 import DiscoverCard from "../../components/reusables/DiscoverCard";
 import Button from "../../components/reusables/Button";
 import { Link } from "react-router-dom";
-
-// import 'owl.carousel/dist/assets/owl.carousel.css';
-// import 'owl.carousel/dist/assets/owl.theme.default.css';
-import ReactFlowPlayer from "react-flow-player";
+import MultiCarousel from "../../components/reusables/MutliCarousel";
 
 const Home = ({ channelData, playlistData }) => {
   const [sliders, setSliders] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [furtherVideos, setFurtherVideos] = useState([]);
-  const [mainslider, setMainslider] = useState([]);
-  
 
   useEffect(() => {
     function compare(a, b) {
@@ -55,15 +49,12 @@ const Home = ({ channelData, playlistData }) => {
         setRecommendations(filteredRecommendedVideos);
         setFurtherVideos(filteredFurtherVideos);
         setSliders(slider.data.data.sliders);
-        setMainslider(mainslider.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
   }, []);
-
-  // owl carousel
 
   if (sliders && recommendations) {
     return (
@@ -85,7 +76,7 @@ const Home = ({ channelData, playlistData }) => {
               Entdecke die Sammlung der neusten Playlisten
             </h2>
           </header>
-          <PlaylistsCarousel playlists={playlistData} />
+          <MultiCarousel videos={playlistData} isPlaylist />
           <div className="link__container-playlist">
             <Link to={"/playlist"}>
               <Button>Alle Playlisten</Button>{" "}
@@ -100,16 +91,12 @@ const Home = ({ channelData, playlistData }) => {
               Videos der beuthBOX an{" "}
             </h2>
           </header>
-          <VideoRow
-            headline={"Empfehlungen der Woche"}
-            amountOfVideos={4}
+
+          <MultiCarousel
             videos={recommendations}
+            headline={"Empfehlungen der Woche"}
           />
-          <VideoRow
-            headline={"Neuste Videos"}
-            amountOfVideos={2}
-            videos={furtherVideos}
-          />
+          <MultiCarousel videos={furtherVideos} headline={"Neuste Videos"} />
         </section>
         <section className="main__section">
           <DiscoverCard />

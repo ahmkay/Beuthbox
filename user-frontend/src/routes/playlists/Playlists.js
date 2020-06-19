@@ -1,6 +1,5 @@
-import React, {useState, useEffect } from 'react'
-import axios from 'axios'
-import PlaylistsCarousel from '../../components/reusables/PlaylistsCarousel'
+import React from 'react'
+import MultiCarousel from '../../components/reusables/MutliCarousel'
 
 const Playlists = ({ playlistData}) => {
     if( playlistData.length > 0) {
@@ -11,7 +10,8 @@ const Playlists = ({ playlistData}) => {
                     <h1>Playlists</h1>
                     <h2>Entdecke die Sammlung der neusten Playlisten</h2>
                     </header>
-                    <PlaylistsCarousel playlists={playlistData}/>
+                    <MultiCarousel videos={playlistData} isPlaylist />
+                    
                 </section>
             </main>
         )
