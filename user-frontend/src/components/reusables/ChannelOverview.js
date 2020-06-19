@@ -45,8 +45,8 @@ const ChannelOverview = ({ channelData, channelInfo }) => {
                 </h2>
                 <h4 className="channel-description">{channel.description}</h4>
                 <div className="channel-container-categories">
-                  <CategoryIcon labeled category="study" isActive />
-                  <CategoryIcon labeled category="campus" isActive />
+                  <CategoryIcon category="study" isActive type="labeled" />
+                  <CategoryIcon category="campus" isActive type="labeled" />
                 </div>
               </div>
             </NavLink>

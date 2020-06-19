@@ -5,22 +5,40 @@ import ColorLensIcon from '@material-ui/icons/ColorLens';
 import {ReactComponent as MagicIcon} from '../../assets/img/icons/magic.svg';
 import {ReactComponent as BookIcon} from '../../assets/img/icons/Icon_Book.svg';
 
-function CategoryIcon({category, labeled, isActive}) {
+/**
+ * A reusable component to show an icon for the specific category 
+ * 
+ * @param {String} category  !Required Categories to choose from are: 'study', 'campus', 'class', 'research'
+ * @param {Boolean} isActive set to either show the specific colors or set all colors to grey (disabled-style)
+ * @param {String} type set the type to configure the appearance: 'label', 'labeled'
+ * 
+ * @example
+ * <CategoryIcon 
+ *  category='study'
+ *  isActive
+ *  type='labeled'
+ * /> 
+ */
+
+function CategoryIcon({category, isActive, type}) {
+
+    let showLabel = type === 'label' || type === 'labeled'
+
     return (
-        <div className={`category-icon category-icon--${category}`}>
+        <div className={`category-icon category-icon--${category} category-icon category-icon--${type}`}>
             <div className={`category-icon__icon-container category-icon__icon-container--${category} ${isActive && 'category-icon__icon-container--isActive'}`}>
                 {category === 'study' && <ColorLensIcon className='category-icon__img' />}
                 {category === 'campus' && <SchoolIcon className='category-icon__img' />}                
                 {category === 'class' && <SvgIcon component={BookIcon} viewBox="0 -4 24 24" className='MuiSvgIcon-root svg-icon category-icon__img' />} {/* correct viewBox to center the icon */}
                 {category === 'research' && <SvgIcon component={MagicIcon} className='MuiSvgIcon-root svg-icon category-icon__img' />}
             </div>
-            { labeled &&
-                <small className="category-icon__label">
+            { showLabel &&
+                <span className={`category-icon__label category-icon__label--${category}`}>
                     {category === 'study' && 'Studiprojekt'}
                     {category === 'campus' && 'Campus'}
                     {category === 'class' && 'Vorlesung'}
                     {category === 'research' && 'Forschung'}
-                </small>
+                </span>
             }
         </div>
     )

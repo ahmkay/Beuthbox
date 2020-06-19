@@ -46,6 +46,31 @@
     & path
         fill: $color-blue
 
-.category-icon__label
-    margin-top: $margin-xs
+// label styles
+.category-icon--label
+    flex-direction: row
+    align-items: center
+
+    .category-icon__label
+        margin-left: $margin-xs
+        font-size: $h5-size
+        font-weight: $h5-weight
+        &--study
+            color: $color-red
+        &--campus
+            color: $color-primary
+        &--class
+            color: $color-yellow
+        &--research
+            color: $color-blue
+
+
+// labeled styles
+.category-icon--labeled
+    .category-icon__label
+        margin-top: $margin-xs 
+        font-size: $small-size
+        font-weight: $p-weight
+
+
     
