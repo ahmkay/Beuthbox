@@ -107,7 +107,7 @@ const Home = ({ channelData, playlistData }) => {
           />
           <VideoRow
             headline={"Neuste Videos"}
-            amountOfVideos={2}
+            amountOfVideos={4}
             videos={furtherVideos}
           />
         </section>

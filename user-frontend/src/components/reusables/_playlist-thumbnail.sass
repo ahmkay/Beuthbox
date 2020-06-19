@@ -1,0 +1,105 @@
+.playlist-thumbnail-container
+    width: calc(20% - 20px)
+    display: block
+    position: relative
+    background-color: $color-white
+    overflow: hidden
+    &:not(::first-child)
+        margin-left: 20px
+    &::after
+        content: ''
+        display: block
+        padding-top: 150% // to get the 16:9 aspect ratio --> change for alternative aspect ratio
+
+.playlist-thumbnail-container__content
+    position: absolute
+    width: 100%
+    height: 100%
+
+.playlist-thumbnail-container__overlay
+    position: absolute
+    width: 100%
+    top: 0
+    left: 0
+    bottom: 0
+    background-color: $color-overlay
+    border: 10px solid transparent
+    transition: all 0.2s ease-out
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+.playlist-thumbnail-container__details
+    display: none
+    opacity: 0
+    height: 100%
+
+.playlist-thumbnail-container__playlist-title
+    color: $color-white
+    margin-bottom: $margin-xs
+    transition: color .2s ease-out
+
+.playlist-thumbnail-container__video-duration
+    position: absolute
+    right: 1em
+    bottom: 1em
+    color: $color-white
+    display: flex
+    flex-direction: column
+    align-items: center
+    svg
+        height: .7em
+        width: .7em
+        margin-right: 3px
+        path
+            color: $color-white
+
+.playlist-thumbnail-container__playlist-button
+    opacity: 0
+    position: absolute
+    width: 48px // 2 * 24
+    top:  50%
+    left: calc(50% - 48px / 2)
+    transition: all .3s ease-out
+
+.playlist-thumbnail-container__thumbnail-img
+    width: 100%
+    height: 100%
+    object-fit: cover
+    position: absolute
+    top: 0
+    left: 0
+    transition: transform .2s ease-out
+
+.playlist-container__attributes-row
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.playlist-thumbnail-container__videocount
+    display: flex
+    align-items: center
+
+// hover styles
+.playlist-thumbnail-container:hover
+    .playlist-thumbnail-container__thumbnail-img
+        transform: scale(1.05) translateY(-10%)
+    .playlist-thumbnail-container__overlay
+        top: 33%
+        bottom: 0
+        padding: 1em .5em
+        background-color: $color-white
+        border: 10px solid $color-primary
+        justify-content: flex-start
+        align-items: flex-start
+    .playlist-thumbnail-container__playlist-button
+        opacity: 1
+        top: calc(16.5% - 48px / 2) // 33% - halbe Größe des Icons
+    .playlist-thumbnail-container__playlist-title
+        color: $color-black
+    .playlist-thumbnail-container__details
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        opacity: 1
