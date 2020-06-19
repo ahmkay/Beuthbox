@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Moment from "react-moment";
-import ColorLensIcon from "@material-ui/icons/ColorLens";
 import TodayIcon from "@material-ui/icons/Today";
 import ShareIcon from "@material-ui/icons/Share";
 import SecondaryButton from "../../components/reusables/SecondaryButton";
 import VideoRow from "../../components/reusables/VideoRow";
 import ReactFlowPlayer from "react-flow-player";
 import LiveOffline from "./LiveOffline";
+import CategoryIcon from '../../components/reusables/CategoryIcon'
 
 const Live = (props) => {
   const [showPlayer, setShowPlayer] = useState(true);
@@ -62,10 +62,11 @@ const Live = (props) => {
               </div>
               <div className="video-info-container">
                 <div className="video-category-container">
-                  <span className="container__icon container__icon--student">
-                    <ColorLensIcon className="container-icon__category-icon container-icon__category-icon--students" />
-                  </span>
-                  Studiprojekt
+                  <CategoryIcon 
+                    isActive
+                    category='study'
+                    type='label'
+                  />
                 </div>
                 <div className="video-createdAt-container">
                   <TodayIcon className="today--icon" />

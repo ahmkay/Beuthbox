@@ -10,6 +10,7 @@ import LiveTvIcon from '@material-ui/icons/LiveTv';
 import SecondaryButton from '../../components/reusables/SecondaryButton';
 import { Link } from 'react-router-dom'
 import VideoRow from '../../components/reusables/VideoRow';
+import CategoryIcon from '../../components/reusables/CategoryIcon'
 
 
 const Video = (props) => {
@@ -104,10 +105,11 @@ const Video = (props) => {
                </div>
                <div className='video-info-container'>
                 <div className='video-category-container'>
-                    <span className='container__icon container__icon--student'>
-                    <ColorLensIcon className='container-icon__category-icon container-icon__category-icon--students'/>
-                    </span>
-                    Studiprojekt
+                    <CategoryIcon 
+                        type = 'label'
+                        category = 'study'
+                        isActive
+                    />
                     {video.tags && showTags()}
                 </div>
                 
