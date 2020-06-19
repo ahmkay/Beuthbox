@@ -1,7 +1,9 @@
 import React from 'react'
 import VideoThumbnail from './VideoThumbnail'
+import PlaylistThumbnail from './PlaylistThumbnail';
 import { BASEURL } from "../../api";
 import { calculateVideoDuration } from '../../utils'
+import axios from "axios";
 
 /**
  * A reusable component to display an array of videos in a grid-layout
@@ -10,15 +12,16 @@ import { calculateVideoDuration } from '../../utils'
  * @param {number} columnNumber The number of Videos to display per row
  * 
  * @example
- * <VideoGrid
+ * <ThumbnailGrid
  *  videos={videos}
  *  columnNumber={3}
  * />
  *  
  */
 
-const VideoGrid = ({videos, columnNumber}) =>  {
+const ThumbnailGrid = ({type, elements, columnNumber}) =>  {
 
+    let videoCount = 0
     let columns = 'repeat(4, 1fr)'
 
     if (typeof columnNumber === 'number') {
@@ -30,7 +33,7 @@ const VideoGrid = ({videos, columnNumber}) =>  {
     }
 
     const renderVideos = () => {
-        return videos.map((video) => {
+        return elements.map((video) => {
             let imgPath = "";
             if (video.posterImagePath.indexOf("engage-player") > 1) {
               imgPath = video.posterImagePath;
@@ -39,7 +42,7 @@ const VideoGrid = ({videos, columnNumber}) =>  {
             }
 
             return (
-                <div classname="video-grid__cell">
+                <div classname="grid__cell">
                     <VideoThumbnail 
                         title={video.name}
                         listOrientation='column' 
@@ -52,11 +55,42 @@ const VideoGrid = ({videos, columnNumber}) =>  {
         })
     }
 
+
+    const renderPlaylist = () => {
+
+        const getVideoCount = async (playlist) => {
+            try {
+                const videos = await axios.get(
+                  `${BASEURL}/graphql?query={category(id:"${playlist._id}"){name,description, iconfilename, imagefilename, iconpath, imagepath}}`
+                );
+                videoCount = videos.length
+            } catch(error) {
+                console.log(error)
+            }
+        }
+
+        return elements.map((playlist) => {
+            
+            getVideoCount(playlist)
+
+            return (
+                <div classname="grid__cell">
+                    <PlaylistThumbnail 
+                        playlistData={playlist}
+                        videoCount={videoCount}
+                    />
+                </div>
+            )
+        })
+    }
+
     return (
         <div className="video-grid" style={gridStyles}>
-           {renderVideos()}
+           {type === "video" && renderVideos()}
+           {type === "playlist" && renderPlaylist()}
+           {type === "channel" && renderVideos()}
         </div>
     )
 }
 
-export default VideoGrid
+export default ThumbnailGrid

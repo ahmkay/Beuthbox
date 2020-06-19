@@ -1,6 +1,5 @@
 import React from 'react'
 import PlaylistsCarousel from '../../components/reusables/PlaylistsCarousel'
-import PlaylistThumbnail from '../../components/reusables/PlaylistThumbnail'
 
 const Playlists = ({ playlistData}) => {
     if( playlistData.length > 0) {
@@ -8,8 +7,7 @@ const Playlists = ({ playlistData}) => {
             <main className="main">
                 <section className="main__section">
                     <header className="section-header">
-                    <h1>Playlists</h1>
-                    <h2>Entdecke die Sammlung der neusten Playlisten</h2>
+                        <h1>Playlists</h1>
                     </header>
                     <PlaylistsCarousel playlists={playlistData}/>
                 </section>
