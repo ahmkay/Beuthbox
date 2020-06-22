@@ -43,7 +43,7 @@ const ChannelOverview = ({ channelData, channelInfo }) => {
                 <h2 className="channel-info-box__channel-name">
                   {channel.name}
                 </h2>
-                <h4 className="channel-description">{channel.description}</h4>
+                <h5 className="channel-description">{channel.description}</h5>
                 <div className="channel-container-categories">
                   <CategoryIcon category="study" isActive type="labeled" />
                   <CategoryIcon category="campus" isActive type="labeled" />

@@ -48,6 +48,7 @@
 .video-thumbnail-container__video-title
     color: $color-white
     text-align: center
+    padding: 0 1em
     transition: font-size .3s ease-out, color .2s ease-out
 
 .video-thumbnail-container__video-duration
@@ -87,6 +88,11 @@
     -ms-user-select: none
 
 // hover styles
+
+    // less space for title if there are 4 videos in a row
+.video-thumbnail-container.video-thumbnail-container--column:hover .video-thumbnail-container__video-title
+    max-width: 35ch
+    
 .video-thumbnail-container:hover
     .video-thumbnail-container__overlay
         top: 100%
@@ -103,7 +109,7 @@
         text-align: left
         align-self: flex-start
         font-size: $small-size
-        max-width: 35ch
+        max-width: 50ch
         text-overflow: ellipsis
         white-space: nowrap
         overflow: hidden
@@ -113,3 +119,5 @@
         color: $color-black
         svg path
             color: $color-black
+
+
