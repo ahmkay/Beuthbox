@@ -1,7 +1,6 @@
 import React, { useState, useReducer } from "react";
 import { compareDuration, compareDates } from "../../utils";
-import VideoGrid from './VideoGrid'
-import PlaylistsCarousel from "./PlaylistsCarousel";
+import ThumbnailGrid from './ThumbnailGrid'
 import ChannelOverview from "./ChannelOverview";
 import CategoryCheckbutton from "./CategoryCheckbutton";
 import DiscoverCard from "./DiscoverCard";
@@ -153,9 +152,10 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
         {filterType === "all" || filterType === "videos" ? (
           <div className="container-90">
             <h3 className='result-headline'>Videos</h3>
-            <VideoGrid 
-              videos={state.sortedvideoResult}
-              columnNumber={4}
+            <ThumbnailGrid 
+              type="video"
+              elements={state.sortedvideoResult}
+              columnNumber={5}
             />
             {videoResult.length < 1 && <NoContent content="video" />}
           </div>
@@ -166,8 +166,11 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
 
         {filterType === "all" || filterType === "playlists" ? (
           <div className="container-90">
-            <h3 className='result-headline' >Playlisten</h3>
-            <PlaylistsCarousel playlists={state.sortedplaylistResult} />
+            <h3 className='result-headline'>Playlists</h3>
+            <ThumbnailGrid 
+              type="playlist" 
+              columnNumber={5}
+              elements={state.sortedplaylistResult} />
             {playlistResult.length < 1 && <NoContent content="playlist" />}
           </div>
         ) : null}

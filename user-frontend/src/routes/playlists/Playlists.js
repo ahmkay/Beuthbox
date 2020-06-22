@@ -5,13 +5,11 @@ const Playlists = ({ playlistData}) => {
     if( playlistData.length > 0) {
         return (
             <main className="main">
-                <section className="playlists-section">
+                <section className="main__section">
                     <header className="section-header">
-                    <h1>Playlists</h1>
-                    <h2>Entdecke die Sammlung der neusten Playlisten</h2>
+                        <h1>Playlists</h1>
                     </header>
                     <MultiCarousel videos={playlistData} isPlaylist />
-                    
                 </section>
             </main>
         )

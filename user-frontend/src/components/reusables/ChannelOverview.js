@@ -29,7 +29,7 @@ const ChannelOverview = ({ channelData, channelInfo }) => {
                 <div className="channel-thumbnail-box__content">
                   <img
                     src={`${BASEURL}/channel${channel.imagepath}`}
-                    class="channel-thumbnail-box__image"
+                    className="channel-thumbnail-box__image"
                   />
                 </div>
               </div>
