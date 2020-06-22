@@ -1,7 +1,6 @@
 import React, { useState, useReducer } from "react";
 import { compareDuration, compareDates } from "../../utils";
 import ThumbnailGrid from './ThumbnailGrid'
-import PlaylistsCarousel from "./PlaylistsCarousel";
 import ChannelOverview from "./ChannelOverview";
 import CategoryCheckbutton from "./CategoryCheckbutton";
 import DiscoverCard from "./DiscoverCard";

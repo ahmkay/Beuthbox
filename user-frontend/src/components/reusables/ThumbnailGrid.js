@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import VideoThumbnail from './VideoThumbnail'
 import PlaylistThumbnail from './PlaylistThumbnail';
 import { BASEURL } from "../../api";
@@ -8,6 +8,7 @@ import axios from "axios";
 /**
  * A reusable component to display an array of videos in a grid-layout
  * 
+ * @param {String} type The type of the content to display
  * @param {Video[]} videos An Array of Videos to display in the grid-layout
  * @param {number} columnNumber The number of Videos to display per row
  * 
@@ -21,7 +22,6 @@ import axios from "axios";
 
 const ThumbnailGrid = ({type, elements, columnNumber}) =>  {
 
-    let videoCount = 0
     let columns = 'repeat(4, 1fr)'
 
     if (typeof columnNumber === 'number') {
@@ -42,7 +42,7 @@ const ThumbnailGrid = ({type, elements, columnNumber}) =>  {
             }
 
             return (
-                <div classname="grid__cell">
+                <div className="grid__cell">
                     <VideoThumbnail 
                         title={video.name}
                         listOrientation='column' 
@@ -55,29 +55,14 @@ const ThumbnailGrid = ({type, elements, columnNumber}) =>  {
         })
     }
 
-
-    const renderPlaylist = () => {
-
-        const getVideoCount = async (playlist) => {
-            try {
-                const videos = await axios.get(
-                  `${BASEURL}/graphql?query={category(id:"${playlist._id}"){name,description, iconfilename, imagefilename, iconpath, imagepath}}`
-                );
-                videoCount = videos.length
-            } catch(error) {
-                console.log(error)
-            }
-        }
+    const renderPlaylist = () => {        
 
         return elements.map((playlist) => {
-            
-            getVideoCount(playlist)
-
             return (
-                <div classname="grid__cell">
+                <div className="grid__cell">
                     <PlaylistThumbnail 
                         playlistData={playlist}
-                        videoCount={videoCount}
+                        videoCount={0} // TODO
                     />
                 </div>
             )

@@ -1,6 +1,5 @@
 import React, {useState, useReducer, useEffect } from 'react';
 import { compareDuration, compareDates } from "../../utils";
-import VideoRow from "../../components/reusables/VideoRow";
 import CategoryCheckbutton from "../../components/reusables/CategoryCheckbutton";
 import ThumbnailGrid from '../../components/reusables/ThumbnailGrid';
 
