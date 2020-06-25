@@ -19,6 +19,8 @@ import Discover from "../routes/discover/Discover";
 import VideoServices from "../routes/video-services/VideoServices";
 import NotFound from "../routes/404/NotFound";
 
+const ThemeContext = React.createContext('light');
+
 const App = () => {
   const [channels, setChannels] = useState([]);
   const [playlists, setPlaylists] = useState([]);
@@ -120,58 +122,59 @@ const App = () => {
 
 
   return (
-    
     <Router>
-      <Navbar getQuery={getQuery} />
-      <Switch>
-        <Route path={"/aboutus"} component={AboutUs} />
-        <Route
-          exact
-          path={"/playlist"}
-          component={() => <Playlists playlistData={playlists} />}
-        />
-        <Route exact path={"/playlist/:id"} component={Playlist} />
-        <Route exact path={"/video/:id"} component={Video} />
+      <ThemeContext.Provider value="dark">
+        <Navbar getQuery={getQuery} />
+        <Switch>
+          <Route path={"/aboutus"} component={AboutUs} />
+          <Route
+            exact
+            path={"/playlist"}
+            component={() => <Playlists playlistData={playlists} />}
+          />
+          <Route exact path={"/playlist/:id"} component={Playlist} />
+          <Route exact path={"/video/:id"} component={Video} />
 
-        <Route
-          exact
-          path={"/channel/"}
-          component={() => (
-            <Channels channelData={channels} videoData={videoData} />
-          )}
-        />
-        <Route path={"/channel/:id"} component={Channel} />
+          <Route
+            exact
+            path={"/channel/"}
+            component={() => (
+              <Channels channelData={channels} videoData={videoData} />
+            )}
+          />
+          <Route path={"/channel/:id"} component={Channel} />
 
-        <Route
-          exact
-          path={"/"}
-          component={() => (
-            <Home channelData={channels} playlistData={playlists} />
-          )}
-        />
+          <Route
+            exact
+            path={"/"}
+            component={() => (
+              <Home channelData={channels} playlistData={playlists} />
+            )}
+          />
 
-        <Route
-          exact
-          path={"/search/:id"}
-          component={() => (
-            <Search
-              playlistData={playlists}
-              videoResult={videoResult}
-              channelResult={channelResult}
-              playlistResult={playlistResult}
-              query={query}
-              getQuery={getQuery}
-              classicVideos={videoData}
-            />
-          )}
-        />
+          <Route
+            exact
+            path={"/search/:id"}
+            component={() => (
+              <Search
+                playlistData={playlists}
+                videoResult={videoResult}
+                channelResult={channelResult}
+                playlistResult={playlistResult}
+                query={query}
+                getQuery={getQuery}
+                classicVideos={videoData}
+              />
+            )}
+          />
 
-        <Route exact path={"/video-services"} component={VideoServices} />
-        <Route exact path={"/live"} component={(rest) => <Live  classicVideos={videoData} {...rest}/>}/>
-        <Route exact path={"/discover"} component={Discover} />
-        <Route component={NotFound} />
-      </Switch>
-      <Footer />
+          <Route exact path={"/video-services"} component={VideoServices} />
+          <Route exact path={"/live"} component={(rest) => <Live  classicVideos={videoData} {...rest}/>}/>
+          <Route exact path={"/discover"} component={Discover} />
+          <Route component={NotFound} />
+        </Switch>
+        <Footer />
+      </ThemeContext.Provider>
     </Router>
   );
 };
