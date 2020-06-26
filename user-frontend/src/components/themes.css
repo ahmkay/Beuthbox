@@ -3,6 +3,7 @@
   --color-primary-light: #BDE2E2;
   --color-primary-dark: #0B2929;
   --color-background: #F2F2F2;
+  --color-card-background: #fff;
   --color-text: #000;
   --color-white: #fff;
   --color-black: #000;
@@ -20,6 +21,7 @@
     --color-primary-light: #BDE2E2;
     --color-primary-dark: #0B2929;
     --color-background: #040B0B;
+    --color-card-background: #212121;
     --color-text: #E6E6E6;
     --color-white: #fff;
     --color-black: 000;

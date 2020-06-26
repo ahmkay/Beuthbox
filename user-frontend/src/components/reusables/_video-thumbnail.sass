@@ -1,7 +1,7 @@
 .video-thumbnail-container
     display: block
     position: relative
-    background-color: var(--color-white)
+    background-color: var(--color-card-background)
     margin-bottom: calc(1em + 2*1em + 2*10px) //the height of the title + 2*padding + 2*border
     &:not(::first-child)
         margin-left: 20px
@@ -46,7 +46,7 @@
     flex-direction: row
 
 .video-thumbnail-container__video-title
-    color: var(--color-white)
+    color: var(--color-text)
     text-align: center
     padding: 0 1em
     transition: font-size .3s ease-out, color .2s ease-out
@@ -98,7 +98,7 @@
         top: 100%
         height: auto
         padding: 1em .5em
-        background-color: var(--color-white)
+        background-color: var(--color-card-background)
         border: 10px solid var(--color-primary)
         justify-content: space-between
     .video-thumbnail-container__play-button
