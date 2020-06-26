@@ -2,7 +2,7 @@ import React from "react";
 import Searchbar from "../../components/reusables/Searchbar";
 import { BASEURL } from "../../api";
 import beuthBOXIllustration from "../../assets/img/beuthbox-logo.svg";
-import playButtonIllustration from "../../assets/img/Play.svg";
+import playButtonIllustration from "../../assets/img/Button_Play.svg";
 import { Link, useLocation, useHistory } from "react-router-dom";
 
 const HeaderCarousel = ({ video, getQuery }) => {
