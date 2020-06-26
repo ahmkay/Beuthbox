@@ -5,6 +5,7 @@ import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import Videocam from "@material-ui/icons/Videocam";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import SearchIcon from "@material-ui/icons/Search";
+import ThemeSwitcher from '../reusables/ThemeSwitcher'
 
 import { NavLink, useHistory } from "react-router-dom";
 
@@ -198,6 +199,7 @@ const Navbar = ({ getQuery }) => {
               Video&nbsp;Services
             </NavLink>
           </li>
+          <ThemeSwitcher />
           <span
             className={`nav__indicator${activeTab !== "" ? "--show" : ""}`}
             style={{ left: leftPosition, width: indicatorWidth }}

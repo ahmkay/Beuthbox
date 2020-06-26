@@ -19,8 +19,6 @@ import Discover from "../routes/discover/Discover";
 import VideoServices from "../routes/video-services/VideoServices";
 import NotFound from "../routes/404/NotFound";
 
-const ThemeContext = React.createContext('light');
-
 const App = () => {
   const [channels, setChannels] = useState([]);
   const [playlists, setPlaylists] = useState([]);
@@ -30,6 +28,11 @@ const App = () => {
   const [videoResult, setVideoResult] = useState([]);
   const [channelResult, setChannelResult] = useState([]);
   const [playlistResult, setPlaylistResult] = useState([]);
+
+  const resetTheme = () => {
+    console.log('remove Theme')
+    localStorage.removeItem('theme')
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,6 +113,18 @@ const App = () => {
     fetchRoute();
   }, [channels, playlists, query, url]);
 
+  // reeset the stored theme if user toggles preffered mode on his system
+  useEffect(() => {
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(resetTheme)
+
+    // function (e) {
+    //   console.log(`changed to ${e.matches ? "dark" : "light"} mode`)
+    // });
+    return () => {
+      window.matchMedia('(prefers-color-scheme: dark)').removeListener(resetTheme)
+    }
+  }, [])
+
   const getURL = () => {
     const location = window.location.pathname;
     const url = location.split("=").pop();
@@ -123,7 +138,6 @@ const App = () => {
 
   return (
     <Router>
-      <ThemeContext.Provider value="dark">
         <Navbar getQuery={getQuery} />
         <Switch>
           <Route path={"/aboutus"} component={AboutUs} />
@@ -174,7 +188,6 @@ const App = () => {
           <Route component={NotFound} />
         </Switch>
         <Footer />
-      </ThemeContext.Provider>
     </Router>
   );
 };

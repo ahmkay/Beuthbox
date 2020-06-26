@@ -1,0 +1,21 @@
+.theme-switcher
+    cursor: pointer
+    display: flex
+    flex-direction: column
+    align-items: center
+    margin-left: $margin-s
+
+.theme-switcher--dark
+    .theme-switcher__label
+        color: var(--color-black)
+    path
+        fill: var(--color-black)
+
+.theme-switcher--light
+    .theme-switcher__label
+        color: var(--color-white)
+    path
+        fill: var(--color-white)
+
+.theme-switcher__label
+    text-align: center
