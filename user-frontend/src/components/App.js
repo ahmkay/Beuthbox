@@ -18,11 +18,13 @@ import { doSearch } from "../utils";
 import Discover from "../routes/discover/Discover";
 import VideoServices from "../routes/video-services/VideoServices";
 import NotFound from "../routes/404/NotFound";
+import MultiCarousel from "./reusables/MutliCarousel";
 
 const App = () => {
   const [channels, setChannels] = useState([]);
   const [playlists, setPlaylists] = useState([]);
   const [videoData, setVideoData] = useState([]);
+  const [mainslider, setMainslider] = useState([]);
   const [query, setQuery] = useState("");
   const [url, setURL] = useState("");
   const [videoResult, setVideoResult] = useState([]);
@@ -70,6 +72,7 @@ const App = () => {
         slider.data.data.sliders.forEach((slider, k) => {
           slider.videos.sort(compare);
         });
+        
 
         let recommendedVideos = slider.data.data.sliders.filter(
           (slider) => slider.name === "Empfohlene Videos"
@@ -86,6 +89,7 @@ const App = () => {
         let filteredFurtherVideos = furtherVideos.map((video) => video._id);
 
         setVideoData(filteredRecommendedVideos);
+        setMainslider(mainslider.data)
        
       } catch (error) {
         console.log(error);
@@ -118,10 +122,11 @@ const App = () => {
     setQuery(query);
   };
 
-
+  console.log(mainslider, 'maainn')
   return (
     
     <Router>
+      {<MultiCarousel videos={mainslider} isHeader getQuery={getQuery} />}
       <Navbar getQuery={getQuery} />
       <Switch>
         <Route path={"/aboutus"} component={AboutUs} />

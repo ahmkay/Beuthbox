@@ -1,0 +1,43 @@
+.header-carousel
+    position: relative
+    height: calc(100vh - 85px)
+.header-carousel__overlay
+    position: absolute
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    background-color: $color-overlay
+
+.header-carousel__main-image
+    height: 100%
+
+.header-carousel__logo
+    margin-bottom: $margin-xl
+
+.header-carousel__searchbar-container
+    width: 40%
+    margin: 0 auto
+
+
+.header-carousel__info-container
+    display: flex
+    align-items: center
+    color: $color-white
+    position: absolute
+    bottom: 80px
+    left: $margin-xxl
+    .header-carousel__playbutton
+        width: 55px
+        margin-right: $margin-s
+        cursor: pointer
+    .header-carousel__info-title, .header-carousel__info-description
+        color: $color-white
+    .header-carousel__video-infos
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        height: 100%
+    
