@@ -47,7 +47,7 @@ const SearchNoResults = ({ getQuery, classicVideos }) => {
         </h2>
       </div>
       <div className="search-no-results__searchbar-container container-50">
-        <Searchbar eventHandler={evaluateSearch} />
+        <Searchbar eventHandler={evaluateSearch} type='grey'/>
       </div>
       {classicVideos.length > 0 &&
       <>

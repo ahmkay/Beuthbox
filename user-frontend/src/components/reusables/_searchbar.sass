@@ -1,7 +1,6 @@
 .searchbar__container
     position: relative
-
-.searchbar
+.searchbar--
     width: 100%
     margin: 0
     display: block
@@ -12,10 +11,46 @@
     color: $color-grey
     border-radius: 3px
     font-size: 18px
-.searchbar::placeholder
+.searchbar--::placeholder
     color: $color-grey
-.searchbar__icon
+
+.searchbar--grey
+    @extend .searchbar--
+.searchbar--grey::placeholder
+    @extend .searchbar--::placeholder
+
+.searchbar--white
+    width: 100%
+    margin: 0
+    display: block
+    padding: 10px 30px
+    background-color: transparent
+    outline: none
+    border: 1px solid $color-white
+    color: $color-white
+    border-radius: 3px
+    font-size: 18px
+.searchbar--white--::placeholder
+    color: $color-white
+
+
+.searchbar__icon--
     position: absolute
     top: 11px
     right: $margin-l
     cursor: pointer
+
+.searchbar__icon--grey
+   @extend .searchbar__icon--
+
+
+.searchbar__icon--white
+    @extend .searchbar__icon--
+    & path
+        color: $color-white
+
+// webkit styles
+.searchbar--white:-webkit-autofill
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important
+    background-color: green !important
+    color: red !important
