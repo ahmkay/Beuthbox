@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Play from '../../assets/img/Play.svg'
+import Play from '../../assets/img/Button_Play.svg'
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Placeholder from '../../assets/img/Placeholder_Video.svg'
 

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="92" height="92" viewBox="0 0 92 92">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-5 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #00a5a5;
+        stroke-width: 2px;
+      }
+
+      .cls-3 {
+        fill: #00a5a5;
+      }
+
+      .cls-4 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Playlist_Button" data-name="Playlist Button" transform="translate(-0.5 0.06)">
+    <circle id="Ellipse_42" data-name="Ellipse 42" class="cls-1" cx="46" cy="46" r="46" transform="translate(0.5 -0.06)"/>
+    <g id="Paylist" transform="translate(26.471 31.82)">
+      <g id="Ellipse_6" data-name="Ellipse 6" class="cls-2" transform="translate(20.085 9.755)">
+        <circle class="cls-4" cx="10.822" cy="10.822" r="10.822"/>
+        <circle class="cls-5" cx="10.822" cy="10.822" r="9.822"/>
+      </g>
+      <path id="Icon_material-playlist-play" data-name="Icon material-playlist-play" class="cls-3" d="M25.245,14.916H3v3.708H25.245ZM34.517,7.5H3v3.708H34.517ZM3,26.039H20.742V22.331H3Zm27.809-3.708V33.455l9.27-5.562Z" transform="translate(-3 -7.5)"/>
+    </g>
+  </g>
+</svg>

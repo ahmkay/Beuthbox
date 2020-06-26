@@ -1,23 +1,26 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import VideoThumbnail from './VideoThumbnail'
+import PlaylistThumbnail from './PlaylistThumbnail';
 import { BASEURL } from "../../api";
 import { calculateVideoDuration } from '../../utils'
+import axios from "axios";
 
 /**
  * A reusable component to display an array of videos in a grid-layout
  * 
+ * @param {String} type The type of the content to display
  * @param {Video[]} videos An Array of Videos to display in the grid-layout
  * @param {number} columnNumber The number of Videos to display per row
  * 
  * @example
- * <VideoGrid
+ * <ThumbnailGrid
  *  videos={videos}
  *  columnNumber={3}
  * />
  *  
  */
 
-const VideoGrid = ({videos, columnNumber}) =>  {
+const ThumbnailGrid = ({type, elements, columnNumber}) =>  {
 
     let columns = 'repeat(4, 1fr)'
 
@@ -30,7 +33,7 @@ const VideoGrid = ({videos, columnNumber}) =>  {
     }
 
     const renderVideos = () => {
-        return videos.map((video) => {
+        return elements.map((video) => {
             let imgPath = "";
             if (video.posterImagePath.indexOf("engage-player") > 1) {
               imgPath = video.posterImagePath;
@@ -39,7 +42,7 @@ const VideoGrid = ({videos, columnNumber}) =>  {
             }
 
             return (
-                <div classname="video-grid__cell">
+                <div className="grid__cell">
                     <VideoThumbnail 
                         title={video.name}
                         listOrientation='column' 
@@ -52,11 +55,27 @@ const VideoGrid = ({videos, columnNumber}) =>  {
         })
     }
 
+    const renderPlaylist = () => {        
+
+        return elements.map((playlist) => {
+            return (
+                <div className="grid__cell">
+                    <PlaylistThumbnail 
+                        playlistData={playlist}
+                        videoCount={0} // TODO
+                    />
+                </div>
+            )
+        })
+    }
+
     return (
         <div className="video-grid" style={gridStyles}>
-           {renderVideos()}
+           {type === "video" && renderVideos()}
+           {type === "playlist" && renderPlaylist()}
+           {type === "channel" && renderVideos()}
         </div>
     )
 }
 
-export default VideoGrid
+export default ThumbnailGrid

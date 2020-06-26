@@ -24,7 +24,7 @@ const NoContent = ({content}) => {
             break
         case 'playlist':
             img = PlaceholderPlaylist
-            text = 'Playlisten'
+            text = 'Playlists'
             break
         case 'channel':
             text = 'Channels'
