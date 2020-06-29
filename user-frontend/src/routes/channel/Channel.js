@@ -3,12 +3,21 @@ import axios from "axios";
 import { BASEURL } from "../../api";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import ChannelHeader from "./ChannelHeader";
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import SpeakerNotes from '@material-ui/icons/SpeakerNotes'
+import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
+import Videocam from "@material-ui/icons/Videocam";
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 const Channel = (props) => {
   const [channel, setChannel] = useState([]);
   const [numberOfVideos, setNumberOfVideos] = useState([]);
   const [categories, setCategories] = useState([]);
   const [video, setVideo] = useState([]);
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,10 +122,69 @@ const Channel = (props) => {
       );
     });
   };
+
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`scrollable-auto-tabpanel-${index}`}
+        aria-labelledby={`scrollable-auto-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  const renderTabcontroller = () =>{
+
+    const handleChange = (e, newValue) => {
+      setValue(newValue);
+    };
+
+      return (
+        <div className="channel-tabcontroller">
+          <AppBar position="static" color="default">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              centered
+            >
+              <Tab label="Chronik" icon={<SpeakerNotes />} />
+              <Tab label="Playlists" icon={<PlaylistPlayIcon />} />
+              <Tab label="Videos" icon={<Videocam />} />
+            </Tabs>
+          </AppBar>
+          <TabPanel value={value} index={0}>
+            Item One
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            Item Two
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            {video.length != 0 && (
+                    <>
+                    <h3>Videos</h3>
+                    </>
+                )}
+                {showVideos()}
+          </TabPanel>
+        </div>
+    )
+  }
+
   if (video && categories && numberOfVideos && channel) {
     return (
       <>
         <ChannelHeader title={channel.name} description={channel.description} img={`${BASEURL}/channel${channel.imagepath}`}/>
+        {renderTabcontroller() }
         <main className="main">
             <div class="container-fluid">
                 <div class="row player-container content">
@@ -131,13 +199,6 @@ const Channel = (props) => {
                 {/* {categories.length != 0 && <h3 class="carousel-title">Playlist</h3>} */}
                 <PlaylistsCarousel playlists={categories} />
                 {/* <div class="row">{showCategories()}</div> */}
-
-                {video.length != 0 && (
-                    <>
-                    <h3>Videos</h3>
-                    </>
-                )}
-                {showVideos()}
                 </div>
             </div>
         </main>

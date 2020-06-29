@@ -1,0 +1,27 @@
+.channel-tabcontroller
+    .MuiPaper-elevation4
+        box-shadow: $elevation-1
+    button:hover
+        background-color: initial
+        color: var(--color-black)
+    .MuiTab-textColorInherit
+        opacity: 1
+    .MuiTab-labelIcon
+        text-transform: initial
+        font-family: 'Montserrat'
+        font-size: $h6-size
+        font-weight: $h6-weight
+        transition: color .2s ease-out
+        padding: 0
+        margin-bottom: 0
+        min-height: 65px
+        min-width: 120px
+        path
+            fill: var(--color-black)
+        &[aria-selected="true"] 
+            color: var(--color-primary)
+            path
+                fill: var(--color-primary)
+    .MuiTabs-indicator
+        background-color: var(--color-primary)
+        height: 5px
