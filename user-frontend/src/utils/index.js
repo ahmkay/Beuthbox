@@ -37,10 +37,14 @@ export const compareNames = (a, b) => {
 
 //TODO in ein Custom Hook umwandeln
 export const doSearch = async (result, channels, playlists) => {
+  console.log(result, "query in playlist");
   let videos = await Axios.get(
     `${BASEURL}/graphql?query={videos(filter: {name: "${result}"}){name, source, videoDuration, created, status, access, posterImagePath, _id}}`
   );
   const query = `${result}`;
+  const extractSpaces = query.split("%20");
+  const formattedQuery = extractSpaces.join(" ");
+
   let filteredvideos = videos.data.data.videos.filter((video) => {
     return video.access == "public" && video.status == "finished";
   });
@@ -48,14 +52,25 @@ export const doSearch = async (result, channels, playlists) => {
   const filteredChannels = channels.filter(
     (channel) =>
       channel.ispublic &&
-      channel.name.toLowerCase().includes(query.toLowerCase())
+      channel.name.toLowerCase().includes(formattedQuery.toLowerCase())
   );
   const filteredPlaylists = playlists.filter((playlist) =>
-    playlist.name.toLowerCase().includes(query.toLowerCase())
+    playlist.name.toLowerCase().includes(formattedQuery.toLowerCase())
   );
-
-  const extractSpaces = query.split("%20");
-  const formattedQuery = extractSpaces.join(" ");
 
   return [formattedQuery, filteredvideos, filteredChannels, filteredPlaylists];
 };
+
+export const showTags = async (result) => {
+ 
+    const videos = await Axios.get(`${BASEURL}/graphql?query={videos(filter: {tags: "${result}"}){name, source, videoDuration, created, status, access, posterImagePath, _id}}`)
+    const query = `${result}`
+    console.log(videos, 'videos with tags')
+    
+    const filteredvideos = videos.data.data.videos.filter(video => {
+        return video.status == "finished"
+    });
+    console.log(filteredvideos, 'result entered')
+    return [query, filteredvideos]
+
+}

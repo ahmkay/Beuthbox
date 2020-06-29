@@ -38,9 +38,7 @@ const HeaderCarousel = ({ video, getQuery }) => {
       showSearchResult(trimmedValue);
     }
   };
-
-  console.log(pathname, "location");
-
+  
   return (
     <>
       {pathname === "/" ? (
