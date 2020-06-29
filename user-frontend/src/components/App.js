@@ -31,6 +31,11 @@ const App = () => {
   const [channelResult, setChannelResult] = useState([]);
   const [playlistResult, setPlaylistResult] = useState([]);
 
+  const resetTheme = () => {
+    console.log('remove Theme')
+    localStorage.removeItem('theme')
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -112,6 +117,18 @@ const App = () => {
     fetchRoute();
   }, [channels, playlists, query, url]);
 
+  // reeset the stored theme if user toggles preffered mode on his system
+  useEffect(() => {
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(resetTheme)
+
+    // function (e) {
+    //   console.log(`changed to ${e.matches ? "dark" : "light"} mode`)
+    // });
+    return () => {
+      window.matchMedia('(prefers-color-scheme: dark)').removeListener(resetTheme)
+    }
+  }, [])
+
   const getURL = () => {
     const location = window.location.pathname;
     const url = location.split("=").pop();
@@ -124,7 +141,6 @@ const App = () => {
 
   console.log(mainslider, 'maainn')
   return (
-    
     <Router>
       {<MultiCarousel videos={mainslider} isHeader getQuery={getQuery} />}
       <Navbar getQuery={getQuery} />

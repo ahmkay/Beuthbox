@@ -2,11 +2,12 @@
   box-sizing: border-box
   margin: 0
   padding: 0
-  color: black
   font-family: 'Open Sans'
+  transition: color .4s ease-out, background-color .4s ease-out
 
 html, body
-  background-color: $color-background
+  background-color:  var(--color-background)
+  color: var(--color-text)
 
 body, #root
   min-height: 100vh
@@ -39,4 +40,4 @@ body, #root
 ::-webkit-scrollbar-track
   background: transparent
 ::-webkit-scrollbar-thumb
-  background: $color-primary
+  background: var(--color-primary)

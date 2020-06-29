@@ -1,24 +1,10 @@
-@import './_colors'
-@import './_fonts'
-@import './_sizes'
-@import './_globals'
+@import './_colors.sass'
+@import './_fonts.sass'
+@import './_sizes.sass'
+@import './_globals.sass'
+@import './themes.css'
 
 /*reusables*/
 @import 'reusables/_reusables'
 
 @import '../routes/_routes.sass'
-@import './_LiveInfoLayer'
-
-*
-    box-sizing: border-box
-    margin: 0
-    padding: 0
-    color: $color-black
-    font-family: 'Open Sans'
-
-html, body
-    background-color: $color-background
-
-body, #root
-    min-height: 100vh
-

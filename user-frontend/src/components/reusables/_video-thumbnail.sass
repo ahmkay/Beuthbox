@@ -1,7 +1,7 @@
 .video-thumbnail-container
     display: block
     position: relative
-    background-color: $color-white
+    background-color: var(--color-card-background)
     margin-bottom: calc(1em + 2*1em + 2*10px) //the height of the title + 2*padding + 2*border
     &:not(::first-child)
         margin-left: 20px
@@ -46,7 +46,7 @@
     flex-direction: row
 
 .video-thumbnail-container__video-title
-    color: $color-white
+    color: var(--color-text)
     text-align: center
     padding: 0 1em
     transition: font-size .3s ease-out, color .2s ease-out
@@ -55,7 +55,7 @@
     position: absolute
     right: 1em
     bottom: 1em
-    color: $color-white
+    color: var(--color-white)
     display: flex
     align-items: center
     svg
@@ -63,7 +63,7 @@
         width: .7em
         margin-right: 3px
         path
-            color: $color-white
+            color: var(--color-white)
 
 .video-thumbnail-container__play-button
     opacity: 0
@@ -98,14 +98,14 @@
         top: 100%
         height: auto
         padding: 1em .5em
-        background-color: $color-white
-        border: 10px solid $color-primary
+        background-color: var(--color-card-background)
+        border: 10px solid var(--color-primary)
         justify-content: space-between
     .video-thumbnail-container__play-button
         opacity: 1
         top: calc(50% - 24px)
     .video-thumbnail-container__video-title
-        color: $color-black
+        color: var(--color-black)
         text-align: left
         align-self: flex-start
         font-size: $small-size
@@ -116,8 +116,8 @@
 
     .video-thumbnail-container__video-duration
         position: initial
-        color: $color-black
+        color: var(--color-black)
         svg path
-            color: $color-black
+            color: var(--color-black)
 
 
