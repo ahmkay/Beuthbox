@@ -14,7 +14,7 @@ import Live from "../routes/live/Live";
 import Navbar from "./reusables/Navbar";
 import { BASEURL } from "../api";
 import axios from "axios";
-import { doSearch } from "../utils";
+import { doSearch, showTags } from "../utils";
 import Discover from "../routes/discover/Discover";
 import VideoServices from "../routes/video-services/VideoServices";
 import NotFound from "../routes/404/NotFound";
@@ -77,7 +77,6 @@ const App = () => {
         slider.data.data.sliders.forEach((slider, k) => {
           slider.videos.sort(compare);
         });
-        
 
         let recommendedVideos = slider.data.data.sliders.filter(
           (slider) => slider.name === "Empfohlene Videos"
@@ -94,24 +93,28 @@ const App = () => {
         let filteredFurtherVideos = furtherVideos.map((video) => video._id);
 
         setVideoData(filteredRecommendedVideos);
-        setMainslider(mainslider.data)
-       
+        setMainslider(mainslider.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-
   }, []);
 
   useEffect(() => {
     const fetchRoute = async () => {
       const url = getURL();
-      const searchData = await doSearch(url, channels, playlists);
-      setQuery(searchData[0]);
-      setVideoResult(searchData[1]);
-      setChannelResult(searchData[2]);
-      setPlaylistResult(searchData[3]);
+      const location = window.location.pathname;
+      if (location.includes("tag=")) {
+        const searchData = await showTags(url);
+        setVideoResult(searchData[1]);
+      } else {  
+        const searchData = await doSearch(url, channels, playlists);
+        setQuery(searchData[0]);
+        setVideoResult(searchData[1]);
+        setChannelResult(searchData[2]);
+        setPlaylistResult(searchData[3]);
+      }
       setURL(url);
     };
     fetchRoute();
@@ -187,7 +190,11 @@ const App = () => {
         />
 
         <Route exact path={"/video-services"} component={VideoServices} />
-        <Route exact path={"/live"} component={(rest) => <Live  classicVideos={videoData} {...rest}/>}/>
+        <Route
+          exact
+          path={"/live"}
+          component={(rest) => <Live classicVideos={videoData} {...rest} />}
+        />
         <Route exact path={"/discover"} component={Discover} />
         <Route component={NotFound} />
       </Switch>

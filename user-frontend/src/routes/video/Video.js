@@ -70,7 +70,7 @@ const Video = (props) => {
   const showTags = () =>
     video.tags.map((tag, index) => (
       <Link
-        to={`/search?tag=${tag}`}
+        to={{ pathname:`/search/tag=${tag}`, state:{tag}}}
         className={`video--tag ${index === 0 ? "firstchild" : ""}`}
       >
         <h5>#{tag}</h5>
@@ -88,7 +88,7 @@ const Video = (props) => {
     return () => window.removeEventListener("resize", getHeight);
   });
 
-  if (video) {
+  if (Object.keys(video).length > 0) {
     return (
       <>
         <div className="root-container">

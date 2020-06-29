@@ -37,12 +37,15 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
     }
   };
 
+ 
+
   const initialState = {
     sortedvideoResult: videoResult,
     sortedplaylistResult: playlistResult,
     sortedchannelResult: channelResult,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+
 
   function reducer(state, action) {
     switch (action.type) {
@@ -86,6 +89,8 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
         return state;
     }
   }
+
+  console.log(videoResult, 'actual videoresult in panel')
 
   const renderFilterPanel = () => {
     return (
