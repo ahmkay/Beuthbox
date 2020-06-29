@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { BASEURL } from "../../api";
+import React from "react";
 import ChannelOverview from "../../components/reusables/ChannelOverview";
 
 import LiveInfoLayer from "../../components/reusables/LiveInfoLayer";
@@ -8,55 +6,11 @@ import DiscoverCard from "../../components/reusables/DiscoverCard";
 import Button from "../../components/reusables/Button";
 import { Link } from "react-router-dom";
 import MultiCarousel from "../../components/reusables/MutliCarousel";
+import ActivityIndicator from "../../components/reusables/ActivityIndicator";
 
-const Home = ({ channelData, playlistData }) => {
-  const [sliders, setSliders] = useState([]);
-  const [recommendations, setRecommendations] = useState([]);
-  const [furtherVideos, setFurtherVideos] = useState([]);
-
-  useEffect(() => {
-    function compare(a, b) {
-      if (a.position < b.position) return -1;
-      if (a.position > b.position) return 1;
-      return 0;
-    }
-    const fetchData = async () => {
-      try {
-        const slider = await axios.get(
-          `${BASEURL}/graphql?query={sliders{name, position, occurrence, active, videos{position, _id{name, posterImagePath, _id, videoDuration, created }}}}`
-        );
-        const mainslider = await axios.get(`${BASEURL}/slider`);
-        mainslider.data.sort(compare);
-        slider.data.data.sliders.sort(compare);
-        slider.data.data.sliders.forEach((slider, k) => {
-          slider.videos.sort(compare);
-        });
-
-        let recommendedVideos = slider.data.data.sliders.filter(
-          (slider) => slider.name === "Empfohlene Videos"
-        );
-        recommendedVideos = recommendedVideos[0].videos;
-        let filteredRecommendedVideos = recommendedVideos.map(
-          (video) => video._id
-        );
-
-        let furtherVideos = slider.data.data.sliders.filter(
-          (slider) => slider.name === "Sonstige Videos"
-        );
-        furtherVideos = furtherVideos[0].videos;
-        let filteredFurtherVideos = furtherVideos.map((video) => video._id);
-
-        setRecommendations(filteredRecommendedVideos);
-        setFurtherVideos(filteredFurtherVideos);
-        setSliders(slider.data.data.sliders);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  if (sliders && recommendations) {
+const Home = ({ channelData, playlistData, newestVideos, recommendedVideos }) => {
+ 
+  if (newestVideos.length > 0 && recommendedVideos.length > 0 && channelData.length > 0 && playlistData.length > 0) {
     return (
       <main className="main">
         <LiveInfoLayer />
@@ -93,10 +47,10 @@ const Home = ({ channelData, playlistData }) => {
           </header>
 
           <MultiCarousel
-            videos={recommendations}
+            videos={recommendedVideos}
             headline={"Empfehlungen der Woche"}
           />
-          <MultiCarousel videos={furtherVideos} headline={"Neuste Videos"} />
+          <MultiCarousel videos={newestVideos} headline={"Neuste Videos"} />
         </section>
         <section className="main__section">
           <DiscoverCard />
@@ -104,7 +58,7 @@ const Home = ({ channelData, playlistData }) => {
       </main>
     );
   }
-  return <div>Home</div>;
+  return <ActivityIndicator />;
 };
 
 export default Home;

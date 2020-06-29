@@ -14,16 +14,18 @@ import Live from "../routes/live/Live";
 import Navbar from "./reusables/Navbar";
 import { BASEURL } from "../api";
 import axios from "axios";
-import { doSearch, showTags } from "../utils";
+import { doSearch, showTags, compareDates } from "../utils";
 import Discover from "../routes/discover/Discover";
 import VideoServices from "../routes/video-services/VideoServices";
 import NotFound from "../routes/404/NotFound";
 import MultiCarousel from "./reusables/MutliCarousel";
+import { comparePostions } from '../utils'
 
 const App = () => {
   const [channels, setChannels] = useState([]);
   const [playlists, setPlaylists] = useState([]);
   const [videoData, setVideoData] = useState([]);
+  const [newestVideos, setNewestVideos ] = useState([])
   const [mainslider, setMainslider] = useState([]);
   const [query, setQuery] = useState("");
   const [url, setURL] = useState("");
@@ -38,44 +40,42 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      // get every existing channel which is public
       try {
         const response = await axios.get(
           BASEURL +
             "/graphql?query={channels{name, description, created, imagepath, iconpath, _id, ispublic}}"
         );
-        const channels = response.data.data.channels.filter((channel) => {
+        const {channels } = response.data.data
+        const filteredChannels = channels.filter((channel) => {
           return channel.ispublic;
         });
-        setChannels(channels);
+        setChannels(filteredChannels);
       } catch (error) {
         console.log(error);
       }
-
+      
+      // get every existing playlist
       try {
         const response = await axios.get(
           BASEURL +
             "/graphql?query={categories{name, description, created, imagepath, iconpath _id}}"
         );
-        setPlaylists(response.data.data.categories);
+        const {categories } = response.data.data
+        setPlaylists(categories);
       } catch (error) {
         console.log(error);
       }
-
+      // get every mainslider + slider (further + recommended videos)
       try {
-        function compare(a, b) {
-          if (a.position < b.position) return -1;
-          if (a.position > b.position) return 1;
-          return 0;
-        }
-
         const slider = await axios.get(
           `${BASEURL}/graphql?query={sliders{name, position, occurrence, active, videos{position, _id{name, posterImagePath, _id, videoDuration, created }}}}`
         );
         const mainslider = await axios.get(`${BASEURL}/slider`);
-        mainslider.data.sort(compare);
-        slider.data.data.sliders.sort(compare);
-        slider.data.data.sliders.forEach((slider, k) => {
-          slider.videos.sort(compare);
+        mainslider.data.sort(comparePostions);
+        slider.data.data.sliders.sort(comparePostions);
+        slider.data.data.sliders.forEach((slider, index) => {
+          slider.videos.sort(comparePostions);
         });
 
         let recommendedVideos = slider.data.data.sliders.filter(
@@ -86,39 +86,40 @@ const App = () => {
           (video) => video._id
         );
 
-        let furtherVideos = slider.data.data.sliders.filter(
-          (slider) => slider.name === "Sonstige Videos"
-        );
-        furtherVideos = furtherVideos[0].videos;
-        let filteredFurtherVideos = furtherVideos.map((video) => video._id);
+        let newestVideos = await axios.get(
+            `${BASEURL}/graphql?query={videos{_id, name, posterImagePath, created, status, access, views, videoDuration, categories{name, description, created, imagepath, iconpath _id}}}`
+          );
 
+        newestVideos = newestVideos.data.data.videos.sort(compareDates).reverse().splice(0,10)
+        console.log(newestVideos, 'newst shit')
         setVideoData(filteredRecommendedVideos);
+        setNewestVideos(newestVideos)
         setMainslider(mainslider.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
+    console.log('useFetch ist rendered')
   }, []);
 
   useEffect(() => {
     const fetchRoute = async () => {
       const url = getURL();
-      const location = window.location.pathname;
-      if (location.includes("tag=")) {
-        const searchData = await showTags(url);
+      if (url.completeURL.includes("tag=")) {
+        const searchData = await showTags(url.splittedURL);
         setVideoResult(searchData[1]);
       } else {  
-        const searchData = await doSearch(url, channels, playlists);
+        const searchData = await doSearch(url.splittedURL, channels, playlists);
         setQuery(searchData[0]);
         setVideoResult(searchData[1]);
         setChannelResult(searchData[2]);
         setPlaylistResult(searchData[3]);
       }
-      setURL(url);
+      setURL(url.splittedURL);
     };
     fetchRoute();
-  }, [channels, playlists, query, url]);
+  }, [channels, playlists, query, url.splittedURL]);
 
   // reeset the stored theme if user toggles preffered mode on his system
   useEffect(() => {
@@ -135,7 +136,7 @@ const App = () => {
   const getURL = () => {
     const location = window.location.pathname;
     const url = location.split("=").pop();
-    return url;
+    return {completeURL: location, splittedURL: url};
   };
 
   const getQuery = (query) => {
@@ -169,7 +170,7 @@ const App = () => {
           exact
           path={"/"}
           component={() => (
-            <Home channelData={channels} playlistData={playlists} />
+            <Home channelData={channels} playlistData={playlists} recommendedVideos={videoData} newestVideos={newestVideos} />
           )}
         />
 

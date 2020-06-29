@@ -35,6 +35,14 @@ export const compareNames = (a, b) => {
   return 0;
 };
 
+export const comparePostions = (a, b) => {
+  if (a.position < b.position) return -1;
+  if (a.position > b.position) return 1;
+  return 0;
+};
+
+
+
 //TODO in ein Custom Hook umwandeln
 export const doSearch = async (result, channels, playlists) => {
   console.log(result, "query in playlist");
