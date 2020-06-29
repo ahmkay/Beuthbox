@@ -6,6 +6,10 @@
 
 .react-multiple-carousel__arrow
     top: calc(50% - (68px - 21.5px))
+    height: 24px
+    width: 24px
+    ::after
+        margin-left: -3px
 
 .multi-carousel__title
     margin-bottom: $margin-s
@@ -23,9 +27,11 @@
     min-width: 0
     margin-right: 10px
     background-color: $color-white
+    border: none
 
 .react-multi-carousel-dot--active button
      min-width: 0
      margin-right: 10px
      background-color: $color-black
+     border: 1px solid var(--color-grey)
 

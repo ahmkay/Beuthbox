@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import VideoThumbnail from './VideoThumbnail'
 import PlaylistThumbnail from './PlaylistThumbnail';
 import { BASEURL } from "../../api";
 import { calculateVideoDuration } from '../../utils'
-import axios from "axios";
 
 /**
  * A reusable component to display an array of videos in a grid-layout
@@ -70,7 +69,7 @@ const ThumbnailGrid = ({type, elements, columnNumber}) =>  {
     }
 
     return (
-        <div className="video-grid" style={gridStyles}>
+        <div className="thumbnail-grid" style={gridStyles}>
            {type === "video" && renderVideos()}
            {type === "playlist" && renderPlaylist()}
            {type === "channel" && renderVideos()}

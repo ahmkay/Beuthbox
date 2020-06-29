@@ -139,7 +139,6 @@ const App = () => {
     setQuery(query);
   };
 
-  console.log(mainslider, 'maainn')
   return (
     <Router>
       {<MultiCarousel videos={mainslider} isHeader getQuery={getQuery} />}

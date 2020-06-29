@@ -36,7 +36,7 @@ const Search = ({
     playlistResult.length > 0
   ) {
     return (
-      <div className="root-container">
+      <main className="main">
         <h2 className="search-headline">
           Die Suche nach <span className="search-result">{query} </span> <br />{" "}
           ergab <span className="search-result">{result}</span> Treffer
@@ -47,7 +47,7 @@ const Search = ({
           playlistResult={playlistResult}
           channelResult={channelResult}
         />
-      </div>
+      </main>
     );
   }
   if (classicVideos.length < 1) {

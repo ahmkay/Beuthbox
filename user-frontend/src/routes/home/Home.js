@@ -3,7 +3,7 @@ import axios from "axios";
 import { BASEURL } from "../../api";
 import ChannelOverview from "../../components/reusables/ChannelOverview";
 
-import LiveInfoLayer from "../../components/LiveInfoLayer";
+import LiveInfoLayer from "../../components/reusables/LiveInfoLayer";
 import DiscoverCard from "../../components/reusables/DiscoverCard";
 import Button from "../../components/reusables/Button";
 import { Link } from "react-router-dom";

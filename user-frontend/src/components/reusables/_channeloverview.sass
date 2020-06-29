@@ -11,13 +11,16 @@
     width: 100%
     max-height: 450px
     display: flex
-    margin-bottom: 120px
+    margin-bottom: $margin-xl
     text-decoration: none
     transition: transform .2s ease-out, filter .2s ease-out, max-height .3s ease-out
     &:hover
-        max-height: 55em
         transform: translateY(-10px)
         filter: drop-shadow(0 6px 12px rgba(0,35,35,.15))
+    @media screen and (max-width: $break-tablet-landscape)
+        margin-bottom: $margin-l
+    @media screen and (max-width: $break-mobile)
+        margin-bottom: $margin-m
 
 .channel-container--left
     flex-direction: row
@@ -74,3 +77,21 @@
     display: flex
     justify-content: flex-start
     width: 100%
+
+// tablet styles
+@media screen and (max-width: $break-tablet)
+    .channel-container--left, .channel-container--right
+        flex-direction: column
+        margin: auto
+        width: 90%
+        max-height: 750px
+        margin-bottom: $margin-m
+
+    .channel-description
+        -webkit-line-clamp: 5
+
+    .channel-thumbnail-box
+        width: 100%
+
+    .channel-info-box
+        width: 100%

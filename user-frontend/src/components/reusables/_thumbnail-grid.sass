@@ -1,0 +1,10 @@
+.thumbnail-grid
+    display: grid
+    width: 100%
+    grid-gap: $margin-s
+    @media screen and (max-width: $break-desktop)
+        grid-template-columns: repeat(4, 1fr)!important
+    @media screen and (max-width: $break-tablet-landscape)
+        grid-template-columns: repeat(3, 1fr)!important
+    @media screen and (max-width: $break-tablet)
+        grid-template-columns: repeat(2, 1fr)!important

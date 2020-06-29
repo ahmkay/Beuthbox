@@ -29,7 +29,7 @@ const PlaylistThumbnail = ({playlistData, videoCount}) => {
                 <div className="playlist-thumbnail-container__overlay">
                     <h5 className="playlist-thumbnail-container__playlist-title">{playlistData.name ? playlistData.name : 'Kein Titel'}</h5>
                     <div className="playlist-thumbnail-container__details">
-                        <small className="playlist-thumbnail-container__video-description">
+                        <small className="playlist-thumbnail-container__playlist-description">
                             {playlistData.description ? playlistData.description : 'Keine Beschreibung'}
                         </small>
                         <div className="playlist-container__attributes-row">

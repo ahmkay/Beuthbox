@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from './reusables/Button'
+import Button from './Button'
 import { useHistory } from 'react-router-dom'
-import liveLayerImg from '../assets/img/IllustrationLive.svg'
+import liveLayerImg from '../../assets/img/IllustrationLive.svg'
 
 const LiveInfoLayer = () => {
     const history = useHistory()
@@ -9,7 +9,7 @@ const LiveInfoLayer = () => {
         history.push('/live')
     }
     return (
-        <div className='root-container'>
+        <section className='main__section'>
             <div className='liveinfo-container'>
                 <div className='liveinfo-container-image'>
                     <img src={liveLayerImg} className='liveinfo-image'/>
@@ -24,7 +24,7 @@ const LiveInfoLayer = () => {
                     <Button onClick={showLivescreen}> Zum Livestream</Button>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

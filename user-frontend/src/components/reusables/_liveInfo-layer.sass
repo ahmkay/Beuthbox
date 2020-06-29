@@ -2,21 +2,32 @@
     background-color: var(--color-card-background)
     border-radius: 5px
     box-shadow: 0px 3px 6px #00000029
-    padding: 117px 80px
+    padding: 120px 80px
     margin: 120px 0
     display: flex
     align-items: center
+    @media screen and (max-width: $break-tablet)
+        flex-direction: column
+        padding: 80px 40px
+        margin-top: 0
+        width: 100%
     
 
 .liveinfo-container-image
    width: 55%
    margin-right: 5%
    display: inline-block
+   @media screen and (max-width: $break-tablet)
+        width: 75%
+        margin-right: 0
 
 .liveinfo-container-content
    width: 35%
    display: inline-block
    text-align: center
+   @media screen and (max-width: $break-tablet)
+        width: 75%
+        margin-top: $margin-m
 
 .liveinfo-container-image
     .liveinfo-image

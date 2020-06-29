@@ -46,10 +46,16 @@
     flex-direction: row
 
 .video-thumbnail-container__video-title
-    color: var(--color-text)
+    color: var(--color-white)
     text-align: center
     padding: 0 1em
+    overflow: hidden
+    display: -webkit-box
+    -webkit-line-clamp: 3
+    -webkit-box-orient: vertical
     transition: font-size .3s ease-out, color .2s ease-out
+    @media screen and (max-width: $break-desktop)
+        font-size: $small-size
 
 .video-thumbnail-container__video-duration
     position: absolute

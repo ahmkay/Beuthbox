@@ -155,7 +155,7 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
             <ThumbnailGrid 
               type="video"
               elements={state.sortedvideoResult}
-              columnNumber={5}
+              columnNumber={4}
             />
             {videoResult.length < 1 && <NoContent content="video" />}
           </div>
@@ -169,7 +169,7 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
             <h3 className='result-headline'>Playlists</h3>
             <ThumbnailGrid 
               type="playlist" 
-              columnNumber={5}
+              columnNumber={4}
               elements={state.sortedplaylistResult} />
             {playlistResult.length < 1 && <NoContent content="playlist" />}
           </div>
