@@ -1,0 +1,57 @@
+.post-video
+    display: block
+    width: 75%
+    max-width: 800px
+    margin: auto
+    background-color: var(--color-card-background)
+    box-shadow: $elevation-1
+    padding: $margin-m
+    border-radius: 3px
+    transition: transform .2s ease-in-out, box-shadow .2s ease-in-out
+    & + .post-video
+        margin-top: $margin-m
+    &:hover
+        transform: scale(1.005)
+        box-shadow: $elevation-2
+
+.post-video__thumbnail-container
+    display: block
+    position: relative
+    width: 100%
+    margin-top: $margin-s
+    &::after
+        content: ''
+        display: block
+        padding-top: 56.25%
+
+.post-video__thumbnail
+    width: 100%
+    height: 100%
+    object-fit: cover
+    position: absolute
+
+.post-video__play-button
+    position: absolute
+    width: 72px
+    height: 72px
+    top: calc(50% - 72px / 2)
+    left: calc(50% - 72px / 2)
+
+.post-video__details
+    margin-top: $margin-s
+    margin-bottom: $margin-xs
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+
+.post-video__video-duration, .video-meta
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    color: var(--color-grey)
+    svg
+        width: .9em
+        height: .9em
+        margin-right: 3px
+        path
+            fill: var(--color-grey)

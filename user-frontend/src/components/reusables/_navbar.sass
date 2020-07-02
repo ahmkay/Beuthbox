@@ -1,6 +1,5 @@
-.nav 
+.nav
     height: 85px
-    margin-bottom: $margin-xl
     background-color: var(--color-primary)
     position: sticky
     top: -85px // move out of view on scroll
@@ -21,7 +20,7 @@
         flex-direction: column
         justify-content: space-around
 
-.nav__searchBar 
+.nav__searchBar
     width: 100%
     // margin-right: 20px
     display: inline-block
@@ -31,10 +30,10 @@
     border: 1px solid var(--color-primary-light)
     color: var(--color-white)
     border-radius: 3px
-    font-size: 18px 
+    font-size: 18px
     &:focus
         border-color: var(--color-white)
-::placeholder 
+::placeholder
     color: var(--color-primary-light)
 .nav__searchbar-flex-container
     position: relative
@@ -52,19 +51,19 @@
     & path
         color: var(--color-white)
 
-.nav-ul 
-   list-style-type: none
-   display: flex
-   align-items: center
-   justify-content: flex-start
-   @media screen and (max-width: $break-tablet-landscape)
+.nav-ul
+    list-style-type: none
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    @media screen and (max-width: $break-tablet-landscape)
         width: 80%
 
 .nav__element
     &:not(:last-child)
         margin-right: $margin-s
 
-.nav-link 
+.nav-link
     color: var(--color-white)
     display: flex
     flex-direction: column
@@ -75,7 +74,7 @@
 .nav__icon
     path
         color: var(--color-white)
-    
+
 .nav-link--isActive
     @extend .nav-link
     color: black
@@ -84,7 +83,7 @@
 
 .nav__icon--live
     circle
-        fill: var(--color-red)
+    fill: var(--color-red)
 
 .nav__indicator--show
     position: absolute
@@ -93,8 +92,8 @@
     background-color: black
     left: 50%
     animation-name: indicatorIn
-    animation-duration: .2s 
-    animation-timing-function: ease-out 
+    animation-duration: .2s
+    animation-timing-function: ease-out
     animation-fill-mode: forwards
     animation-delay: 1s
     transition: left .2s ease-out, width .4s ease-out
