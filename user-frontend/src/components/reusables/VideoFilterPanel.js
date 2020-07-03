@@ -90,8 +90,6 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
     }
   }
 
-  console.log(videoResult, 'actual videoresult in panel')
-
   const renderFilterPanel = () => {
     return (
       <>
@@ -152,6 +150,7 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
   };
 
   const renderResults = () => {
+    console.log(channelResult, 'channels panel')
     return (
       <>
         {filterType === "all" || filterType === "videos" ? (

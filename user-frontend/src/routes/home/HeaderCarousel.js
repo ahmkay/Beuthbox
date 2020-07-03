@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import Searchbar from "../../components/reusables/Searchbar";
 import { BASEURL } from "../../api";
 import beuthBOXIllustration from "../../assets/img/beuthbox-logo.svg";
 import playButtonIllustration from "../../assets/img/Button_Play.svg";
 import { Link, useLocation, useHistory } from "react-router-dom";
+import { DataContext } from "../../api/DataContext";
 
-const HeaderCarousel = ({ video, getQuery }) => {
+const HeaderCarousel = ({ video }) => {
   const { imagepath, name, description } = video;
   const { pathname } = useLocation();
   const history = useHistory();
+
+  const { setQuery } = useContext(DataContext)
 
   const videoURL = video.buttonlink.split("video/").pop();
 
@@ -27,14 +30,14 @@ const HeaderCarousel = ({ video, getQuery }) => {
         return;
       }
 
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     } else if (type === "click") {
       if (!trimmedValue && trimmedValue === "") {
         history.push("/");
         return;
       }
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     }
   };

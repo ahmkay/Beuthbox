@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
-import axios from "axios";
-import { BASEURL } from "../../api";
+import React, { useState, useEffect, useLayoutEffect, useRef, useContext } from "react";
 import Moment from "react-moment";
 import TodayIcon from "@material-ui/icons/Today";
 import ShareIcon from "@material-ui/icons/Share";
@@ -12,6 +10,7 @@ import VideoRow from "../../components/reusables/VideoRow";
 import CategoryIcon from "../../components/reusables/CategoryIcon";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { DataContext } from "../../api/DataContext";
 
 const Video = (props) => {
   const [video, setVideo] = useState([]);
@@ -19,29 +18,31 @@ const Video = (props) => {
   const [copySuccess, setCopySuccess] = useState(false);
   const { id } = props.match.params;
   const videoContainerRef = useRef(null);
+  const { allVideos } = useContext(DataContext)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const video = await axios.get(
-          `${BASEURL}/graphql?query={video(id:"${id}"){name, description, created, uploaded, playerType, tags, status, source, uploadedByUser, access, videoDuration, dualView, isOpencast, posterImagePath, videoPath, modified, _id, views}}`
-        );
+        const currentVideo =
+          (await allVideos.find(
+            (video) => video._id === id
+          )) || {};
 
-        let videoPathString = video.data.data.video.videoPath.toString();
+        let videoPathString = currentVideo.videoPath.toString();
         let string = videoPathString.replace(
           "http://beuthbox-opencast.beuth-hochschule.de/static/mh_default_org/engage-player/",
           ""
         );
         let n = string.indexOf("/");
         let OCid = string.slice(0, n);
-        video.data.data.video.ocid = OCid;
-        setVideo(video.data.data.video);
+       currentVideo.ocid = OCid;
+        setVideo(currentVideo);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, [id]);
+  }, [id, allVideos]);
 
   const shareVideo = () => {
     const url = window.location.href;

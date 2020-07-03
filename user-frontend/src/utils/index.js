@@ -56,15 +56,17 @@ export const doSearch = async (result, channels, playlists) => {
   let filteredvideos = videos.data.data.videos.filter((video) => {
     return video.access == "public" && video.status == "finished";
   });
-  filteredvideos = filteredvideos.sort(compareDates);
-  const filteredChannels = channels.filter(
+  filteredvideos =  filteredvideos.sort(compareDates);
+  const filteredChannels =  channels.filter(
     (channel) =>
       channel.ispublic &&
       channel.name.toLowerCase().includes(formattedQuery.toLowerCase())
   );
-  const filteredPlaylists = playlists.filter((playlist) =>
+  const filteredPlaylists =  playlists.filter((playlist) =>
     playlist.name.toLowerCase().includes(formattedQuery.toLowerCase())
   );
+
+  console.log(filteredChannels, 'channels index')
 
   return [formattedQuery, filteredvideos, filteredChannels, filteredPlaylists];
 };
@@ -82,3 +84,4 @@ export const showTags = async (result) => {
     return [query, filteredvideos]
 
 }
+  

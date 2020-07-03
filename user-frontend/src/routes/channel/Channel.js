@@ -1,48 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
 import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import ChannelHeader from "./ChannelHeader";
+import { DataContext } from "../../api/DataContext";
+import ActivityIndicator from "../../components/reusables/ActivityIndicator";
 
 const Channel = (props) => {
-  const [channel, setChannel] = useState([]);
-  const [numberOfVideos, setNumberOfVideos] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [channel, setChannel] = useState({});
+  const [playlists, setPlaylists] = useState([]);
   const [video, setVideo] = useState([]);
 
+  const { channelData, playlistData } = useContext(DataContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${BASEURL}/graphql?query={channel(id:"${props.match.params.id}"){_id, name,description, iconfilename, imagefilename, iconpath, imagepath, liveenabled, ispublic, users{username, _id}, liveevent{islive, title, subtitle, description, date, time, duration, haspassword, password, key, url}}}`
-        );
-        const responseCount = await axios.get(
-          `${BASEURL}/graphql?query={channelVideoCount(id: "${props.match.params.id}"){_id, total}}`
-        );
+        const currentChannel =
+          (await channelData.find(
+            (channel) => channel._id === props.match.params.id
+          )) || {};
+
+        // show all videos the channel is containing
         const responseVideos = await axios.get(
-          `${BASEURL}/graphql?query={videos(filter: {channelid: "${props.match.params.id}"}){_id, name, posterImagePath, created, status, access, views, videoDuration, categories{name, description, created, imagepath, iconpath _id}}}`
+          `${BASEURL}/graphql?query={videos(filter: {channelid: "${props.match.params.id}"}){_id, name, posterImagePath, created, status, access, views, 
+            videoDuration, categories{name, description, created, imagepath, iconpath _id}}}`
         );
 
-        const responsecategories = await axios.get(
-          BASEURL +
-            "/graphql?query={categories{_id, name, description, created, imagepath, iconpath}}"
-        );
-        const categoryArray = [];
+        const playlistArray = [];
 
         const videos = responseVideos.data.data.videos.filter((video) => {
-          for (let i = 0; i < video.categories.length; i++) {
-            categoryArray.push(String(video.categories[i]._id));
-            //console.log("VIDEO PART: " + video.name + " | " + video.categories[i].name + " | " + video.categories[i]._id);
-          }
-          //categoryArray.push(String(video.categories[0]._id));    //Packe alle IDs der Videos in Array
+          video.categories.forEach((category) =>
+            playlistArray.push(category._id)
+          );
 
-          if (video.categories == false) {
-            console.log("CATEGORY VIDEO:  undefined");
-          } else {
-            console.log("CATEGORY VIDEO: " + video.categories[0].name);
-          }
-
-          //return video.access == "public"  || video.access == "channelonly" && video.status == "finished"
           return (
             (video.access == "public" && video.categories == false) ||
             (video.access == "channelonly" &&
@@ -51,35 +41,27 @@ const Channel = (props) => {
           );
         });
 
-        //&& video.category != undefined
+    
+        // filter unique playlist ID´s
+        const playlistArrayUniqueIDs = [...new Set(playlistArray)];
+        const checkIfArrIncludes = (_id) =>
+          playlistArrayUniqueIDs.includes(_id);
+        const playlistFilter = Object.values(playlistData).filter((cat) =>
+          checkIfArrIncludes(cat._id) ? cat : 0
+        );
 
-        console.log("NUMBER VIDEOS: " + videos.length);
-
-        //Array aufräumen
-        //console.log("Array: " + categoryArray);
-        const categoryArrayUnique = [...new Set(categoryArray)];
-        //console.log("Array aufgeräumt: " + categoryArrayUnique);
-        const checkIfArrIncludes = (_id) => categoryArrayUnique.includes(_id);
-        const categoriesFilter = Object.values(
-          responsecategories.data.data.categories
-        ).filter((cat) => (checkIfArrIncludes(cat._id) ? cat : 0));
-
-        setChannel(response.data.data.channel);
-        setNumberOfVideos(responseCount.data.data.channelVideoCount.total);
-        setCategories(categoriesFilter);
+        setChannel(currentChannel);
+        setPlaylists(playlistFilter);
         setVideo(videos);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-    console.log(props, "props");
-  }, []);
+  }, [channelData, playlistData]);
 
   const showVideos = () => {
-    console.log(video, "videos");
-
-    return video.map((video, index) => {
+    return video.map((video) => {
       return (
         <div class="item col-md-3 col-xs-12">
           <div class="tile">
@@ -113,38 +95,43 @@ const Channel = (props) => {
       );
     });
   };
-  if (video && categories && numberOfVideos && channel) {
+  if (video.length > 0 || playlists.length > 0 || channel.length > 0) {
     return (
       <>
-        <ChannelHeader title={channel.name} description={channel.description} img={`${BASEURL}/channel${channel.imagepath}`}/>
+        <ChannelHeader
+          title={channel.name}
+          description={channel.description}
+          img={`${BASEURL}/channel${channel.imagepath}`}
+        />
         <main className="main">
-            <div class="container-fluid">
-                <div class="row player-container content">
-                </div>
-                <div class="row">
-                <div class="col-sm-12 channel-info">
-                    <div class="video-info"></div>
-                </div>
-                </div>
-
-                <div class="container-fluid">
-                {/* {categories.length != 0 && <h3 class="carousel-title">Playlist</h3>} */}
-                <PlaylistsCarousel playlists={categories} />
-                {/* <div class="row">{showCategories()}</div> */}
-
-                {video.length != 0 && (
-                    <>
-                    <h3>Videos</h3>
-                    </>
-                )}
-                {showVideos()}
-                </div>
+          <div class="container-fluid">
+            <div class="row player-container content"></div>
+            <div class="row">
+              <div class="col-sm-12 channel-info">
+                <div class="video-info"></div>
+              </div>
             </div>
+
+            <div class="container-fluid">
+              <PlaylistsCarousel playlists={playlists} />
+
+              {video.length != 0 && (
+                <>
+                  <h3>Videos</h3>
+                </>
+              )}
+              {showVideos()}
+            </div>
+          </div>
         </main>
       </>
     );
   }
-  return <div>Channel</div>;
+  return (
+    <div>
+      <ActivityIndicator position="inline" />
+    </div>
+  );
 };
 
 export default Channel;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Moment from "react-moment";
 import TodayIcon from "@material-ui/icons/Today";
 import ShareIcon from "@material-ui/icons/Share";
@@ -7,9 +7,11 @@ import VideoRow from "../../components/reusables/VideoRow";
 import ReactFlowPlayer from "react-flow-player";
 import LiveOffline from "./LiveOffline";
 import CategoryIcon from '../../components/reusables/CategoryIcon'
+import { DataContext } from "../../api/DataContext";
 
-const Live = (props) => {
+const Live = () => {
   const [showPlayer, setShowPlayer] = useState(true);
+  const { recommendedVideos } = useContext(DataContext)
 
   const shareVideo = () =>
     navigator.clipboard.writeText("Copy this text to clipboard");
@@ -93,7 +95,7 @@ const Live = (props) => {
             </div>
           </>
         ) : (
-          <LiveOffline classicVideos={props.classicVideos}/>
+          <LiveOffline />
         )}
       </>
     );

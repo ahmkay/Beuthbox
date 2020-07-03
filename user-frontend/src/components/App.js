@@ -19,53 +19,30 @@ import Discover from "../routes/discover/Discover";
 import VideoServices from "../routes/video-services/VideoServices";
 import NotFound from "../routes/404/NotFound";
 import MultiCarousel from "./reusables/MutliCarousel";
-import { comparePostions } from '../utils'
+import { comparePostions } from "../utils";
+import { DataContext } from "../api/DataContext";
 
 const App = () => {
+  const [allVideos, setAllVideos] = useState([]);
   const [channels, setChannels] = useState([]);
   const [playlists, setPlaylists] = useState([]);
-  const [videoData, setVideoData] = useState([]);
-  const [newestVideos, setNewestVideos ] = useState([])
+  const [recommendedVideos, setRecommendedVideos] = useState([]);
+  const [newestVideos, setNewestVideos] = useState([]);
   const [mainslider, setMainslider] = useState([]);
   const [query, setQuery] = useState("");
   const [url, setURL] = useState("");
   const [videoResult, setVideoResult] = useState([]);
   const [channelResult, setChannelResult] = useState([]);
   const [playlistResult, setPlaylistResult] = useState([]);
+  const [taggedVideos, setTaggedVideos] = useState([]);
 
   const resetTheme = () => {
-    console.log('remove Theme')
-    localStorage.removeItem('theme')
-  }
+    console.log("remove Theme");
+    localStorage.removeItem("theme");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      // get every existing channel which is public
-      try {
-        const response = await axios.get(
-          BASEURL +
-            "/graphql?query={channels{name, description, created, imagepath, iconpath, _id, ispublic}}"
-        );
-        const {channels } = response.data.data
-        const filteredChannels = channels.filter((channel) => {
-          return channel.ispublic;
-        });
-        setChannels(filteredChannels);
-      } catch (error) {
-        console.log(error);
-      }
-      
-      // get every existing playlist
-      try {
-        const response = await axios.get(
-          BASEURL +
-            "/graphql?query={categories{name, description, created, imagepath, iconpath _id}}"
-        );
-        const {categories } = response.data.data
-        setPlaylists(categories);
-      } catch (error) {
-        console.log(error);
-      }
       // get every mainslider + slider (further + recommended videos)
       try {
         const slider = await axios.get(
@@ -86,21 +63,61 @@ const App = () => {
           (video) => video._id
         );
 
-        let newestVideos = await axios.get(
-            `${BASEURL}/graphql?query={videos{_id, name, posterImagePath, created, status, access, views, videoDuration, categories{name, description, created, imagepath, iconpath _id}}}`
-          );
+        let allVideos = await axios.get(
+          `${BASEURL}/graphql?query={videos{_id, name, posterImagePath, created, status, access, views, videoDuration, videoPath, tags, categories{name, description, created, imagepath, _id}, channel{name, description, created, imagepath, _id}}}`
+        );
 
-        newestVideos = newestVideos.data.data.videos.sort(compareDates).reverse().splice(0,10)
-        console.log(newestVideos, 'newst shit')
-        setVideoData(filteredRecommendedVideos);
-        setNewestVideos(newestVideos)
+        // sort videos by date and limit the amount to 10
+        let newestVideos = allVideos.data.data.videos
+          .sort(compareDates)
+          .reverse()
+          .splice(0, 10);
+
+        // let filteredAllVideos = allVideos.data.data.videos.filter((video) => {
+        //   return (
+        //     (video.access == "public" && video.categories == false) ||
+        //     (video.access == "channelonly" &&
+        //       video.status == "finished" &&
+        //       video.categories == false)
+        //   );
+        // });
+
         setMainslider(mainslider.data);
+        setRecommendedVideos(filteredRecommendedVideos);
+        setNewestVideos(newestVideos);
+        setAllVideos(allVideos.data.data.videos);
+      } catch (error) {
+        console.log(error);
+      }
+      // get every existing channel which is public
+      try {
+        const response = await axios.get(
+          BASEURL +
+            "/graphql?query={channels{name, description, created, imagepath, iconpath, _id, ispublic}}"
+        );
+        const { channels } = response.data.data;
+        const filteredChannels = channels.filter((channel) => {
+          return channel.ispublic;
+        });
+        setChannels(filteredChannels);
+      } catch (error) {
+        console.log(error);
+      }
+
+      // get every existing playlist
+      try {
+        const response = await axios.get(
+          BASEURL +
+            "/graphql?query={categories{name, description, created, imagepath, iconpath _id}}"
+        );
+        const { categories } = response.data.data;
+        setPlaylists(categories);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-    console.log('useFetch ist rendered')
+    console.log("useFetch ist rendered");
   }, []);
 
   useEffect(() => {
@@ -108,13 +125,17 @@ const App = () => {
       const url = getURL();
       if (url.completeURL.includes("tag=")) {
         const searchData = await showTags(url.splittedURL);
-        setVideoResult(searchData[1]);
-      } else {  
+        setQuery(searchData[0]);
+        setTaggedVideos(searchData[1]);
+        setVideoResult([])
+      } else {
         const searchData = await doSearch(url.splittedURL, channels, playlists);
+        console.log("doSearch angehauen");
         setQuery(searchData[0]);
         setVideoResult(searchData[1]);
         setChannelResult(searchData[2]);
         setPlaylistResult(searchData[3]);
+        setTaggedVideos([])
       }
       setURL(url.splittedURL);
     };
@@ -123,83 +144,62 @@ const App = () => {
 
   // reeset the stored theme if user toggles preffered mode on his system
   useEffect(() => {
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(resetTheme)
+    window.matchMedia("(prefers-color-scheme: dark)").addListener(resetTheme);
 
     // function (e) {
     //   console.log(`changed to ${e.matches ? "dark" : "light"} mode`)
     // });
     return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeListener(resetTheme)
-    }
-  }, [])
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .removeListener(resetTheme);
+    };
+  }, []);
 
   const getURL = () => {
     const location = window.location.pathname;
     const url = location.split("=").pop();
-    return {completeURL: location, splittedURL: url};
-  };
-
-  const getQuery = (query) => {
-    setQuery(query);
+    return { completeURL: location, splittedURL: url };
   };
 
   return (
     <Router>
-      {<MultiCarousel videos={mainslider} isHeader getQuery={getQuery} />}
-      <Navbar getQuery={getQuery} />
-      <Switch>
-        <Route path={"/aboutus"} component={AboutUs} />
-        <Route
-          exact
-          path={"/playlist"}
-          component={() => <Playlists playlistData={playlists} />}
-        />
-        <Route exact path={"/playlist/:id"} component={Playlist} />
-        <Route exact path={"/video/:id"} component={Video} />
-
-        <Route
-          exact
-          path={"/channel/"}
-          component={() => (
-            <Channels channelData={channels} videoData={videoData} />
-          )}
-        />
-        <Route path={"/channel/:id"} component={Channel} />
-
-        <Route
-          exact
-          path={"/"}
-          component={() => (
-            <Home channelData={channels} playlistData={playlists} recommendedVideos={videoData} newestVideos={newestVideos} />
-          )}
-        />
-
-        <Route
-          exact
-          path={"/search/:id"}
-          component={() => (
-            <Search
-              playlistData={playlists}
-              videoResult={videoResult}
-              channelResult={channelResult}
-              playlistResult={playlistResult}
-              query={query}
-              getQuery={getQuery}
-              classicVideos={videoData}
-            />
-          )}
-        />
-
-        <Route exact path={"/video-services"} component={VideoServices} />
-        <Route
-          exact
-          path={"/live"}
-          component={(rest) => <Live classicVideos={videoData} {...rest} />}
-        />
-        <Route exact path={"/discover"} component={Discover} />
-        <Route component={NotFound} />
-      </Switch>
-      <Footer />
+      <DataContext.Provider
+        value={{
+          recommendedVideos,
+          setRecommendedVideos,
+          newestVideos,
+          channelData: channels,
+          channelResult,
+          playlistData: playlists,
+          playlistResult,
+          query,  
+          setQuery,
+          url,
+          mainslider,
+          allVideos,
+          videoResult,
+          taggedVideos
+        }}
+      >
+        {<MultiCarousel isHeader />}
+        <Navbar />
+        <Switch>
+          <Route path={"/aboutus"} component={AboutUs} />
+          <Route exact path={"/playlist"} component={Playlists} />
+          <Route exact path={"/playlist/:id"} component={Playlist} />
+          <Route exact path={"/video/:id"} component={Video} />
+          <Route exact path={"/channel/"} component={Channels} />
+          <Route path={"/channel/:id"} component={Channel} />
+          <Route exact path={"/"} component={Home} />
+          <Route exact path={"/search/:id"} component={Search} />
+          <Route exact path={"/video-services"} component={VideoServices} />
+          <Route exact path={"/live"} component={Live} />
+          <Route exact path={"/discover"} component={Discover} />
+          <Route component={NotFound} />
+        </Switch>
+        <Footer />
+      </DataContext.Provider>
     </Router>
   );
 };

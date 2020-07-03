@@ -1,15 +1,16 @@
-import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
+import React, { useState, useLayoutEffect, useContext, useRef } from "react";
 import HomeIcon from "@material-ui/icons/Home";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import Videocam from "@material-ui/icons/Videocam";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import SearchIcon from "@material-ui/icons/Search";
-import ThemeSwitcher from '../reusables/ThemeSwitcher'
+import ThemeSwitcher from "../reusables/ThemeSwitcher";
 
 import { NavLink, useHistory } from "react-router-dom";
+import { DataContext } from "../../api/DataContext";
 
-const Navbar = ({ getQuery }) => {
+const Navbar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [leftPosition, setLeftPosition] = useState(null);
   const [indicatorWidth, setIndicatorWidht] = useState(null);
@@ -17,6 +18,7 @@ const Navbar = ({ getQuery }) => {
   const [showNav, setShowNav] = useState(true);
   const [inputValue, setInputValue] = useState("");
 
+  const { setQuery } = useContext(DataContext);
   let activeRef = useRef(null);
 
   // to move to active indicator
@@ -78,14 +80,14 @@ const Navbar = ({ getQuery }) => {
 
       console.log(trimmedValue.length, "kein wert gefunden");
 
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     } else if (type === "click") {
       if (!trimmedValue && trimmedValue === "") {
         history.push("/");
         return;
       }
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     }
   };

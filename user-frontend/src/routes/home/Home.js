@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import ChannelOverview from "../../components/reusables/ChannelOverview";
 
 import LiveInfoLayer from "../../components/reusables/LiveInfoLayer";
@@ -7,8 +7,10 @@ import Button from "../../components/reusables/Button";
 import { Link } from "react-router-dom";
 import MultiCarousel from "../../components/reusables/MutliCarousel";
 import ActivityIndicator from "../../components/reusables/ActivityIndicator";
+import { DataContext } from "../../api/DataContext";
 
-const Home = ({ channelData, playlistData, newestVideos, recommendedVideos }) => {
+const Home = () => {
+  const { channelData, playlistData, newestVideos, recommendedVideos } = useContext(DataContext)
  
   if (newestVideos.length > 0 && recommendedVideos.length > 0 && channelData.length > 0 && playlistData.length > 0) {
     return (
@@ -30,7 +32,7 @@ const Home = ({ channelData, playlistData, newestVideos, recommendedVideos }) =>
               Entdecke die Sammlung der neusten Playlisten
             </h2>
           </header>
-          <MultiCarousel videos={playlistData} isPlaylist />
+          <MultiCarousel isPlaylist />
           <div className="link__container-playlist">
             <Link to={"/playlist"}>
               <Button>Alle Playlisten</Button>{" "}
