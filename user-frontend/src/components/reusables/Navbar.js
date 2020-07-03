@@ -5,8 +5,8 @@ import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import Videocam from "@material-ui/icons/Videocam";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import SearchIcon from "@material-ui/icons/Search";
-
 import { NavLink, useHistory } from "react-router-dom";
+import SearchMobile from "../../routes/search/SearchMobile";
 
 const Navbar = ({ getQuery }) => {
   const [activeTab, setActiveTab] = useState("");
@@ -15,6 +15,8 @@ const Navbar = ({ getQuery }) => {
   const [scrollPos, setScrollPos] = useState(0);
   const [showNav, setShowNav] = useState(true);
   const [inputValue, setInputValue] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 576);
+  const [showSearch, setShowSearch] = useState(false);
 
   let activeRef = useRef(null);
 
@@ -35,14 +37,24 @@ const Navbar = ({ getQuery }) => {
     //setIndicatorWidht(activeRef.current.getBoundingClientRect().width + 'px')
   };
 
+  const setNavbar = () => {
+    setIsMobile(window.innerWidth < 576);
+  };
+
   // move Indicator every time the window resizes
   useLayoutEffect(() => {
     if (activeRef !== null) {
-      window.addEventListener("resize", moveIndicator);
+      window.addEventListener("resize", () => {
+        moveIndicator();
+        setNavbar();
+      });
     }
     window.addEventListener("scroll", hideOnScroll);
     return () => {
-      window.removeEventListener("resize", moveIndicator);
+      window.removeEventListener("resize", () => {
+        moveIndicator();
+        setNavbar();
+      });
       window.removeEventListener("scroll", hideOnScroll);
     };
   });
@@ -90,23 +102,40 @@ const Navbar = ({ getQuery }) => {
   };
 
   return (
-    <nav className={`nav ${showNav ? "show" : ""}`}>
-      <div className="main nav__flex-container">
-        <div className="nav__searchbar-flex-container">
-          <input
-            className="nav__searchBar"
-            type="text"
-            name="suche"
-            placeholder="Video, Playlist, Channel, Stichwort..."
-            onChange={(event) => setInputValue(event.target.value)}
-            onKeyDown={(event) => evaluateSearch(event, inputValue)}
-          />
-          <SearchIcon
-            className="nav__searchbar-flex-container-searchbar-icon"
-            onClick={(event) => evaluateSearch(event, inputValue)}
-          />
-        </div>
+    <nav
+      className={`nav nav${isMobile ? "--isMobile" : "--isDesktop"} ${
+        showNav ? "show" : ""
+      }`}
+    >
+      <div className="nav__flex-container">
+        {!isMobile && (
+          <div className="nav__searchbar-flex-container">
+            <input
+              className="nav__searchBar"
+              type="text"
+              name="suche"
+              placeholder="Video, Playlist, Channel, Stichwort..."
+              onChange={(event) => setInputValue(event.target.value)}
+              onKeyDown={(event) => evaluateSearch(event, inputValue)}
+            />
+            <SearchIcon
+              className="nav__searchbar-flex-container-searchbar-icon"
+              onClick={(event) => evaluateSearch(event, inputValue)}
+            />
+          </div>
+        )}
         <ul className="nav-ul">
+          {isMobile && (
+            <>
+              <SearchMobile show={showSearch} state="entering" />
+              <li className="nav__element">
+                <div onClick={() => setShowSearch(true)} className="nav-link">
+                  <SearchIcon className="nav__icon" />
+                  <p className="link">Suche</p>
+                </div>
+              </li>
+            </>
+          )}
           <li
             className="nav__element"
             ref={activeTab === "/" ? activeRef : null}

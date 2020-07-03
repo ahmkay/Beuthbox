@@ -1,4 +1,4 @@
-button
+button:not(.button--icon)
     border: none
     outline: none
     border-radius: 3px
@@ -10,6 +10,10 @@ button
     color: var(--color-primary-dark)
     background-color: var(--color-primary)
     transition: color .2s ease-out, background-color .2s ease-out, fill .2s ease-out
+    @media screen and (max-width: $break-mobile)
+        width: 100%
+        font-size: $h3-size
+        padding: $h4-size
     &.negative
         color: var(--color-primary-light)
         background-color: var(--color-primary-dark)
@@ -17,3 +21,14 @@ button
         cursor: pointer
         color: white
         background-color: var(--color-primary-dark)
+
+.button--icon
+    width: initial
+    background-color: transparent
+    border: none
+    outline: none
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    color: var(--color-white)

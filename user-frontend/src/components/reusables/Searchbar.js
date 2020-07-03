@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
+import Button from "./Button";
 
-const Searchbar = ({ eventHandler, type }) => {
+const Searchbar = ({ eventHandler, type, extraButton }) => {
   const [inputValue, setInputValue] = useState("");
   return (
     <div className="searchbar__container">
@@ -14,10 +15,17 @@ const Searchbar = ({ eventHandler, type }) => {
         onChange={(event) => setInputValue(event.target.value)}
         onKeyDown={(event) => eventHandler(event, inputValue)}
       />
-      <SearchIcon
-        className={`searchbar__icon--${type}`}
-        onClick={(event) => eventHandler(event, inputValue)}
-      />
+      {!extraButton && (
+        <SearchIcon
+          className={`searchbar__icon--${type}`}
+          onClick={(event) => eventHandler(event, inputValue)}
+        />
+      )}
+      {extraButton && (
+        <Button negative onClick={(event) => eventHandler(event, inputValue)}>
+          Suchen
+        </Button>
+      )}
     </div>
   );
 };

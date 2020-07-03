@@ -32,9 +32,9 @@ const App = () => {
   const [playlistResult, setPlaylistResult] = useState([]);
 
   const resetTheme = () => {
-    console.log('remove Theme')
-    localStorage.removeItem('theme')
-  }
+    console.log("remove Theme");
+    localStorage.removeItem("theme");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,7 +77,6 @@ const App = () => {
         slider.data.data.sliders.forEach((slider, k) => {
           slider.videos.sort(compare);
         });
-        
 
         let recommendedVideos = slider.data.data.sliders.filter(
           (slider) => slider.name === "Empfohlene Videos"
@@ -94,14 +93,12 @@ const App = () => {
         let filteredFurtherVideos = furtherVideos.map((video) => video._id);
 
         setVideoData(filteredRecommendedVideos);
-        setMainslider(mainslider.data)
-       
+        setMainslider(mainslider.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-
   }, []);
 
   useEffect(() => {
@@ -119,15 +116,17 @@ const App = () => {
 
   // reeset the stored theme if user toggles preffered mode on his system
   useEffect(() => {
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(resetTheme)
+    window.matchMedia("(prefers-color-scheme: dark)").addListener(resetTheme);
 
     // function (e) {
     //   console.log(`changed to ${e.matches ? "dark" : "light"} mode`)
     // });
     return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeListener(resetTheme)
-    }
-  }, [])
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .removeListener(resetTheme);
+    };
+  }, []);
 
   const getURL = () => {
     const location = window.location.pathname;
@@ -187,7 +186,11 @@ const App = () => {
         />
 
         <Route exact path={"/video-services"} component={VideoServices} />
-        <Route exact path={"/live"} component={(rest) => <Live  classicVideos={videoData} {...rest}/>}/>
+        <Route
+          exact
+          path={"/live"}
+          component={(rest) => <Live classicVideos={videoData} {...rest} />}
+        />
         <Route exact path={"/discover"} component={Discover} />
         <Route component={NotFound} />
       </Switch>

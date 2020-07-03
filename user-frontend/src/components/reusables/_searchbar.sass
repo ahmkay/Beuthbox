@@ -42,13 +42,15 @@
     cursor: pointer
 
 .searchbar__icon--grey
-   @extend .searchbar__icon
-
+    @extend .searchbar__icon
 
 .searchbar__icon--white
     @extend .searchbar__icon
     & path
         color: var(--color-white)
+
+.searchbar__container button
+    margin-top: $margin-s
 
 // webkit styles
 .searchbar--white:-webkit-autofill
