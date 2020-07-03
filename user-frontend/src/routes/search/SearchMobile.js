@@ -7,13 +7,13 @@ import Button from "../../components/reusables/Button";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { Transition } from "react-transition-group";
 
-const SearchMobile = ({ getQuery, show, state }) => {
-  const transitionDuration = 500;
+const SearchMobile = ({ getQuery, show, state, toggleShow }) => {
+  const transitionDuration = 400;
   const { pathname } = useLocation();
   const history = useHistory();
 
   const defaultStyle = {
-    transition: `top ${transitionDuration}ms cubic-bezier(0.21, 0.82, 0.63, 1)`,
+    transition: `top ${transitionDuration}ms cubic-bezier(0.13, 0.99, 0.63, 1)`,
   };
 
   // entered: 100vh + the height of the navbar --> 100% because its the relative container...
@@ -54,7 +54,7 @@ const SearchMobile = ({ getQuery, show, state }) => {
 
   return (
     <Transition in={show} appear={true}>
-      {(state = "entering") => (
+      {(state = state) => (
         <main
           className="main search-mobile"
           style={{
@@ -70,18 +70,24 @@ const SearchMobile = ({ getQuery, show, state }) => {
             <Searchbar type="white" eventHandler={evaluateSearch} extraButton />
           </div>
           <div className="search-mobile__controls main__section">
-            <Link
-              to="/discover"
-              onClick={() => (show = false)}
-              className="link-incognito"
+            <Button
+              type="icon"
+              onClick={() => {
+                history.push("/discover");
+                toggleShow();
+              }}
             >
-              <Button type="icon" icon={Rocket}>
-                Entdecken
-              </Button>
-            </Link>
-            <div onCLick={() => history.goBack}>
+              <img src={Rocket} />
+              Entdecken
+            </Button>
+            <Button
+              type="icon"
+              onClick={() => {
+                toggleShow();
+              }}
+            >
               <img src={X} />
-            </div>
+            </Button>
           </div>
         </main>
       )}

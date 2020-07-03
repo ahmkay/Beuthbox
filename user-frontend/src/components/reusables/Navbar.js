@@ -7,6 +7,7 @@ import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import SearchIcon from "@material-ui/icons/Search";
 import { NavLink, useHistory } from "react-router-dom";
 import SearchMobile from "../../routes/search/SearchMobile";
+import Button from "./Button";
 
 const Navbar = ({ getQuery }) => {
   const [activeTab, setActiveTab] = useState("");
@@ -39,6 +40,10 @@ const Navbar = ({ getQuery }) => {
 
   const setNavbar = () => {
     setIsMobile(window.innerWidth < 576);
+  };
+
+  const toggleMobileSearch = () => {
+    setShowSearch(!showSearch);
   };
 
   // move Indicator every time the window resizes
@@ -107,6 +112,23 @@ const Navbar = ({ getQuery }) => {
         showNav ? "show" : ""
       }`}
     >
+      {isMobile && (
+        <>
+          <SearchMobile
+            show={showSearch}
+            state="entering"
+            toggleShow={toggleMobileSearch}
+          />
+          <Button
+            onClick={() => toggleMobileSearch()}
+            type="icon"
+            filled
+            className="nav__mobile-search"
+          >
+            <SearchIcon />
+          </Button>
+        </>
+      )}
       <div className="nav__flex-container">
         {!isMobile && (
           <div className="nav__searchbar-flex-container">
@@ -125,17 +147,6 @@ const Navbar = ({ getQuery }) => {
           </div>
         )}
         <ul className="nav-ul">
-          {isMobile && (
-            <>
-              <SearchMobile show={showSearch} state="entering" />
-              <li className="nav__element">
-                <div onClick={() => setShowSearch(true)} className="nav-link">
-                  <SearchIcon className="nav__icon" />
-                  <p className="link">Suche</p>
-                </div>
-              </li>
-            </>
-          )}
           <li
             className="nav__element"
             ref={activeTab === "/" ? activeRef : null}
@@ -224,7 +235,7 @@ const Navbar = ({ getQuery }) => {
               }
             >
               <Videocam className="nav__icon" />
-              Video&nbsp;Services
+              Services
             </NavLink>
           </li>
           <span

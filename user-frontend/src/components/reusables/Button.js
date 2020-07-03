@@ -9,13 +9,22 @@ import React from "react";
  * <Button onClick={() => {console.log('Button clicked)}} negative >Click me!</Button>
  */
 
-const Button = ({ onClick, negative, type, icon, children }) => {
+const Button = ({
+  onClick,
+  negative,
+  type,
+  filled,
+  icon,
+  children,
+  className,
+}) => {
   return (
     <button
       onClick={onClick}
-      className={`${negative ? "negative " : ""} button--${type ? type : ""}`}
+      className={`${negative ? "negative " : ""} button--${type ? type : ""} ${
+        filled && "button--filled"
+      } ${className}`}
     >
-      {type === "icon" && <img src={icon} />}
       {children}
     </button>
   );

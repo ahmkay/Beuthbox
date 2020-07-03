@@ -14,8 +14,8 @@
             top: 0
 
     &--isMobile
-        bottom: -60px
-        height: 60px
+        bottom: -56px
+        height: 56px
         width: 100%
         position: fixed
         &.show
@@ -67,12 +67,11 @@
     align-items: center
     justify-content: flex-start
     @media screen and (max-width: $break-tablet-landscape)
-        width: 80%
+        width: 90%
         justify-content: center
 
 .nav__element
-    &:not(:last-child)
-        margin-right: $margin-s
+    padding: 0 12px
 
 .nav-link
     color: var(--color-white)
@@ -83,10 +82,17 @@
     transition: left .3s ease-out, width .3s ease-out
     .link
         color: var(--color-white)
+    @media screen and (max-width: $break-mobile)
+        padding-top: 8px
+        padding-bottom: 12px
+        height: 100%
 
-.nav__icon
+svg.nav__icon
     path
         color: var(--color-white)
+    @media screen and (max-width: $break-mobile)
+        width: 24px
+        height: 24px
 
 .nav-link--isActive
     @extend .nav-link
@@ -112,6 +118,11 @@
     transition: left .2s ease-out, width .4s ease-out
 .nav__indicator
     display: none
+
+.nav__mobile-search
+    position: absolute
+    right: 5%
+    bottom: 56px + 16px // height of navbar + recommented margin of appbar from material design
 
 @keyframes indicatorIn
     0%
