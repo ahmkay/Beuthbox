@@ -8,6 +8,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { NavLink, useHistory } from "react-router-dom";
 import SearchMobile from "../../routes/search/SearchMobile";
 import Button from "./Button";
+import { preventBackgroundScroll } from "../../utils";
 
 const Navbar = ({ getQuery }) => {
   const [activeTab, setActiveTab] = useState("");
@@ -35,7 +36,7 @@ const Navbar = ({ getQuery }) => {
     // if(activeRef.current == null) {
     // }
     //setLeftPosition(activeRef.current.getBoundingClientRect().left + 'px')
-    //setIndicatorWidht(activeRef.current.getBoundingClientRect().width + 'px')
+    //setIndicatorWidht(activeRef.current.getBoundingClientRect().width + git 'px')
   };
 
   const setNavbar = () => {
@@ -43,6 +44,8 @@ const Navbar = ({ getQuery }) => {
   };
 
   const toggleMobileSearch = () => {
+    preventBackgroundScroll(!showSearch);
+    setShowNav(!showSearch); // to close gap on top of the mobile search caused of hidden navbar
     setShowSearch(!showSearch);
   };
 
@@ -54,7 +57,9 @@ const Navbar = ({ getQuery }) => {
         setNavbar();
       });
     }
-    window.addEventListener("scroll", hideOnScroll);
+    if (!showSearch) {
+      window.addEventListener("scroll", hideOnScroll); // prevent to move search modal because it sets its position relative to the navbar
+    }
     return () => {
       window.removeEventListener("resize", () => {
         moveIndicator();
@@ -118,6 +123,7 @@ const Navbar = ({ getQuery }) => {
             show={showSearch}
             state="entering"
             toggleShow={toggleMobileSearch}
+            getQuery={getQuery}
           />
           <Button
             onClick={() => toggleMobileSearch()}

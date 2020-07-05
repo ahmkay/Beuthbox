@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import Rocket from "../../assets/img/icons/Icon_Rocket.svg";
 import X from "../../assets/img/icons/Icon_X.svg";
 import Searchbar from "../../components/reusables/Searchbar";
 import Button from "../../components/reusables/Button";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { Transition } from "react-transition-group";
 
-const SearchMobile = ({ getQuery, show, state, toggleShow }) => {
-  const transitionDuration = 400;
-  const { pathname } = useLocation();
+const SearchMobile = ({ getQuery, show, toggleShow }) => {
+  const transitionDuration = 350;
   const history = useHistory();
+  const [currentLocation, setCurrentLocation] = useState(useLocation());
+
+  // BUG: causes rerenders also if component is not visible
+  useEffect(() => {
+    // close seeatch modal if search route is entered
+    if (useLocation !== currentLocation) toggleShow(false);
+  }, [useLocation()]);
 
   const defaultStyle = {
-    transition: `top ${transitionDuration}ms cubic-bezier(0.13, 0.99, 0.63, 1)`,
+    transition: `top ${transitionDuration}ms cubic-bezier(0.21, 1.07, 0.8, 0.99)`,
   };
 
-  // entered: 100vh + the height of the navbar --> 100% because its the relative container...
+  // entered: 100vh + 2 * the height of the navbar
   // exited: 100% because its the relative container...
   const transitionStyles = {
     entering: { top: "100vh" },
@@ -74,7 +80,7 @@ const SearchMobile = ({ getQuery, show, state, toggleShow }) => {
               type="icon"
               onClick={() => {
                 history.push("/discover");
-                toggleShow();
+                toggleShow(false);
               }}
             >
               <img src={Rocket} />
@@ -83,7 +89,7 @@ const SearchMobile = ({ getQuery, show, state, toggleShow }) => {
             <Button
               type="icon"
               onClick={() => {
-                toggleShow();
+                toggleShow(false);
               }}
             >
               <img src={X} />

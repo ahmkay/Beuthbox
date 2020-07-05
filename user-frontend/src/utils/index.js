@@ -59,3 +59,11 @@ export const doSearch = async (result, channels, playlists) => {
 
   return [formattedQuery, filteredvideos, filteredChannels, filteredPlaylists];
 };
+
+/**
+ * Adds a class to the body element to prevent from scrolling the background when a modal is active
+ * @param {Boolean} active the state of the modal
+ */
+export const preventBackgroundScroll = (active) => {
+  document.body.classList.toggle("body--modal-open", active);
+};
