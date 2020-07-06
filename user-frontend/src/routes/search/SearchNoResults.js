@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Illustration from "../../assets/img/Illutstration_Suche.svg";
 import Searchbar from "../../components/reusables/Searchbar";
 import { useHistory } from "react-router-dom";
 import VideoRow from "../../components/reusables/VideoRow";
+import { DataContext } from "../../api/DataContext";
 
-const SearchNoResults = ({ getQuery, classicVideos }) => {
+const SearchNoResults = () => {
+  const { setQuery, recommendedVideos } = useContext(DataContext);
+ 
   const history = useHistory();
   const showSearchResult = (query) => {
     history.push(`/search/name=${query}`);
@@ -21,17 +24,19 @@ const SearchNoResults = ({ getQuery, classicVideos }) => {
         return;
       }
 
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     } else if (type === "click") {
       if (!trimmedValue && trimmedValue === "") {
         history.push("/");
         return;
       }
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     }
   };
+
+
 
   return (
     <div className="search-no-results">
@@ -47,23 +52,22 @@ const SearchNoResults = ({ getQuery, classicVideos }) => {
         </h2>
       </div>
       <div className="search-no-results__searchbar-container container-50">
-        <Searchbar eventHandler={evaluateSearch} type='grey'/>
+        <Searchbar eventHandler={evaluateSearch} type="grey" hasRef />
       </div>
-      {classicVideos.length > 0 &&
-      <>
-        <h3 className="search-no-results__headline-classics">
-        Oder schaue einen unserer Klassiker
-      </h3>
-      <div className="container-60">
-        <VideoRow
-          amountOfVideos={3}
-          videos={classicVideos}
-          flexDirection="row"
-        />
-      </div>
-      </>
-      }
-      
+      {recommendedVideos.length > 0 && (
+        <>
+          <h3 className="search-no-results__headline-classics">
+            Oder schaue einen unserer Klassiker
+          </h3>
+          <div className="container-60">
+            <VideoRow
+              amountOfVideos={3}
+              videos={recommendedVideos}
+              flexDirection="row"
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

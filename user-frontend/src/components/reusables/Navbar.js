@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
+import React, { useState, useLayoutEffect, useContext, useRef } from "react";
 import HomeIcon from "@material-ui/icons/Home";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
@@ -9,8 +9,10 @@ import { NavLink, useHistory } from "react-router-dom";
 import SearchMobile from "../../routes/search/SearchMobile";
 import Button from "./Button";
 import { preventBackgroundScroll } from "../../utils";
+import { DataContext } from "../../api/DataContext";
 
-const Navbar = ({ getQuery }) => {
+
+const Navbar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [leftPosition, setLeftPosition] = useState(null);
   const [indicatorWidth, setIndicatorWidht] = useState(null);
@@ -20,6 +22,7 @@ const Navbar = ({ getQuery }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 576);
   const [showSearch, setShowSearch] = useState(false);
 
+  const { setQuery } = useContext(DataContext);
   let activeRef = useRef(null);
 
   // to move to active indicator
@@ -99,14 +102,14 @@ const Navbar = ({ getQuery }) => {
 
       console.log(trimmedValue.length, "kein wert gefunden");
 
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     } else if (type === "click") {
       if (!trimmedValue && trimmedValue === "") {
         history.push("/");
         return;
       }
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     }
   };
@@ -123,7 +126,6 @@ const Navbar = ({ getQuery }) => {
             show={showSearch}
             state="entering"
             toggleShow={toggleMobileSearch}
-            getQuery={getQuery}
           />
           <Button
             onClick={() => toggleMobileSearch()}

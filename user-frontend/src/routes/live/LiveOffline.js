@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import VideoRow from "../../components/reusables/VideoRow";
 
 import Illustration from "../../assets/img/Illustration_Sendepause.svg";
+import { DataContext } from "../../api/DataContext";
 
-const LiveOffline = ({classicVideos}) => {
+const LiveOffline = () => {
+  const { recommendedVideos } = useContext(DataContext)
   return (
     <>
       <main className="main">
@@ -26,13 +28,13 @@ const LiveOffline = ({classicVideos}) => {
           headline="Vergangene Livestreams"
           flexDirection="row"
           amountOfVideos={3}
-          videos={classicVideos}
+          videos={recommendedVideos}
         />
         <VideoRow
           headline="Vorgeschlagene Videos"
           flexDirection="row"
           amountOfVideos={3}
-          videos={classicVideos}
+          videos={recommendedVideos}
         />
       </div>
     </>
