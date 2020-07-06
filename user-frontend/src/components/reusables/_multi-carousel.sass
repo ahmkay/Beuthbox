@@ -8,6 +8,7 @@
     top: calc(50% - (68px - 21.5px))
     height: 24px
     width: 24px
+    z-index: 3
     ::after
         margin-left: -3px
 
@@ -18,9 +19,8 @@
     .react-multiple-carousel__arrow
         top: calc(50% -  21.5px)
 
-
 // Dot specific styles     
-.react-multi-carousel-dot-list 
+.react-multi-carousel-dot-list
     bottom: $margin-s
 
 .react-multi-carousel-dot button
@@ -30,8 +30,7 @@
     border: none
 
 .react-multi-carousel-dot--active button
-     min-width: 0
-     margin-right: 10px
-     background-color: $color-black
-     border: 1px solid var(--color-grey)
-
+    min-width: 0
+    margin-right: 10px
+    background-color: $color-black
+    border: 1px solid var(--color-grey)

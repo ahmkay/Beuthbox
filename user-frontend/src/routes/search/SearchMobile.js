@@ -12,7 +12,6 @@ const SearchMobile = ({ getQuery, show, toggleShow }) => {
   const history = useHistory();
   const [currentLocation, setCurrentLocation] = useState(useLocation());
 
-  // BUG: causes rerenders also if component is not visible
   useEffect(() => {
     // close seeatch modal if search route is entered
     if (useLocation !== currentLocation) toggleShow(false);
