@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useContext, useRef } from "react";
+import React, { useState, useLayoutEffect, useContext, useRef, useEffect } from "react";
 import HomeIcon from "@material-ui/icons/Home";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
@@ -45,6 +45,20 @@ const Navbar = () => {
   const setNavbar = () => {
     setIsMobile(window.innerWidth < 576);
   };
+
+  useEffect(() => {
+    setTimeout(function () {
+      if (activeRef.current == null) {
+        return;
+      }
+      console.log('navbar rendered')
+      window.scrollTo({left: 0, top: activeRef.current.offsetTop, behavior: 'smooth'})
+    }, 10);
+    // if (activeRef !== null && activeRef.current !== null) {
+    //   console.log('navbar rendered')
+    //   window.scrollTo(0, activeRef.current.offsetTop)
+    // }
+  },[window.location.pathname])
 
   const toggleMobileSearch = () => {
     preventBackgroundScroll(!showSearch);
