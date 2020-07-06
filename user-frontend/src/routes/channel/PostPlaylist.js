@@ -12,20 +12,24 @@ const PostPlaylist = ({ id, created, img, title, description }) => {
   const [totalVideos, setTotalVideos] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
 
-  useEffect(async () => {
-    try {
-      const { data } = await axios.get(
-        `${BASEURL}/graphql?query={videos(filter: {categoryid: "${id}"}){videoDuration}}`
-      );
-      const videos = data["data"].videos;
-      setTotalVideos(videos.length);
+  useEffect(() => {
+    const fetchData = async (baseurl) => {
+      try {
+        const { data } = await axios.get(
+          `${baseurl}/graphql?query={videos(filter: {categoryid: "${id}"}){videoDuration}}`
+        );
+        const videos = data["data"].videos;
+        setTotalVideos(videos.length);
 
-      videos.forEach((video) => {
-        setTotalDuration(totalDuration + video.videoDuration);
-      });
-    } catch (error) {
-      console.error(error);
-    }
+        videos.forEach((video) => {
+          setTotalDuration(totalDuration + video.videoDuration);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData(BASEURL);
   }, [BASEURL]);
 
   return (
