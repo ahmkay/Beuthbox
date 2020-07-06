@@ -1,0 +1,69 @@
+.post-playlist
+    width: 75%
+    max-width: 800px
+    margin: auto
+    transition: transform .15s ease-in-out, box-shadow .15s ease-in-out
+    & + .post-playlist
+        margin-top: $margin-m
+    &:hover
+        transform: scale(1.005)
+        box-shadow: $elevation-2
+
+.post-playlist__created
+    justify-content: flex-end
+    margin-bottom: $margin-xs
+
+.post-playlist__total-duration
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    color: var(--color-grey)
+    svg
+        width: .9em
+        height: .9em
+        margin-right: 3px
+        path
+            fill: var(--color-grey)
+
+.post-playlist__body
+    width: 100%
+    display: flex
+    flex-direction: row
+
+.post-playlist__thumbnail-container
+    display: block
+    width: 40%
+    position: relative
+    &::after
+        content: ''
+        display: block
+        padding-top: 150% // 16:9 aspect
+
+.post-playlist__thumbnail
+    width: 100%
+    height: 100%
+    position: absolute
+    object-fit: cover
+
+.post-playlist__details
+    width: 60%
+    padding-left: $margin-s
+    align-self: stretch
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+.post-playlist__title
+    margin-bottom: $margin-s
+
+.post-playlist__meta
+    margin-top: $margin-s
+
+.post-playlist__stat
+    & + .post-playlist__stat
+        margin-top: $margin-xs
+
+.post-playlist__stat-category
+    display: flex
+    flex-direction: row
+    margin-top: $margin-s

@@ -56,3 +56,24 @@ body, #root
   @media screen and (max-width: $break-tablet)
     max-width: 100%
     margin: auto
+
+.icon-label
+  display: flex
+  align-items: center
+  svg
+    width: .9em
+    height: .9em
+    margin-right: 3px
+
+.icon-label--grey
+  @extend .icon-label
+  color: var(--color-grey)
+  path
+    fill: var(--color-grey)
+
+.paper--elevation-1
+  display: block
+  background-color: var(--color-card-background)
+  box-shadow: $elevation-1
+  padding: $margin-s
+  border-radius: 3px

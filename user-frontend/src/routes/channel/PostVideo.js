@@ -9,10 +9,15 @@ import { calculateVideoDuration } from "../../utils";
 
 const PostVideo = ({ id, title, img, duration, description, created }) => {
   return (
-    <Link to={`/video/${id}`} className="post-video link-elem">
-      <div className="post-video__created video-meta">
+    <Link
+      to={`/video/${id}`}
+      className="post-video link-elem paper--elevation-1"
+    >
+      <div className="post-video__created icon-label--grey">
         <TodayIcon className="post-video__icon" />{" "}
-        <Moment format="DD.MM.YY">{created}</Moment>
+        <small>
+          <Moment format="DD.MM.YY">{created}</Moment>
+        </small>
       </div>
       <div className="post-video__thumbnail-container">
         <img
@@ -24,10 +29,10 @@ const PostVideo = ({ id, title, img, duration, description, created }) => {
       </div>
       <div className="post-video__details">
         <h4 className="post-video__title">{title ? title : "Kein Titel"}</h4>
-        <p className="post-video__video-duration video-meta">
+        <small className="post-video__video-duration icon-label--grey video-meta">
           <AccessTimeIcon />{" "}
           {duration ? calculateVideoDuration(duration) : "0:00"}
-        </p>
+        </small>
       </div>
       <p>{description ? description : ""}</p>
     </Link>

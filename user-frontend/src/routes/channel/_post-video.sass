@@ -1,18 +1,16 @@
 .post-video
-    display: block
     width: 75%
     max-width: 800px
     margin: auto
-    background-color: var(--color-card-background)
-    box-shadow: $elevation-1
-    padding: $margin-m
-    border-radius: 3px
-    transition: transform .2s ease-in-out, box-shadow .2s ease-in-out
+    transition: transform .15s ease-in-out, box-shadow .15s ease-in-out
     & + .post-video
         margin-top: $margin-m
     &:hover
         transform: scale(1.005)
         box-shadow: $elevation-2
+
+.post-video__created
+    justify-content: flex-end
 
 .post-video__thumbnail-container
     display: block
@@ -45,13 +43,4 @@
     align-items: flex-start
 
 .post-video__video-duration, .video-meta
-    display: flex
-    align-items: center
     justify-content: flex-end
-    color: var(--color-grey)
-    svg
-        width: .9em
-        height: .9em
-        margin-right: 3px
-        path
-            fill: var(--color-grey)

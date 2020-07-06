@@ -12,6 +12,7 @@ import Videocam from "@material-ui/icons/Videocam";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import PostVideo from "./PostVideo";
+import PostPlaylist from "./PostPlaylist";
 import NoContent from "../../components/reusables/NoContent";
 
 const Channel = (props) => {
@@ -62,10 +63,6 @@ const Channel = (props) => {
           );
         });
 
-        //&& video.category != undefined
-
-        console.log("NUMBER VIDEOS: " + videos.length);
-
         //Array aufräumen
         //console.log("Array: " + categoryArray);
         const categoryArrayUnique = [...new Set(categoryArray)];
@@ -100,36 +97,22 @@ const Channel = (props) => {
             description={video.description}
             duration={video.videoDuration}
           />
+        );
+      });
+  };
 
-          // <div class="item col-md-3 col-xs-12">
-          //   <div class="tile">
-          //     <a href={`video/${video._id}`}>
-          //       {video.posterImagePath.indexOf("engage-player") > 1 ? (
-          //         <img class="tile-image" src={video.posterImagePath} />
-          //       ) : (
-          //         <img
-          //           class="tile-image"
-          //           src={`${BASEURL}/videos${video.posterImagePath}`}
-          //         />
-          //       )}
-          //     </a>
-          //     <div class="tile-info">
-          //       <a href={`/video/${video._id}`}>
-          //         <div class="title">{video.name}</div>
-          //         <div class="details">
-          //           <div class="created">
-          //             <span class="glyphicon glyphicon-calendar"></span>
-          //             {video.created}
-          //           </div>
-          //           <div class="time">
-          //             <span class="glyphicon glyphicon-time"></span>
-          //             {video.videoDuration}
-          //           </div>
-          //         </div>
-          //       </a>
-          //     </div>
-          //   </div>
-          // </div>
+  const showPlaylists = () => {
+    return categories
+      .sort((playlist1, playlist2) => playlist2.created - playlist1.created)
+      .map((playlist) => {
+        return (
+          <PostPlaylist
+            id={playlist._id}
+            img={`http://beuthbox.beuth-hochschule.de/api/category${playlist.imagepath}`}
+            created={playlist.created}
+            title={playlist.name}
+            description={playlist.description}
+          />
         );
       });
   };
@@ -178,16 +161,19 @@ const Channel = (props) => {
             />
           </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          {video.length <= 0 && <NoContent content="video" />}
-          {showVideos()}
-        </TabPanel>
+        <main className="main">
+          <TabPanel value={value} index={0}>
+            Item One
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            {categories.length <= 0 && <NoContent content="playlist" />}
+            {showPlaylists()}
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            {video.length <= 0 && <NoContent content="video" />}
+            {showVideos()}
+          </TabPanel>
+        </main>
       </div>
     );
   };
@@ -201,22 +187,6 @@ const Channel = (props) => {
           img={`${BASEURL}/channel${channel.imagepath}`}
         />
         {renderTabcontroller()}
-        <main className="main">
-          <div class="container-fluid">
-            <div class="row player-container content"></div>
-            <div class="row">
-              <div class="col-sm-12 channel-info">
-                <div class="video-info"></div>
-              </div>
-            </div>
-
-            <div class="container-fluid">
-              {/* {categories.length != 0 && <h3 class="carousel-title">Playlist</h3>} */}
-              <PlaylistsCarousel playlists={categories} />
-              {/* <div class="row">{showCategories()}</div> */}
-            </div>
-          </div>
-        </main>
       </>
     );
   }
