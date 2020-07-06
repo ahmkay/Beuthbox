@@ -6,14 +6,19 @@
   transition: color .4s ease-out, background-color .4s ease-out
 
 html, body
-  background-color:  var(--color-background)
+  background-color: var(--color-background)
   color: var(--color-text)
+
+.body--modal-open
+  position: fixed
+  height: 100vh
+  overflow: hidden
 
 html
   @media screen and (max-width: $break-tablet-landscape)
     font-size: 14px
   @media screen and (max-width: $break-mobile)
-    font-size: 12px
+    font-size: 10px
 
 body, #root
   min-height: 100vh
@@ -30,6 +35,8 @@ body, #root
 .main__section
   width: 100%
   margin-bottom: $margin-xl
+  @media screen and (max-width: $break-mobile)
+    padding: 0 5%
 
 .main__section--center
   @extend .main__section
@@ -49,10 +56,3 @@ body, #root
   @media screen and (max-width: $break-tablet)
     max-width: 100%
     margin: auto
-
-::-webkit-scrollbar
-  width: 10px
-::-webkit-scrollbar-track
-  background: transparent
-::-webkit-scrollbar-thumb
-  background: var(--color-primary)

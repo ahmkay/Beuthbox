@@ -9,7 +9,7 @@ function ChannelHeader({title, img, description}) {
                     <div className="channel-header__title-box">
                         <h1 className="channel-header__title">{title}</h1>
                     </div>
-                    <h3 className="channel-header__description">{description}</h3>
+                    <h4 className="channel-header__description">{description}</h4>
                 </div>
             </div>
         </header>

@@ -1,16 +1,25 @@
-.nav 
-    height: 85px
-    margin-bottom: $margin-xl
+.nav
     background-color: var(--color-primary)
-    position: sticky
-    top: -85px // move out of view on scroll
     transition: top .3s ease-out, bottom .3s ease-out
-    z-index: 999
-    &.show
-        top: 0
-    @media screen and (max-width: $break-tablet-landscape)
-        height: 140px
-        top: -140px
+    z-index: 10
+    &--isDesktop
+        @extend .nav
+        height: 85px
+        position: sticky
+        top: -85px // move out of view on scroll
+        @media screen and (max-width: $break-tablet-landscape)
+            height: 120px
+            top: -120px
+        &.show
+            top: 0
+
+    &--isMobile
+        bottom: -56px
+        height: 56px
+        width: 100%
+        position: fixed
+        &.show
+            bottom: 0
 
 .nav__flex-container
     height: 100%
@@ -21,7 +30,7 @@
         flex-direction: column
         justify-content: space-around
 
-.nav__searchBar 
+.nav__searchBar
     width: 100%
     // margin-right: 20px
     display: inline-block
@@ -31,10 +40,10 @@
     border: 1px solid var(--color-primary-light)
     color: var(--color-white)
     border-radius: 3px
-    font-size: 18px 
+    font-size: 18px
     &:focus
         border-color: var(--color-white)
-::placeholder 
+::placeholder
     color: var(--color-primary-light)
 .nav__searchbar-flex-container
     position: relative
@@ -52,30 +61,39 @@
     & path
         color: var(--color-white)
 
-.nav-ul 
-   list-style-type: none
-   display: flex
-   align-items: center
-   justify-content: flex-start
-   @media screen and (max-width: $break-tablet-landscape)
-        width: 80%
+.nav-ul
+    list-style-type: none
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    @media screen and (max-width: $break-tablet-landscape)
+        width: 90%
+        justify-content: center
 
 .nav__element
-    &:not(:last-child)
-        margin-right: $margin-s
+    padding: 0 12px
 
-.nav-link 
+.nav-link
     color: var(--color-white)
     display: flex
     flex-direction: column
     align-items: center
     text-decoration: none
     transition: left .3s ease-out, width .3s ease-out
+    .link
+        color: var(--color-white)
+    @media screen and (max-width: $break-mobile)
+        padding-top: 8px
+        padding-bottom: 12px
+        height: 100%
 
-.nav__icon
+svg.nav__icon
     path
         color: var(--color-white)
-    
+    @media screen and (max-width: $break-mobile)
+        width: 24px
+        height: 24px
+
 .nav-link--isActive
     @extend .nav-link
     color: black
@@ -84,7 +102,7 @@
 
 .nav__icon--live
     circle
-        fill: var(--color-red)
+    fill: var(--color-red)
 
 .nav__indicator--show
     position: absolute
@@ -93,13 +111,18 @@
     background-color: black
     left: 50%
     animation-name: indicatorIn
-    animation-duration: .2s 
-    animation-timing-function: ease-out 
+    animation-duration: .2s
+    animation-timing-function: ease-out
     animation-fill-mode: forwards
     animation-delay: 1s
     transition: left .2s ease-out, width .4s ease-out
 .nav__indicator
     display: none
+
+.nav__mobile-search
+    position: absolute
+    right: 5%
+    bottom: 56px + 16px // height of navbar + recommented margin of appbar from material design
 
 @keyframes indicatorIn
     0%
@@ -108,18 +131,3 @@
         height: 7px
     100%
         height: 5px
-
-//mobile
-
-@media screen and (max-width: $break-mobile)
-    .nav
-        width: 100%
-        top: unset
-        bottom: -140px
-        margin-bottom: 0
-        position: fixed
-        &.show
-            top: unset
-            bottom: 0
-            margin-bottom: 0
-            position: fixed

@@ -32,9 +32,9 @@ const App = () => {
   const [playlistResult, setPlaylistResult] = useState([]);
 
   const resetTheme = () => {
-    console.log('remove Theme')
-    localStorage.removeItem('theme')
-  }
+    console.log("remove Theme");
+    localStorage.removeItem("theme");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,15 +122,17 @@ const App = () => {
 
   // reeset the stored theme if user toggles preffered mode on his system
   useEffect(() => {
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(resetTheme)
+    window.matchMedia("(prefers-color-scheme: dark)").addListener(resetTheme);
 
     // function (e) {
     //   console.log(`changed to ${e.matches ? "dark" : "light"} mode`)
     // });
     return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeListener(resetTheme)
-    }
-  }, [])
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .removeListener(resetTheme);
+    };
+  }, []);
 
   const getURL = () => {
     const location = window.location.pathname;

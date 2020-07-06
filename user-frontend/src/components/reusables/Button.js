@@ -1,19 +1,33 @@
-import React from 'react';
+import React from "react";
 
 /**
  * A reusable Button component to show a button and hanle click-events
- * 
- * @param {onClick, negative, text} props 
- * 
+ *
+ * @param {onClick, negative, type} props
+ *
  * Example:
- * <Button text="Click me!" onClick={() => {console.log('Button clicked)}} negative />
+ * <Button onClick={() => {console.log('Button clicked)}} negative >Click me!</Button>
  */
 
-const Button = (props) => {
-    const {onClick, children, negative} = props
-    return (
-        <button onClick={onClick} className={negative? 'negative' : ''} >{children }</button>
-    )
-}
+const Button = ({
+  onClick,
+  negative,
+  type,
+  filled,
+  icon,
+  children,
+  className,
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`${negative ? "negative " : ""} button--${type ? type : ""} ${
+        filled && "button--filled"
+      } ${className}`}
+    >
+      {children}
+    </button>
+  );
+};
 
-export default Button
+export default Button;

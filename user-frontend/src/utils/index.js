@@ -62,15 +62,22 @@ export const doSearch = async (result, channels, playlists) => {
 };
 
 export const showTags = async (result) => {
- 
-    const videos = await Axios.get(`${BASEURL}/graphql?query={videos(filter: {tags: "${result}"}){name, source, videoDuration, created, status, access, posterImagePath, _id}}`)
-    const query = `${result}`
-    console.log(videos, 'videos with tags')
-    
-    const filteredvideos = videos.data.data.videos.filter(video => {
-        return video.status == "finished"
-    });
-    console.log(filteredvideos, 'result entered')
-    return [query, filteredvideos]
+  const videos = await Axios.get(
+    `${BASEURL}/graphql?query={videos(filter: {tags: "${result}"}){name, source, videoDuration, created, status, access, posterImagePath, _id}}`
+  );
+  const query = `${result}`;
+  console.log(videos, "videos with tags");
 
-}
+  const filteredvideos = videos.data.data.videos.filter((video) => {
+    return video.status == "finished";
+  });
+  console.log(filteredvideos, "result entered");
+  return [query, filteredvideos];
+};
+/**
+ * Adds a class to the body element to prevent from scrolling the background when a modal is active
+ * @param {Boolean} active the state of the modal
+ */
+export const preventBackgroundScroll = (active) => {
+  document.body.classList.toggle("body--modal-open", active);
+};
