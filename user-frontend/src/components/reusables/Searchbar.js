@@ -6,8 +6,8 @@ const Searchbar = ({ eventHandler, type, hasRef }) => {
   const [inputValue, setInputValue] = useState("");
   useEffect(() => {
     if (searchbarRef && searchbarRef.current !== null) {
-      window.scrollTo({x: 0, y: '40vh', behavior: "smooth"})
       searchbarRef.current.focus()
+      // window.scrollTo({top: 300, left: 0,  behavior: "smooth"})
     }
   }, []);
 

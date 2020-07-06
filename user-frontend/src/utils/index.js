@@ -41,8 +41,6 @@ export const comparePostions = (a, b) => {
   return 0;
 };
 
-
-
 //TODO in ein Custom Hook umwandeln
 export const doSearch = async (result, channels, playlists) => {
   console.log(result, "query in playlist");
@@ -56,32 +54,32 @@ export const doSearch = async (result, channels, playlists) => {
   let filteredvideos = videos.data.data.videos.filter((video) => {
     return video.access == "public" && video.status == "finished";
   });
-  filteredvideos =  filteredvideos.sort(compareDates);
-  const filteredChannels =  channels.filter(
+  filteredvideos = filteredvideos.sort(compareDates);
+  const filteredChannels = await channels.filter(
     (channel) =>
       channel.ispublic &&
       channel.name.toLowerCase().includes(formattedQuery.toLowerCase())
   );
-  const filteredPlaylists =  playlists.filter((playlist) =>
+  const filteredPlaylists = await playlists.filter((playlist) =>
     playlist.name.toLowerCase().includes(formattedQuery.toLowerCase())
   );
 
-  console.log(filteredChannels, 'channels index')
+  console.log(filteredChannels, "channels index");
 
   return [formattedQuery, filteredvideos, filteredChannels, filteredPlaylists];
 };
 
 export const showTags = async (result) => {
- 
-    const videos = await Axios.get(`${BASEURL}/graphql?query={videos(filter: {tags: "${result}"}){name, source, videoDuration, created, status, access, posterImagePath, _id}}`)
-    const query = `${result}`
-    console.log(videos, 'videos with tags')
-    
-    const filteredvideos = videos.data.data.videos.filter(video => {
-        return video.status == "finished"
-    });
-    console.log(filteredvideos, 'result entered')
-    return [query, filteredvideos]
+  let mappedUrl = result.split(" ").join("%20");
+  const videos = await Axios.get(
+    `${BASEURL}/graphql?query={videos(filter: {tags: "${mappedUrl}"}){name, source, videoDuration, created, status, access, posterImagePath, _id}}`
+  );
+  const query = `${result}`;
+  console.log(videos, "videos with tags");
 
-}
-  
+  const filteredvideos = videos.data.data.videos.filter((video) => {
+    return video.status == "finished";
+  });
+  console.log(filteredvideos, "result entered");
+  return [query, filteredvideos];
+};

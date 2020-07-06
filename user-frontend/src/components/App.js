@@ -73,15 +73,6 @@ const App = () => {
           .reverse()
           .splice(0, 10);
 
-        // let filteredAllVideos = allVideos.data.data.videos.filter((video) => {
-        //   return (
-        //     (video.access == "public" && video.categories == false) ||
-        //     (video.access == "channelonly" &&
-        //       video.status == "finished" &&
-        //       video.categories == false)
-        //   );
-        // });
-
         setMainslider(mainslider.data);
         setRecommendedVideos(filteredRecommendedVideos);
         setNewestVideos(newestVideos);
@@ -125,17 +116,14 @@ const App = () => {
       const url = getURL();
       if (url.completeURL.includes("tag=")) {
         const searchData = await showTags(url.splittedURL);
-        setQuery(searchData[0]);
-        setTaggedVideos(searchData[1]);
-        setVideoResult([])
+       setVideoResult(searchData[1])
       } else {
         const searchData = await doSearch(url.splittedURL, channels, playlists);
-        console.log("doSearch angehauen");
+        console.log(searchData, 'doSearch angehauzen');
         setQuery(searchData[0]);
         setVideoResult(searchData[1]);
         setChannelResult(searchData[2]);
         setPlaylistResult(searchData[3]);
-        setTaggedVideos([])
       }
       setURL(url.splittedURL);
     };
@@ -171,15 +159,17 @@ const App = () => {
           newestVideos,
           channelData: channels,
           channelResult,
+          setChannelResult,
           playlistData: playlists,
           playlistResult,
+          setPlaylistResult,
           query,  
           setQuery,
           url,
           mainslider,
           allVideos,
           videoResult,
-          taggedVideos
+          setVideoResult
         }}
       >
         {<MultiCarousel isHeader />}
@@ -192,7 +182,16 @@ const App = () => {
           <Route exact path={"/channel/"} component={Channels} />
           <Route path={"/channel/:id"} component={Channel} />
           <Route exact path={"/"} component={Home} />
-          <Route exact path={"/search/:id"} component={Search} />
+          <Route exact path={"/search/:id"} component={() => <Search 
+          videoResult={videoResult}
+          playlistResult={playlistResult}
+          channelResult={channelResult}
+          query={query}
+          recommendedVideos={recommendedVideos}
+          
+          />}
+          
+          />
           <Route exact path={"/video-services"} component={VideoServices} />
           <Route exact path={"/live"} component={Live} />
           <Route exact path={"/discover"} component={Discover} />
