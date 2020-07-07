@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
-import PlaylistsCarousel from "../../components/reusables/PlaylistsCarousel";
 import ChannelHeader from "./ChannelHeader";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -14,6 +13,7 @@ import Box from "@material-ui/core/Box";
 import PostVideo from "./PostVideo";
 import PostPlaylist from "./PostPlaylist";
 import NoContent from "../../components/reusables/NoContent";
+import moment from "moment";
 
 const Channel = (props) => {
   const [channel, setChannel] = useState([]);
@@ -21,40 +21,28 @@ const Channel = (props) => {
   const [categories, setCategories] = useState([]);
   const [video, setVideo] = useState([]);
   const [value, setValue] = useState(0);
+  const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${BASEURL}/graphql?query={channel(id:"${props.match.params.id}"){_id, name,description, iconfilename, imagefilename, iconpath, imagepath, liveenabled, ispublic, users{username, _id}, liveevent{islive, title, subtitle, description, date, time, duration, haspassword, password, key, url}}}`
-        );
-        const responseCount = await axios.get(
-          `${BASEURL}/graphql?query={channelVideoCount(id: "${props.match.params.id}"){_id, total}}`
+          `${BASEURL}/graphql?query={channel(id:"${props.match.params.id}"){_id, name,description, imagepath, ispublic, users{username, _id}}}`
         );
         const responseVideos = await axios.get(
-          `${BASEURL}/graphql?query={videos(filter: {channelid: "${props.match.params.id}"}){_id, name, posterImagePath, created, status, access, views, videoDuration, description, categories{name, description, created, imagepath, iconpath _id}}}`
+          `${BASEURL}/graphql?query={videos(filter: {channelid: "${props.match.params.id}"}){_id, name, posterImagePath, created, status, access, views, videoDuration, description, posterImageFilename, categories{name, description, created, imagepath, iconpath _id}}}`
+        );
+        const responseCategories = await axios.get(
+          `${BASEURL}/graphql?query={categories{_id, name, description, created, imagepath}}`
         );
 
-        const responsecategories = await axios.get(
-          BASEURL +
-            "/graphql?query={categories{_id, name, description, created, imagepath, iconpath}}"
-        );
         const categoryArray = [];
 
         const videos = responseVideos.data.data.videos.filter((video) => {
-          for (let i = 0; i < video.categories.length; i++) {
-            categoryArray.push(String(video.categories[i]._id));
-            //console.log("VIDEO PART: " + video.name + " | " + video.categories[i].name + " | " + video.categories[i]._id);
-          }
-          //categoryArray.push(String(video.categories[0]._id));    //Packe alle IDs der Videos in Array
+          video.categories.forEach((category) => {
+            categoryArray.push(String(category._id));
+          });
 
-          if (video.categories == false) {
-            console.log("CATEGORY VIDEO:  undefined");
-          } else {
-            console.log("CATEGORY VIDEO: " + video.categories[0].name);
-          }
-
-          //return video.access == "public"  || video.access == "channelonly" && video.status == "finished"
           return (
             (video.access == "public" && video.categories == false) ||
             (video.access == "channelonly" &&
@@ -64,57 +52,87 @@ const Channel = (props) => {
         });
 
         //Array aufräumen
-        //console.log("Array: " + categoryArray);
         const categoryArrayUnique = [...new Set(categoryArray)];
-        //console.log("Array aufgeräumt: " + categoryArrayUnique);
+
         const checkIfArrIncludes = (_id) => categoryArrayUnique.includes(_id);
+
         const categoriesFilter = Object.values(
-          responsecategories.data.data.categories
+          responseCategories.data.data.categories
         ).filter((cat) => (checkIfArrIncludes(cat._id) ? cat : 0));
 
         setChannel(response.data.data.channel);
-        setNumberOfVideos(responseCount.data.data.channelVideoCount.total);
         setCategories(categoriesFilter);
         setVideo(videos);
+        setIsPending(false);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-    console.log(props, "props");
   }, []);
 
-  const showVideos = () => {
-    return video
-      .sort((video1, video2) => video1.videoDuration - video2.videoDuration)
-      .map((video) => {
-        return (
-          <PostVideo
-            id={video._id}
-            img={`${BASEURL}/videos${video.posterImagePath}`}
-            title={video.name}
-            created={video.created}
-            description={video.description}
-            duration={video.videoDuration}
-          />
-        );
-      });
+  useEffect(() => {
+    sortVideos();
+    sortPlaylists();
+  }, [!isPending]);
+
+  const sortVideos = () => {
+    const sortedVideos = [...video].sort((video1, video2) => {
+      return (
+        // Use moment to compate dates in milisec
+        moment(video2.created).valueOf() - moment(video1.created).valueOf()
+      );
+    });
+
+    setVideo(sortedVideos);
+  };
+  const sortPlaylists = () => {
+    const sortedPlaylists = [...categories].sort((playlist1, playlist2) => {
+      return (
+        // Use moment to compate dates in milisec
+        moment(playlist2.created).valueOf() -
+        moment(playlist1.created).valueOf()
+      );
+    });
+
+    setCategories(sortedPlaylists);
   };
 
-  const showPlaylists = () => {
-    return categories
-      .sort((playlist1, playlist2) => playlist2.created - playlist1.created)
-      .map((playlist) => {
-        return (
-          <PostPlaylist
-            id={playlist._id}
-            img={`http://beuthbox.beuth-hochschule.de/api/category${playlist.imagepath}`}
-            created={playlist.created}
-            title={playlist.name}
-            description={playlist.description}
-          />
-        );
-      });
+  const showChronik = () => {};
+
+  const renderPlaylists = () => {
+    return categories.map((playlist) => {
+      return (
+        <PostPlaylist
+          id={playlist._id}
+          img={`http://beuthbox.beuth-hochschule.de/api/category${playlist.imagepath}`}
+          created={playlist.created}
+          title={playlist.name}
+          description={playlist.description}
+        />
+      );
+    });
+  };
+
+  const renderVideos = () => {
+    return video.map((video) => {
+      let imgPath = "";
+      if (video.posterImagePath.indexOf("engage-player") > 1) {
+        imgPath = video.posterImagePath;
+      } else {
+        imgPath = `${BASEURL}/videos${video.posterImagePath}`;
+      }
+      return (
+        <PostVideo
+          id={video._id}
+          img={imgPath}
+          title={video.name}
+          created={video.created}
+          description={video.description}
+          duration={video.videoDuration}
+        />
+      );
+    });
   };
 
   function TabPanel(props) {
@@ -163,15 +181,16 @@ const Channel = (props) => {
         </AppBar>
         <main className="main">
           <TabPanel value={value} index={0}>
-            Item One
+            {categories.length <= 0 || (video.length <= 0 && <NoContent />)}
+            {showChronik()}
           </TabPanel>
           <TabPanel value={value} index={1}>
             {categories.length <= 0 && <NoContent content="playlist" />}
-            {showPlaylists()}
+            {renderPlaylists()}
           </TabPanel>
           <TabPanel value={value} index={2}>
             {video.length <= 0 && <NoContent content="video" />}
-            {showVideos()}
+            {renderVideos()}
           </TabPanel>
         </main>
       </div>

@@ -1,5 +1,6 @@
 import { BASEURL } from "../api";
 import Axios from "axios";
+import moment from "moment";
 
 // this functions returns a readable string with calculated hours, minutes and seconds of given miliseconds
 export const calculateVideoDuration = (duration) => {
@@ -18,8 +19,10 @@ export const calculateVideoDuration = (duration) => {
 };
 
 export const compareDates = (a, b) => {
-  if (a.created < b.created) return -1;
-  if (a.created > b.created) return 1;
+  const aCreated = moment(a.created).valueOf();
+  const bCreated = moment(b.created).valueOf();
+  if (aCreated < bCreated) return -1;
+  if (aCreated > bCreated) return 1;
   return 0;
 };
 

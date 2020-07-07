@@ -45,7 +45,7 @@ const Playlist = (props) => {
           totalVideos={video.length}
           totalDuration={calculateVideoDuration(
             video.reduce(
-              (totlaDuration, video) => totlaDuration + video.videoDuration,
+              (totalDuration, video) => totalDuration + video.videoDuration,
               []
             )
           )}
