@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "./Button";
 
-const Searchbar = ({ eventHandler, type, extraButton }) => {
+const Searchbar = ({ eventHandler, type, hasRef, extraButton }) => {
+  const searchbarRef = useRef(null)
   const [inputValue, setInputValue] = useState("");
+  useEffect(() => {
+    if (searchbarRef && searchbarRef.current !== null) {
+      searchbarRef.current.focus()
+      // window.scrollTo({top: 300, left: 0,  behavior: "smooth"})
+    }
+  }, []);
+
   return (
     <div className="searchbar__container">
       <input
@@ -14,6 +22,7 @@ const Searchbar = ({ eventHandler, type, extraButton }) => {
         placeholder="Video, Playlist, Channel, Stichwort..."
         onChange={(event) => setInputValue(event.target.value)}
         onKeyDown={(event) => eventHandler(event, inputValue)}
+       {...hasRef ? {ref: searchbarRef} : null}
       />
       {!extraButton && (
         <SearchIcon

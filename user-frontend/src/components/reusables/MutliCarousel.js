@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import VideoThumbnail from "./VideoThumbnail";
@@ -6,8 +6,9 @@ import { calculateVideoDuration } from "../../utils";
 import { BASEURL } from "../../api";
 import PlaylistCard from "./PlaylistCard";
 import HeaderCarousel from "../../routes/home/HeaderCarousel";
+import { DataContext } from "../../api/DataContext";
 
-const MultiCarousel = ({ videos, headline, isPlaylist, isHeader, getQuery }) => {
+const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -40,6 +41,8 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader, getQuery }) => 
       items: 1,
     },
   };
+
+  const {mainslider, playlistData} = useContext(DataContext)
 
   const renderVideoCarousel = () => (
     <>
@@ -86,7 +89,7 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader, getQuery }) => 
         swipeable
         slidesToSlide={2}
       >
-        {videos.map((playlist) => {
+        {playlistData.map((playlist) => {
           return <PlaylistCard playlistData={playlist} />;
         })}
       </Carousel>
@@ -94,7 +97,7 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader, getQuery }) => 
   );
 
   const renderHeaderCarousel = () => {
-    if (videos.length > 0) {
+    if (mainslider.length > 0) {
      
       
       return (
@@ -112,14 +115,14 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader, getQuery }) => 
             showDots
     
           >
-            {videos.map((video) => {
-              return <HeaderCarousel video={video} getQuery={getQuery} />;
+            {mainslider.map((video) => {
+              return <HeaderCarousel video={video} />;
             })}
           </Carousel>
         </>
       );
     } else {
-      return <div> no videos here {videos}</div>;
+      return null
     }
   };
 

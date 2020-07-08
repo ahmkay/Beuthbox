@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import Rocket from "../../assets/img/icons/Icon_Rocket.svg";
 import X from "../../assets/img/icons/Icon_X.svg";
@@ -6,11 +6,13 @@ import Searchbar from "../../components/reusables/Searchbar";
 import Button from "../../components/reusables/Button";
 import { useLocation, useHistory } from "react-router-dom";
 import { Transition } from "react-transition-group";
+import { DataContext } from "../../api/DataContext";
 
-const SearchMobile = ({ getQuery, show, toggleShow }) => {
+const SearchMobile = ({ show, toggleShow }) => {
   const transitionDuration = 350;
   const history = useHistory();
   const [currentLocation, setCurrentLocation] = useState(useLocation());
+  const { setQuery } = useContext(DataContext)
 
   useEffect(() => {
     // close seeatch modal if search route is entered
@@ -45,14 +47,14 @@ const SearchMobile = ({ getQuery, show, toggleShow }) => {
         return;
       }
 
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     } else if (type === "click") {
       if (!trimmedValue && trimmedValue === "") {
         history.push("/");
         return;
       }
-      getQuery(trimmedValue);
+      setQuery(trimmedValue);
       showSearchResult(trimmedValue);
     }
   };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
 import ChannelHeader from "./ChannelHeader";
@@ -14,35 +14,37 @@ import PostVideo from "./PostVideo";
 import PostPlaylist from "./PostPlaylist";
 import NoContent from "../../components/reusables/NoContent";
 import moment from "moment";
+import { DataContext } from "../../api/DataContext";
+import ActivityIndicator from "../../components/reusables/ActivityIndicator";
 
 const Channel = (props) => {
-  const [channel, setChannel] = useState([]);
-  const [numberOfVideos, setNumberOfVideos] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [channel, setChannel] = useState({});
+  const [playlists, setPlaylists] = useState([]);
   const [video, setVideo] = useState([]);
   const [value, setValue] = useState(0);
   const [isPending, setIsPending] = useState(true);
   const [chronik, setChronik] = useState([]);
 
+  const { channelData, playlistData } = useContext(DataContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${BASEURL}/graphql?query={channel(id:"${props.match.params.id}"){_id, name,description, imagepath, ispublic, users{username, _id}}}`
-        );
+        const currentChannel =
+          (await channelData.find(
+            (channel) => channel._id === props.match.params.id
+          )) || {};
+
+        // show all videos the channel is containing
         const responseVideos = await axios.get(
           `${BASEURL}/graphql?query={videos(filter: {channelid: "${props.match.params.id}"}){_id, name, posterImagePath, created, status, access, views, videoDuration, description, posterImageFilename, categories{name, description, created, imagepath, iconpath _id}}}`
         );
-        const responseCategories = await axios.get(
-          `${BASEURL}/graphql?query={categories{_id, name, description, created, imagepath}}`
-        );
 
-        const categoryArray = [];
+        const playlistArray = [];
 
         const videos = responseVideos.data.data.videos.filter((video) => {
-          video.categories.forEach((category) => {
-            categoryArray.push(String(category._id));
-          });
+          video.categories.forEach((category) =>
+            playlistArray.push(category._id)
+          );
 
           return (
             (video.access == "public" && video.categories == false) ||
@@ -52,17 +54,16 @@ const Channel = (props) => {
           );
         });
 
-        //Array aufräumen
-        const categoryArrayUnique = [...new Set(categoryArray)];
+        // filter unique playlist ID´s
+        const playlistArrayUniqueIDs = [...new Set(playlistArray)];
+        const checkIfArrIncludes = (_id) =>
+          playlistArrayUniqueIDs.includes(_id);
+        const playlistFilter = Object.values(playlistData).filter((cat) =>
+          checkIfArrIncludes(cat._id) ? cat : 0
+        );
 
-        const checkIfArrIncludes = (_id) => categoryArrayUnique.includes(_id);
-
-        const categoriesFilter = Object.values(
-          responseCategories.data.data.categories
-        ).filter((cat) => (checkIfArrIncludes(cat._id) ? cat : 0));
-
-        setChannel(response.data.data.channel);
-        setCategories(categoriesFilter);
+        setChannel(currentChannel);
+        setPlaylists(playlistFilter);
         setVideo(videos);
         setIsPending(false);
       } catch (error) {
@@ -70,7 +71,7 @@ const Channel = (props) => {
       }
     };
     fetchData();
-  }, []);
+  }, [channelData, playlistData]);
 
   useEffect(() => {
     sortVideos();
@@ -89,7 +90,7 @@ const Channel = (props) => {
     setVideo(sortedVideos);
   };
   const sortPlaylists = () => {
-    const sortedPlaylists = [...categories].sort((playlist1, playlist2) => {
+    const sortedPlaylists = [...playlists].sort((playlist1, playlist2) => {
       return (
         // Use moment to compate dates in milisec
         moment(playlist2.created).valueOf() -
@@ -97,11 +98,11 @@ const Channel = (props) => {
       );
     });
 
-    setCategories(sortedPlaylists);
+    setPlaylists(sortedPlaylists);
   };
 
   const makeChronik = () => {
-    const rawChronik = video.concat(categories);
+    const rawChronik = video.concat(playlists);
 
     setChronik(
       rawChronik.sort((medium1, medium2) => {
@@ -149,7 +150,7 @@ const Channel = (props) => {
   };
 
   const renderPlaylists = () => {
-    return categories.map((playlist) => {
+    return playlists.map((playlist) => {
       return (
         <PostPlaylist
           id={playlist._id}
@@ -220,7 +221,7 @@ const Channel = (props) => {
             <Tab
               label="Playlists"
               icon={<PlaylistPlayIcon />}
-              disabled={categories.length <= 0}
+              disabled={playlists.length <= 0}
             />
             <Tab
               label="Videos"
@@ -231,11 +232,11 @@ const Channel = (props) => {
         </AppBar>
         <main className="main">
           <TabPanel value={value} index={0}>
-            {categories.length <= 0 && video.length <= 0 && <NoContent />}
+            {playlists.length <= 0 && video.length <= 0 && <NoContent />}
             {showChronik()}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {categories.length <= 0 && <NoContent content="playlist" />}
+            {playlists.length <= 0 && <NoContent content="playlist" />}
             {renderPlaylists()}
           </TabPanel>
           <TabPanel value={value} index={2}>
@@ -247,7 +248,7 @@ const Channel = (props) => {
     );
   };
 
-  if (video && categories && numberOfVideos && channel) {
+  if (video.length > 0 || playlists.length > 0 || channel.length > 0) {
     return (
       <>
         <ChannelHeader
@@ -259,7 +260,11 @@ const Channel = (props) => {
       </>
     );
   }
-  return <div>Channel</div>;
+  return (
+    <div>
+      <ActivityIndicator position="inline" />
+    </div>
+  );
 };
 
 export default Channel;

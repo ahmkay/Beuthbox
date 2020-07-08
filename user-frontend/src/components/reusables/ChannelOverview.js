@@ -3,7 +3,8 @@ import { BASEURL } from "../../api";
 import { NavLink } from "react-router-dom";
 import CategoryIcon from "./CategoryIcon";
 
-const ChannelOverview = ({ channelData, channelInfo }) => {
+
+const ChannelOverview = ({channelData, channelInfo }) => {
   const renderChannelOverview = (channelData, channelInfo) => {
     return (
       <section className="channels-section">

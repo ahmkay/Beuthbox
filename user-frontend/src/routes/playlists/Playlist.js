@@ -1,45 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
 import PlaylistHeader from "./PlaylistHeader";
 import { calculateVideoDuration, compareDates } from "../../utils";
 import PlaylistFilterPanel from "./PlaylistFilterPanel";
+import { DataContext } from "../../api/DataContext";
+import ActivityIndicator from "../../components/reusables/ActivityIndicator";
 
 const Playlist = (props) => {
-  const [category, setCategory] = useState([]);
+  const [playlist, setPlaylist] = useState([]);
   const [video, setVideo] = useState([]);
 
+  const { playlistData } = useContext(DataContext)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const singleCategory = await axios.get(
-          `${BASEURL}/graphql?query={category(id:"${props.match.params.id}"){name,description, iconfilename, imagefilename, iconpath, imagepath}}`
-        );
+        const currentPlaylist =
+        (await playlistData.find(
+          (playlist) => playlist._id === props.match.params.id
+        )) || {};
+
         const responseVideos = await axios.get(
           `${BASEURL}/graphql?query={videos(filter: {categoryid: "${props.match.params.id}"}){name, posterImagePath, created, status, access, views, videoDuration _id}}`
         );
 
-        let videos = responseVideos.data.data.videos.filter((video) => {
-          return video.access == "public" && video.status == "finished";
-        });
+        let videos = responseVideos.data.data.videos.filter((video) => (
+           video.access == "public" && video.status == "finished")
+        ).sort(compareDates)
 
-        let filteredVideos = videos.sort(compareDates);
-        setCategory(singleCategory.data.data.category);
-        setVideo(filteredVideos);
+        setPlaylist(currentPlaylist);
+        setVideo(videos);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, []);
+  }, [playlistData]);
 
-  if (video.length > 0) {
+  if (video.length && playlistData.length) {
     return (
       <main className="main">
         <PlaylistHeader
-          titleImg={`http://beuthbox.beuth-hochschule.de/api/category${category.imagepath}`}
-          title={category.name}
-          description={category.description}
+          titleImg={`http://beuthbox.beuth-hochschule.de/api/category${playlist.imagepath}`}
+          title={playlist.name}
+          description={playlist.description}
           channelText=""
           channelLink={""}
           totalVideos={video.length}
@@ -54,7 +58,7 @@ const Playlist = (props) => {
       </main>
     );
   }
-  return <div>Playlist</div>;
+  return <div><ActivityIndicator position='inline' /></div>;
 };
 
 export default Playlist;

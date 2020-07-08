@@ -1,11 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { DataContext } from '../../api/DataContext'
+
+
 
 const VideoServices = () => {
+    const {recommendedVideos, newestVideos} = useContext(DataContext)
     return (
         <main className="main">
             <h1>
-                Video-Services
+                {recommendedVideos.map(video => {
+                    return (
+                        <p>
+                            {video.name}
+                        </p>
+                    )
+                })}
             </h1>
+            <h2>
+            {newestVideos.map(video => {
+                    return (
+                        <p>
+                            {video.name}
+                        </p>
+                    )
+                })}
+            </h2>
         </main>
     )
 }

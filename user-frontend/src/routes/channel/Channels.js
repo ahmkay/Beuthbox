@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import ChannelOverview from "../../components/reusables/ChannelOverview";
+import { DataContext } from "../../api/DataContext";
+import ActivityIndicator from "../../components/reusables/ActivityIndicator";
 
-const Channels = ({ channelData, videoData }) => {
-  if (channelData) {
+const Channels = () => {
+  const { channelData } = useContext(DataContext);
+
+  if (channelData.length) {
     return (
       <main className="main">
         <section className="main__section">
@@ -11,12 +15,15 @@ const Channels = ({ channelData, videoData }) => {
             channelData={channelData}
             channelInfo="Entdecke die vorgestellten neuen Channels der Fachbereiche und Studiengänge"
           />
-          {/* <VideoFilterPanel videoData={dateDownwards}/> */}
         </section>
       </main>
     );
   }
-  return <div>channelData</div>;
+  return (
+    <div>
+      <ActivityIndicator position="inline" />
+    </div>
+  );
 };
 
 export default Channels;
