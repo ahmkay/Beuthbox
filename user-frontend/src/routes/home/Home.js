@@ -8,11 +8,22 @@ import { Link } from "react-router-dom";
 import MultiCarousel from "../../components/reusables/MutliCarousel";
 import ActivityIndicator from "../../components/reusables/ActivityIndicator";
 import { DataContext } from "../../api/DataContext";
+import NoContent from "../../components/reusables/NoContent";
 
 const Home = () => {
-  const { channelData, playlistData, newestVideos, recommendedVideos } = useContext(DataContext)
- 
-  if (newestVideos.length > 0 && recommendedVideos.length > 0 && channelData.length > 0 && playlistData.length > 0) {
+  const {
+    channelData,
+    playlistData,
+    newestVideos,
+    recommendedVideos,
+  } = useContext(DataContext);
+
+  if (
+    newestVideos.length > 0 &&
+    recommendedVideos.length > 0 &&
+    channelData.length > 0 &&
+    playlistData.length > 0
+  ) {
     return (
       <main className="main">
         <LiveInfoLayer />
