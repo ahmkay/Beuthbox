@@ -22,6 +22,7 @@ const Channel = (props) => {
   const [video, setVideo] = useState([]);
   const [value, setValue] = useState(0);
   const [isPending, setIsPending] = useState(true);
+  const [chronik, setChronik] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,6 +75,7 @@ const Channel = (props) => {
   useEffect(() => {
     sortVideos();
     sortPlaylists();
+    makeChronik();
   }, [!isPending]);
 
   const sortVideos = () => {
@@ -98,7 +100,53 @@ const Channel = (props) => {
     setCategories(sortedPlaylists);
   };
 
-  const showChronik = () => {};
+  const makeChronik = () => {
+    const rawChronik = video.concat(categories);
+
+    setChronik(
+      rawChronik.sort((medium1, medium2) => {
+        return (
+          moment(medium1.created).valueOf() - moment(medium2.created).valueOf()
+        );
+      })
+    );
+  };
+
+  const showChronik = () => {
+    return chronik.map((element) => {
+      // check if element is video --> else: its a playlist
+      if (element.videoDuration !== undefined) {
+        let imgPath = "";
+        if (element.posterImagePath.indexOf("engage-player") > 1) {
+          imgPath = element.posterImagePath;
+        } else {
+          imgPath = `${BASEURL}/videos${element.posterImagePath}`;
+        }
+        return (
+          <PostVideo
+            id={element._id}
+            img={imgPath}
+            title={element.name}
+            created={element.created}
+            description={element.description}
+            duration={element.videoDuration}
+            key={"vidpost-" + element._id}
+          />
+        );
+      } else {
+        return (
+          <PostPlaylist
+            id={element._id}
+            img={`http://beuthbox.beuth-hochschule.de/api/category${element.imagepath}`}
+            created={element.created}
+            title={element.name}
+            description={element.description}
+            key={"playlistpost-" + element._id}
+          />
+        );
+      }
+    });
+  };
 
   const renderPlaylists = () => {
     return categories.map((playlist) => {
@@ -109,6 +157,7 @@ const Channel = (props) => {
           created={playlist.created}
           title={playlist.name}
           description={playlist.description}
+          key={"playlistpost-" + playlist._id}
         />
       );
     });
@@ -130,6 +179,7 @@ const Channel = (props) => {
           created={video.created}
           description={video.description}
           duration={video.videoDuration}
+          key={"vidpost-" + video._id}
         />
       );
     });
@@ -181,7 +231,7 @@ const Channel = (props) => {
         </AppBar>
         <main className="main">
           <TabPanel value={value} index={0}>
-            {categories.length <= 0 || (video.length <= 0 && <NoContent />)}
+            {categories.length <= 0 && video.length <= 0 && <NoContent />}
             {showChronik()}
           </TabPanel>
           <TabPanel value={value} index={1}>
