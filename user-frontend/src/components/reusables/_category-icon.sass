@@ -15,11 +15,17 @@
     align-items: center
     border-radius: 100%
     border: 2px solid
+    @media screen and (max-width: $break-tablet-landscape)
+        width: 2rem
+        height: 2rem
 
-.category-icon__img svg, .category-icon__img.svg-icon
-    width: 1.4rem
-    height: 1.4rem
+svg.category-icon__img, .category-icon__img.svg-icon
+    width: 1.8rem
+    height: 1.8rem
     padding: 3px
+    @media screen and (max-width: $break-tablet-landscape)
+        width: 1.5rem
+        height: 1.5rem
 
 .category-icon__icon-container
     border-color: var(--color-grey)

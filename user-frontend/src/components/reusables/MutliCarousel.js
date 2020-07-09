@@ -42,11 +42,11 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
     },
   };
 
-  const {mainslider, playlistData} = useContext(DataContext)
+  const { mainslider, playlistData } = useContext(DataContext);
 
   const renderVideoCarousel = () => (
     <>
-      <h3 className="multi-carousel__title">{headline}</h3>
+      <h4 className="multi-carousel__title">{headline}</h4>
       <Carousel
         ssr
         partialVisbile
@@ -78,7 +78,7 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
   );
   const renderPlaylistCarousel = () => (
     <>
-      {headline && <h3 className="multi-carousel__title">{headline}</h3>}
+      {headline && <h4 className="multi-carousel__title">{headline}</h4>}
       <Carousel
         ssr
         partialVisbile
@@ -98,8 +98,6 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
 
   const renderHeaderCarousel = () => {
     if (mainslider.length > 0) {
-     
-      
       return (
         <>
           {headline && <h3 className="multi-carousel__title">{headline}</h3>}
@@ -113,7 +111,6 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
             keyBoardControl={true}
             arrows={true}
             showDots
-    
           >
             {mainslider.map((video) => {
               return <HeaderCarousel video={video} />;
@@ -122,7 +119,7 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
         </>
       );
     } else {
-      return null
+      return null;
     }
   };
 

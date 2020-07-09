@@ -5,14 +5,13 @@ button
     padding: .5em 1em
     min-width: 200px
     font-family: $header-font-stack
-    font-size: $h4-size
+    @include font-size($h3-sizes)
     font-weight: $h4-weight
     color: var(--color-primary-dark)
     background-color: var(--color-primary)
     transition: color .2s ease-out, background-color .2s ease-out, fill .2s ease-out
     @media screen and (max-width: $break-mobile)
         width: 100%
-        font-size: $h3-size
         padding: $h4-size
     &.negative
         color: var(--color-primary-light)

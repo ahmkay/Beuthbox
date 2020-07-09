@@ -17,8 +17,6 @@ html, body
 html
   @media screen and (max-width: $break-tablet-landscape)
     font-size: 14px
-  @media screen and (max-width: $break-mobile)
-    font-size: 10px
 
 body, #root
   min-height: 100vh
@@ -36,7 +34,7 @@ body, #root
   width: 100%
   margin-bottom: $margin-xl
   @media screen and (max-width: $break-mobile)
-    padding: 0 5%
+    padding: 0
 
 .main__section--center
   @extend .main__section
@@ -47,6 +45,8 @@ body, #root
   margin-bottom: 80px
   @media screen and (max-width: $break-tablet)
     padding: 0 5%
+  @media screen and (max-width: $break-mobile)
+    padding: 0
 
 .section-header__headline
   margin-bottom: 8px

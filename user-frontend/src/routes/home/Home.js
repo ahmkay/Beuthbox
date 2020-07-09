@@ -27,6 +27,21 @@ const Home = () => {
     return (
       <main className="main">
         <LiveInfoLayer />
+        <section className="main__section">
+          <header className="section-header">
+            <h1>Videos</h1>
+            <h2 className="section-header__description">
+              Schaue dir unsere Empfehlungen der spannensten und interessanten
+              Videos der beuthBOX an{" "}
+            </h2>
+          </header>
+
+          <MultiCarousel
+            videos={recommendedVideos}
+            headline={"Empfehlungen der Woche"}
+          />
+          <MultiCarousel videos={newestVideos} headline={"Neuste Videos"} />
+        </section>
         <ChannelOverview
           channelData={channelData}
           channelInfo="Test Info Beschreibung"
@@ -49,21 +64,6 @@ const Home = () => {
               <Button>Alle Playlisten</Button>{" "}
             </Link>
           </div>
-        </section>
-        <section className="main__section">
-          <header className="section-header">
-            <h1>Videos</h1>
-            <h2 className="section-header__description">
-              Schaue dir unsere Empfehlungen der spannensten und interessanten
-              Videos der beuthBOX an{" "}
-            </h2>
-          </header>
-
-          <MultiCarousel
-            videos={recommendedVideos}
-            headline={"Empfehlungen der Woche"}
-          />
-          <MultiCarousel videos={newestVideos} headline={"Neuste Videos"} />
         </section>
         <section className="main__section">
           <DiscoverCard />
