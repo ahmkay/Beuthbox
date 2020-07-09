@@ -6,6 +6,8 @@
     align-items: center
     &:not(:last-child)
         margin-right: $margin-s
+        @media screen and (max-width: $break-desktop)
+            margin-right: $margin-xs
 
 .category-icon__icon-container
     width: 2.4rem
@@ -15,7 +17,9 @@
     align-items: center
     border-radius: 100%
     border: 2px solid
-    @media screen and (max-width: $break-tablet-landscape)
+    &--hasBackground
+        background-color: var(--color-white)
+    @media screen and (max-width: $break-desktop)
         width: 2rem
         height: 2rem
 
@@ -23,7 +27,7 @@ svg.category-icon__img, .category-icon__img.svg-icon
     width: 1.8rem
     height: 1.8rem
     padding: 3px
-    @media screen and (max-width: $break-tablet-landscape)
+    @media screen and (max-width: $break-desktop)
         width: 1.5rem
         height: 1.5rem
 

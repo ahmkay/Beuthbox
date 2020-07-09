@@ -1,0 +1,121 @@
+.channel-thumbnail-container
+    display: block
+    position: relative
+    background-color: var(--color-card-background)
+    margin-bottom: calc(1em + 2*1em + 2*10px) //the height of the title + 2*padding + 2*border
+    &:not(::first-child)
+        margin-left: 20px
+    &::after
+        content: ''
+        display: block
+        padding-top: 56.25% // to get the 16:9 aspect ratio --> change for alternative aspect ratio
+
+    &--row-4
+        @extend .channel-thumbnail-container
+        width: calc(25% - 20px)
+        max-width: 420px
+    &--row-3
+        @extend .channel-thumbnail-container
+        width: calc(33% - 20px)
+        max-width: 420px
+    &--row
+        @extend .channel-thumbnail-container
+        width: calc(25% - 20px)
+        max-width: 420px
+    &--column
+        @extend .channel-thumbnail-container
+        width: 100%
+        max-width: 100%
+
+.channel-thumbnail-container__content
+    position: absolute
+    width: 100%
+    height: 100%
+
+.channel-thumbnail-container__overlay
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    background-color: $color-overlay
+    transition: all 0.2s ease-out
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: row
+
+.channel-thumbnail-container__channel-title
+    color: var(--color-white)
+    text-align: center
+    padding: 0 1em
+    overflow: hidden
+    display: -webkit-box
+    -webkit-line-clamp: 3
+    -webkit-box-orient: vertical
+    transition: font-size .3s ease-in-out, color .2s 
+    @media screen and (max-width: $break-desktop)
+        font-size:  1rem
+
+.channel-thumbnail-container__categories-list
+    display: flex
+    flex-direction: row
+    position: absolute;
+    bottom: -40px
+    opacity: 0
+    left: $margin-s
+    transition: all .3s ease-out
+
+.channel-thumbnail-container__channel-button
+    opacity: 0
+    position: absolute
+    width: 48px
+    top:  50%
+    left: calc(50% - 24px)
+    transition: all .3s ease-out
+
+.channel-thumbnail-container__thumbnail-img
+    width: 100%
+    height: 100%
+    object-fit: cover
+    position: absolute
+    top: 0
+    left: 0
+    user-drag: none 
+    user-select: none
+    -moz-user-select: none
+    -webkit-user-drag: none
+    -webkit-user-select: none
+    -ms-user-select: none
+
+// hover styles
+
+    // less space for title if there are 4 channels in a row
+.channel-thumbnail-container.channel-thumbnail-container--column:hover .channel-thumbnail-container__channel-title
+    max-width: 35ch
+    
+.channel-thumbnail-container:hover
+    .channel-thumbnail-container__overlay
+        top: 100%
+        height: auto
+        padding: 1em .5em
+        background-color: var(--color-card-background)
+        border: 10px solid var(--color-primary)
+        justify-content: space-between
+    .channel-thumbnail-container__channel-button
+        opacity: 1
+        top: calc(50% - 24px)
+    .channel-thumbnail-container__channel-title
+        color: var(--color-black)
+        text-align: left
+        align-self: flex-start
+        font-size: $small-size
+        max-width: 50ch
+        text-overflow: ellipsis
+        white-space: nowrap
+        overflow: hidden
+    .channel-thumbnail-container__categories-list
+        opacity: 1
+        bottom: 10px
+
+

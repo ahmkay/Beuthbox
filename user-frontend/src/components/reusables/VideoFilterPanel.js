@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from "react";
 import { compareDuration, compareDates } from "../../utils";
-import ThumbnailGrid from './ThumbnailGrid'
+import ThumbnailGrid from "./ThumbnailGrid";
 import ChannelOverview from "./ChannelOverview";
 import CategoryCheckbutton from "./CategoryCheckbutton";
 import DiscoverCard from "./DiscoverCard";
@@ -37,15 +37,12 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
     }
   };
 
- 
-
   const initialState = {
     sortedvideoResult: videoResult,
     sortedplaylistResult: playlistResult,
     sortedchannelResult: channelResult,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-
 
   function reducer(state, action) {
     switch (action.type) {
@@ -150,13 +147,13 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
   };
 
   const renderResults = () => {
-    console.log(channelResult, 'channels panel')
+    console.log(channelResult, "channels panel");
     return (
       <>
         {filterType === "all" || filterType === "videos" ? (
           <div className="container-90">
-            <h3 className='result-headline'>Videos</h3>
-            <ThumbnailGrid 
+            <h3 className="result-headline">Videos</h3>
+            <ThumbnailGrid
               type="video"
               elements={state.sortedvideoResult}
               columnNumber={4}
@@ -170,11 +167,12 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
 
         {filterType === "all" || filterType === "playlists" ? (
           <div className="container-90">
-            <h3 className='result-headline'>Playlists</h3>
-            <ThumbnailGrid 
-              type="playlist" 
+            <h3 className="result-headline">Playlists</h3>
+            <ThumbnailGrid
+              type="playlist"
               columnNumber={4}
-              elements={state.sortedplaylistResult} />
+              elements={state.sortedplaylistResult}
+            />
             {playlistResult.length < 1 && <NoContent content="playlist" />}
           </div>
         ) : null}
@@ -183,9 +181,13 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
         )}
         {filterType === "all" || filterType === "channel" ? (
           <div className="container-90">
-            <h3 className='result-headline'>Channels</h3>
-            <ChannelOverview channelData={state.sortedchannelResult} />
-            {channelResult.length < 1 && <NoContent content="channel"/>}
+            <h3 className="result-headline">Channels</h3>
+            <ThumbnailGrid
+              type="channel"
+              columnNumber={3}
+              elements={state.sortedchannelResult}
+            />
+            {channelResult.length < 1 && <NoContent content="channel" />}
           </div>
         ) : null}
       </>
