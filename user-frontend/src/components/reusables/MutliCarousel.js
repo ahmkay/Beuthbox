@@ -16,12 +16,12 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
       paritialVisibilityGutter: isPlaylist ? 20 : 10,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 1024, min: 576 },
       items: 2,
       paritialVisibilityGutter: 50,
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 576, min: 0 },
       items: 1,
       paritialVisibilityGutter: 30,
     },
@@ -33,11 +33,11 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
       items: 1,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 1024, min: 576 },
       items: 1,
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 576, min: 0 },
       items: 1,
     },
   };
