@@ -5,9 +5,13 @@
     transition: transform .15s ease-in-out, box-shadow .15s ease-in-out
     & + .post-video
         margin-top: $margin-m
+        @media screen and (max-width: $break-mobile)
+            margin-top: $margin-s
     &:hover
         transform: scale(1.005)
         box-shadow: $elevation-2
+    @media screen and (max-width: $break-mobile)
+        width: 100%
 
 .post-video__created
     justify-content: flex-end
@@ -34,6 +38,11 @@
     height: 72px
     top: calc(50% - 72px / 2)
     left: calc(50% - 72px / 2)
+    @media screen and (max-width: $break-mobile)
+        width: 48px
+        height: 48px
+        top: calc(50% - 48px / 2)
+        left: calc(50% - 48px / 2)
 
 .post-video__details
     margin-top: $margin-s

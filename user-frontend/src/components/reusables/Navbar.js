@@ -1,4 +1,10 @@
-import React, { useState, useLayoutEffect, useContext, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useLayoutEffect,
+  useContext,
+  useRef,
+  useEffect,
+} from "react";
 import HomeIcon from "@material-ui/icons/Home";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
@@ -10,7 +16,6 @@ import SearchMobile from "../../routes/search/SearchMobile";
 import Button from "./Button";
 import { preventBackgroundScroll } from "../../utils";
 import { DataContext } from "../../api/DataContext";
-
 
 const Navbar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -51,14 +56,17 @@ const Navbar = () => {
       if (activeRef.current == null) {
         return;
       }
-      console.log('navbar rendered')
-      window.scrollTo({left: 0, top: activeRef.current.offsetTop, behavior: 'smooth'})
+      window.scrollTo({
+        left: 0,
+        top: activeRef.current.offsetTop,
+        behavior: "smooth",
+      });
     }, 10);
     // if (activeRef !== null && activeRef.current !== null) {
     //   console.log('navbar rendered')
     //   window.scrollTo(0, activeRef.current.offsetTop)
     // }
-  },[window.location.pathname])
+  }, [window.location.pathname]);
 
   const toggleMobileSearch = () => {
     preventBackgroundScroll(!showSearch);

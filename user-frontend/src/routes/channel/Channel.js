@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
 import axios from "axios";
 import { BASEURL } from "../../api";
 import ChannelHeader from "./ChannelHeader";
@@ -24,6 +24,7 @@ const Channel = (props) => {
   const [value, setValue] = useState(0);
   const [isPending, setIsPending] = useState(true);
   const [chronik, setChronik] = useState([]);
+  const [tabsVariant, setTabsVariant] = useState("");
 
   const { channelData, playlistData } = useContext(DataContext);
   useEffect(() => {
@@ -71,6 +72,7 @@ const Channel = (props) => {
       }
     };
     fetchData();
+    toggleTabVariant();
   }, [channelData, playlistData]);
 
   useEffect(() => {
@@ -78,6 +80,13 @@ const Channel = (props) => {
     sortPlaylists();
     makeChronik();
   }, [!isPending]);
+
+  useLayoutEffect(() => {
+    window.addEventListener("resize", toggleTabVariant);
+    return () => {
+      window.removeEventListener("resize", toggleTabVariant);
+    };
+  });
 
   const sortVideos = () => {
     const sortedVideos = [...video].sort((video1, video2) => {
@@ -208,6 +217,14 @@ const Channel = (props) => {
     );
   }
 
+  const toggleTabVariant = () => {
+    if (window.innerWidth < 576) {
+      setTabsVariant("fullWidth");
+    } else {
+      setTabsVariant("");
+    }
+  };
+
   const renderTabcontroller = () => {
     const handleChange = (e, newValue) => {
       setValue(newValue);
@@ -216,7 +233,12 @@ const Channel = (props) => {
     return (
       <div className="channel-tabcontroller">
         <AppBar position="static" color="default">
-          <Tabs value={value} onChange={handleChange} centered>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant={tabsVariant}
+            centered
+          >
             <Tab label="Chronik" icon={<SpeakerNotes />} />
             <Tab
               label="Playlists"
@@ -261,9 +283,14 @@ const Channel = (props) => {
     );
   }
   return (
-    <div>
+    <>
+      <ChannelHeader
+        title={channel.name}
+        description={channel.description}
+        img={`${BASEURL}/channel${channel.imagepath}`}
+      />
       <ActivityIndicator position="inline" />
-    </div>
+    </>
   );
 };
 

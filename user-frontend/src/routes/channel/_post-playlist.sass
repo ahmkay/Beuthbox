@@ -5,9 +5,13 @@
     transition: transform .15s ease-in-out, box-shadow .15s ease-in-out
     & + .post-playlist
         margin-top: $margin-m
+        @media screen and (max-width: $break-mobile)
+            margin-top: $margin-s
     &:hover
         transform: scale(1.005)
         box-shadow: $elevation-2
+    @media screen and (max-width: $break-mobile)
+        width: 100%
 
 .post-playlist__created
     justify-content: flex-end
