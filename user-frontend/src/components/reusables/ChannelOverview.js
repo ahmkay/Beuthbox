@@ -1,17 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Button from "../reusables/Button";
 import { BASEURL } from "../../api";
 import { NavLink } from "react-router-dom";
 import CategoryIcon from "./CategoryIcon";
 
-
-const ChannelOverview = ({channelData, channelInfo }) => {
+const ChannelOverview = ({ channelData, channelInfo }) => {
   const renderChannelOverview = (channelData, channelInfo) => {
     return (
       <section className="channels-section">
         {channelInfo && (
           <header className="section-header">
-            <h1 className=".section-header__headline">Channels</h1>
-
             <h2 className="channel-header__info">{channelInfo}</h2>
           </header>
         )}
@@ -41,9 +40,9 @@ const ChannelOverview = ({channelData, channelInfo }) => {
                     : "channel-info-box--right"
                 }`}
               >
-                <h2 className="channel-info-box__channel-name">
+                <h3 className="channel-info-box__channel-name">
                   {channel.name}
-                </h2>
+                </h3>
                 <h5 className="channel-description">{channel.description}</h5>
                 <div className="channel-container-categories">
                   <CategoryIcon category="study" isActive type="labeled" />
@@ -53,6 +52,11 @@ const ChannelOverview = ({channelData, channelInfo }) => {
             </NavLink>
           );
         })}
+        <div className="all-media-link--channel">
+          <Link to={"/channel"}>
+            <Button>Alle Channels</Button>{" "}
+          </Link>
+        </div>
       </section>
     );
   };

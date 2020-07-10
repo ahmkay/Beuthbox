@@ -1,4 +1,9 @@
 .channel-tabcontroller
+    .MuiBox-root
+        @media screen and (max-width: $break-mobile)
+            padding: 0
+    .MuiBox-root-163, .MuiBox-root-225
+        padding: 0
     .MuiPaper-elevation4
         box-shadow: $elevation-1
     button:hover
@@ -6,6 +11,8 @@
         color: var(--color-black)
     .MuiTab-textColorInherit
         opacity: 1
+    .MuiTab-wrapper
+        font-size: 1rem
     .MuiTab-labelIcon
         text-transform: initial
         font-family: 'Montserrat'
@@ -16,12 +23,20 @@
         margin-bottom: 0
         min-height: 65px
         min-width: 120px
+        @media screen and (max-width: $break-mobile)
+            min-width: 33%
+        svg:first-child
+            margin-bottom: 0
+            @media screen and (max-width: $break-mobile)
+                width: 24px
+                height: 24px
         path
             fill: var(--color-black)
-        &[aria-selected="true"] 
+        &[aria-selected="true"]
             color: var(--color-primary)
             path
                 fill: var(--color-primary)
     .MuiTabs-indicator
         background-color: var(--color-primary)
         height: 5px
+        width: 100px // start-width will be overrided later

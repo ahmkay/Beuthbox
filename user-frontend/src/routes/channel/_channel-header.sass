@@ -4,6 +4,8 @@
     min-height: 500px
     max-height: 900px
     position: relative
+    @media screen and (max-width: $break-tablet)
+        max-height: initial
 
 .channel-header__img
     position: absolute
@@ -23,16 +25,21 @@
     display: flex
     align-items: center
     justify-content: space-between
+    @media screen and (max-width: $break-tablet)
+        flex-direction: column
+        padding: $margin-m 0
 
 .channel-header__title-box
     position: relative
     border: $border-l
     width: $col-4
-    padding: 30px
+    padding: 24px
     &::after
         content: ''
         display: block
         padding-top: 100% // to get a perfect quadrad
+    @media screen and (max-width: $break-tablet-landscape)
+        border: $border-m
 
 .channel-header__title
     position: absolute
@@ -41,9 +48,15 @@
     color: var(--color-white)
     word-break: break-word
     hyphens: auto
-    font-size: 3.5rem
-    display: flex;
-    align-items: center;
+    font-size: 3.7vw
+    display: flex
+    align-items: center
+    overflow: hidden
+    display: -webkit-box
+    -webkit-line-clamp: 5
+    -webkit-box-orient: vertical
+    @media screen and (max-width: $break-tablet-landscape)
+        font-size: 2.8vw
 
 .channel-header__description
     color: var(--color-white)

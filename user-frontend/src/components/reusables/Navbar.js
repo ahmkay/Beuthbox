@@ -1,4 +1,10 @@
-import React, { useState, useLayoutEffect, useContext, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useLayoutEffect,
+  useContext,
+  useRef,
+  useEffect,
+} from "react";
 import HomeIcon from "@material-ui/icons/Home";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
@@ -11,7 +17,6 @@ import Button from "./Button";
 import { preventBackgroundScroll } from "../../utils";
 import { DataContext } from "../../api/DataContext";
 
-
 const Navbar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [leftPosition, setLeftPosition] = useState(null);
@@ -20,7 +25,7 @@ const Navbar = () => {
   const [showNav, setShowNav] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 576);
-  const [showSearch, setShowSearch] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   const { setQuery } = useContext(DataContext);
   let activeRef = useRef(null);
@@ -51,19 +56,22 @@ const Navbar = () => {
       if (activeRef.current == null) {
         return;
       }
-      console.log('navbar rendered')
-      window.scrollTo({left: 0, top: activeRef.current.offsetTop, behavior: 'smooth'})
+      window.scrollTo({
+        left: 0,
+        top: activeRef.current.offsetTop,
+        behavior: "smooth",
+      });
     }, 10);
     // if (activeRef !== null && activeRef.current !== null) {
     //   console.log('navbar rendered')
     //   window.scrollTo(0, activeRef.current.offsetTop)
     // }
-  },[window.location.pathname])
+  }, [window.location.pathname]);
 
-  const toggleMobileSearch = () => {
-    preventBackgroundScroll(!showSearch);
-    setShowNav(!showSearch); // to close gap on top of the mobile search caused of hidden navbar
-    setShowSearch(!showSearch);
+  const toggleMobileSearch = (show = false) => {
+    preventBackgroundScroll(show);
+    setShowNav(show); // to close gap on top of the mobile search caused of hidden navbar
+    setShowMobileSearch(show);
   };
 
   // move Indicator every time the window resizes
@@ -74,7 +82,7 @@ const Navbar = () => {
         setNavbar();
       });
     }
-    if (!showSearch) {
+    if (!showMobileSearch) {
       window.addEventListener("scroll", hideOnScroll); // prevent to move search modal because it sets its position relative to the navbar
     }
     return () => {
@@ -137,12 +145,12 @@ const Navbar = () => {
       {isMobile && (
         <>
           <SearchMobile
-            show={showSearch}
+            show={showMobileSearch}
             state="entering"
             toggleShow={toggleMobileSearch}
           />
           <Button
-            onClick={() => toggleMobileSearch()}
+            onClick={() => toggleMobileSearch(true)}
             type="icon"
             filled
             className="nav__mobile-search"

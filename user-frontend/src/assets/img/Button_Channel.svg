@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <g id="Channel_Button" data-name="Channel Button" transform="translate(0.412 -0.421)">
+    <circle id="Ellipse_42" data-name="Ellipse 42" cx="60" cy="60" r="60" transform="translate(-0.412 0.421)" fill="#fff"/>
+    <path id="Icon_material-live-tv" data-name="Icon material-live-tv" d="M48.783,12.457H30.839l7.778-7.778L36.962,3l-9.457,9.457L18.049,3,16.37,4.679l7.8,7.778H6.228A4.727,4.727,0,0,0,1.5,17.185v28.37a4.742,4.742,0,0,0,4.728,4.728H48.783a4.742,4.742,0,0,0,4.728-4.728V17.185A4.727,4.727,0,0,0,48.783,12.457Zm0,33.1H6.228V17.185H48.783ZM20.413,21.913V40.826L36.962,31.37Z" transform="translate(32.302 30.312)" fill="#00a5a5"/>
+  </g>
+</svg>

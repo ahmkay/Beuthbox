@@ -16,12 +16,12 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
       paritialVisibilityGutter: isPlaylist ? 20 : 10,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 1024, min: 576 },
       items: 2,
       paritialVisibilityGutter: 50,
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 576, min: 0 },
       items: 1,
       paritialVisibilityGutter: 30,
     },
@@ -33,20 +33,20 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
       items: 1,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 1024, min: 576 },
       items: 1,
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 576, min: 0 },
       items: 1,
     },
   };
 
-  const {mainslider, playlistData} = useContext(DataContext)
+  const { mainslider, playlistData } = useContext(DataContext);
 
   const renderVideoCarousel = () => (
     <>
-      <h3 className="multi-carousel__title">{headline}</h3>
+      <h4 className="multi-carousel__title">{headline}</h4>
       <Carousel
         ssr
         partialVisbile
@@ -78,7 +78,7 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
   );
   const renderPlaylistCarousel = () => (
     <>
-      {headline && <h3 className="multi-carousel__title">{headline}</h3>}
+      {headline && <h4 className="multi-carousel__title">{headline}</h4>}
       <Carousel
         ssr
         partialVisbile
@@ -98,8 +98,6 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
 
   const renderHeaderCarousel = () => {
     if (mainslider.length > 0) {
-     
-      
       return (
         <>
           {headline && <h3 className="multi-carousel__title">{headline}</h3>}
@@ -113,7 +111,6 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
             keyBoardControl={true}
             arrows={true}
             showDots
-    
           >
             {mainslider.map((video) => {
               return <HeaderCarousel video={video} />;
@@ -122,7 +119,7 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
         </>
       );
     } else {
-      return null
+      return null;
     }
   };
 

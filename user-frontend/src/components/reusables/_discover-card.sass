@@ -5,15 +5,24 @@
     flex-direction: row
     justify-content: space-between
     align-items: center
+    @media screen and (max-width: $break-mobile)
+        width: 90%
+        flex-direction: column
 
 .discover-card__illustration
     width: 50%
+    @media screen and (max-width: $break-mobile)
+        width: 75%
 
 .discover-card__text-container
     display: flex
     flex-direction: column
     align-items: flex-end
     text-align: right
+    @media screen and (max-width: $break-mobile)
+        align-items: center
+        text-align: center
+        margin-top: $margin-s
 
 .discover-card__title
     margin-bottom: $margin-s
