@@ -25,7 +25,7 @@ const Navbar = () => {
   const [showNav, setShowNav] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 576);
-  const [showSearch, setShowSearch] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   const { setQuery } = useContext(DataContext);
   let activeRef = useRef(null);
@@ -68,10 +68,10 @@ const Navbar = () => {
     // }
   }, [window.location.pathname]);
 
-  const toggleMobileSearch = () => {
-    preventBackgroundScroll(!showSearch);
-    setShowNav(!showSearch); // to close gap on top of the mobile search caused of hidden navbar
-    setShowSearch(!showSearch);
+  const toggleMobileSearch = (show = false) => {
+    preventBackgroundScroll(show);
+    setShowNav(show); // to close gap on top of the mobile search caused of hidden navbar
+    setShowMobileSearch(show);
   };
 
   // move Indicator every time the window resizes
@@ -82,7 +82,7 @@ const Navbar = () => {
         setNavbar();
       });
     }
-    if (!showSearch) {
+    if (!showMobileSearch) {
       window.addEventListener("scroll", hideOnScroll); // prevent to move search modal because it sets its position relative to the navbar
     }
     return () => {
@@ -145,12 +145,12 @@ const Navbar = () => {
       {isMobile && (
         <>
           <SearchMobile
-            show={showSearch}
+            show={showMobileSearch}
             state="entering"
             toggleShow={toggleMobileSearch}
           />
           <Button
-            onClick={() => toggleMobileSearch()}
+            onClick={() => toggleMobileSearch(true)}
             type="icon"
             filled
             className="nav__mobile-search"
