@@ -1,38 +1,38 @@
 .channel-header
     width: 100%
-    height: calc(100vh - 110px) // - height of navbar
-    min-height: 500px
-    max-height: 900px
+    height: fit-content
     position: relative
-    @media screen and (max-width: $break-tablet)
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    @media screen and (max-width: $break-tablet-landscape)
         max-height: initial
+        height: initial
+        min-height: calc(70vh - 120px)
+        flex-direction: column
 
-.channel-header__img
+.channel-header__header-img
+    position: relative
+    height: fit-content
+    width: 100%
+    @media screen and (max-width: $break-tablet-landscape)
+        display: flex;
+        justify-content: center;
+
+.channel-header__img, .channel-header__overlay
     position: absolute
     width: 100%
     height: 100%
     object-fit: cover
 
 .channel-header__overlay
-    position: absolute
-    height: 100%
-    width: 100%
     background-color: $color-overlay
-
-.channel-header__content
-    @extend .main
-    height: 100%
-    display: flex
-    align-items: center
-    justify-content: space-between
-    @media screen and (max-width: $break-tablet)
-        flex-direction: column
-        padding: $margin-m 0
 
 .channel-header__title-box
     position: relative
+    margin: 5% 0 5% 10%
+    width: 33%
     border: $border-l
-    width: $col-4
     padding: 24px
     &::after
         content: ''
@@ -40,6 +40,10 @@
         padding-top: 100% // to get a perfect quadrad
     @media screen and (max-width: $break-tablet-landscape)
         border: $border-m
+        padding: $margin-s
+        width: 40%
+        margin-top: 10%
+        margin-left: 0
 
 .channel-header__title
     position: absolute
@@ -56,8 +60,23 @@
     -webkit-line-clamp: 5
     -webkit-box-orient: vertical
     @media screen and (max-width: $break-tablet-landscape)
-        font-size: 2.8vw
+        @include font-size($h1-size)
 
 .channel-header__description
+    position: absolute
+    left: 50%
+    margin-top: calc(5% + 20px + 30px)
     color: var(--color-white)
     width: $col-4
+    overflow: hidden
+    display: -webkit-box
+    -webkit-line-clamp: 11
+    -webkit-box-orient: vertical
+    @media screen and (max-width: $break-tablet-landscape)
+        position: relative
+        left: initial
+        color: var(--color-text)
+        width: 90%
+        margin: $margin-s auto
+        overflow: initial
+        display: block
