@@ -10,6 +10,8 @@
     &:hover
         transform: scale(1.005)
         box-shadow: $elevation-2
+    @media screen and (max-width: $break-tablet-landscape)
+        width: 90%
     @media screen and (max-width: $break-mobile)
         width: 100%
 
@@ -33,6 +35,9 @@
     width: 100%
     display: flex
     flex-direction: row
+    @media screen and (max-width: $break-mobile)
+        flex-direction: column
+        align-items: center
 
 .post-playlist__thumbnail-container
     display: block
@@ -42,6 +47,8 @@
         content: ''
         display: block
         padding-top: 150% // 16:9 aspect
+    @media screen and (max-width: $break-mobile)
+        width: 90%
 
 .post-playlist__thumbnail
     width: 100%
@@ -56,18 +63,36 @@
     display: flex
     flex-direction: column
     justify-content: space-between
+    @media screen and (max-width: $break-mobile)
+       width: 90%
+       align-items: center
+       padding-left: 0
+       margin: auto
+       margin-top: $margin-s
 
 .post-playlist__title
     margin-bottom: $margin-s
+    @media screen and (max-width: $break-mobile)
+        margin-bottom: $margin-s
+        @include font-size($h3-sizes)
 
 .post-playlist__meta
     margin-top: $margin-s
+    @media screen and (max-width: $break-mobile)
+        align-self: flex-start
 
 .post-playlist__stat
+    @media screen and (max-width: $break-mobile)
+        display: inline-block
     & + .post-playlist__stat
         margin-top: $margin-xs
+        @media screen and (max-width: $break-mobile)
+            margin-left: $margin-s
 
 .post-playlist__stat-category
     display: flex
     flex-direction: row
     margin-top: $margin-s
+    &.post-playlist__stat
+        @media screen and (max-width: $break-mobile)
+            margin-left: 0

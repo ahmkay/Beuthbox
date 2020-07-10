@@ -8,7 +8,7 @@ import ChannelThumbnail from "./ChannelThumbnail";
 /**
  * A reusable component to display an array of videos in a grid-layout
  *
- * @param {String} type The type of the content to display
+ * @param {String} type The type of the content to display --> options: 'video', 'playlist', 'channel'
  * @param {Object[]} elements An Array of Objects to display in the grid-layout
  * @param {number} columnNumber The number of Videos to display per row
  *
@@ -16,6 +16,7 @@ import ChannelThumbnail from "./ChannelThumbnail";
  * <ThumbnailGrid
  *  elements={videos}
  *  columnNumber={3}
+ *  type='video'
  * />
  *
  */
