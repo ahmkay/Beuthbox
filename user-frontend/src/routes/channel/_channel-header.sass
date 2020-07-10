@@ -44,6 +44,8 @@
         width: 40%
         margin-top: 10%
         margin-left: 0
+    @media screen and (max-width: $break-mobile)
+        width: 60%
 
 .channel-header__title
     position: absolute
@@ -61,6 +63,9 @@
     -webkit-box-orient: vertical
     @media screen and (max-width: $break-tablet-landscape)
         @include font-size($h1-size)
+    @media screen and (max-width: $break-mobile)
+        font-size: 6vw
+
 
 .channel-header__description
     position: absolute

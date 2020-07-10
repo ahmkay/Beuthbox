@@ -34,6 +34,16 @@
     object-fit: cover
     position: absolute
 
+.post-video__categories
+    position: absolute
+    bottom: $margin-s
+    right: $margin-s
+    display: flex
+    @media screen and (max-width: $break-mobile)
+        bottom: -42px
+        right: initial
+        left: 0
+
 .post-video__play-button
     position: absolute
     width: 72px
@@ -45,6 +55,10 @@
         height: 48px
         top: calc(50% - 48px / 2)
         left: calc(50% - 48px / 2)
+
+.post-video__title
+    @media screen and (max-width: $break-mobile)
+        padding-top: 3em
 
 .post-video__details
     margin-top: $margin-s

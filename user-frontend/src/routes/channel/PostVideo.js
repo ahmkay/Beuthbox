@@ -6,6 +6,7 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Placeholder from "../../assets/img/Placeholder_Video.svg";
 import Moment from "react-moment";
 import { calculateVideoDuration } from "../../utils";
+import CategoryIcon from "../../components/reusables/CategoryIcon";
 
 const PostVideo = ({ id, title, img, duration, description, created }) => {
   return (
@@ -26,6 +27,10 @@ const PostVideo = ({ id, title, img, duration, description, created }) => {
           alt="Video Thumbnail"
         />
         <img src={Play} alt="Play Button" className="post-video__play-button" />
+        <div className="post-video__categories">
+          <CategoryIcon isActive category="campus" hasBackground />
+          <CategoryIcon isActive category="study" hasBackground />
+        </div>
       </div>
       <div className="post-video__details">
         <h4 className="post-video__title">{title ? title : "Kein Titel"}</h4>
