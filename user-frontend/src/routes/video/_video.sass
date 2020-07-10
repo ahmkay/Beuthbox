@@ -1,12 +1,49 @@
+@media all and (max-width: 1100px)
+    .video-info-container, .video-category-container
+        flex-wrap: wrap
+    
+    
 .video-container
     margin-top: 120px
     margin-bottom: 20px
+    @media screen and ( max-width: $break-tablet-landscape  )
+        width: 100%
+
+.root-container.video-container__root
+    @media screen and ( max-width: $break-tablet-landscape  )
+        width: 100% !important
+
+.video-container__inner
+    @media screen and ( max-width: $break-tablet-landscape  )
+        width: 100% !important
+    & > h2,  > p
+        @media screen and ( max-width: $break-tablet-landscape )
+            margin: 0 5% 20px
 
 .video-info-container
     display: flex
     align-items: flex-end
     justify-content: space-between
     margin-bottom: 40px
+    @media screen and ( max-width: $break-tablet  )
+        margin-bottom: $margin-s
+    @media screen and ( max-width: $break-mobile  )
+        flex-wrap: nowrap
+    & h5
+        @media screen and ( max-width: $break-tablet )
+            font-size: $h4-size
+        @media screen and ( max-width: $break-mobile )
+            font-size: $h3-size
+            
+    &:not(.video-info-container--hide-desktop)
+        @media screen and (max-width: 1380px)
+            display: none
+            
+
+.video-info-container--hide-desktop
+    display: none
+    @media screen and ( max-width: 1380px  )
+        display: flex
 
 .video-category-container
     display: flex
@@ -16,14 +53,12 @@
     display: flex
     align-items: flex-end
 
-
 .video-playlist--name
     margin-right: 40px
 
 .video-playlist--name, .video-channel--name
     margin-left: 24px
     color: var(--color-primary)
-    
 
 .video-playlist--headline, .video-channel--headline
     margin-left: 10px
@@ -39,27 +74,51 @@
     display: inline
     margin-right: 20px
 
+.video-createdAt-container
+    &:not(.video-createdAt-container--hide-desktop)
+        @media screen and ( max-width: 1380px )
+            display: none
+
+.video-createdAt-container--hide-desktop
+    margin-right: 40px
+
 .createdAt > time
     color: var(--color-grey)
 
 .video-headline
     margin-bottom: 20px
 
-.video-description   
-     margin-bottom: 25px
-    
+.video-description
+    margin-bottom: 25px
+
 .share-button
     margin-bottom: 120px
+    @media screen and ( max-width: $break-desktop  )
+        display: none
 
 svg.today--icon
     margin-right: 10px
     width: .9em
     height: .9em
 
+.video-createdAt-container--hide-desktop 
+    svg.today--icon
+        margin-right: 10px
+        width: 1.4em
+        height: 1.4em
+    & small
+        font-size: .9em
+
 .today--icon
     path
         color: var(--color-grey)
-    
+
+.MuiSvgIcon-root.video-livetv-icon--dekstop-hide, .MuiSvgIcon-root.video-playlist-icon--dekstop-hide
+    width: 30px
+    height: 30px
+    margin-bottom: $margin-xs
+    margin-top: $margin-s
+
 .video-playlist--container
     width: 30%
     display: inline-block
@@ -70,10 +129,25 @@ svg.today--icon
     overflow-y: scroll
     scrollbar-width: none
     -ms-overflow-style: none
+    @media screen and ( max-width: $break-tablet-landscape )
+        display: none
 
-.video-playlist--container::-webkit-scrollbar 
-  display: none
+.video-container__channel-description--hide-desktop
+    display: none
+    @media screen and ( max-width: $break-tablet-landscape  )
+        display: flex
+        justify-content: space-evenly
+        margin-bottom: $margin-l
 
+.video-container__channel-description-inner
+    display: none
+    @media screen and ( max-width: $break-tablet-landscape  )
+        display: flex
+        flex-direction: column
+        align-items: center
+
+.video-playlist--container::-webkit-scrollbar
+    display: none
 
 div.MuiAlert-icon
     svg
@@ -84,7 +158,10 @@ div.MuiAlert-message
 div.MuiAlert-action
     display: none
 
+.video-container__further-videos-container
+    @media screen and ( max-width: $break-tablet-landscape  )
+        width: 90%
+        margin: auto
+        
 
-@media all and (max-width: 1100px)
-    .video-info-container, .video-category-container
-        flex-wrap: wrap 
+
