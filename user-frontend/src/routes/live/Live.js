@@ -3,24 +3,35 @@ import Moment from "react-moment";
 import TodayIcon from "@material-ui/icons/Today";
 import ShareIcon from "@material-ui/icons/Share";
 import SecondaryButton from "../../components/reusables/SecondaryButton";
-import VideoRow from "../../components/reusables/VideoRow";
 import ReactFlowPlayer from "react-flow-player";
 import LiveOffline from "./LiveOffline";
 import CategoryIcon from '../../components/reusables/CategoryIcon'
 import { DataContext } from "../../api/DataContext";
+import ThumbnailGrid from "../../components/reusables/ThumbnailGrid";
+import { Link } from "react-router-dom";
 
 const Live = () => {
   const [showPlayer, setShowPlayer] = useState(true);
-  const { recommendedVideos } = useContext(DataContext)
+  const { allVideos, recommendedVideos } = useContext(DataContext)
 
   const shareVideo = () =>
     navigator.clipboard.writeText("Copy this text to clipboard");
 
+    const showTags = () =>
+    allVideos[0].tags.map((tag, index) => (
+      <Link
+        to={{ pathname: `/search/tag=${tag}`, state: { tag } }}
+        className={`video--tag ${index === 0 ? "firstchild" : ""}`}
+      >
+        <h5>#{tag}</h5>
+      </Link>
+    ));
+
     return (
       <>
-        {showPlayer ? (
+        {!showPlayer ? (
           <>
-            <div className="container-60">
+            <div className="container-60 live-container__root">
               <div className="video-container">
                 <>
                   <ReactFlowPlayer
@@ -73,12 +84,23 @@ const Live = () => {
                 <div className="video-createdAt-container">
                   <TodayIcon className="today--icon" />
                   <small className="createdAt">
-                    {/* <Moment format="DD.MM.YY">{video.created}</Moment> */}
+                    <Moment format="DD.MM.YY">{Date.now()}</Moment>
                   </small>
                 </div>
               </div>
-              {/* <h2 className="video-headline">{video.name}</h2>
-              <p className="video-description">{video.description}</p> */}
+              <div className="video-info-container video-info-container--hide-desktop">
+                <div className="video-category-container">
+                  {allVideos.length > 0 && allVideos[0].tags && showTags()}
+                </div>
+                <div className="video-createdAt-container video-createdAt-container--hide-desktop">
+                  <TodayIcon className="today--icon" />
+                  <small className="createdAt">
+                    <Moment format="DD.MM.YY">{Date.now()}</Moment>
+                  </small>
+                </div>
+              </div>
+              <h2 className="video-headline">Titel des Videos</h2>
+              <p className="video-description">Videobeschreibung: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
               <SecondaryButton
                 text={"Teilen"}
                 onClick={shareVideo}
@@ -86,17 +108,14 @@ const Live = () => {
                 additionalClasses="share-button"
               ></SecondaryButton>
             </div>
-            <div className="container-80">
-              <VideoRow
-                headline="Vergangene Livestreams"
-                amountOfVideos={3}
-                videos={{}}
-              />
+            <div className="container-80 last-livesteams-container">
+            <h3 className="last-livestreams-container__title">Vergangene Livestreams</h3>
+            <ThumbnailGrid elements={recommendedVideos.slice(0,3)} columnNumber={3} type='video' />
             </div>
           </>
-        ) : (
+        ): 
           <LiveOffline />
-        )}
+        }
       </>
     );
 };

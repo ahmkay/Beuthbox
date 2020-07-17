@@ -21,16 +21,6 @@ import Axios from "axios";
 import { BASEURL } from "../../api";
 import ThumbnailGrid from "../../components/reusables/ThumbnailGrid";
 
-const MOCK_DATA = [
-  {
-    categories: [
-      { name: "MBA 2017", _id: "5cba12054dd5fb05f5d24b38" },
-      { name: "Hochschultag 2019 des neuen", _id: "5cba12a44dd5fb05f5d24b39" },
-      { name: "MBA 2019", _id: "5a2860471ca9d0048fcd2bc5" },
-    ],
-  },
-];
-
 const Video = (props) => {
   const [video, setVideo] = useState([]);
   const [currentPlaylistVideos, setCurrentPlaylistVideos] = useState([]);
@@ -256,11 +246,8 @@ const Video = (props) => {
                   <LiveTvIcon className="video-livetv-icon--dekstop-hide" />
                   {renderTagLinks('channel')}
                 </div>
-
               </div>
             </div>
-
-
             {renderPlaylistVideos()}
           </div>
 

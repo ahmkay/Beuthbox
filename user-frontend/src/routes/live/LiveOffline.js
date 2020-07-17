@@ -3,6 +3,7 @@ import VideoRow from "../../components/reusables/VideoRow";
 
 import Illustration from "../../assets/img/Illustration_Sendepause.svg";
 import { DataContext } from "../../api/DataContext";
+import ThumbnailGrid from "../../components/reusables/ThumbnailGrid";
 
 const LiveOffline = () => {
   const { recommendedVideos } = useContext(DataContext)
@@ -24,18 +25,10 @@ const LiveOffline = () => {
         </section>
       </main>
       <div className="container-80">
-        <VideoRow
-          headline="Vergangene Livestreams"
-          flexDirection="row"
-          amountOfVideos={3}
-          videos={recommendedVideos}
-        />
-        <VideoRow
-          headline="Vorgeschlagene Videos"
-          flexDirection="row"
-          amountOfVideos={3}
-          videos={recommendedVideos}
-        />
+      <h3 className="video-row__title">Vergangene Livestreams</h3>
+      <ThumbnailGrid elements={recommendedVideos.slice(0,4)} columnNumber={4} type='video' />
+      <h3 className="video-row__title">Vorgeschlagene Videos</h3>
+      <ThumbnailGrid elements={recommendedVideos.slice(0,4)} columnNumber={4} type='video' />
       </div>
     </>
   );

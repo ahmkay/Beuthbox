@@ -2,6 +2,14 @@
     margin-top: 120px
     margin-bottom: 20px
 
+.container-60.live-container__root
+    @media screen and ( max-width: $break-desktop )
+        width: 100%
+        & h2, p
+            margin: 0 5% 20px
+
+        
+
 .video-info-container
     display: flex
     align-items: flex-end
@@ -112,39 +120,20 @@ svg.today--icon
 .overlay-title, .overlay-duration svg > path, .overlay-duration
     color: var(--color-white)
 
-.last-livestream-thumbnail-container:hover .last-livestream-overlay-default
-    top: 100%
-    height: auto
-    padding: 1em .5em
-    background-color: var(--color-white)
-    border: 10px solid var(--color-primary)
-    justify-content: space-between
-
-.last-livestream-thumbnail-container:hover .overlay-title
-    align-self: flex-start
-    max-width: 25ch
-    text-overflow: ellipsis
-    white-space: nowrap
-    overflow: hidden
-
-.last-livestream-thumbnail-container:hover .overlay-duration
-    position: unset
-
-.last-livestream-thumbnail-container:hover .thumbnail__play-button
-    opacity: 1
-    position: absolute
-    width: 48px
-    top: calc(50% - 24px)
-    left: calc(50% - 24px)
-
-.last-livestream-thumbnail-container:hover .overlay-title, .last-livestream-thumbnail-container:hover .overlay-duration svg > path, .last-livestream-thumbnail-container:hover  .overlay-duration
-    font-size: $h6-size
-    font-weight: $h6-weight
-    color: var(--color-black)
-
 .video-link > img
     width: 100%
     height: 100%
 
+.container-80.last-livesteams-container
+    @media screen and ( max-width: $break-desktop  )
+        width: 90%
+        margin: auto
+        
+
+.last-livestreams-container__title
+    margin-bottom: $margin-s
+    @media screen and ( max-width: $break-desktop  )
+        margin-top: $margin-l
+        
 
     
