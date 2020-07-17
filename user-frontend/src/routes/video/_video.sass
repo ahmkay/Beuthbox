@@ -134,17 +134,20 @@ svg.today--icon
 
 .video-container__channel-description--hide-desktop
     display: none
-    @media screen and ( max-width: $break-tablet-landscape  )
+    @media screen and ( max-width: 1380px )
         display: flex
         justify-content: space-evenly
         margin-bottom: $margin-l
+  
 
 .video-container__channel-description-inner
     display: none
-    @media screen and ( max-width: $break-tablet-landscape  )
+    @media screen and ( max-width: 1380px )
         display: flex
         flex-direction: column
         align-items: center
+        h4.video-playlist--name
+            font-size: $h5-size
 
 .video-playlist--container::-webkit-scrollbar
     display: none

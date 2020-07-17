@@ -131,8 +131,8 @@ const Video = (props) => {
           <h4 className="video-playlist--name">{video.channel[0].name}</h4>
         </Link>
       ) : (
-        <h4 className="video-playlist--name">-</h4>
-      );
+          <h4 className="video-playlist--name">-</h4>
+        );
     } else {
       if (video.categories.length) {
         if (video.categories.length > 2) {
@@ -246,30 +246,32 @@ const Video = (props) => {
                 icon={ShareIcon}
                 additionalClasses="share-button"
               ></SecondaryButton>
+
+              <div className='video-container__channel-description--hide-desktop'>
+                <div className='video-container__channel-description-inner'>
+                  <PlaylistPlayIcon className="video-playlist-icon--dekstop-hide" />
+                  {renderTagLinks()}
+                </div>
+                <div className='video-container__channel-description-inner'>
+                  <LiveTvIcon className="video-livetv-icon--dekstop-hide" />
+                  {renderTagLinks('channel')}
+                </div>
+
+              </div>
             </div>
 
-            <div className='video-container__channel-description--hide-desktop'>
-              <div className='video-container__channel-description-inner'>
-              <PlaylistPlayIcon className="video-playlist-icon--dekstop-hide" />
-             { renderTagLinks()}
-              </div>
-              <div className='video-container__channel-description-inner'>
-              <LiveTvIcon className="video-livetv-icon--dekstop-hide" />
-             { renderTagLinks('channel')}
-              </div>
 
-            </div>
             {renderPlaylistVideos()}
           </div>
 
-         
-         {currentPlaylistVideos.length > 0 && 
-         <div className='video-container__further-videos-container'>
-         <h3 className="video-row__title">Ähnliche Videos</h3>
-         <ThumbnailGrid elements={currentPlaylistVideos} columnNumber={4} type='video' />
-         
-         </div>
-         }
+
+          {currentPlaylistVideos.length > 0 &&
+            <div className='video-container__further-videos-container'>
+              <h3 className="video-row__title">Ähnliche Videos</h3>
+              <ThumbnailGrid elements={currentPlaylistVideos} columnNumber={4} type='video' />
+
+            </div>
+          }
           <Snackbar
             open={copySuccess}
             autoHideDuration={2000}
