@@ -19,6 +19,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { DataContext } from "../../api/DataContext";
 import Axios from "axios";
 import { BASEURL } from "../../api";
+import ThumbnailGrid from "../../components/reusables/ThumbnailGrid";
 
 const MOCK_DATA = [
   {
@@ -32,7 +33,7 @@ const MOCK_DATA = [
 
 const Video = (props) => {
   const [video, setVideo] = useState([]);
-  const [currentPlaylistVideos, setCurrentPlaylistVideos] = useState([])
+  const [currentPlaylistVideos, setCurrentPlaylistVideos] = useState([]);
   const [height, setHeight] = useState(1000);
   const [copySuccess, setCopySuccess] = useState(false);
   const { id } = props.match.params;
@@ -58,15 +59,11 @@ const Video = (props) => {
         const currentPlaylistVideos = await Axios.get(
           `${BASEURL}/graphql?query={videos(filter: {categoryid: "${currentVideo.categories[0]._id}"}){name, posterImagePath, created, status, access, views, videoDuration _id}}`
         );
-        console.log(currentPlaylistVideos, 'axios')
-        setCurrentPlaylistVideos(currentPlaylistVideos.data.data.videos)
+        console.log(currentPlaylistVideos, "axios");
+        setCurrentPlaylistVideos(currentPlaylistVideos.data.data.videos);
       } catch (error) {
         console.log(error);
       }
-
-      
-       
-    
     };
     fetchData();
   }, [id, allVideos]);
@@ -108,21 +105,21 @@ const Video = (props) => {
         <h5>#{tag}</h5>
       </Link>
     ));
-    
-    const renderPlaylistVideos =  () => {
-      if (currentPlaylistVideos.length) {
-        return (
-          <div className="video-playlist--container" style={{ height }}>
-            <VideoRow
-              videos={currentPlaylistVideos}
-              flexDirection="column"
-              headline="Mehr aus der Playlist"
-            />
-          </div>
-        );
-      }
-      return null;
-    };
+
+  const renderPlaylistVideos = () => {
+    if (currentPlaylistVideos.length) {
+      return (
+        <div className="video-playlist--container" style={{ height }}>
+          <VideoRow
+            videos={currentPlaylistVideos}
+            flexDirection="column"
+            headline="Mehr aus der Playlist"
+          />
+        </div>
+      );
+    }
+    return null;
+  };
   const getHeight = () => {
     setHeight(videoContainerRef.current.clientHeight - 240 + "px");
   };
@@ -134,8 +131,8 @@ const Video = (props) => {
           <h4 className="video-playlist--name">{video.channel[0].name}</h4>
         </Link>
       ) : (
-        <h4 className="video-playlist--name">-</h4>
-      );
+          <h4 className="video-playlist--name">-</h4>
+        );
     } else {
       if (video.categories.length) {
         if (video.categories.length > 2) {
@@ -184,13 +181,13 @@ const Video = (props) => {
   });
 
   if (Object.keys(video).length > 0) {
-    console.log(currentPlaylistVideos, 'current')
+    console.log(currentPlaylistVideos, "current");
     return (
       <>
-        <div className="root-container">
+        <div className="root-container video-container__root">
           <div className="video-content-container">
             <div
-              className="container-65-left"
+              className="container-65-left video-container__inner"
               style={{ display: "inline-block" }}
               ref={videoContainerRef}
             >
@@ -228,6 +225,19 @@ const Video = (props) => {
                   {video.tags && showTags()}
                 </div>
               </div>
+
+              <div className="video-info-container video-info-container--hide-desktop">
+                <div className="video-category-container">
+                  {video.tags && showTags()}
+                </div>
+                <div className="video-createdAt-container video-createdAt-container--hide-desktop">
+                  <TodayIcon className="today--icon" />
+                  <small className="createdAt">
+                    <Moment format="DD.MM.YY">{video.created}</Moment>
+                  </small>
+                </div>
+              </div>
+
               <h2 className="video-headline">{video.name}</h2>
               <p className="video-description">{video.description}</p>
               <SecondaryButton
@@ -236,23 +246,32 @@ const Video = (props) => {
                 icon={ShareIcon}
                 additionalClasses="share-button"
               ></SecondaryButton>
+
+              <div className='video-container__channel-description--hide-desktop'>
+                <div className='video-container__channel-description-inner'>
+                  <PlaylistPlayIcon className="video-playlist-icon--dekstop-hide" />
+                  {renderTagLinks()}
+                </div>
+                <div className='video-container__channel-description-inner'>
+                  <LiveTvIcon className="video-livetv-icon--dekstop-hide" />
+                  {renderTagLinks('channel')}
+                </div>
+
+              </div>
             </div>
-            {/* <div className="video-playlist--container" style={{ height }}>
-              <VideoRow
-                videos={video}
-                flexDirection="column"
-                headline="Mehr aus der Playlist"
-              />
-            </div> */}
+
+
             {renderPlaylistVideos()}
           </div>
 
-          <VideoRow
-            videos={video}
-            amountOfVideos={4}
-            headline="Ähnliche Videos"
-            flexDirection="row"
-          />
+
+          {currentPlaylistVideos.length > 0 &&
+            <div className='video-container__further-videos-container'>
+              <h3 className="video-row__title">Ähnliche Videos</h3>
+              <ThumbnailGrid elements={currentPlaylistVideos} columnNumber={4} type='video' />
+
+            </div>
+          }
           <Snackbar
             open={copySuccess}
             autoHideDuration={2000}
