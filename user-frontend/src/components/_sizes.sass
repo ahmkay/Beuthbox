@@ -1,20 +1,46 @@
+$col-1: 11.1%
+$col-2: 22.2%
+$col-3: 33.3%
+$col-4: 44.4%
+$col-5: 55.5%
+$col-6: 66.6%
+$col-7: 77.7%
+$col-8: 88.8%
+$col-9: 100%
+
+//margins
+$margin-xs: 8px
+$margin-s: 20px
+$margin-m: 40px
+$margin-l: 60px
+$margin-xl: 120px
+$margin-xxl: 160px
+
+// break points
+$break-mobile: 576px
+$break-tablet: 768px
+$break-tablet-landscape: 900px
+$break-desktop: 1200px
+
 .root-container
     width: 90%
     margin: auto
 
-.container-90    
+.container-90
     @extend .root-container
     width: 90%
+    @media screen and (max-width: $break-mobile)
+        width: 100%
 
-.container-80    
+.container-80
     @extend .root-container
     width: 80%
 
-.container-70    
+.container-70
     @extend .root-container
     width: 70%
 
-.container-60    
+.container-60
     @extend .root-container
     width: 60%
 
@@ -30,29 +56,3 @@
 
 .container-70-left
     width: 70%
-
-$col-1: 11.1%
-$col-2: 22.2%
-$col-3: 33.3%
-$col-4: 44.4%
-$col-5: 55.5%
-$col-6: 66.6%
-$col-7: 77.7%
-$col-8: 88.8%
-$col-9: 100%
-
-    
-//margins
-$margin-xs: 8px
-$margin-s: 20px
-$margin-m: 40px
-$margin-l: 60px
-$margin-xl: 120px
-$margin-xxl: 160px
-
-// break points
-$break-mobile: 576px
-$break-tablet: 768px
-$break-tablet-landscape: 900px
-$break-desktop: 1200px
-

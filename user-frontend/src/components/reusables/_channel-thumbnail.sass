@@ -53,14 +53,14 @@
     display: -webkit-box
     -webkit-line-clamp: 3
     -webkit-box-orient: vertical
-    transition: font-size .3s ease-in-out, color .2s 
+    transition: font-size .3s ease-in-out, color .2s
     @media screen and (max-width: $break-desktop)
-        font-size:  1rem
+        font-size: 1rem
 
 .channel-thumbnail-container__categories-list
     display: flex
     flex-direction: row
-    position: absolute;
+    position: absolute
     bottom: -40px
     opacity: 0
     left: $margin-s
@@ -70,7 +70,7 @@
     opacity: 0
     position: absolute
     width: 48px
-    top:  50%
+    top: 50%
     left: calc(50% - 24px)
     transition: all .3s ease-out
 
@@ -81,7 +81,7 @@
     position: absolute
     top: 0
     left: 0
-    user-drag: none 
+    user-drag: none
     user-select: none
     -moz-user-select: none
     -webkit-user-drag: none
@@ -93,7 +93,7 @@
     // less space for title if there are 4 channels in a row
 .channel-thumbnail-container.channel-thumbnail-container--column:hover .channel-thumbnail-container__channel-title
     max-width: 35ch
-    
+
 .channel-thumbnail-container:hover
     .channel-thumbnail-container__overlay
         top: 100%
@@ -118,4 +118,34 @@
         opacity: 1
         bottom: 10px
 
+@media screen and (max-width: $break-tablet)
+    .channel-thumbnail-container__overlay
+        top: 100%
+        height: auto
+        padding: 1em .5em
+        background-color: var(--color-card-background)
+        border: 10px solid var(--color-primary)
+        justify-content: space-between
+    .channel-thumbnail-container__channel-button
+        opacity: 1
+        top: calc(50% - 24px)
+    .channel-thumbnail-container__channel-title
+        color: var(--color-black)
+        text-align: left
+        align-self: flex-start
+        font-size: $small-size
+        max-width: 50ch
+        text-overflow: ellipsis
+        white-space: nowrap
+        overflow: hidden
+    .channel-thumbnail-container__categories-list
+        opacity: 1
+        bottom: 10px
 
+@media screen and (max-width: $break-mobile)
+    .channel-thumbnail-container__channel-button
+        width: 72px
+        height: 72px
+        left: calc(50% - 72px / 2)
+    .channel-thumbnail-container__channel-title, .channel-thumbnail-container:hover .channel-thumbnail-container__channel-title
+        font-size: $p-size
