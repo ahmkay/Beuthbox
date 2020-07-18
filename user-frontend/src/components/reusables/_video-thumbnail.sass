@@ -73,7 +73,7 @@
     opacity: 0
     position: absolute
     width: 48px
-    top:  50%
+    top: 50%
     left: calc(50% - 24px)
     transition: all .3s ease-out
 
@@ -84,7 +84,7 @@
     position: absolute
     top: 0
     left: 0
-    user-drag: none 
+    user-drag: none
     user-select: none
     -moz-user-select: none
     -webkit-user-drag: none
@@ -96,7 +96,7 @@
     // less space for title if there are 4 videos in a row
 .video-thumbnail-container.video-thumbnail-container--column:hover .video-thumbnail-container__video-title
     max-width: 35ch
-    
+
 .video-thumbnail-container:hover
     .video-thumbnail-container__overlay
         top: 100%
@@ -126,4 +126,31 @@
         svg path
             color: var(--color-text)
 
+@media screen and (max-width: $break-tablet)
+    .video-thumbnail-container__overlay
+        top: 100%
+        height: auto
+        padding: 1em .5em
+        background-color: var(--color-card-background)
+        border: 10px solid var(--color-primary)
+        justify-content: space-between
+    .video-thumbnail-container__play-button
+        opacity: 1
+        top: calc(50% - 24px)
+    .video-thumbnail-container__video-title
+        display: initial
+        padding-left: 0
+        color: var(--color-text)
+        text-align: left
+        align-self: flex-start
+        font-size: $small-size
+        max-width: 65ch
+        text-overflow: ellipsis
+        white-space: nowrap
+        overflow: hidden
 
+    .video-thumbnail-container__video-duration
+        position: initial
+        color: var(--color-text)
+        svg path
+            color: var(--color-text)
