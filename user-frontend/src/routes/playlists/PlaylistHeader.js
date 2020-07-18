@@ -6,7 +6,11 @@ import { Link } from "react-router-dom";
 const PlaylistHeader = (props) => {
   return (
     <header className="playlist-header main-container">
-      <img className="playlist-header__title-img" src={props.titleImg} />
+      <img
+        className="playlist-header__title-img"
+        src={props.titleImg}
+        alt="playlist title-img"
+      />
       <div className="playlist-header__infosection">
         <div className="playlist-header__text-box">
           <h2>{props.title}</h2>

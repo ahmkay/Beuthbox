@@ -65,7 +65,7 @@
     opacity: 0
     position: absolute
     width: 48px // 2 * 24
-    top:  50%
+    top: 50%
     left: calc(50% - 48px / 2)
     transition: all .3s ease-out
 
@@ -110,3 +110,32 @@
         justify-content: space-between
         width: 100%
         opacity: 1
+
+@media screen and (max-width: $break-tablet)
+    .playlist-thumbnail-container__overlay
+        top: 50%
+        bottom: 0
+        padding: 1em .5em
+        background-color: var(--color-card-background)
+        border: 10px solid var(--color-primary)
+        justify-content: flex-start
+        align-items: flex-start
+    .playlist-thumbnail-container__playlist-button
+        opacity: 1
+        top: calc(16.5% - 48px / 2) // 33% - halbe Größe des Icons
+    .playlist-thumbnail-container__playlist-title
+        color: var(--color-black)
+    .playlist-thumbnail-container__details
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        width: 100%
+        opacity: 1
+
+@media screen and (max-width: 500px)
+    .playlist-thumbnail-container__playlist-button
+        height: 72px
+        width: 72px
+        left: calc(50% - 72px / 2)
+    .playlist-thumbnail-container__playlist-description
+        font-size: $p-size

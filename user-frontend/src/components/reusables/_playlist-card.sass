@@ -24,8 +24,6 @@
     height: 100%
     object-fit: cover
     transition: transform .3s ease-in-out
-    
-    
 
 .playlist-card-container__info-box
     width: 100%
@@ -46,7 +44,7 @@
 .playlist-card-container
     &:hover .playlist-card-container__description, &:hover .playlist-card-container__video-count
         max-height: 300px // the transition only works with absolute numbers
- 
+
 .playlist-card-container
     &:hover .playlist-card-container__thumbnail-img
         transform: scale(1.05)
@@ -58,3 +56,9 @@
 
 .video-count__number
     margin-left: .5em
+
+@media screen and (max-width: $break-mobile)
+    .playlist-card-container__description
+        display: none
+    .playlist-card-container__video-count
+        max-height: 2em
