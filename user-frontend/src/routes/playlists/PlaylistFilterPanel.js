@@ -46,7 +46,6 @@ const PlaylistFilterPanel = ({ videoResult }) => {
     setCategoryBreakpoint(window.innerWidth <= DESKTOP_EXTENDED_BREAKPOINT)
     setIsTablet(window.innerWidth <= TABLET_BREAKPOINT)
     setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT)
-    setShowFilterButton(window.innerWidth <= MOBILE_BREAKPOINT)
   }
 
   useEffect(() => {
