@@ -64,7 +64,7 @@ const App = () => {
         );
 
         let allVideos = await axios.get(
-          `${BASEURL}/graphql?query={videos{_id, name, posterImagePath, created, status, access, views, videoDuration, videoPath, tags, categories{name, description, created, imagepath, _id}, channel{name, description, created, imagepath, _id}}}`
+          `${BASEURL}/graphql?query={videos{_id, name, posterImagePath, created, description, status, access, views, videoDuration, videoPath, tags, categories{name, description, created, imagepath, _id}, channel{name, description, created, imagepath, _id}}}`
         );
 
         // sort videos by date and limit the amount to 10

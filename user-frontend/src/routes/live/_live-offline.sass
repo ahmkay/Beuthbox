@@ -4,6 +4,19 @@
     &:last-child
         margin: $margin-m  auto
         width: 70%
+        @media screen and ( max-width: $break-mobile )
+            margin: $margin-s auto
+            
+.main__section--center
+    @media screen and ( max-width: $break-desktop )
+        margin-bottom: $margin-l
+        
 
 .illustration__no-livestream
     height: 40vh
+    @media screen and ( max-width: $break-desktop )
+        height: 30vh
+    @media screen and ( max-width: $break-tablet )
+        height: 20vh
+        
+        
