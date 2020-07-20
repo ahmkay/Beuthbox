@@ -28,11 +28,15 @@
 .filter-panel__controller
     display: flex
     justify-content: space-between
-    
-.filter-panel__category-container--mobile .filter-panel__category-option
-    @media screen and ( max-width: 1380px  )
-        margin-bottom: $margin-xs
-        
+
+.filter-panel--tablet__category-container > .filter-panel__category-container--mobile
+     @media screen and ( max-width: $break-tablet ) and (min-width: $break-mobile)
+        display: flex
+
+.filter-panel__category-container--mobile 
+    .filter-panel__category-option
+        @media screen and ( max-width: 1380px  )
+            margin-bottom: $margin-xs
 
 .filter-panel__category-option:not(:last-child)
     margin-right: $margin-s
@@ -64,7 +68,8 @@
         display: flex
         justify-content: space-between
         @media screen and ( max-width: $break-tablet ) and (min-width: $break-mobile)
-            justify-content: start
+            justify-content: space-evenly
+            flex-wrap: wrap
             
 
     &__closeLayer
@@ -78,31 +83,31 @@
 
 // Mobile
 
-// .filter-panel--mobile__position-container
-//     position: fixed
-//     top: 20%
-//     right: 5%
-//     left: 5%
-//     z-index: 10
+.filter-panel--mobile__position-container
+    position: sticky
+    top: 20%
+    right: 5%
+    left: 5%
+    z-index: 10
 
 .filter-panel--mobile__element-container
     @extend .filter-panel--tablet
 
 
 // Filter Button
-// .filter-panel--mobile__button-container
-//     display: flex
-//     justify-content: flex-start
-    // position: relative
+.filter-panel--mobile__button-container
+    display: flex
+    justify-content: flex-start
+    position: relative
 button.filter-button
     max-width: 160px
     min-width: 100px
     margin-bottom: $margin-m
     margin-top: $margin-s
     background-color: $color-background
-    // position: fixed
-    // top: 20%
-    // left: 5%
-    // z-index: 10
+    position: sticky
+    top: $margin-m
+    left: 5%
+    z-index: 10
     & svg
         transform: rotate(90deg)
