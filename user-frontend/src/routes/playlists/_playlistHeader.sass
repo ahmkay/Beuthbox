@@ -1,5 +1,5 @@
 .playlist-header
-    height: 100vh
+    height: calc(100vh - 85px) // minus height of navbar
     margin-bottom: 160px
     display: flex
     flex-direction: row
@@ -8,18 +8,18 @@
 .playlist-header__title-img
     display: inline-block
     height: 100%
-    width: 40%
+    width: 50%
     object-fit: cover
 
 .playlist-header__infosection
-    width: 60%
+    width: 50%
     display: flex
     flex-direction: column
     justify-content: center
-    align-items: center
+    align-items: flex-end
 
 .playlist-header__text-box
-    width: 50%
+    width: 90%
     padding: $h4-size
     border: 25px solid var(--color-primary)
 
@@ -27,12 +27,10 @@
     margin-top: 20px
 
 .playlist-header__stats
-    width: 100%
+    width: 90%
     display: flex
     flex-direction: row
-    padding: 0 25%
     flex-wrap: wrap
-
 
 .stats-box__stat
     width: 50%
@@ -49,3 +47,36 @@
 
 .stats-box__stat-value
     margin-top: 1rem
+
+@media screen and (max-width: $break-tablet-landscape)
+    .playlist-header
+        flex-direction: column
+        justify-content: initial
+        height: calc(100vh - 2 * 120px - 40px) // substract height of navbar + padding of filter panel + margin of filter panel
+        margin-bottom: 0
+    .playlist-header__title-img
+        width: 100%
+        height: 40%
+
+    .playlist-header__infosection
+        flex-direction: row
+        width: 100%
+        align-items: center
+        margin-top: $margin-s
+
+@media screen and (max-width: $break-mobile)
+    .playlist-header
+        min-height: 100vh
+        height: auto
+    .playlist-header__title-img
+        width: 100%
+        height: 60vh
+
+    .playlist-header__infosection
+        flex-direction: column
+        margin-top: 0
+
+    .playlist-header__text-box
+        width: 100%
+        border: $border-m
+        min-height: calc(40vh - 56px) // minus  the height of the navbar

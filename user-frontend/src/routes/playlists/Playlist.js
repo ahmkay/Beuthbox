@@ -11,22 +11,24 @@ const Playlist = (props) => {
   const [playlist, setPlaylist] = useState([]);
   const [video, setVideo] = useState([]);
 
-  const { playlistData } = useContext(DataContext)
+  const { playlistData } = useContext(DataContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const currentPlaylist =
-        (await playlistData.find(
-          (playlist) => playlist._id === props.match.params.id
-        )) || {};
+          (await playlistData.find(
+            (playlist) => playlist._id === props.match.params.id
+          )) || {};
 
         const responseVideos = await axios.get(
           `${BASEURL}/graphql?query={videos(filter: {categoryid: "${props.match.params.id}"}){name, posterImagePath, created, status, access, views, videoDuration _id}}`
         );
 
-        let videos = responseVideos.data.data.videos.filter((video) => (
-           video.access == "public" && video.status == "finished")
-        ).sort(compareDates)
+        let videos = responseVideos.data.data.videos
+          .filter(
+            (video) => video.access == "public" && video.status == "finished"
+          )
+          .sort(compareDates);
 
         setPlaylist(currentPlaylist);
         setVideo(videos);
@@ -39,7 +41,7 @@ const Playlist = (props) => {
 
   if (video.length && playlistData.length) {
     return (
-      <main className="main">
+      <>
         <PlaylistHeader
           titleImg={`http://beuthbox.beuth-hochschule.de/api/category${playlist.imagepath}`}
           title={playlist.name}
@@ -54,11 +56,17 @@ const Playlist = (props) => {
             )
           )}
         />
-        <PlaylistFilterPanel videoResult={video} />
-      </main>
+        <main className="main">
+          <PlaylistFilterPanel videoResult={video} />
+        </main>
+      </>
     );
   }
-  return <div><ActivityIndicator position='inline' /></div>;
+  return (
+    <div>
+      <ActivityIndicator position="inline" />
+    </div>
+  );
 };
 
 export default Playlist;
