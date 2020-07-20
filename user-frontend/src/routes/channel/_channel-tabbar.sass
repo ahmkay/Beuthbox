@@ -1,4 +1,6 @@
 .channel-tabcontroller
+    .MuiAppBar-colorDefault
+        background-color: var(--color-card-background)
     .MuiBox-root
         @media screen and (max-width: $break-mobile)
             padding: 0
@@ -6,9 +8,11 @@
         padding: 0
     .MuiPaper-elevation4
         box-shadow: $elevation-1
+    button
+        color: var(--color-text)
     button:hover
         background-color: initial
-        color: var(--color-black)
+        color: var(--color-text)
     .MuiTab-textColorInherit
         opacity: 1
     .MuiTab-wrapper
