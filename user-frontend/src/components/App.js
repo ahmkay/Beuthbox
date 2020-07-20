@@ -34,7 +34,7 @@ const App = () => {
   const [videoResult, setVideoResult] = useState([]);
   const [channelResult, setChannelResult] = useState([]);
   const [playlistResult, setPlaylistResult] = useState([]);
-  const [taggedVideos, setTaggedVideos] = useState([]);
+
 
   const resetTheme = () => {
     console.log("remove Theme");
@@ -118,8 +118,7 @@ const App = () => {
         const searchData = await showTags(url.splittedURL);
        setVideoResult(searchData[1])
       } else {
-        const searchData = await doSearch(url.splittedURL, channels, playlists);
-        console.log(searchData, 'doSearch angehauzen');
+        const searchData = await doSearch(url.splittedURL, channels, playlists)
         setQuery(searchData[0]);
         setVideoResult(searchData[1]);
         setChannelResult(searchData[2]);
