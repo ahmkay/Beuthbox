@@ -1,0 +1,26 @@
+// Tablet
+.filter-panel--tablet
+    @extend .filter-panel
+    padding: $margin-s $margin-s $margin-m
+    flex-direction: column
+    &__title
+        margin: $margin-m 0 $margin-s 0
+    &__select
+        display: block
+        width: 100%
+        padding: 10px
+    &__category-container
+        display: flex
+        justify-content: space-between
+        @media screen and ( max-width: $break-tablet ) and (min-width: $break-mobile)
+            justify-content: start
+            
+
+    &__closeLayer
+        display: flex
+        align-items: center
+        &-title
+            flex: 1
+        & svg
+            width: 40px
+            height: 40px
