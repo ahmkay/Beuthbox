@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import VideoRow from "../../components/reusables/VideoRow";
-
-import Illustration from "../../assets/img/Illustration_Sendepause.svg";
+import Illustration from "../../assets/img/Illustration_Suche.svg";
 import { DataContext } from "../../api/DataContext";
 
 const LiveOffline = () => {
-  const { recommendedVideos } = useContext(DataContext)
+  const { recommendedVideos } = useContext(DataContext);
   return (
     <>
       <main className="main">

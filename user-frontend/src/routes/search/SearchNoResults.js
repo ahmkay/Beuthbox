@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
-import Illustration from "../../assets/img/Illutstration_Suche.svg";
+import Illustration from "../../assets/img/Illustration_Suche.svg";
 import Searchbar from "../../components/reusables/Searchbar";
 import { useHistory } from "react-router-dom";
 import VideoRow from "../../components/reusables/VideoRow";
@@ -7,7 +7,7 @@ import { DataContext } from "../../api/DataContext";
 
 const SearchNoResults = () => {
   const { setQuery, recommendedVideos } = useContext(DataContext);
- 
+
   const history = useHistory();
   const showSearchResult = (query) => {
     history.push(`/search/name=${query}`);
@@ -35,8 +35,6 @@ const SearchNoResults = () => {
       showSearchResult(trimmedValue);
     }
   };
-
-
 
   return (
     <div className="search-no-results">

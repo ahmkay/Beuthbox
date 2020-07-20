@@ -10,6 +10,9 @@ const Channels = () => {
   if (channelData.length) {
     return (
       <main className="main">
+        <header className="section-header">
+          <h1 className="page-headline">Channels</h1>
+        </header>
         <section className="main__section">
           <ChannelOverview
             channelData={channelData}
