@@ -85,13 +85,17 @@
 
 .filter-panel--mobile__position-container
     position: sticky
-    top: 20%
+    top: $margin-m
     right: 5%
     left: 5%
-    z-index: 10
+    z-index: 5
 
 .filter-panel--mobile__element-container
     @extend .filter-panel--tablet
+
+.filter-panel--mobile__headline
+    margin-bottom: $margin-s
+    
 
 
 // Filter Button
@@ -107,7 +111,7 @@ button.filter-button
     background-color: $color-background
     position: sticky
     top: $margin-m
-    left: 5%
-    z-index: 10
+    right: 5%
+    z-index: 5
     & svg
         transform: rotate(90deg)

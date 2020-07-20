@@ -291,8 +291,8 @@ const PlaylistFilterPanel = ({ videoResult }) => {
 
   return (
     <>
-      {isMobile && <h4 className='filter-panel--mobile__headline'>Videos</h4>}
       {renderFilterPanel()}
+      {isMobile && <h4 className='filter-panel--mobile__headline'>Videos</h4>}
       { renderResults()}
     </>
   );
