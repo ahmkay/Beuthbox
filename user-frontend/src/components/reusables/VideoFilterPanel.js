@@ -1,14 +1,26 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useLayoutEffect, useEffect } from "react";
 import { compareDuration, compareDates } from "../../utils";
 import ThumbnailGrid from "./ThumbnailGrid";
-import ChannelOverview from "./ChannelOverview";
 import CategoryCheckbutton from "./CategoryCheckbutton";
 import DiscoverCard from "./DiscoverCard";
 import NoContent from "./NoContent";
+import TuneIcon from '@material-ui/icons/Tune';
+import CloseIcon from '@material-ui/icons/Close';
+import CategoryIcon from "./CategoryIcon";
+import SecondaryButton from "./SecondaryButton";
+
+
+const MOBILE_BREAKPOINT = 576
+const TABLET_BREAKPOINT = 768
+const DESKTOP_EXTENDED_BREAKPOINT = 1380
 
 const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
   const [filterType, setFilterType] = useState("all");
   const [sort, setSort] = useState("date-downwards");
+  const [showFilterButton, setShowFilterButton] = useState(window.innerWidth <= MOBILE_BREAKPOINT);
+  const [categoryBreakpoint, setCategoryBreakpoint] = useState(window.innerWidth < DESKTOP_EXTENDED_BREAKPOINT)
+  const [isTablet, setIsTablet] = useState(window.innerWidth <= TABLET_BREAKPOINT)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_BREAKPOINT)
 
   const selectFilterType = (event) => {
     setFilterType(event.target.value);
@@ -37,6 +49,27 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
     }
   };
 
+  const getScreenWidth = () => {
+    setCategoryBreakpoint(window.innerWidth <= DESKTOP_EXTENDED_BREAKPOINT)
+    setIsTablet(window.innerWidth <= TABLET_BREAKPOINT)
+    setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT)
+  }
+
+  useLayoutEffect(() => {
+    getScreenWidth()
+  }, [])
+
+  useLayoutEffect(() => {
+    window.addEventListener('resize', getScreenWidth)
+
+    return () => {
+      window.removeEventListener('resize', getScreenWidth,
+
+      )
+    }
+  }, [window.innerWidth])
+
+ 
   const initialState = {
     sortedvideoResult: videoResult,
     sortedplaylistResult: playlistResult,
@@ -87,9 +120,118 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
     }
   }
 
+  const toggleFilterButton = () => {
+    setShowFilterButton(!showFilterButton)
+  }
+
+  const renderCategoryButtons = () => {
+    if (categoryBreakpoint && !isMobile) {
+      return (
+        <>
+          <div className='filter-panel__category-container--mobile'>
+            <div className="filter-panel__category-option">
+              <CategoryCheckbutton category="study" />
+            </div>
+            <div className="filter-panel__category-option">
+              <CategoryCheckbutton category="class" />
+            </div>
+          </div>
+          <div className='filter-panel__category-container--mobile'>
+            <div className="filter-panel__category-option">
+              <CategoryCheckbutton category="campus" />
+            </div>
+            <div className="filter-panel__category-option">
+              <CategoryCheckbutton category="research" />
+            </div>
+          </div>
+        </>
+      )
+    } else if (isMobile) {
+      return (
+        <>
+          <CategoryIcon category="research" isActive type="labeled" />
+          <CategoryIcon category="campus" isActive type="labeled" />
+          <CategoryIcon category="study" isActive type="labeled" />
+          <CategoryIcon category="class" isActive type="labeled" />
+        </>
+      )
+    }
+
+    else {
+      return (
+        <>
+          <div className="filter-panel__category-option">
+            <CategoryCheckbutton category="study" />
+          </div>
+          <div className="filter-panel__category-option">
+            <CategoryCheckbutton category="class" />
+          </div>
+
+
+          <div className="filter-panel__category-option">
+            <CategoryCheckbutton category="campus" />
+          </div>
+          <div className="filter-panel__category-option">
+            <CategoryCheckbutton category="research" />
+          </div>
+        </>
+      )
+    }
+
+  }
+
   const renderFilterPanel = () => {
-    return (
-      <>
+    if (isTablet && !isMobile) {
+      return (
+        <>
+          <div className='filter-panel--tablet'>
+            <div className='filter-panel--tablet__closeLayer'>
+              <h2 className='filter-panel--tablet__closeLayer-title'>Filtern</h2>
+            </div>
+
+            <h4 className="filter-panel--tablet__title">Anzeigen</h4>
+            <select
+              name="video-type"
+              id="video-type"
+              className="filter-panel--tablet__select"
+              onChange={selectFilterType}
+            >
+              <option value="all">Alle</option>
+              <option value="videos">Videos</option>
+              <option value="playlists">Playlisten</option>
+              <option value="channel">Channels</option>
+            </select>
+
+            <h4 className="filter-panel--tablet__title">Sortieren</h4>
+            <select
+              name="video-type"
+              id="video-type"
+              className="filter-panel--tablet__select"
+              onChange={selectSortType}
+            >
+              <option value="date-downwards">
+                Veröffentlichungsdatum &#x25BC;
+            </option>
+              <option value="date-upwards">
+                Veröffentlichungsdatum &#x25B2;
+            </option>
+              <option value="duration-downwards">Länge &#x25BC;</option>
+              <option value="duration-upwards">Länge &#x25B2;</option>
+            </select>
+
+            <h4 className="filter-panel--tablet__title">Kategorie</h4>
+            <div className='filter-panel--tablet__category-container'>
+              {renderCategoryButtons()}
+            </div>
+          </div>
+        </>
+
+      )
+    }
+
+    else if (!isTablet) {
+      return (
+        <>
         <div className="filter-panel">
           <div className="filter-panel__filter filter-panel__filter--short">
             <h4 className="filter-panel__title">Anzeigen</h4>
@@ -127,27 +269,92 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
           <div className="filter-panel__filter filter-panel__filter--long">
             <h4 className="filter-panel__title">Kategorien</h4>
             <div className="filter-panel__controller">
-              <div className="filter-panel__category-option">
-                <CategoryCheckbutton category="study" />
+              <div className='filter-panel__category-container--mobile'>
+                <div className="filter-panel__category-option">
+                  <CategoryCheckbutton category="study" />
+                </div>
+                <div className="filter-panel__category-option">
+                  <CategoryCheckbutton category="class" />
+                </div>
               </div>
-              <div className="filter-panel__category-option">
-                <CategoryCheckbutton category="class" />
-              </div>
-              <div className="filter-panel__category-option">
-                <CategoryCheckbutton category="campus" />
-              </div>
-              <div className="filter-panel__category-option">
-                <CategoryCheckbutton category="research" />
+              <div className='filter-panel__category-container--mobile'>
+                <div className="filter-panel__category-option">
+                  <CategoryCheckbutton category="campus" />
+                </div>
+                <div className="filter-panel__category-option">
+                  <CategoryCheckbutton category="research" />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </>
-    );
+      )
+    }
+    else if (isMobile) {
+      return (
+        showFilterButton ?
+      // <div className='filter-panel--mobile__button-container'>
+        <SecondaryButton
+      text={"Filter"}
+      onClick={toggleFilterButton}
+      icon={TuneIcon}
+      additionalClasses="filter-button"
+    ></SecondaryButton>
+    // </div>
+    : 
+        <>
+        <div className='filter-panel--mobile__position-container' id='anchor-point'>
+          <div className='filter-panel--mobile__element-container'>
+            <div className='filter-panel--tablet__closeLayer'>
+              <h2 className='filter-panel--tablet__closeLayer-title'>Filtern</h2>
+              < CloseIcon className='filtr-panel--tablet__close-icon'   onClick={toggleFilterButton} />
+            </div>
+
+            <h4 className="filter-panel--tablet__title">Anzeigen</h4>
+            <select
+              name="video-type"
+              id="video-type"
+              className="filter-panel--tablet__select"
+              onChange={selectFilterType}
+            >
+              <option value="all">Alle</option>
+              <option value="videos">Videos</option>
+              <option value="playlists">Playlisten</option>
+              <option value="channel">Channels</option>
+            </select>
+
+            <h4 className="filter-panel--tablet__title">Sortieren</h4>
+            <select
+              name="video-type"
+              id="video-type"
+              className="filter-panel--tablet__select"
+              onChange={selectSortType}
+            >
+              <option value="date-downwards">
+                Veröffentlichungsdatum &#x25BC;
+            </option>
+              <option value="date-upwards">
+                Veröffentlichungsdatum &#x25B2;
+            </option>
+              <option value="duration-downwards">Länge &#x25BC;</option>
+              <option value="duration-upwards">Länge &#x25B2;</option>
+            </select>
+
+            <h4 className="filter-panel--tablet__title">Kategorie</h4>
+            <div className='filter-panel--tablet__category-container'>
+              {renderCategoryButtons()}
+            </div>
+          </div>
+          </div>
+        </>
+
+      )
+    }
+  
   };
 
   const renderResults = () => {
-    console.log(channelResult, "channels panel");
     return (
       <>
         {filterType === "all" || filterType === "videos" ? (

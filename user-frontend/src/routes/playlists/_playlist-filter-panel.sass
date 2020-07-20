@@ -12,10 +12,15 @@
 .filter-panel__filter-playlist.filter-panel__filter-playlist--short
     width: 22.2%
     margin-right: 22.2%
+    @media screen and ( max-width: 1380px )
+        flex: 2
+        margin-right: 15%
     & .filter-panel-select
         display: inline-block
         width: 100%
         padding: 10px 10px
+        @media screen and ( max-width: $break-desktop )
+            text-overflow: ellipsis
 
 .filter-panel__filter-playlist.filter-panel__filter-playlist--long
     min-width: 22.2%
@@ -23,6 +28,15 @@
 .filter-panel__controller
     display: flex
     justify-content: space-between
+
+.filter-panel--tablet__category-container > .filter-panel__category-container--mobile
+     @media screen and ( max-width: $break-tablet ) and (min-width: $break-mobile)
+        display: flex
+
+.filter-panel__category-container--mobile 
+    .filter-panel__category-option
+        @media screen and ( max-width: 1380px  )
+            margin-bottom: $margin-xs
 
 .filter-panel__category-option:not(:last-child)
     margin-right: $margin-s
@@ -38,3 +52,66 @@
 // Results
 .result-headline
     margin-bottom: $margin-s
+
+// Tablet
+.filter-panel--tablet
+    @extend .filter-panel
+    padding: $margin-s $margin-s $margin-m
+    flex-direction: column
+    &__title
+        margin: $margin-m 0 $margin-s 0
+    &__select
+        display: block
+        width: 100%
+        padding: 10px
+    &__category-container
+        display: flex
+        justify-content: space-between
+        @media screen and ( max-width: $break-tablet ) and (min-width: $break-mobile)
+            justify-content: space-evenly
+            flex-wrap: wrap
+            
+
+    &__closeLayer
+        display: flex
+        align-items: center
+        &-title
+            flex: 1
+        & svg
+            width: 40px
+            height: 40px
+
+// Mobile
+
+.filter-panel--mobile__position-container
+    position: sticky
+    top: $margin-m
+    right: 5%
+    left: 5%
+    z-index: 5
+
+.filter-panel--mobile__element-container
+    @extend .filter-panel--tablet
+
+.filter-panel--mobile__headline
+    margin-bottom: $margin-s
+    
+
+
+// Filter Button
+.filter-panel--mobile__button-container
+    display: flex
+    justify-content: flex-start
+    position: relative
+button.filter-button
+    max-width: 160px
+    min-width: 100px
+    margin-bottom: $margin-m
+    margin-top: $margin-s
+    background-color: $color-background
+    position: sticky
+    top: $margin-m
+    right: 5%
+    z-index: 5
+    & svg
+        transform: rotate(90deg)
