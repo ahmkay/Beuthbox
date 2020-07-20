@@ -11,7 +11,7 @@ import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import Videocam from "@material-ui/icons/Videocam";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import SearchIcon from "@material-ui/icons/Search";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 import SearchMobile from "../../routes/search/SearchMobile";
 import Button from "./Button";
 import { preventBackgroundScroll } from "../../utils";
@@ -28,6 +28,7 @@ const Navbar = () => {
   const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   const { setQuery } = useContext(DataContext);
+  const { pathname } = useLocation();
   let activeRef = useRef(null);
 
   // to move to active indicator
@@ -51,22 +52,10 @@ const Navbar = () => {
     setIsMobile(window.innerWidth < 576);
   };
 
+  // took this from: https://reactrouter.com/web/guides/scroll-restoration
   useEffect(() => {
-    setTimeout(function () {
-      if (activeRef.current == null) {
-        return;
-      }
-      window.scrollTo({
-        left: 0,
-        top: activeRef.current.offsetTop,
-        behavior: "smooth",
-      });
-    }, 10);
-    // if (activeRef !== null && activeRef.current !== null) {
-    //   console.log('navbar rendered')
-    //   window.scrollTo(0, activeRef.current.offsetTop)
-    // }
-  }, [window.location.pathname]);
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const toggleMobileSearch = (show = false) => {
     preventBackgroundScroll(show);

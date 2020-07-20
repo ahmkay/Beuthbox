@@ -5,24 +5,19 @@ import ActivityIndicator from "../../components/reusables/ActivityIndicator";
 
 const Playlists = () => {
   const { playlistData } = useContext(DataContext);
-  if (playlistData.length) {
-    return (
-      <main className="main">
-        <section className="main__section">
-          <header className="section-header">
-            <h1 className="page-headline">Playlists</h1>
-          </header>
-          <MultiCarousel isPlaylist />
-        </section>
-      </main>
-    );
-  }
+
   return (
     <main className="main">
-      <h1 className="page-headline">Playlists</h1>
-      <div>
-        <ActivityIndicator />
-      </div>
+      <section className="main__section">
+        <header className="section-header">
+          <h1 className="page-headline">Playlists</h1>
+        </header>
+        {playlistData.length ? (
+          <MultiCarousel isPlaylist />
+        ) : (
+          <ActivityIndicator position="inline" />
+        )}
+      </section>
     </main>
   );
 };

@@ -39,33 +39,30 @@ const Playlist = (props) => {
     fetchData();
   }, [playlistData]);
 
-  if (video.length && playlistData.length) {
-    return (
-      <>
-        <PlaylistHeader
-          titleImg={`http://beuthbox.beuth-hochschule.de/api/category${playlist.imagepath}`}
-          title={playlist.name}
-          description={playlist.description}
-          channelText=""
-          channelLink={""}
-          totalVideos={video.length}
-          totalDuration={calculateVideoDuration(
-            video.reduce(
-              (totalDuration, video) => totalDuration + video.videoDuration,
-              []
-            )
-          )}
-        />
-        <main className="main">
-          <PlaylistFilterPanel videoResult={video} />
-        </main>
-      </>
-    );
-  }
   return (
-    <div>
-      <ActivityIndicator position="inline" />
-    </div>
+    <>
+      <PlaylistHeader
+        titleImg={`http://beuthbox.beuth-hochschule.de/api/category${playlist.imagepath}`}
+        title={playlist.name}
+        description={playlist.description}
+        channelText=""
+        channelLink={""}
+        totalVideos={video.length}
+        totalDuration={calculateVideoDuration(
+          video.reduce(
+            (totalDuration, video) => totalDuration + video.videoDuration,
+            []
+          )
+        )}
+      />
+      <main className="main">
+        {video.length ? (
+          <PlaylistFilterPanel videoResult={video} />
+        ) : (
+          <ActivityIndicator position="inline" />
+        )}
+      </main>
+    </>
   );
 };
 
