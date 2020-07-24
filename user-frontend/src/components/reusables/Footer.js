@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import facebook from "../../assets/img/icons/facebook-logo.svg";
 import ThemeSwitcher from "../reusables/ThemeSwitcher";
+import BeuthLogo from "../../assets/img/Beuth_Logo.svg";
 
 const Footer = () => {
   return (
@@ -32,13 +33,22 @@ const Footer = () => {
           </li>
         </ul>
       </nav>
-      <a
-        href="https://www.facebook.com/beuthmedialabs/"
-        target="_blank"
-        className="nav__link"
-      >
-        <img src={facebook} alt="Facebook" className="nav-link--icon" />
-      </a>
+      <div>
+        <a hre="https://www.beuth-hochschule.de/" className="nav__link">
+          <img
+            src={BeuthLogo}
+            alt="Beuth Hochschule Berlin Logo"
+            className="nav-link--icon"
+          />
+        </a>
+        <a
+          href="https://www.facebook.com/beuthmedialabs/"
+          target="_blank"
+          className="nav__link"
+        >
+          <img src={facebook} alt="Facebook" className="nav-link--icon" />
+        </a>
+      </div>
       <small>&copy; BeuthBOX 2020</small>
     </footer>
   );

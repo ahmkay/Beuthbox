@@ -1,0 +1,39 @@
+.ueber-uns
+    max-width: 960px
+    @media screen and (max-width: $break-tablet)
+        padding: 0 5%
+
+.ueber-uns__title-img
+    width: 100%
+    border: $border-m
+    display: block
+    margin: $margin-m auto
+
+.ueber-uns__team
+    display: flex
+    flex-direction: row 
+    justify-content: space-between
+    & + .ueber-uns__team
+        margin: $margin-xl 0
+    &--reverse
+        @extend .ueber-uns__team
+        flex-direction: row-reverse
+    & > div
+        width: 50%
+        @media screen and (max-width: $break-mobile)
+            width: 100%
+    @media screen and (max-width: $break-mobile)
+        flex-direction: column
+        align-items: center
+.ueber-uns__team-img
+    width: 45%
+    @media screen and (max-width: $break-mobile)
+        width: 70%
+        margin-bottom: $margin-m
+.ueber-uns__team-card
+    width: 100%
+    & + .ueber-uns__team-card
+        margin-top: $margin-s
+
+.ueber-uns__team-card--center
+    margin: $margin-xl 0

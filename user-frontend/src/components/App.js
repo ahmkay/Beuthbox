@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AboutUs from "../routes/aboutus/AboutUs";
+import Privacy from "../routes/privacy/Privacy";
 import Playlists from "../routes/playlists/Playlists";
 import Playlist from "../routes/playlists/Playlist";
 import Video from "../routes/video/Video";
@@ -34,7 +35,6 @@ const App = () => {
   const [videoResult, setVideoResult] = useState([]);
   const [channelResult, setChannelResult] = useState([]);
   const [playlistResult, setPlaylistResult] = useState([]);
-
 
   const resetTheme = () => {
     console.log("remove Theme");
@@ -116,9 +116,9 @@ const App = () => {
       const url = getURL();
       if (url.completeURL.includes("tag=")) {
         const searchData = await showTags(url.splittedURL);
-       setVideoResult(searchData[1])
+        setVideoResult(searchData[1]);
       } else {
-        const searchData = await doSearch(url.splittedURL, channels, playlists)
+        const searchData = await doSearch(url.splittedURL, channels, playlists);
         setQuery(searchData[0]);
         setVideoResult(searchData[1]);
         setChannelResult(searchData[2]);
@@ -162,34 +162,38 @@ const App = () => {
           playlistData: playlists,
           playlistResult,
           setPlaylistResult,
-          query,  
+          query,
           setQuery,
           url,
           mainslider,
           allVideos,
           videoResult,
-          setVideoResult
+          setVideoResult,
         }}
       >
         {<MultiCarousel isHeader />}
         <Navbar />
         <Switch>
-          <Route path={"/aboutus"} component={AboutUs} />
+          <Route exact path={"/aboutus"} component={AboutUs} />
+          <Route exact path={"/privacy/"} component={Privacy} />
           <Route exact path={"/playlist"} component={Playlists} />
           <Route exact path={"/playlist/:id"} component={Playlist} />
           <Route exact path={"/video/:id"} component={Video} />
           <Route exact path={"/channel/"} component={Channels} />
           <Route path={"/channel/:id"} component={Channel} />
           <Route exact path={"/"} component={Home} />
-          <Route exact path={"/search/:id"} component={() => <Search 
-          videoResult={videoResult}
-          playlistResult={playlistResult}
-          channelResult={channelResult}
-          query={query}
-          recommendedVideos={recommendedVideos}
-          
-          />}
-          
+          <Route
+            exact
+            path={"/search/:id"}
+            component={() => (
+              <Search
+                videoResult={videoResult}
+                playlistResult={playlistResult}
+                channelResult={channelResult}
+                query={query}
+                recommendedVideos={recommendedVideos}
+              />
+            )}
           />
           <Route exact path={"/video-services"} component={VideoServices} />
           <Route exact path={"/live"} component={Live} />
