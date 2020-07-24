@@ -25,7 +25,7 @@ const Home = () => {
     return (
       <main className="main">
         <LiveInfoLayer />
-        <section className="main__section">
+        <section className="main__section recommended-video-container">
           <header className="section-header">
             <h2 className="section-header__description">
               Schaue dir unsere Empfehlungen der spannensten und interessanten

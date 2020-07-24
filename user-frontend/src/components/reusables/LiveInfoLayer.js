@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from './Button'
 import { useHistory } from 'react-router-dom'
 import liveLayerImg from '../../assets/img/IllustrationLive.svg'
+import { DataContext } from '../../api/DataContext';
 
 const LiveInfoLayer = () => {
+    const { activeLivestream } = useContext(DataContext)
     const history = useHistory()
     const showLivescreen = () => {
         history.push('/live')
+    }
+    if (!activeLivestream) {
+        return null
     }
     return (
         <section className='main__section'>

@@ -35,6 +35,7 @@ const App = () => {
   const [videoResult, setVideoResult] = useState([]);
   const [channelResult, setChannelResult] = useState([]);
   const [playlistResult, setPlaylistResult] = useState([]);
+  const [activeLivestream, setActiveLivestream] = useState(false);
 
   const resetTheme = () => {
     console.log("remove Theme");
@@ -169,6 +170,8 @@ const App = () => {
           allVideos,
           videoResult,
           setVideoResult,
+          activeLivestream,
+          setActiveLivestream
         }}
       >
         {<MultiCarousel isHeader />}

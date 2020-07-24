@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 const Live = () => {
   const [showPlayer, setShowPlayer] = useState(true);
-  const { allVideos, recommendedVideos } = useContext(DataContext)
+  const { allVideos, recommendedVideos, setActiveLivesteam } = useContext(DataContext)
 
   const shareVideo = () =>
     navigator.clipboard.writeText("Copy this text to clipboard");
@@ -51,10 +51,12 @@ const Live = () => {
                       );
                       container.style.display = "none";
                       setShowPlayer(false);
+                      setActiveLivesteam(false)
                       console.log('ONRESUME')
                     }}
                     onResume={() => {
                       setShowPlayer(true);
+                      setActiveLivesteam(true)
                       var container = document.getElementById(
                         "reactFlowPlayer"
                       );
