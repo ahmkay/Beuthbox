@@ -22,8 +22,8 @@ const Button = ({
     <button
       onClick={onClick}
       className={`${negative ? "negative " : ""} button--${type ? type : ""} ${
-        filled && "button--filled"
-      } ${className}`}
+        filled ? "button--filled" : ""
+      } ${className ? className : ""}`}
     >
       {children}
     </button>

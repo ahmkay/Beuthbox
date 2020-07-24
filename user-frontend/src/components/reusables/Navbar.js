@@ -50,6 +50,7 @@ const Navbar = () => {
 
   const setNavbar = () => {
     setIsMobile(window.innerWidth < 576);
+    if (window.innerWidth < 576) preventBackgroundScroll(false);
   };
 
   // took this from: https://reactrouter.com/web/guides/scroll-restoration

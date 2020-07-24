@@ -12,7 +12,7 @@ const SearchMobile = ({ show, toggleShow }) => {
   const transitionDuration = 350;
   const history = useHistory();
   const [currentLocation, setCurrentLocation] = useState(useLocation());
-  const { setQuery } = useContext(DataContext)
+  const { setQuery } = useContext(DataContext);
 
   useEffect(() => {
     // close seeatch modal if search route is entered
@@ -83,6 +83,7 @@ const SearchMobile = ({ show, toggleShow }) => {
                 history.push("/discover");
                 toggleShow(false);
               }}
+              className="search-mobile__button-discover"
             >
               <img src={Rocket} />
               Entdecken
