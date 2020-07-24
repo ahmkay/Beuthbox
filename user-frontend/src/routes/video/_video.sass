@@ -2,12 +2,24 @@
     .video-info-container, .video-category-container
         flex-wrap: wrap
     
-    
 .video-container
     margin-top: 120px
+    display: block
+    position: relative
+    width: 100%
     margin-bottom: 20px
+    &::after
+        content: ''
+        display: block
+        padding-top: 56%
     @media screen and ( max-width: $break-tablet-landscape  )
         width: 100%
+
+.video__paella-player
+    position: absolute
+    height: 100%
+    width: 100%
+    overflow: hidden
 
 .root-container.video-container__root
     @media screen and ( max-width: $break-tablet-landscape  )
@@ -39,7 +51,6 @@
         @media screen and (max-width: 1380px)
             display: none
             
-
 .video-info-container--hide-desktop
     display: none
     @media screen and ( max-width: 1380px  )
@@ -57,17 +68,20 @@
     margin-right: 40px
 
 .video-playlist--name, .video-channel--name
-    margin-left: 24px
+    margin-left: $margin-xs
     color: var(--color-primary)
 
 .video-playlist--headline, .video-channel--headline
-    margin-left: 10px
+    margin: 0 $margin-xs
 
 .video--tag.firstchild
     margin-left: 40px
 
 .video--tag
     text-decoration: none
+    color: var(--color-primary)
+    font-weight: 600
+    font-size: $h5-size
 
 .video--tag > h5
     color: var(--color-primary)
@@ -112,6 +126,9 @@ svg.today--icon
 .today--icon
     path
         color: var(--color-grey)
+
+.video-livetv--icon
+    margin-left: $margin-s
 
 .MuiSvgIcon-root.video-livetv-icon--dekstop-hide, .MuiSvgIcon-root.video-playlist-icon--dekstop-hide
     width: 30px
