@@ -1,6 +1,9 @@
 .header-carousel
     position: relative
     height: calc(100vh - 85px)
+    @media screen and (max-width: $break-mobile)
+        height: calc(100vh - 56px)
+
 .header-carousel__overlay
     position: absolute
     width: 100%
@@ -21,7 +24,10 @@
 .header-carousel__searchbar-container
     width: 40%
     margin: 0 auto
-
+    @media screen and (max-width: $break-desktop)
+        width: 60%
+    @media screen and (max-width: $break-tablet)
+        width: 90%
 
 .header-carousel__info-container
     display: flex
@@ -30,17 +36,20 @@
     position: absolute
     bottom: 80px
     left: $margin-xxl
-    .header-carousel__playbutton
-        width: 55px
-        margin-right: $margin-s
-        cursor: pointer
-    .header-carousel__info-title, .header-carousel__info-description
-        color: $color-white
-    .header-carousel__video-infos
-        display: flex
-        flex-direction: column
-        justify-content: space-between
-        height: 100%
+    @media screen and (max-width: $break-tablet)
+        left: 5%
+        max-width: 90%
+.header-carousel__playbutton
+    width: 55px
+    margin-right: $margin-s
+    cursor: pointer
+.header-carousel__info-title, .header-carousel__info-description
+    color: $color-white
+.header-carousel__video-infos
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    height: 100%
     
 .header-carousel__content
     width: 100%;
