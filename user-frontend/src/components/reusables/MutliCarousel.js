@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import VideoThumbnail from "./VideoThumbnail";
@@ -7,8 +7,15 @@ import { BASEURL } from "../../api";
 import PlaylistCard from "./PlaylistCard";
 import HeaderCarousel from "../../routes/home/HeaderCarousel";
 import { DataContext } from "../../api/DataContext";
+import Searchbar from "../../components/reusables/Searchbar";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import beuthBOXIllustration from "../../assets/img/beuthbox-logo.svg";
 
 const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
+  const { setQuery } = useContext(DataContext);
+  const history = useHistory();
+  const { pathname } = useLocation();
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -40,6 +47,33 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
       breakpoint: { max: 576, min: 0 },
       items: 1,
     },
+  };
+
+  const evaluateSearch = async (event, value) => {
+    const { key, type } = event;
+
+    let trimmedValue = value.trim();
+
+    if (key === "Enter") {
+      if (!trimmedValue && trimmedValue === "") {
+        history.push("/");
+        return;
+      }
+
+      setQuery(trimmedValue);
+      showSearchResult(trimmedValue);
+    } else if (type === "click") {
+      if (!trimmedValue && trimmedValue === "") {
+        history.push("/");
+        return;
+      }
+      setQuery(trimmedValue);
+      showSearchResult(trimmedValue);
+    }
+  };
+
+  const showSearchResult = (query) => {
+    history.push(`/search/name=${query}`);
   };
 
   const { mainslider, playlistData } = useContext(DataContext);
@@ -100,22 +134,44 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
     if (mainslider.length > 0) {
       return (
         <>
-          {headline && <h3 className="multi-carousel__title">{headline}</h3>}
-          <Carousel
-            ssr
-            partialVisbile={false}
-            deviceType={"desktop"}
-            itemClass="image-item__header"
-            containerClass={"react-multi-carouse l-list__header"}
-            responsive={responsiveHeader}
-            keyBoardControl={true}
-            arrows={true}
-            showDots
-          >
-            {mainslider.map((video) => {
-              return <HeaderCarousel video={video} />;
-            })}
-          </Carousel>
+          {pathname === "/" ? (
+            <header className="header-carousel">
+              <Carousel
+                ssr
+                partialVisbile={false}
+                deviceType={"desktop"}
+                itemClass="image-item__header"
+                containerClass={"react-multi-carousel-list__header"}
+                responsive={responsiveHeader}
+                keyBoardControl={true}
+                arrows={true}
+                showDots
+              >
+                {mainslider.map((video) => {
+                  return <HeaderCarousel video={video} />;
+                })}
+              </Carousel>
+              <div className="header-carousel__content">
+                {headline && (
+                  <h3 className="multi-carousel__title">{headline}</h3>
+                )}
+                <img
+                  src={beuthBOXIllustration}
+                  alt="beuthBOX Logo"
+                  className="header-carousel__logo"
+                />
+                <div className="header-carousel__searchbar-container">
+                  <Searchbar
+                    className="header-carousel__searchbar-input"
+                    type={"white"}
+                    eventHandler={evaluateSearch}
+                  />
+                </div>
+              </div>
+            </header>
+          ) : (
+            <></>
+          )}
         </>
       );
     } else {
