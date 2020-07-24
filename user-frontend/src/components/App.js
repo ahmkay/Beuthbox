@@ -15,12 +15,11 @@ import Live from "../routes/live/Live";
 import Navbar from "./reusables/Navbar";
 import { BASEURL } from "../api";
 import axios from "axios";
-import { doSearch, showTags, compareDates } from "../utils";
+import { doSearch, showTags, compareDates, comparePostions } from "../utils";
 import Discover from "../routes/discover/Discover";
 import VideoServices from "../routes/video-services/VideoServices";
 import NotFound from "../routes/404/NotFound";
 import MultiCarousel from "./reusables/MutliCarousel";
-import { comparePostions } from "../utils";
 import { DataContext } from "../api/DataContext";
 
 const App = () => {
@@ -70,8 +69,7 @@ const App = () => {
 
         // sort videos by date and limit the amount to 10
         let newestVideos = allVideos.data.data.videos
-          .sort(compareDates)
-          .reverse()
+          .sort((videoA, videoB) => compareDates(videoB, videoA))
           .splice(0, 10);
 
         setMainslider(mainslider.data);
@@ -103,7 +101,11 @@ const App = () => {
             "/graphql?query={categories{name, description, created, imagepath, iconpath _id}}"
         );
         const { categories } = response.data.data;
-        setPlaylists(categories);
+        setPlaylists(
+          categories.sort((playlistA, playlistB) => {
+            return compareDates(playlistB, playlistA);
+          })
+        );
       } catch (error) {
         console.log(error);
       }
@@ -171,7 +173,7 @@ const App = () => {
           videoResult,
           setVideoResult,
           activeLivestream,
-          setActiveLivestream
+          setActiveLivestream,
         }}
       >
         {<MultiCarousel isHeader />}

@@ -36,11 +36,15 @@ const Home = () => {
             videos={recommendedVideos}
             headline={"Empfehlungen der Woche"}
           />
-          <MultiCarousel videos={newestVideos} headline={"Neuste Videos"} />
+          <MultiCarousel
+            elements={newestVideos}
+            type="video"
+            headline={"Neuste Videos"}
+          />
         </section>
         <ChannelOverview
-          channelData={channelData}
-          channelInfo="Entdecke die vorgestellten Channels der Fachbereiche und Studiengänge."
+          channelData={channelData.slice(0, 4)}
+          channelInfo="Entdecke die vorgestellten Channels der Fachbereiche und Studiengänge"
         />
         <section className="main__section">
           <header className="section-header">
@@ -48,7 +52,7 @@ const Home = () => {
               Entdecke die Sammlung der neusten Playlists
             </h2>
           </header>
-          <MultiCarousel isPlaylist />
+          <MultiCarousel type="playlist" elements={playlistData} />
           <div className="all-media-link">
             <Link to={"/playlist"}>
               <Button>Alle Playlisten</Button>{" "}

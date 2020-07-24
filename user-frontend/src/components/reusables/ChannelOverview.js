@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../reusables/Button";
 import { BASEURL } from "../../api";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import CategoryIcon from "./CategoryIcon";
 import ActivityIndicator from "../../components/reusables/ActivityIndicator";
 
 const ChannelOverview = ({ channelData, channelInfo }) => {
+  const { pathname } = useLocation();
+
   const renderChannelOverview = (channelData, channelInfo) => {
     return (
       <section className="channels-section">
@@ -56,11 +58,13 @@ const ChannelOverview = ({ channelData, channelInfo }) => {
             );
           })
         )}
-        {/*  <div className="all-media-link--channel">
-          <Link to={"/channel"}>
-            <Button>Alle Channels</Button>{" "}
-          </Link>
-        </div> */}
+        {pathname === "/" && (
+          <div className="all-media-link--channel">
+            <Link to={"/channel"}>
+              <Button>Alle Channels</Button>{" "}
+            </Link>
+          </div>
+        )}
       </section>
     );
   };

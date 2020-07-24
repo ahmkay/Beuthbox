@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import VideoThumbnail from "./VideoThumbnail";
@@ -8,10 +8,10 @@ import PlaylistCard from "./PlaylistCard";
 import HeaderCarousel from "../../routes/home/HeaderCarousel";
 import { DataContext } from "../../api/DataContext";
 import Searchbar from "../../components/reusables/Searchbar";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import beuthBOXIllustration from "../../assets/img/beuthbox-logo.svg";
 
-const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
+const MultiCarousel = ({ headline, isHeader, type, elements }) => {
   const { setQuery } = useContext(DataContext);
   const history = useHistory();
   const { pathname } = useLocation();
@@ -19,8 +19,8 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: isPlaylist ? 3 : 4,
-      paritialVisibilityGutter: isPlaylist ? 20 : 10,
+      items: type === "playlist" ? 3 : 4,
+      paritialVisibilityGutter: type === "playlist" ? 20 : 10,
     },
     tablet: {
       breakpoint: { max: 1024, min: 576 },
@@ -76,7 +76,7 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
     history.push(`/search/name=${query}`);
   };
 
-  const { mainslider, playlistData } = useContext(DataContext);
+  const { mainslider } = useContext(DataContext);
 
   const renderVideoCarousel = () => (
     <>
@@ -89,7 +89,7 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
         responsive={responsive}
         swipeable
       >
-        {videos.map((video) => {
+        {elements.map((video) => {
           let imgPath = "";
           if (video.posterImagePath.indexOf("engage-player") > 1) {
             imgPath = video.posterImagePath;
@@ -123,7 +123,7 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
         swipeable
         slidesToSlide={2}
       >
-        {playlistData.map((playlist) => {
+        {elements.map((playlist) => {
           return <PlaylistCard playlistData={playlist} />;
         })}
       </Carousel>
@@ -181,9 +181,9 @@ const MultiCarousel = ({ videos, headline, isPlaylist, isHeader }) => {
 
   return (
     <>
-      {!isPlaylist && !isHeader && renderVideoCarousel()}
-      {isPlaylist && renderPlaylistCarousel()}
-      {isHeader && renderHeaderCarousel()}
+      {type === "video" && renderVideoCarousel()}
+      {type === "playlist" && renderPlaylistCarousel()}
+      {type === "header" && renderHeaderCarousel()}
     </>
   );
 };
