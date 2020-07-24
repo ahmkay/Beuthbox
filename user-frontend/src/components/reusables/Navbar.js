@@ -27,7 +27,7 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 576);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
 
-  const { setQuery } = useContext(DataContext);
+  const { setQuery, activeLivestream } = useContext(DataContext);
   const { pathname } = useLocation();
   const history = useHistory();
   let activeRef = useRef(null);
@@ -243,7 +243,7 @@ const Navbar = () => {
               }
               onClick={scrollToTop}
             >
-              <FiberManualRecordIcon className="nav__icon nav__icon--live" />
+              <FiberManualRecordIcon className={`nav__icon ${activeLivestream ?' nav__icon--live' : ''} `}/>
               Live
             </NavLink>
           </li>
