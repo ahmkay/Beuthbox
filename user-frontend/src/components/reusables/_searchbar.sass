@@ -11,8 +11,17 @@
     color: var(--color-grey)
     border-radius: 3px
     font-size: 18px
+    @media screen and ( max-width: $break-tablet )
+        padding: $h4-size
+        text-align: center 
+        
+   
 .searchbar--::placeholder
     color: var(--color-grey)
+    @media screen and ( max-width: $break-tablet )
+        text-overflow: ellipsis
+    
+        
 
 .searchbar--grey
     @extend .searchbar--
