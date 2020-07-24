@@ -118,11 +118,11 @@ const Video = (props) => {
     if (type === "channel") {
       return video.channel.length ? (
         <Link to={`/channel/${video.channel[0]._id}`} className="video--tag">
-          <h4 className="video-playlist--name">{video.channel[0].name}</h4>
+          {video.channel[0].name}
         </Link>
       ) : (
-          <h4 className="video-playlist--name">-</h4>
-        );
+        <h5 className="video-playlist--name">-</h5>
+      );
     } else {
       if (video.categories.length) {
         if (video.categories.length > 2) {
@@ -152,13 +152,13 @@ const Video = (props) => {
           return video.categories.map((playlistTags, i) => {
             return (
               <Link to={`/playlist/${playlistTags._id}`} className="video--tag">
-                <h4 className="video-playlist--name">{playlistTags.name}</h4>
+                {playlistTags.name}
               </Link>
             );
           });
         }
       } else {
-        return <h4 className="video-playlist--name">-</h4>;
+        return <h5 className="video-playlist--name">-</h5>;
       }
     }
   };
@@ -185,12 +185,13 @@ const Video = (props) => {
                 <iframe
                   allowfullscreen
                   src={`http://beuthbox-opencast.beuth-hochschule.de/paella/ui/embed.html?id=${video.ocid}`}
-                  style={{ border: "none", width: "100%", height: "70vh" }}
+                  style={{ border: "none", width: "100%" }}
                   name="Paella Player"
                   scrolling="no"
                   frameborder="0"
                   marginheight="0px"
                   marginwidth="0px"
+                  className="video__paella-player"
                 ></iframe>
               </div>
               <div className="video-info-container">
@@ -237,28 +238,30 @@ const Video = (props) => {
                 additionalClasses="share-button"
               ></SecondaryButton>
 
-              <div className='video-container__channel-description--hide-desktop'>
-                <div className='video-container__channel-description-inner'>
+              <div className="video-container__channel-description--hide-desktop">
+                <div className="video-container__channel-description-inner">
                   <PlaylistPlayIcon className="video-playlist-icon--dekstop-hide" />
                   {renderTagLinks()}
                 </div>
-                <div className='video-container__channel-description-inner'>
+                <div className="video-container__channel-description-inner">
                   <LiveTvIcon className="video-livetv-icon--dekstop-hide" />
-                  {renderTagLinks('channel')}
+                  {renderTagLinks("channel")}
                 </div>
               </div>
             </div>
             {renderPlaylistVideos()}
           </div>
 
-
-          {currentPlaylistVideos.length > 0 &&
-            <div className='video-container__further-videos-container'>
+          {currentPlaylistVideos.length > 0 && (
+            <div className="video-container__further-videos-container">
               <h3 className="video-row__title">Ähnliche Videos</h3>
-              <ThumbnailGrid elements={currentPlaylistVideos} columnNumber={4} type='video' />
-
+              <ThumbnailGrid
+                elements={currentPlaylistVideos}
+                columnNumber={4}
+                type="video"
+              />
             </div>
-          }
+          )}
           <Snackbar
             open={copySuccess}
             autoHideDuration={2000}
