@@ -265,28 +265,47 @@ const VideoFilterPanel = ({ videoResult, channelResult, playlistResult }) => {
               <option value="duration-upwards">Länge &#x25B2;</option>
             </select>
           </div>
-
+          {categoryBreakpoint ?
           <div className="filter-panel__filter filter-panel__filter--long">
+          <h4 className="filter-panel__title">Kategorien</h4>
+          <div className="filter-panel__controller">
+            <div className='filter-panel__category-container--mobile'>
+              <div className="filter-panel__category-option">
+                <CategoryCheckbutton category="study" />
+              </div>
+              <div className="filter-panel__category-option">
+                <CategoryCheckbutton category="class" />
+              </div>
+            </div>
+            <div className='filter-panel__category-container--mobile'>
+              <div className="filter-panel__category-option">
+                <CategoryCheckbutton category="campus" />
+              </div>
+              <div className="filter-panel__category-option">
+                <CategoryCheckbutton category="research" />
+              </div>
+            </div>
+          </div>
+        </div>
+        :
+        <div className="filter-panel__filter filter-panel__filter--long">
             <h4 className="filter-panel__title">Kategorien</h4>
             <div className="filter-panel__controller">
-              <div className='filter-panel__category-container--mobile'>
                 <div className="filter-panel__category-option">
                   <CategoryCheckbutton category="study" />
                 </div>
                 <div className="filter-panel__category-option">
                   <CategoryCheckbutton category="class" />
                 </div>
-              </div>
-              <div className='filter-panel__category-container--mobile'>
                 <div className="filter-panel__category-option">
                   <CategoryCheckbutton category="campus" />
                 </div>
                 <div className="filter-panel__category-option">
                   <CategoryCheckbutton category="research" />
                 </div>
-              </div>
             </div>
-          </div>
+          </div>    
+        }        
         </div>
       </>
       )
