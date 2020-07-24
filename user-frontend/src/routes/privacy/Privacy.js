@@ -2,7 +2,7 @@ import React from "react";
 
 const Privacy = () => {
   return (
-    <main className="main">
+    <main className="main privacy">
       <header>
         <h1 className="page-headline">Datenschutzerklärung</h1>
       </header>
