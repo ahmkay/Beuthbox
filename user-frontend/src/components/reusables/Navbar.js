@@ -29,6 +29,7 @@ const Navbar = () => {
 
   const { setQuery } = useContext(DataContext);
   const { pathname } = useLocation();
+  const history = useHistory();
   let activeRef = useRef(null);
 
   // to move to active indicator
@@ -97,7 +98,10 @@ const Navbar = () => {
     setShowNav(document.body.getBoundingClientRect().top > scrollPos);
   };
 
-  const history = useHistory();
+  const scrollToTop = () => {
+    window.scrollTo(0,0)
+  }
+
   const showSearchResult = (query) => {
     history.push(`/search/name=${query}`);
   };
@@ -125,7 +129,7 @@ const Navbar = () => {
       showSearchResult(trimmedValue);
     }
   };
-
+  
   return (
     <nav
       className={`nav nav${isMobile ? "--isMobile" : "--isDesktop"} ${
@@ -179,6 +183,7 @@ const Navbar = () => {
               isActive={(match, location) =>
                 getActiveRoute("/", location, match)
               }
+              onClick={scrollToTop}
             >
               <HomeIcon className="nav__icon" />
               Home
@@ -198,6 +203,7 @@ const Navbar = () => {
               isActive={(match, location) =>
                 getActiveRoute("/channel", location, match)
               }
+              onClick={scrollToTop}
             >
               <LiveTvIcon className="nav__icon" />
               Channels
@@ -217,6 +223,7 @@ const Navbar = () => {
               isActive={(match, location) =>
                 getActiveRoute("/playlist", location, match)
               }
+              onClick={scrollToTop}
             >
               <PlaylistPlayIcon className="nav__icon" />
               Playlists
@@ -234,6 +241,7 @@ const Navbar = () => {
               isActive={(match, location) =>
                 getActiveRoute("/live", location, match)
               }
+              onClick={scrollToTop}
             >
               <FiberManualRecordIcon className="nav__icon nav__icon--live" />
               Live
@@ -253,6 +261,7 @@ const Navbar = () => {
               isActive={(match, location) =>
                 getActiveRoute("/video-services", location, match)
               }
+              onClick={scrollToTop}
             >
               <Videocam className="nav__icon" />
               Services
