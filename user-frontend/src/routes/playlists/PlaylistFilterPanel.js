@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useLayoutEffect, useEffect } from 'react';
-import { compareDuration, compareDates } from "../../utils";
+import { compareDuration, compareDates, getDeviceBreakpoints } from "../../utils";
 import CategoryCheckbutton from "../../components/reusables/CategoryCheckbutton";
 import ThumbnailGrid from '../../components/reusables/ThumbnailGrid';
 import CloseIcon from '@material-ui/icons/Close';
@@ -7,16 +7,12 @@ import TuneIcon from '@material-ui/icons/Tune';
 import CategoryIcon from '../../components/reusables/CategoryIcon';
 import SecondaryButton from '../../components/reusables/SecondaryButton'
 
-const MOBILE_BREAKPOINT = 576
-const TABLET_BREAKPOINT = 768
-const DESKTOP_EXTENDED_BREAKPOINT = 1380
-
 const PlaylistFilterPanel = ({ videoResult }) => {
+  const { innerWidth } = window;
   const [sort, setSort] = useState("date-downwards");
-  const [showFilterButton, setShowFilterButton] = useState(window.innerWidth <= MOBILE_BREAKPOINT);
-  const [categoryBreakpoint, setCategoryBreakpoint] = useState(window.innerWidth < DESKTOP_EXTENDED_BREAKPOINT)
-  const [isTablet, setIsTablet] = useState(window.innerWidth <= TABLET_BREAKPOINT)
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_BREAKPOINT)
+  const [showFilterButton, setShowFilterButton] = useState(getDeviceBreakpoints(innerWidth).isMobile);
+  const [breakpoint, setBreakpoint] = useState(getDeviceBreakpoints(innerWidth))
+  const { isMobile, isTablet, isDesktop, isDektopExtended } = breakpoint
 
 
   const selectSortType = (event) => {
@@ -42,25 +38,19 @@ const PlaylistFilterPanel = ({ videoResult }) => {
     }
   };
 
-  const getScreenWidth = () => {
-    setCategoryBreakpoint(window.innerWidth <= DESKTOP_EXTENDED_BREAKPOINT)
-    setIsTablet(window.innerWidth <= TABLET_BREAKPOINT)
-    setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT)
-  }
-
   useEffect(() => {
-    getScreenWidth()
-  }, [])
-
-  useLayoutEffect(() => {
+    const getScreenWidth = () => {
+      setBreakpoint(getDeviceBreakpoints(window.innerWidth))
+    }
     window.addEventListener('resize', getScreenWidth)
+    getScreenWidth()
 
     return () => {
       window.removeEventListener('resize', getScreenWidth,
 
       )
     }
-  }, [window.innerWidth])
+  }, [])
 
   const initialState = {
     sortedvideoResult: videoResult,
@@ -103,7 +93,7 @@ const PlaylistFilterPanel = ({ videoResult }) => {
   }
 
   const renderCategoryButtons = () => {
-    if (categoryBreakpoint && !isMobile) {
+    if (isDektopExtended && !isMobile) {
       return (
         <>
           <div className='filter-panel__category-container--mobile'>
