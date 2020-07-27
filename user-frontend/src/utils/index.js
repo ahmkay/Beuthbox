@@ -91,3 +91,22 @@ export const showTags = async (result) => {
 export const preventBackgroundScroll = (active) => {
   document.body.classList.toggle("body--modal-open", active);
 };
+
+
+const MOBILE_BREAKPOINT = 576
+const TABLET_BREAKPOINT = 768
+const DESKTOP_BREAKPOINT = 1200
+const DESKTOP_EXTENDED_BREAKPOINT = 1380
+
+export const getDeviceBreakpoints = (innerWidth) => {
+    const evaluateBreakpoints = () => {
+        return {
+            isMobile: innerWidth <= MOBILE_BREAKPOINT,
+            isTablet: innerWidth <= TABLET_BREAKPOINT,
+            isDektop: innerWidth <= DESKTOP_BREAKPOINT,
+            isDektopExtended: innerWidth <= DESKTOP_EXTENDED_BREAKPOINT,
+        }
+    }
+    const breakpoints = evaluateBreakpoints()
+    return breakpoints
+}

@@ -62,9 +62,6 @@ const Search = ({
       playlistResult.length > 0) &&
     showSearchResult
   ) {
-    console.log(channelResult, "channels search");
-    console.log(videoResult, "videos search");
-    console.log(playlistResult, "playlists search");
     return (
       <main className="main">
         <h2 className="search-headline">
