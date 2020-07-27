@@ -33,8 +33,9 @@ const Home = () => {
             </h2>
           </header>
           <MultiCarousel
-            videos={recommendedVideos}
+            elements={recommendedVideos}
             headline={"Empfehlungen der Woche"}
+            type='video'
           />
           <MultiCarousel
             elements={newestVideos}

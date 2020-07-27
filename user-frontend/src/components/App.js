@@ -176,7 +176,7 @@ const App = () => {
           setActiveLivestream,
         }}
       >
-        {<MultiCarousel isHeader />}
+        {<MultiCarousel type='header' />}
         <Navbar />
         <Switch>
           <Route exact path={"/aboutus"} component={AboutUs} />

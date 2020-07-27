@@ -11,7 +11,7 @@ import Searchbar from "../../components/reusables/Searchbar";
 import { useLocation, useHistory } from "react-router-dom";
 import beuthBOXIllustration from "../../assets/img/beuthbox-logo.svg";
 
-const MultiCarousel = ({ headline, isHeader, type, elements }) => {
+const MultiCarousel = ({ headline, type, elements }) => {
   const { setQuery } = useContext(DataContext);
   const history = useHistory();
   const { pathname } = useLocation();
