@@ -27,6 +27,8 @@ const Channel = (props) => {
   const [tabsVariant, setTabsVariant] = useState("");
 
   const { channelData, playlistData } = useContext(DataContext);
+
+  // set data for playlists and videos
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,10 +77,13 @@ const Channel = (props) => {
     toggleTabVariant();
   }, [channelData, playlistData]);
 
+  // sort data for videos and playlists after data was fetched
   useEffect(() => {
     sortVideos();
     sortPlaylists();
     makeChronik();
+    // set true to wait for new data after reload
+    setIsPending(true);
   }, [!isPending]);
 
   useLayoutEffect(() => {
@@ -109,7 +114,6 @@ const Channel = (props) => {
 
     setPlaylists(sortedPlaylists);
   };
-
   const makeChronik = () => {
     const rawChronik = video.concat(playlists);
 
@@ -123,6 +127,7 @@ const Channel = (props) => {
   };
 
   const showChronik = () => {
+    console.log(chronik);
     return chronik.map((element) => {
       // check if element is video --> else: its a playlist
       if (element.videoDuration !== undefined) {
