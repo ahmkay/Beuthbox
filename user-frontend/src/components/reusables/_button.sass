@@ -2,14 +2,15 @@ button
     border: none
     outline: none
     border-radius: 3px
-    padding: .5rem 1rem
-    min-width: 175px
+    padding: .5em 1em
+    min-width: 180px
     font-family: $header-font-stack
-    @include font-size($h3-sizes)
-    font-weight: $h4-weight
+    @include font-size($h4-sizes)
+    font-weight: $h5-weight
     color: var(--color-primary-dark)
     background-color: var(--color-primary)
-    transition: color .2s ease-out, background-color .2s ease-out, fill .2s ease-out
+    box-shadow: 0
+    transition: color .1s ease-out, background-color .1s ease-out, fill .1s ease-out, transform .1s ease-in-out, box-shadow .1s ease-in-out
     @media screen and (max-width: $break-tablet)
         padding: $h4-size
     @media screen and (max-width: $break-mobile)
@@ -20,8 +21,8 @@ button
         background-color: var(--color-primary-dark)
     &:hover
         cursor: pointer
-        color: white
-        background-color: var(--color-primary-dark)
+        transform: scale(1.025)
+        box-shadow: $elevation-2
 
 .button--icon
     width: initial
