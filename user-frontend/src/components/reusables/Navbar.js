@@ -99,8 +99,8 @@ const Navbar = () => {
   };
 
   const scrollToTop = () => {
-    window.scrollTo(0,0)
-  }
+    window.scrollTo(0, 0);
+  };
 
   const showSearchResult = (query) => {
     history.push(`/search/name=${query}`);
@@ -129,7 +129,7 @@ const Navbar = () => {
       showSearchResult(trimmedValue);
     }
   };
-  
+
   return (
     <nav
       className={`nav nav${isMobile ? "--isMobile" : "--isDesktop"} ${
@@ -243,7 +243,11 @@ const Navbar = () => {
               }
               onClick={scrollToTop}
             >
-              <FiberManualRecordIcon className={`nav__icon ${activeLivestream ?' nav__icon--live' : ''} `}/>
+              <span
+                className={`nav__icon nav__live-icon ${
+                  activeLivestream ? " nav__icon--live" : ""
+                } `}
+              ></span>
               Live
             </NavLink>
           </li>

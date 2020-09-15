@@ -79,13 +79,33 @@
     flex-direction: column
     align-items: center
     text-decoration: none
-    transition: left .3s ease-out, width .3s ease-out
+    transition: left .3s ease-out, width .3s ease-out, color .3s ease, fill .3s ease
+    transition-duration: .3s !important
+    & *
+        transition-duration: .3s !important
     .link
         color: var(--color-white)
     @media screen and (max-width: $break-mobile)
         padding-top: 8px
         padding-bottom: 12px
         height: 100%
+    &:hover
+        @extend .nav-link--isActive
+
+// special way to bouild live-dot-icon to prevent delay in hover animation
+.nav__live-icon
+    display: block
+    width: 16px
+    height: 16px
+    margin: 4px
+    border-radius: 50%
+    background-color: var(--color-white)
+    transition: background-color .3s ease-in-out
+
+.nav-link:hover .nav__live-icon, .nav-link--isActive .nav__live-icon
+    background-color: var(--color-black)
+
+// end special way
 
 svg.nav__icon
     path
