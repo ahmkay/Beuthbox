@@ -9,10 +9,10 @@ import HomeIcon from "@material-ui/icons/Home";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import Videocam from "@material-ui/icons/Videocam";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import SearchIcon from "@material-ui/icons/Search";
 import { NavLink, useHistory, useLocation } from "react-router-dom";
 import SearchMobile from "../../routes/search/SearchMobile";
+import SearchTablet from "../../routes/search/SearchTablet";
 import Button from "./Button";
 import { preventBackgroundScroll } from "../../utils";
 import { DataContext } from "../../api/DataContext";
@@ -24,8 +24,14 @@ const Navbar = () => {
   const [scrollPos, setScrollPos] = useState(0);
   const [showNav, setShowNav] = useState(true);
   const [inputValue, setInputValue] = useState("");
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 576);
+  const [isWindowMobileSize, setIsWindowMobileSize] = useState(
+    window.innerWidth < 576
+  );
+  const [isWindowTabletSize, setisWindowTabletsize] = useState(
+    window.innerWidth < 900
+  );
   const [showMobileSearch, setShowMobileSearch] = useState(false);
+  const [showTabletSearch, setShowTabletSearch] = useState(false);
 
   const { setQuery, activeLivestream } = useContext(DataContext);
   const { pathname } = useLocation();
@@ -50,7 +56,8 @@ const Navbar = () => {
   };
 
   const setNavbar = () => {
-    setIsMobile(window.innerWidth < 576);
+    setIsWindowMobileSize(window.innerWidth < 576);
+    setisWindowTabletsize(window.innerWidth < 900);
     if (window.innerWidth < 576) preventBackgroundScroll(false);
   };
 
@@ -63,6 +70,11 @@ const Navbar = () => {
     preventBackgroundScroll(show);
     setShowNav(show); // to close gap on top of the mobile search caused of hidden navbar
     setShowMobileSearch(show);
+  };
+
+  const toggleTabletSearch = (show = false) => {
+    console.log(showTabletSearch);
+    setShowTabletSearch(show);
   };
 
   // move Indicator every time the window resizes
@@ -132,45 +144,84 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`nav nav${isMobile ? "--isMobile" : "--isDesktop"} ${
+      className={`nav nav${isWindowMobileSize ? "--isMobile" : "--isDesktop"} ${
         showNav ? "show" : ""
       }`}
     >
-      {isMobile && (
-        <>
-          <SearchMobile
-            show={showMobileSearch}
+      {
+        /**
+         * Toggle Search-Modal for mobile
+         */
+        isWindowMobileSize && (
+          <>
+            <SearchMobile
+              show={showMobileSearch}
+              state="entering"
+              toggleShow={toggleMobileSearch}
+            />
+            <Button
+              onClick={() => toggleMobileSearch(true)}
+              type="icon"
+              filled
+              className="nav__mobile-search"
+            >
+              <SearchIcon />
+            </Button>
+          </>
+        )
+      }
+      {
+        /**
+         * Toggle Tablet search-modal for tablet
+         */
+        !isWindowMobileSize && isWindowTabletSize && (
+          <SearchTablet
+            show={showTabletSearch}
             state="entering"
-            toggleShow={toggleMobileSearch}
+            toggleShow={toggleTabletSearch}
           />
-          <Button
-            onClick={() => toggleMobileSearch(true)}
-            type="icon"
-            filled
-            className="nav__mobile-search"
-          >
-            <SearchIcon />
-          </Button>
-        </>
-      )}
+        )
+      }
       <div className="nav__flex-container">
-        {!isMobile && (
-          <div className="nav__searchbar-flex-container">
-            <input
-              className="nav__searchBar"
-              type="text"
-              name="suche"
-              placeholder="Video, Playlist, Channel, Stichwort..."
-              onChange={(event) => setInputValue(event.target.value)}
-              onKeyDown={(event) => evaluateSearch(event, inputValue)}
-            />
-            <SearchIcon
-              className="nav__searchbar-flex-container-searchbar-icon"
-              onClick={(event) => evaluateSearch(event, inputValue)}
-            />
-          </div>
-        )}
+        {
+          /**
+           * Toggle Searchbar for Desktop and smaller
+           */
+          !isWindowMobileSize && !isWindowTabletSize && (
+            <div className="nav__searchbar-flex-container">
+              <input
+                className="nav__searchBar"
+                type="text"
+                name="suche"
+                placeholder="Video, Playlist, Channel, Stichwort..."
+                onChange={(event) => setInputValue(event.target.value)}
+                onKeyDown={(event) => evaluateSearch(event, inputValue)}
+              />
+              <SearchIcon
+                className="nav__searchbar-flex-container-searchbar-icon"
+                onClick={(event) => evaluateSearch(event, inputValue)}
+              />
+            </div>
+          )
+        }
+
         <ul className="nav-ul">
+          {
+            /**
+             * Toggle Search-Button for tablet-display
+             */
+            !isWindowMobileSize && isWindowTabletSize && (
+              <li className="nav__element">
+                <a
+                  className="nav-link"
+                  onClick={() => toggleTabletSearch(true)}
+                >
+                  <SearchIcon className="nav-icon" />
+                  Suche
+                </a>
+              </li>
+            )
+          }
           <li
             className="nav__element"
             ref={activeTab === "/" ? activeRef : null}

@@ -4,12 +4,9 @@
     z-index: 10
     &--isDesktop
         @extend .nav
-        height: 85px
+        height: 64px
         position: sticky
-        top: -85px // move out of view on scroll
-        @media screen and (max-width: $break-tablet-landscape)
-            height: 120px
-            top: -120px
+        top: -64px // move out of view on scroll
         &.show
             top: 0
 
@@ -90,6 +87,7 @@
         padding-bottom: 12px
         height: 100%
     &:hover
+        cursor: pointer
         @extend .nav-link--isActive
 
 // special way to bouild live-dot-icon to prevent delay in hover animation
