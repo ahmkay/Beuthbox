@@ -1,38 +1,37 @@
-import React, { useContext, useState, useLayoutEffect} from "react";
+import React, { useContext, useState, useLayoutEffect } from "react";
 import Illustration from "../../assets/img/Illustration_Suche.svg";
 import Searchbar from "../../components/reusables/Searchbar";
 import ThumbnailGrid from "../../components/reusables/ThumbnailGrid";
 import { useHistory } from "react-router-dom";
 import { DataContext } from "../../api/DataContext";
 
-
-const TABLET_BREAKPOINT = 835
+const TABLET_BREAKPOINT = 835;
 const SearchNoResults = () => {
-  const [isTablet, setIsTablet ] = useState(window.innerWidth <= TABLET_BREAKPOINT  )
-  const { setQuery, recommendedVideos } = useContext(DataContext);
+  const [isTablet, setIsTablet] = useState(
+    window.innerWidth <= TABLET_BREAKPOINT
+  );
+  const { query, setQuery, recommendedVideos } = useContext(DataContext);
 
   const history = useHistory();
   const showSearchResult = (query) => {
     history.push(`/search/name=${query}`);
   };
 
-  const getScreenWidth = () => {    
-    setIsTablet(window.innerWidth <= TABLET_BREAKPOINT)
-  }
+  const getScreenWidth = () => {
+    setIsTablet(window.innerWidth <= TABLET_BREAKPOINT);
+  };
 
   useLayoutEffect(() => {
-    getScreenWidth()
-  }, [])
+    getScreenWidth();
+  }, []);
 
   useLayoutEffect(() => {
-    window.addEventListener('resize', getScreenWidth)
+    window.addEventListener("resize", getScreenWidth);
 
     return () => {
-      window.removeEventListener('resize', getScreenWidth,
-
-      )
-    }
-  }, [window.innerWidth])
+      window.removeEventListener("resize", getScreenWidth);
+    };
+  }, [window.innerWidth]);
 
   const evaluateSearch = async (event, value) => {
     const { key, type } = event;
@@ -66,12 +65,24 @@ const SearchNoResults = () => {
           className="search-no-results__illustration"
         />
         <h2 className="search-no-results__headline">
-          Kein Ergebnis :( <br />
-          Probier's noch mal
+          Bei der Suche nach <br />
+          <span className="search-result">
+            {query != undefined ? query : ""}
+          </span>{" "}
+          <br />
+          wurde leider nichts gefunden :(
         </h2>
+        <h4 className="search-no-results__subline">
+          Probiere eine andere Schreibweise!
+        </h4>
       </div>
       <div className="search-no-results__searchbar-container container-50">
-        <Searchbar eventHandler={evaluateSearch} type="grey" hasRef extraButton={isTablet} />
+        <Searchbar
+          eventHandler={evaluateSearch}
+          type="grey"
+          hasRef
+          extraButton={isTablet}
+        />
       </div>
       {recommendedVideos.length > 0 && (
         <>
@@ -82,7 +93,7 @@ const SearchNoResults = () => {
             <ThumbnailGrid
               columnNumber={3}
               elements={recommendedVideos}
-              type='video'
+              type="video"
             />
           </div>
         </>
