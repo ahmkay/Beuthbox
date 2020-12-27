@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Loader from "react-loader-spinner";
 
 /**
@@ -14,18 +14,65 @@ const ActivityIndicator = ({ position, height, width, color }) => {
   const WIDTH = 100;
   const HEIGHT = 100;
 
+  const [loadingTime, setloadingTime] = useState(0);
+
+  // increment loadingTime
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setloadingTime(loadingTime + 1);
+    }, 1000);
+
+    console.log(loadingTime);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [loadingTime]);
+
+  // render Text depending on loadingTime
+  const renderLoadingInfo = () => {
+    if (loadingTime > 5) {
+      if (loadingTime > 5 && loadingTime <= 10) {
+        return (
+          <>
+            <h5>Laden...</h5>
+          </>
+        );
+      }
+      if (loadingTime > 10 && loadingTime <= 15) {
+        return (
+          <>
+            <h5>Das dauert wohl ein bisschen länger...</h5>
+          </>
+        );
+      }
+      if (loadingTime > 15) {
+        return (
+          <h5>
+            Irgendwas konnte hier nicht gefunden werden :(
+            <br />
+            Probiere es nochmal!
+          </h5>
+        );
+      }
+    }
+  };
+
   return (
     <div
-      className={`activity-indicator__container--${
+      className={`activity-indicator-container--${
         position ? position : "center"
       }`}
     >
-      <Loader
-        type="ThreeDots"
-        color={color || "#BDE2E2"}
-        height={HEIGHT || height}
-        width={WIDTH || width}
-      />
+      {renderLoadingInfo()}
+      {loadingTime <= 15 && (
+        <Loader
+          type="ThreeDots"
+          color={color || "#BDE2E2"}
+          height={HEIGHT || height}
+          width={WIDTH || width}
+        />
+      )}
     </div>
   );
 };
