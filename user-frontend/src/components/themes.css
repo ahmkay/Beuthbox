@@ -40,7 +40,7 @@
     --color-primary: #00a5a5;
     --color-primary-light: #bde2e2;
     --color-primary-dark: #0b2929;
-    --color-background: #f2f2f2;
+    --color-background: #f0f0f0;
     --color-card-background: #fff;
     --color-text: #000;
     --color-white: #fff;
@@ -74,7 +74,7 @@ html[theme="light"] {
   --color-primary: #00a5a5;
   --color-primary-light: #bde2e2;
   --color-primary-dark: #0b2929;
-  --color-background: #f2f2f2;
+  --color-background: #f0f0f0;
   --color-card-background: #fff;
   --color-text: #000;
   --color-white: #fff;
