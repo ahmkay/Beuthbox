@@ -10,7 +10,8 @@ import LiveTvIcon from "@material-ui/icons/LiveTv";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import Videocam from "@material-ui/icons/Videocam";
 import SearchIcon from "@material-ui/icons/Search";
-import { NavLink, useHistory, useLocation } from "react-router-dom";
+import Logo from "../../assets/img/beuthbox-logo.svg";
+import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import SearchMobile from "../../routes/search/SearchMobile";
 import SearchTablet from "../../routes/search/SearchTablet";
 import Button from "./Button";
@@ -183,6 +184,9 @@ const Navbar = () => {
         )
       }
       <div className="nav__flex-container">
+        <Link to="/" exact className="nav__logo-link">
+          <img src={Logo} alt="beuthBOX Logo" className="nav__logo" />
+        </Link>
         {
           /**
            * Toggle Searchbar for Desktop and smaller

@@ -41,6 +41,11 @@ svg.search-mobile__icon
     padding-bottom: $margin-xs
     margin-bottom: 0
 
-.search-mobile__button-discover
-    width: fit-content
-    padding: 0
+.search-mobile .search-mobile__button
+    &:hover
+        box-shadow: none
+        transform: initial
+    &--discover
+        @extend .search-mobile__button
+        width: fit-content
+        padding: 0

@@ -83,7 +83,7 @@ const SearchMobile = ({ show, toggleShow }) => {
                 history.push("/discover");
                 toggleShow(false);
               }}
-              className="search-mobile__button-discover"
+              className="search-mobile__button--discover"
             >
               <img src={Rocket} />
               Entdecken
@@ -93,6 +93,7 @@ const SearchMobile = ({ show, toggleShow }) => {
               onClick={() => {
                 toggleShow(false);
               }}
+              className="search-mobile__button"
             >
               <img src={X} />
             </Button>

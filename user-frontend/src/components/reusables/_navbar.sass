@@ -23,9 +23,16 @@
     display: flex
     align-items: center
     justify-content: center
-    @media screen and (max-width: $break-tablet-landscape)
-        flex-direction: column
-        justify-content: space-around
+
+.nav__logo-link
+    display: inline-block
+    height: calc(24px + 1em) // iconsize + 1em
+    margin-right: $margin-s
+    @media screen and (max-width: $break-mobile)
+        display: none
+
+.nav__logo
+    height: 100%
 
 .nav__searchBar
     width: 100%
@@ -63,9 +70,6 @@
     display: flex
     align-items: center
     justify-content: flex-start
-    @media screen and (max-width: $break-tablet-landscape)
-        width: 90%
-        justify-content: center
 
 .nav__element
     padding: 0 12px
