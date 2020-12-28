@@ -22,8 +22,6 @@ const ActivityIndicator = ({ position, height, width, color }) => {
       setloadingTime(loadingTime + 1);
     }, 1000);
 
-    console.log(loadingTime);
-
     return () => {
       clearTimeout(timeout);
     };

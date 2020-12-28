@@ -11,7 +11,7 @@
     &::after
         content: ''
         display: block
-        padding-top: 150% // to get the 2:3 aspect ratio --> change for alternative aspect ratio
+        padding-top: 150% // to get the 16:9 aspect ratio --> change for alternative aspect ratio
 
 .playlist-card-container__content
     position: absolute
@@ -41,9 +41,15 @@
 .playlist-card-container
     &:hover .playlist-card-container__description
         margin-bottom: 1em
-.playlist-card-container
-    &:hover .playlist-card-container__description, &:hover .playlist-card-container__video-count
-        max-height: 300px // the transition only works with absolute numbers
+        text-overflow: ellipsis
+        overflow: hidden
+        max-height: 11.4em
+        overflow-y: hidden
+        display: -webkit-box
+        -webkit-line-clamp: 8
+        -webkit-box-orient: vertical
+    &:hover .playlist-card-container__video-count
+        max-height: 24px
 
 .playlist-card-container
     &:hover .playlist-card-container__thumbnail-img

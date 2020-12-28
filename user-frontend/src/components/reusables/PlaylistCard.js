@@ -35,9 +35,9 @@ const PlaylistCard = ({ playlistData }) => {
           </p>
           <div className="playlist-card-container__video-count">
             <Videocam />
-            <h5 className="video-count__number">
+            <h6 className="video-count__number">
               {videoCount > 0 ? videoCount : "-"}
-            </h5>
+            </h6>
           </div>
         </div>
       </div>
