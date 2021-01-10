@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Lehrfilmaufnahmen",
+    "description": "Durchführung von Lehrfilmaufnahmen im neuen Lehrfilmstudio im Haus Bauwesen, Raum D-103",
+    "img": "service_tutorial-movie"
+  },
+  {
+    "title": "Konzeption",
+    "description": "Mithilfe bei der Konzeption von Lehr- und Präsentationsfilmen",
+    "img": "service_conception"
+  },
+  {
+    "title": "Schulungen",
+    "description": "Schulungen und Beratung zur Durchführung von Video-aufnahmen in Laboren sowie zur Fertigstellung/Gesamtproduktion von Videofilmen",
+    "img": "service_trainings"
+  },
+  {
+    "title": "Produktion",
+    "description": "Mithilfe bei der Durchführung von Videoaufnahmen in Laboren sowie zur Fertigstellung/Gesamtproduktion von Videofilmen",
+    "img": "service_production"
+  },
+  {
+    "title": "Ausleihe",
+    "description": "Ausleihe vom Video-Equipment inklusive Licht für die Durchführung eigener Videoaufnahmen in Laboren",
+    "img": "service_rentals"
+  },
+  {
+    "title": "Spezielle Schulungen",
+    "description": "Schulungen zur Durchführung von Vorlesungs- / Seminaraufzeichnungen",
+    "img": "service_special-trainings"
+  },
+  {
+    "title": "Nachbearbeitung",
+    "description": "Schulungen zur einfachen Nachbearbeitung der aufgezeichneten Vorlesungen, Seminaren",
+    "img": "service_editing"
+  },
+  {
+    "title": "Live-Streaming",
+    "description": "Live-Streaming und Aufzeichnung von Vorträgen, Tagungen, Symposien",
+    "img": "service_live-streaming"
+  }
+]

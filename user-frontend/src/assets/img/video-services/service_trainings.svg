@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="208.198" height="150.257" viewBox="0 0 208.198 150.257">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-11.741" y1="5.084" x2="-11.741" y2="4.933" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="gray" stop-opacity="0.251"/>
+      <stop offset="0.535" stop-color="gray" stop-opacity="0.122"/>
+      <stop offset="1" stop-color="gray" stop-opacity="0.102"/>
+    </linearGradient>
+  </defs>
+  <g id="Gruppe_185" data-name="Gruppe 185" transform="translate(-0.005)">
+    <ellipse id="Ellipse_196" data-name="Ellipse 196" cx="9.186" cy="1.378" rx="9.186" ry="1.378" transform="translate(2.476 82.764) rotate(-63.611)" fill="#e0e0e0"/>
+    <ellipse id="Ellipse_197" data-name="Ellipse 197" cx="9.186" cy="0.936" rx="9.186" ry="0.936" transform="translate(117.657 139.967) rotate(-63.611)" fill="#e0e0e0"/>
+    <rect id="Rechteck_382" data-name="Rechteck 382" width="5.512" height="18.373" transform="translate(57.696 106.086) rotate(39.547)" fill="#f55f44"/>
+    <rect id="Rechteck_383" data-name="Rechteck 383" width="6.202" height="18.373" transform="translate(58.21 126.312) rotate(-166.769)" opacity="0.05"/>
+    <rect id="Rechteck_384" data-name="Rechteck 384" width="5.512" height="18.373" transform="translate(58.21 126.312) rotate(-166.769)" fill="#f55f44"/>
+    <rect id="Rechteck_385" data-name="Rechteck 385" width="19.291" height="128.148" transform="translate(3.506 83.787) rotate(-63.611)" fill="url(#linear-gradient)"/>
+    <path id="Pfad_963" data-name="Pfad 963" d="M331.2,492.047c-2.247-1.078-116.441-57.774-114.795-56.958,6.338-9.674,8.166-16.458,8.166-16.458l114.795,56.958S335.339,482.664,331.2,492.047Z" transform="translate(-212.701 -351.713)" fill="#f5f5f5"/>
+    <rect id="Rechteck_386" data-name="Rechteck 386" width="10.564" height="18.373" transform="translate(62.072 91.825) rotate(26.389)" opacity="0.05"/>
+    <rect id="Rechteck_387" data-name="Rechteck 387" width="9.646" height="18.373" transform="translate(62.484 92.029) rotate(26.389)" fill="#f55f44"/>
+    <rect id="Rechteck_388" data-name="Rechteck 388" width="6.43" height="18.373" transform="translate(63.718 92.642) rotate(26.389)" opacity="0.05"/>
+    <rect id="Rechteck_389" data-name="Rechteck 389" width="5.512" height="18.373" transform="translate(64.129 92.846) rotate(26.389)" fill="#f55f44"/>
+    <circle id="Ellipse_198" data-name="Ellipse 198" cx="0.766" cy="0.766" r="0.766" transform="translate(67.636 146.845)" fill="#dbdbdb"/>
+    <g id="Gruppe_181" data-name="Gruppe 181" transform="translate(5.866 126.166)" opacity="0.5">
+      <rect id="Rechteck_390" data-name="Rechteck 390" width="0.785" height="4.45" transform="translate(1.832)" fill="#47e6b1"/>
+      <rect id="Rechteck_391" data-name="Rechteck 391" width="0.785" height="4.45" transform="translate(4.45 1.832) rotate(90)" fill="#47e6b1"/>
+    </g>
+    <g id="Gruppe_182" data-name="Gruppe 182" transform="translate(203.753 70.674)" opacity="0.5">
+      <rect id="Rechteck_392" data-name="Rechteck 392" width="0.785" height="4.45" transform="translate(1.832)" fill="#47e6b1"/>
+      <rect id="Rechteck_393" data-name="Rechteck 393" width="0.785" height="4.45" transform="translate(4.45 1.832) rotate(90)" fill="#47e6b1"/>
+    </g>
+    <g id="Gruppe_183" data-name="Gruppe 183" transform="translate(10.577 15.444)" opacity="0.5">
+      <rect id="Rechteck_394" data-name="Rechteck 394" width="0.785" height="4.45" transform="translate(1.832)" fill="#47e6b1"/>
+      <rect id="Rechteck_395" data-name="Rechteck 395" width="0.785" height="4.45" transform="translate(4.45 1.832) rotate(90)" fill="#47e6b1"/>
+    </g>
+    <g id="Gruppe_184" data-name="Gruppe 184" transform="translate(180.195 8.638)" opacity="0.5">
+      <rect id="Rechteck_396" data-name="Rechteck 396" width="0.785" height="4.45" transform="translate(1.832)" fill="#47e6b1"/>
+      <rect id="Rechteck_397" data-name="Rechteck 397" width="0.785" height="4.45" transform="translate(4.45 1.832) rotate(90)" fill="#47e6b1"/>
+    </g>
+    <path id="Pfad_964" data-name="Pfad 964" d="M205.524,411.415a.962.962,0,0,1-.536-1.162.463.463,0,0,0,.021-.107h0a.482.482,0,0,0-.867-.32h0a.462.462,0,0,0-.053.095.962.962,0,0,1-1.162.536.461.461,0,0,0-.107-.021h0a.482.482,0,0,0-.32.867h0a.462.462,0,0,0,.095.053.962.962,0,0,1,.536,1.162.463.463,0,0,0-.021.107h0a.482.482,0,0,0,.867.32h0a.462.462,0,0,0,.053-.095.962.962,0,0,1,1.162-.536.462.462,0,0,0,.107.021h0a.482.482,0,0,0,.32-.867h0A.461.461,0,0,0,205.524,411.415Z" transform="translate(-202.303 -345.071)" fill="#4d8af0" opacity="0.5"/>
+    <path id="Pfad_965" data-name="Pfad 965" d="M377.524,214.415a.962.962,0,0,1-.536-1.162.462.462,0,0,0,.021-.107h0a.482.482,0,0,0-.867-.32h0a.463.463,0,0,0-.053.095.962.962,0,0,1-1.162.536.462.462,0,0,0-.107-.021h0a.482.482,0,0,0-.32.867h0a.463.463,0,0,0,.095.053.962.962,0,0,1,.536,1.162.462.462,0,0,0-.021.107h0a.482.482,0,0,0,.867.32h0a.462.462,0,0,0,.053-.095.962.962,0,0,1,1.162-.536.462.462,0,0,0,.107.021h0a.482.482,0,0,0,.32-.867h0A.463.463,0,0,0,377.524,214.415Z" transform="translate(-329.281 -199.637)" fill="#4d8af0" opacity="0.5"/>
+    <path id="Pfad_966" data-name="Pfad 966" d="M587.524,725.415a.962.962,0,0,1-.536-1.162.46.46,0,0,0,.021-.107h0a.482.482,0,0,0-.867-.32h0a.458.458,0,0,0-.053.095.962.962,0,0,1-1.162.536.461.461,0,0,0-.107-.021h0a.482.482,0,0,0-.32.866h0a.459.459,0,0,0,.095.053.962.962,0,0,1,.536,1.162.464.464,0,0,0-.021.107h0a.482.482,0,0,0,.867.32h0a.456.456,0,0,0,.053-.095.962.962,0,0,1,1.162-.536.461.461,0,0,0,.107.021h0a.482.482,0,0,0,.32-.866h0A.466.466,0,0,0,587.524,725.415Z" transform="translate(-484.312 -576.88)" fill="#4d8af0" opacity="0.5"/>
+    <circle id="Ellipse_199" data-name="Ellipse 199" cx="1.571" cy="1.571" r="1.571" transform="translate(197.209 114.649)" fill="#f55f44" opacity="0.5"/>
+    <circle id="Ellipse_200" data-name="Ellipse 200" cx="1.571" cy="1.571" r="1.571" transform="translate(162.657 124.596)" fill="#4d8af0" opacity="0.5"/>
+    <circle id="Ellipse_201" data-name="Ellipse 201" cx="1.571" cy="1.571" r="1.571" transform="translate(25.497 140.039)" fill="#47e6b1" opacity="0.5"/>
+    <circle id="Ellipse_202" data-name="Ellipse 202" cx="1.571" cy="1.571" r="1.571" transform="translate(106.118)" fill="#f55f44" opacity="0.5"/>
+    <path id="Pfad_967" data-name="Pfad 967" d="M389.479,460.683l-6.282,9.423s2.094,9.685,48.425,9.423,50-9.423,50-9.423l-8.638-12.564-26.437-18.061Z" transform="translate(-335.843 -367.105)" fill="#00a5a5"/>
+    <path id="Pfad_968" data-name="Pfad 968" d="M389.479,460.683l-6.282,9.423s2.094,9.685,48.425,9.423,50-9.423,50-9.423l-8.638-12.564-26.437-18.061Z" transform="translate(-335.843 -367.105)" opacity="0.15"/>
+    <path id="Pfad_969" data-name="Pfad 969" d="M199.361,105.881l-82.453,36.384L16.394,105.881,108.532,64l45.229,20.854,1.62.749Z" transform="translate(-12.099 -47.248)" fill="#00a5a5"/>
+    <path id="Pfad_970" data-name="Pfad 970" d="M199.361,105.881l-82.453,36.384L16.394,105.881,108.532,64l45.229,20.854,1.62.749Z" transform="translate(-12.099 -47.248)" opacity="0.15"/>
+    <path id="Pfad_971" data-name="Pfad 971" d="M544.511,173.419l-1.57.094-1.756-29.843,1.62.749Z" transform="translate(-399.522 -106.064)" fill="#f5f5f5"/>
+    <path id="Pfad_972" data-name="Pfad 972" d="M390.526,371.444l-7.329,44.5s52.613-17.014,98.42,0l-6.806-47.116S413.3,361.236,390.526,371.444Z" transform="translate(-335.843 -312.942)" fill="#00a5a5"/>
+    <ellipse id="Ellipse_203" data-name="Ellipse 203" cx="7.591" cy="5.235" rx="7.591" ry="5.235" transform="translate(137.267 65.963)" fill="#f5f5f5"/>
+  </g>
+</svg>

@@ -1,0 +1,28 @@
+.service-card
+    display: flex
+    flex-direction: column
+    align-items: center
+    padding: $margin-m
+
+.service-card__img
+    display: block
+    height: 140px
+    max-width: calc(100% - 2* 20px) // width - 2 * padding
+    width: auto
+    margin-bottom: $margin-m
+    transition: height .4s ease-in-out
+    @media screen and (max-width: $break-tablet-landscape)
+        height: 120px
+    @media screen and (max-width: $break-mobile)
+        height: 160px
+
+.service-card__title
+    width: 100%
+    text-align: center
+    text-overflow: ellipsis
+    overflow: auto
+    margin-bottom: $margin-s
+
+.service-card__description
+    width: 100%
+    text-align: center
