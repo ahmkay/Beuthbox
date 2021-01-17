@@ -11,6 +11,7 @@ import HeaderProductionStdio from "../../assets/img/video-services/header_produc
 import HeaderContentProduction from "../../assets/img/video-services/header_content-production.svg";
 import HeaderEquipment from "../../assets/img/video-services/header_equipment.svg";
 import HeaderContact from "../../assets/img/video-services/header_contact.svg";
+import ImgLocation from "../../assets/img/video-services/production-studio__location.svg";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Phone from "@material-ui/icons/Phone";
 import Mail from "@material-ui/icons/Mail";
@@ -27,7 +28,7 @@ const VideoServices = () => {
         <ServiceCard
           imgName={service.img}
           title={service.title}
-          description="Durchführung von Lehrfilmaufnahmen im neuen Lehrfilmstudio im Haus Bauwesen, Raum D-103"
+          description={service.description}
         />
       );
     });
@@ -72,6 +73,28 @@ const VideoServices = () => {
             className="section-header__img"
           />
         </header>
+        <div className="location-description-container">
+          <img
+            src={ImgLocation}
+            alt="productionstudio location"
+            className="location-description__img"
+          />
+          <h5 className="location-description__description">
+            Sie finden das Lehrfilmproduktionsstudio im Erdgeschoss des Haus
+            Bauwesen, beim Eingang gegenüber des Haus Grashof. Hinter dem
+            Eingang, auf der rechten Seite befindet sich der Raum D-103.
+          </h5>
+        </div>
+        <h3 className="section__subline">Gehen sie den Weg vorab virtuell:</h3>
+        <video
+          alt="video location direction"
+          className="location-description__video-directions"
+          controls
+        >
+          <source src="movie.mp4" type="video/mp4" />
+          <source src="movie.ogg" type="video/ogg" />
+          Your browser does not support the video tag.
+        </video>
       </section>
 
       <section className="main__section main__section--vs-center service-content-production">
@@ -82,11 +105,11 @@ const VideoServices = () => {
           <img
             src={HeaderContentProduction}
             alt="Beiträge produzieren header-img"
-            className="section-header__img"
+            className="section-header__img section"
           />
         </header>
         <article>
-          <h3 className="service-content-production__subline">
+          <h3 className="section__subline">
             Mögliche Formate der Videoproduktion sind z.B.
           </h3>
           <ul className="service-content-production__list">
@@ -131,9 +154,7 @@ const VideoServices = () => {
             className="section-header__img"
           />
         </header>
-        <h3 className="service-equipment__subline">
-          Zur Verfügung stehendes Equipment
-        </h3>
+        <h3 className="section__subline">Zur Verfügung stehendes Equipment</h3>
         <EquipmentAccordion />
       </section>
 

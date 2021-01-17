@@ -14,7 +14,7 @@ export default function ServiceCard({ imgName, title, description }) {
         <img src={image} alt={`${title}-img`} className="service-card__img" />
       )}
       <h4 className="service-card__title">{title}</h4>
-      <h5 className="service-card__description">{description}</h5>
+      <h6 className="service-card__description">{description}</h6>
     </article>
   );
 }
