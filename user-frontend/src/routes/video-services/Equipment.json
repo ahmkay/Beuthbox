@@ -1,0 +1,39 @@
+{
+  "categories": ["Videokameras", "Fotokameras", "Lichtformer", "Mikrofone"],
+  "Videokameras": [
+    {
+      "name": "Canon EOS 80D",
+      "quantity": 1
+    }
+  ],
+  "Fotokameras": [
+    {
+      "name": "Canon EOS 5D IV",
+      "quantity": 2
+    },
+    {
+      "name": "Canon EOS 770D",
+      "quantity": 4
+    }
+  ],
+  "Lichtformer": [
+    {
+      "name": "Walimex Octabox 80cm",
+      "quantity": 4
+    },
+    {
+      "name": "Rollei Softbox 40cm",
+      "quantity": 2
+    }
+  ],
+  "Mikrofone": [
+    {
+      "name": "Sennheiser irgendwas",
+      "quantity": 9
+    },
+    {
+      "name": "Sennheiser irgendwas 2",
+      "quantity": 12
+    }
+  ]
+}

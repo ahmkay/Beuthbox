@@ -31,9 +31,51 @@
     @media screen and (max-width: $break-mobile)
         padding: 0
 
+.main__section--vs-center
+    padding: 0 11%
+    & + .main__section--vs-center
+        margin-top: $margin-xxl
+
+.section-header-vs
+    display: flex
+    justify-content: space-between
+    margin-bottom: $margin-xl
+    &--left
+        flex-direction: row
+    &--right
+        flex-direction: row-reverse
+    @media screen and (max-width: $break-tablet)
+        align-items: center
+        flex-direction: column-reverse
+
+.section-header__headline
+    width: calc(60% - 20px) // add gap between elements
+    margin-top: $margin-l
+    word-break: break-word
+    @media screen and (max-width: $break-tablet)
+        width: 100%
+
+.section-header__subline
+    margin-top: $margin-xs
+
+.section-header__img
+    width: calc(40% - 20px) // add gap between elements
+    max-height: 360px
+    @media screen and (max-width: $break-tablet)
+        width: 60%
+
 .main__section__headline
     margin-bottom: $margin-m
 
+.service-content-production__subline, .service-equipment__subline
+    margin-bottom: $margin-m
+    text-align: center
+    margin-bottom: $margin-m
+    text-align: center
+
+//
+// section: services
+//
 .video-services__grid
     display: grid
     width: 100%
@@ -48,3 +90,63 @@
         grid-gap: $margin-m
     @media screen and (max-width: $break-mobile)
         grid-template-columns: repeat(1, 1fr)
+
+//
+// section: Lehrfilmproduktionsstudio
+//
+
+//
+// section: Videoproduktion
+//
+.service-content-production__list
+    list-style: none
+    width: fit-content
+    margin: auto
+    & li
+        line-height: 2em
+        &::before
+            content: '✔︎'
+            margin-right: 1em
+
+//
+// section: Kontakt
+//
+.vs-contact__data
+    display: flex
+    justify-content: space-between
+    @media screen and (max-width: $break-tablet)
+        flex-direction: column
+        align-items: center
+
+.data__reachability
+    padding: $margin-s
+    border: $border-s
+    margin-right: $margin-s
+    @media screen and (max-width: $break-tablet)
+        width: 90%
+        margin-right: 0
+        margin-bottom: $margin-m
+
+.reachability__headline
+    margin-bottom: $margin-s
+
+.reachability__time-table td:first-child
+    text-align: right
+    padding-right: 1em
+    padding-bottom: .5em
+
+.data__contactinfo
+    display: flex
+    align-items: center
+
+.contactinfo__list
+    list-style: none
+
+.contactinfo__listing
+    display: flex
+    align-items: center
+    & + .contactinfo__listing
+        margin-top: $margin-m
+
+.contactinfo__icon
+    margin-right: $margin-s

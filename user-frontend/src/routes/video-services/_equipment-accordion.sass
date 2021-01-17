@@ -1,0 +1,21 @@
+.equipment-accordion.accordion
+    border: $border-s
+    box-shadow: $elevation-1
+    border-radius: 3px
+    background-color: var(--color-card-background)
+    transition: box-shadow .3s ease-in-out, transform .2s ease-in-out
+    &:hover
+        box-shadow: $elevation-2
+        transform: scale(1.005)
+
+    & + .equipment-accordion:not(.Mui-expanded)
+        margin-top: -2px // prevent thiker border at contact points
+
+    .equipment-accordion__expand-icon
+        fill: $color-primary
+        @include font-size($h4-sizes)
+        height: 1.5em
+        width: 1.5em
+
+    .equipment-accordion__item-list
+        display: block

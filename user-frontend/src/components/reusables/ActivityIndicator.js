@@ -47,7 +47,7 @@ const ActivityIndicator = ({ position, height, width, color }) => {
       if (loadingTime > 15) {
         return (
           <h5>
-            Irgendwas konnte hier nicht gefunden werden :(
+            Irgendwas konnte hier nicht gefunden werden 😔
             <br />
             Probiere es nochmal!
           </h5>
