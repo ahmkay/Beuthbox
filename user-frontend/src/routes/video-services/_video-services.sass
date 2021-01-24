@@ -51,7 +51,9 @@
 .section-header__headline
     width: calc(60% - 20px) // add gap between elements
     margin-top: $margin-l
-    word-break: break-word
+    word-wrap: break-word
+    overflow-wrap: break-word
+    hyphens: auto
     @media screen and (max-width: $break-tablet)
         width: 100%
 
@@ -79,18 +81,18 @@
     width: 100%
     column-gap: $margin-m
     row-gap: $margin-m
-    grid-template-columns: repeat(4, 1fr)
+    grid-template-columns: repeat(4, minmax(0, 1fr))
     transition: grid-gap .4s ease-in-out
     @media screen and (max-width: $break-desktop-large)
-        grid-template-columns: repeat(3, 1fr)
+        grid-template-columns: repeat(3, minmax(0, 1fr))
         column-gap: $margin-s
         row-gap: $margin-s
     @media screen and (max-width: $break-tablet)
-        grid-template-columns: repeat(2, 1fr)
+        grid-template-columns: repeat(2, minmax(0, 1fr))
         column-gap: $margin-m
         row-gap: $margin-m
     @media screen and (max-width: $break-mobile)
-        grid-template-columns: repeat(1, 1fr)
+        grid-template-columns: repeat(1, minmax(0, 1fr))
 
 //
 // section: Lehrfilmproduktionsstudio
@@ -102,15 +104,28 @@
 .location-description__img
     width: 60%
     margin-bottom: $margin-xl
+    @media(max-width: $break-mobile)
+        width: 130%
+        margin-left: -15%
+        margin-bottom: $margin-m
 .location-description__description
     position: absolute
     right: 0
     top: 35%
     width: 40%
     padding-left: 1em
+    @media(max-width: $break-mobile)
+        width: 100%
+        position: initial
+        text-align: center
+        margin-bottom: $margin-l
+        padding-left: 0
 
 .location-description__video-directions
     width: 100%
+    @media(max-width: $break-mobile)
+        width: 130%
+        margin-left: -15%
 //
 // section: Videoproduktion
 //
@@ -118,11 +133,14 @@
     list-style: none
     width: fit-content
     margin: auto
+    padding-left: 1em
     & li
         line-height: 2em
+        margin-left: 2em //fix align if line-break
         &::before
             content: '✔︎'
             margin-right: 1em
+            margin-left: -2em //fix align if line-break
 
 //
 // section: Kontakt

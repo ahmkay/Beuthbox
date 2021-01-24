@@ -15,6 +15,8 @@ html, body
   overflow: hidden
 
 html
+  min-height: -webkit-fill-available //fix hiding url bar on mobile devices
+  height: 100% //fix hiding url bar on mobile devices
   @media screen and (max-width: $break-tablet-landscape)
     font-size: 14px
 
