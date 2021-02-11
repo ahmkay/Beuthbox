@@ -1,5 +1,20 @@
 import React from "react";
 
+/**
+ * An Service Card component to render a styled card with an image, title and description.
+ *
+ * @param { imgName, title, description } props
+ *
+ * Note: Any image has to be placed in /src/assets/img/video-services/
+ *
+ * Example:
+ * <ServiceCard
+ *   imgName={service.img}
+ *   title={service.title}
+ *   description={service.description}
+ *  />
+ */
+
 export default function ServiceCard({ imgName, title, description }) {
   let image = null;
 
