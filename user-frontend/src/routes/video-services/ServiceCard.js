@@ -3,7 +3,9 @@ import React from "react";
 /**
  * An Service Card component to render a styled card with an image, title and description.
  *
- * @param { imgName, title, description } props
+ * @param {String} imgName
+ * @param {String} title
+ * @param {String} description
  *
  * Note: Any image has to be placed in /src/assets/img/video-services/
  *
