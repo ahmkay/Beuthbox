@@ -84,7 +84,7 @@ const ThumbnailGrid = ({ type, elements, columnNumber }) => {
   };
 
   return (
-    <div className="thumbnail-grid" style={gridStyles}>
+    <div className="thumbnail-grid" id={`${type}-grid`} style={gridStyles}>
       {type === "video" && renderVideos()}
       {type === "playlist" && renderPlaylist()}
       {type === "channel" && renderChannels()}

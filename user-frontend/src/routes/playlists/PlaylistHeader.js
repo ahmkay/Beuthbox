@@ -24,13 +24,16 @@ const PlaylistHeader = (props) => {
               </h4>
             </div>
             <div className="playlist-header__stats">
-              <div className="stats-box__stat stats-box__stat--video">
+              <a
+                href="#video-grid"
+                className="stats-box__stat stats-box__stat--video"
+              >
                 <Videocam />
                 <small>Videos</small>
                 <h5 className="stats-box__stat-value">
                   {props.totalVideos ? props.totalVideos : "-"}
                 </h5>
-              </div>
+              </a>
               <div className="stats-box__stat stats-box__stat--duration">
                 <Timelapse />
                 <small>Gesamtlänge</small>
