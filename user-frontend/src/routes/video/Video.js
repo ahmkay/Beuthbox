@@ -71,7 +71,7 @@ const Video = (props) => {
   };
 
   function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
+    return <MuiAlert elevation={5} variant="filled" {...props} />;
   }
 
   const handleClose = (event, reason) => {
@@ -264,11 +264,13 @@ const Video = (props) => {
           )}
           <Snackbar
             open={copySuccess}
-            autoHideDuration={2000}
+            autoHideDuration={3000}
             onClose={handleClose}
           >
-            <Alert onClose={handleClose} severity="success">
-              Das Video befindert sich in der Zwischenablage.
+            <Alert onClose={handleClose} className="">
+              Der Link zu diesem Video wurde in deine Zwischenablage kopiert!
+              <br />
+              Schicke ihn an deine Freunde, um das Video zu teilen.
             </Alert>
           </Snackbar>
         </div>

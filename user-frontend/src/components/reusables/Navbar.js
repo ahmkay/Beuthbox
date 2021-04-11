@@ -19,7 +19,7 @@ import { preventBackgroundScroll } from "../../utils";
 import { DataContext } from "../../api/DataContext";
 
 const Navbar = () => {
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState(null);
   const [leftPosition, setLeftPosition] = useState(null);
   const [indicatorWidth, setIndicatorWidht] = useState(null);
   const [scrollPos, setScrollPos] = useState(0);
@@ -327,7 +327,7 @@ const Navbar = () => {
             </NavLink>
           </li>
           <span
-            className={`nav__indicator${activeTab !== "" ? "--show" : ""}`}
+            className={`nav__indicator${activeTab ? "--show" : ""}`}
             style={{ left: leftPosition, width: indicatorWidth }}
           ></span>
         </ul>
