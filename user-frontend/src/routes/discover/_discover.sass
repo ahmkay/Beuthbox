@@ -1,15 +1,19 @@
-.discover-card__illustration
-    // position: absolute
-    // top: 20%
-    // left: 5%
-.discover-card
-    display: flex
+.discover__header
+    width: 100%
     margin-bottom: $margin-m
 
-.discover-card__background-container
-    background-color: $color-primary
-    border-radius: 5px
+.discover__illustration
+    display: inliine-block
+    width: $col-5
+    @media screen and (max-width: $break-desktop)
+        margin-bottom: $margin-m
+        width: $col-6
 
-.discover-card__inner-container
-    padding-top: $margin-l + 20px
-    padding-bottom: $margin-l + 20px
+.discover__header-title
+    vertical-align: top
+    display: inline-block
+    width: $col-4
+    margin-left: -10%
+
+.discover__header-subtitle
+    width: 75%
