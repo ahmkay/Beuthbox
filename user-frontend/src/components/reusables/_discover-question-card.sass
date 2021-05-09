@@ -6,7 +6,7 @@
         padding: $margin-l
 
     @media screen and (max-width: $break-mobile)
-        padding: $margin-s
+        padding: $margin-m $margin-s
 
 .discover-question-card__subject
     text-transform: uppercase
@@ -102,6 +102,8 @@
 // radio
 .discover-question-card__radiogroup-headline
     width: 200px
+    @media screen and (max-width: $break-mobile)
+        width: 130px
 
 .discover-question-card__radiogroup-inner-container .discover-question-card__radio-button
     margin: 0!important
@@ -113,6 +115,9 @@
         display: none
     & + .discover-question-card__radio-button
         margin-top: $margin-s
+    @media screen and ( max-width: $break-mobile )
+        display: flex
+        align-items: center
 
 .discover-question-card__radio-button .radio-button
     display: inline-block

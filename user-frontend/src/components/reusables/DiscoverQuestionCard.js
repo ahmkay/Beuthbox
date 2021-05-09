@@ -239,9 +239,6 @@ const DiscoverQuestionCard = ({
     ) : (
       <div className="discover-question-card__radiogroup-container">
         <div className="discover-question-card__radiogroup-inner-container">
-          <p className="discover-question-card__radiogroup-headline">
-            Kürzeste Videos
-          </p>
           <label className="discover-question-card__radio-button">
             <input
               type="radio"
@@ -254,32 +251,31 @@ const DiscoverQuestionCard = ({
                 sortedByLength === "shortestFirst" ? "--checked" : ""
               }`}
             >
-              zuerst <KeyboardArrowUp />
+              zuerst {!isWindowMobileSize && <KeyboardArrowUp />}
             </span>
           </label>
 
           <label className="discover-question-card__radio-button">
+            <span
+              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${
+                sortedByLength === "shortestLast" ? "--checked" : ""
+              }`}
+            >
+              zuletzt {!isWindowMobileSize && <KeyboardArrowDown />}
+            </span>
             <input
               type="radio"
               value="shortestLast"
               checked={sortedByLength === "shortestLast"}
               onChange={handleSortedLengthChange}
             />
-            <span
-              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${
-                sortedByLength === "shortestLast" ? "--checked" : ""
-              }`}
-            >
-              zuletzt <KeyboardArrowDown />
-            </span>
           </label>
+          <p className="discover-question-card__radiogroup-headline">
+            Kürzeste Videos
+          </p>
         </div>
 
         <div className="discover-question-card__radiogroup-inner-container">
-          <p className="discover-question-card__radiogroup-headline">
-            {" "}
-            Neuste Videos
-          </p>
           <label className="discover-question-card__radio-button">
             <input
               type="radio"
@@ -292,7 +288,7 @@ const DiscoverQuestionCard = ({
                 sortedByCreationdate === "newestFirst" ? "--checked" : ""
               }`}
             >
-              zuerst <KeyboardArrowUp />
+              zuerst {!isWindowMobileSize && <KeyboardArrowUp />}
             </span>
           </label>
 
@@ -308,9 +304,13 @@ const DiscoverQuestionCard = ({
                 sortedByCreationdate === "newestLast" ? "--checked" : ""
               }`}
             >
-              zuletzt <KeyboardArrowDown />
+              zuletzt {!isWindowMobileSize && <KeyboardArrowDown />}
             </span>
           </label>
+          <p className="discover-question-card__radiogroup-headline">
+            {" "}
+            Neuste Videos
+          </p>
         </div>
       </div>
     );
