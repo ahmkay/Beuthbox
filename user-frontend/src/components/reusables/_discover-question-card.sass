@@ -2,6 +2,12 @@
     padding: $margin-l $margin-xxl
     margin-bottom: $margin-l
 
+    @media screen and (max-width: $break-tablet-landscape)
+        padding: $margin-l
+
+    @media screen and (max-width: $break-mobile)
+        padding: $margin-s
+
 .discover-question-card__subject
     text-transform: uppercase
     color: var(--color-grey)
@@ -26,6 +32,9 @@
 .MuiSvgIcon-root
     width: 36px !important
     height: 36px !important
+    @media screen and (max-width: $break-mobile)
+        width: 1.5rem !important
+        height: 1.5rem !important
 
 // category checkboxes
 .discover-question-card__category-grid
@@ -33,9 +42,16 @@
     grid-template-columns: 200px auto
     column-gap: $margin-s
     row-gap: $margin-s
+    @media screen and (max-width: $break-tablet)
+        grid-template-columns: 160px auto
+    @media screen and (max-width: $break-mobile)
+        grid-template-columns: 80px auto
 
 .discover-question-card__category
     grid-column: 1
+    @media screen and (max-width: $break-mobile)
+        align-self: center
+        margin: auto !important
 
 .discover-question-card__category-description
     grid-column: 2
@@ -92,6 +108,7 @@
 
 .discover-question-card__radio-button
     display: block
+    font-size: 1rem
     input
         display: none
     & + .discover-question-card__radio-button

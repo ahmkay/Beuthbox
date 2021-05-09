@@ -7,6 +7,7 @@ import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import HelpOutlineOutlined from "@material-ui/icons/HelpOutlineOutlined";
 import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUp from "@material-ui/icons/KeyboardArrowUp";
+import CategoryIcon from "./CategoryIcon";
 
 const DiscoverQuestionCard = ({
   subject,
@@ -18,10 +19,28 @@ const DiscoverQuestionCard = ({
   fullSize,
   hasRadiobuttonGroup,
 }) => {
+  const [isWindowMobileSize, setIsWindowMobileSize] = React.useState(
+    window.innerWidth < 576
+  );
   const [checked, setChecked] = React.useState(false);
   const [selectedFame, setSelectedFame] = React.useState("");
   const [sortedByLength, setSortedByLength] = React.useState("");
   const [sortedByCreationdate, setsortedByCreationdate] = React.useState("");
+
+  React.useLayoutEffect(() => {
+    window.addEventListener("resize", () => {
+      setMobileSize();
+    });
+    return () => {
+      window.removeEventListener("resize", () => {
+        setMobileSize();
+      });
+    };
+  });
+
+  const setMobileSize = () => {
+    setIsWindowMobileSize(window.innerWidth < 576);
+  };
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -39,34 +58,70 @@ const DiscoverQuestionCard = ({
   const renderCategorieButtons = () => {
     return (
       <div className="discover-question-card__category-grid">
-        <CategoryCheckbutton
-          category="study"
-          className="discover-question-card__category"
-        />
+        {!isWindowMobileSize ? (
+          <CategoryCheckbutton
+            category="study"
+            className="discover-question-card__category"
+          />
+        ) : (
+          <CategoryIcon
+            category="study"
+            isActive // TODO: change on click
+            type="labeled"
+            className="discover-question-card__category"
+          />
+        )}
         <p className="discover-question-card__category-description">
           Ergebnisse aus Semesterprojekten oder Abschlussarbeiten
         </p>
 
-        <CategoryCheckbutton
-          category="class"
-          className="discover-question-card__category"
-        />
+        {!isWindowMobileSize ? (
+          <CategoryCheckbutton
+            category="class"
+            className="discover-question-card__category"
+          />
+        ) : (
+          <CategoryIcon
+            category="class"
+            isActive // TODO: change on click
+            type="labeled"
+            className="discover-question-card__category"
+          />
+        )}
         <p className="discover-question-card__category-description">
           Kurzlehrfilme, Vorträge/Präsentationen, Best of Vorlesungen
         </p>
 
-        <CategoryCheckbutton
-          category="campus"
-          className="discover-question-card__category"
-        />
+        {!isWindowMobileSize ? (
+          <CategoryCheckbutton
+            category="campus"
+            className="discover-question-card__category"
+          />
+        ) : (
+          <CategoryIcon
+            category="campus"
+            isActive // TODO: change on click
+            type="labeled"
+            className="discover-question-card__category"
+          />
+        )}
         <p className="discover-question-card__category-description">
           Ergebnisse aus Semesterprojekten oder Abschlussarbeiten
         </p>
 
-        <CategoryCheckbutton
-          category="research"
-          className="discover-question-card__category"
-        />
+        {!isWindowMobileSize ? (
+          <CategoryCheckbutton
+            category="research"
+            className="discover-question-card__category"
+          />
+        ) : (
+          <CategoryIcon
+            category="research"
+            isActive // TODO: change on click
+            type="labeled"
+            className="discover-question-card__category"
+          />
+        )}
         <p className="discover-question-card__category-description">
           Neuste Inhalte rund um das Leben am und um den Campus
         </p>
