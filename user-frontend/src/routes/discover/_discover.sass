@@ -4,19 +4,38 @@
 .discover__header
     width: 100%
     margin-bottom: $margin-m
+    @media screen and (max-width: $break-desktop)
+        display: flex
+        flex-direction: column-reverse
 
 .discover__illustration
     display: inliine-block
     width: $col-5
     @media screen and (max-width: $break-desktop)
+        margin-left: auto
         margin-bottom: $margin-m
-        width: $col-6
+        margin-top: - $margin-xl
+        width: $col-5
+    @media screen and (max-width: $break-tablet)
+        margin-top: - $margin-m
+    @media screen and (max-width: $break-mobile)
+        margin-top: 0
+        margin: auto
 
 .discover__header-title
     vertical-align: top
     display: inline-block
     width: $col-4
     margin-left: -10%
+    @media screen and (max-width: $break-desktop)
+        width: $col-5
+        margin-left: 0
+    @media screen and (max-width: $break-tablet)
+        padding-left: $margin-m
+    @media screen and (max-width: $break-mobile)
+        width: 100%
+        padding-left: $margin-s
+        margin-bottom: $margin-s
 
 .discover__header-subtitle
     width: 75%

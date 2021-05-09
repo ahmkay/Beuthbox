@@ -132,7 +132,7 @@ const DiscoverQuestionCard = ({
   const renderSlider = () => {
     const marks = [
       {
-        value: 0,
+        value: 5,
         label: "max 5min",
       },
       {
@@ -158,7 +158,7 @@ const DiscoverQuestionCard = ({
     ];
 
     function valuetext(value) {
-      return `${value}°C`;
+      return `${value}min`;
     }
 
     function valueLabelFormat(value) {
