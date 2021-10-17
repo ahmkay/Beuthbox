@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Play from "../../assets/img/Button_Play.svg";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import TodayIcon from "@material-ui/icons/Today";
 import Placeholder from "../../assets/img/Placeholder_Video.svg";
+import Moment from "react-moment";
 
 /**
  * A reusable component to display a thumbnail for a video
@@ -32,6 +34,7 @@ const VideoThumbnail = ({
   id,
   listOrientation,
   listCount,
+  created,
 }) => {
   return (
     <div
@@ -60,6 +63,9 @@ const VideoThumbnail = ({
           <p className="video-thumbnail-container__video-title">
             {title ? title : "Kein Titel"}
           </p>
+          <small className="video-thumbnail-container__video-created">
+            <TodayIcon /> <Moment format="DD.MM.YY">{created}</Moment>
+          </small>
           <small className="video-thumbnail-container__video-duration">
             <AccessTimeIcon /> {duration ? duration : "0:00"}
           </small>

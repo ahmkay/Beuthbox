@@ -49,6 +49,7 @@ const ThumbnailGrid = ({ type, elements, columnNumber }) => {
             duration={calculateVideoDuration(video.videoDuration)}
             img={imgPath}
             id={video._id}
+            created={video.created}
           />
         </div>
       );
