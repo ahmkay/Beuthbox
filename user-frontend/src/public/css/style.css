@@ -762,8 +762,7 @@ img.blur {
 /* flowplayer live */
 
 .flowplayer.is-error .fp-message {
-    background-image: url(../img/logo/beuthbox-logo.svg);
-    background-image: url(../img/logo/beuthbox-logo.svg);
+    background-image: url(../img/logo/BOX-Logo.svg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

@@ -10,7 +10,7 @@ import LiveTvIcon from "@material-ui/icons/LiveTv";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import Videocam from "@material-ui/icons/Videocam";
 import SearchIcon from "@material-ui/icons/Search";
-import Logo from "../../assets/img/beuthbox-logo.svg";
+import Logo from "../../assets/img/BOX-Logo--w.svg";
 import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import SearchMobile from "../../routes/search/SearchMobile";
 import SearchTablet from "../../routes/search/SearchTablet";

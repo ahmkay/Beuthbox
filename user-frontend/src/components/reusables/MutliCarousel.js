@@ -9,7 +9,7 @@ import HeaderCarousel from "../../routes/home/HeaderCarousel";
 import { DataContext } from "../../api/DataContext";
 import Searchbar from "../../components/reusables/Searchbar";
 import { useLocation, useHistory } from "react-router-dom";
-import beuthBOXIllustration from "../../assets/img/beuthbox-logo.svg";
+import beuthBOXIllustration from "../../assets/img/BOX-Logo--w.svg";
 
 const MultiCarousel = ({ headline, type, elements }) => {
   const { setQuery } = useContext(DataContext);
