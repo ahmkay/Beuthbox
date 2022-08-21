@@ -12,7 +12,7 @@ You will need a current version of `node` and `npm` to install and run this proj
 
 The default branch is called `dev`, which holds the most current version. New features should be developed in a branch with the following syntax `feature/my-new-feature`. When a feature is done, it has to be peer reviewed. For that purpose please create a pull request in GitHub and post the link to your coworkers.
 
-For our stable releases we use the `main` branch. At the end of each development cycle the `dev` branch should be merged into the `main`. This branch should contain the most latest version which is used for the deployment.
+For our stable releases we use the `master` branch. At the end of each development cycle the `dev` branch should be merged into the `master`. This branch should contain the most latest version which is used for the deployment.
 
 ## Local Development
 
