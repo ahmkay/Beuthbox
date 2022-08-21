@@ -74,7 +74,6 @@ const Navbar = () => {
   };
 
   const toggleTabletSearch = (show = false) => {
-    console.log(showTabletSearch);
     setShowTabletSearch(show);
   };
 

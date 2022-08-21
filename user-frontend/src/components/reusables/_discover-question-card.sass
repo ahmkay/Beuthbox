@@ -1,0 +1,144 @@
+.discover-question-card
+    padding: $margin-l $margin-xxl
+    margin-bottom: $margin-l
+
+    @media screen and (max-width: $break-tablet-landscape)
+        padding: $margin-l
+
+    @media screen and (max-width: $break-mobile)
+        padding: $margin-m $margin-s
+
+.discover-question-card__subject
+    text-transform: uppercase
+    color: var(--color-grey)
+
+.discover-question-card__headline
+    margin-bottom: $margin-l
+
+// checkbox
+.discover-question-card--opt-out
+    margin-top: $margin-m
+
+.MuiFormControlLabel-root
+    margin-left: 0
+    margin-right: 0
+
+.MuiCheckbox-root
+    color: var(--color-black) !important
+.MuiCheckbox-colorPrimary.Mui-checked
+    color: var(--color-primary)!important
+.MuiTypography-root.MuiTypography-body1
+    font-size: $p-size
+.discover-question-card__category-grid .MuiSvgIcon-root
+    width: 36px !important
+    height: 36px !important
+    @media screen and (max-width: $break-mobile)
+        width: 1.5rem !important
+        height: 1.5rem !important
+
+// category checkboxes
+.discover-question-card__category-grid
+    display: grid
+    grid-template-columns: 200px auto
+    column-gap: $margin-s
+    row-gap: $margin-s
+    @media screen and (max-width: $break-tablet)
+        grid-template-columns: 160px auto
+    @media screen and (max-width: $break-mobile)
+        grid-template-columns: 80px auto
+
+.discover-question-card__category
+    grid-column: 1
+    @media screen and (max-width: $break-mobile)
+        align-self: center
+        margin: auto !important
+
+.discover-question-card__category-description
+    grid-column: 2
+    align-self: center
+
+// slider
+.discover-question-card__radiogroup-inner-container
+    display: flex
+    align-items: center
+    & + .discover-question-card__radiogroup-inner-container
+        margin-top: $margin-s
+
+//slider styles
+.discover-question-card__slider-container
+    .MuiSlider-root
+        color: var(--color-primary)
+    .MuiSlider-markLabelActive
+        color: var(--color-text)
+    .MuiSlider-markLabel
+        color: var(--color-text)
+    .MuiSlider-track
+        top: 50%
+        transform: translateY(-50%)
+        border-radius: 3px
+        height: 6px
+    .MuiSlider-rail
+        color: var(--color-grey)
+        height: 4px
+        top: 50%
+        transform: translateY(-50%)
+    .MuiSlider-mark
+        width: 2px
+        height: 4px
+    .MuiSlider-thumb
+        margin-top: 0
+        width: 16px
+        height: 16px
+        top: 50%
+        transform: translateY(-50%)
+    .MuiSlider-valueLabel
+        left: -50%
+
+.discover-question-card__slider-container
+    width: 90%
+    margin: auto
+    margin-bottom: $margin-m
+
+// radio
+.discover-question-card__radiogroup-headline
+    width: 200px
+    @media screen and (max-width: $break-mobile)
+        width: 130px
+
+.discover-question-card__radiogroup-inner-container .discover-question-card__radio-button
+    margin: 0!important
+
+.discover-question-card__radio-button
+    display: block
+    font-size: 1rem
+    input
+        display: none
+    & + .discover-question-card__radio-button
+        margin-top: $margin-s
+    @media screen and ( max-width: $break-mobile )
+        display: flex
+        align-items: center
+
+.discover-question-card__radio-button .radio-button
+    display: inline-block
+    line-height: 21px
+    background-color: transparent
+    border: $border-s
+    color: var(--color-primary)
+    cursor: pointer
+    border-radius: 50px
+    text-align: center
+    margin-right: $margin-s
+
+    svg
+        vertical-align: middle
+        width: .9em !important
+        height: .9em !important
+    &--checked
+        background-color: var(--color-primary)
+        color: var(--color-white)
+        path
+            fill: var(--color-white)
+    &:hover
+        color: var(--color-white)
+        background-color: var(--color-primary)

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import AboutUs from "../routes/aboutus/AboutUs";
 import Privacy from "../routes/privacy/Privacy";
 import Playlists from "../routes/playlists/Playlists";
@@ -13,14 +13,15 @@ import "./styles.sass";
 import Footer from "./reusables/Footer";
 import Live from "../routes/live/Live";
 import Navbar from "./reusables/Navbar";
-import { BASEURL } from "../api";
+import {BASEURL} from "../api";
 import axios from "axios";
-import { doSearch, showTags, compareDates, comparePostions } from "../utils";
+import {doSearch, showTags, compareDates, comparePostions} from "../utils";
 import Discover from "../routes/discover/Discover";
+import Recommendations from "../routes/discover/Recommendations";
 import VideoServices from "../routes/video-services/VideoServices";
 import NotFound from "../routes/404/NotFound";
 import MultiCarousel from "./reusables/MutliCarousel";
-import { DataContext } from "../api/DataContext";
+import {DataContext} from "../api/DataContext";
 
 const App = () => {
   const [allVideos, setAllVideos] = useState([]);
@@ -64,7 +65,7 @@ const App = () => {
         );
 
         let allVideos = await axios.get(
-          `${BASEURL}/graphql?query={videos{_id, name, posterImagePath, created, description, status, access, views, videoDuration, videoPath, tags, categories{name, description, created, imagepath, _id}, channel{name, description, created, imagepath, _id}}}`
+          `${BASEURL}/graphql?query={videos{_id, name, posterImagePath, created, description, status, access, views, videoDuration, videoPath, tags, cat_type, categories{name, description, created, imagepath, _id}, channel{name, description, created, imagepath, _id}}}`
         );
 
         // sort videos by date and limit the amount to 10
@@ -83,9 +84,9 @@ const App = () => {
       try {
         const response = await axios.get(
           BASEURL +
-            "/graphql?query={channels{name, description, created, imagepath, iconpath, _id, ispublic}}"
+          "/graphql?query={channels{name, description, created, imagepath, iconpath, _id, ispublic}}"
         );
-        const { channels } = response.data.data;
+        const {channels} = response.data.data;
         const filteredChannels = channels.filter((channel) => {
           return channel.ispublic;
         });
@@ -98,9 +99,9 @@ const App = () => {
       try {
         const response = await axios.get(
           BASEURL +
-            "/graphql?query={categories{name, description, created, imagepath, iconpath _id}}"
+          "/graphql?query={categories{name, description, created, imagepath, iconpath _id}}"
         );
-        const { categories } = response.data.data;
+        const {categories} = response.data.data;
         setPlaylists(
           categories.sort((playlistA, playlistB) => {
             return compareDates(playlistB, playlistA);
@@ -130,6 +131,7 @@ const App = () => {
       setURL(url.splittedURL);
     };
     fetchRoute();
+
   }, [channels, playlists, query, url.splittedURL]);
 
   // reeset the stored theme if user toggles preffered mode on his system
@@ -149,7 +151,7 @@ const App = () => {
   const getURL = () => {
     const location = window.location.pathname;
     const url = location.split("=").pop();
-    return { completeURL: location, splittedURL: url };
+    return {completeURL: location, splittedURL: url};
   };
 
   return (
@@ -203,6 +205,7 @@ const App = () => {
           <Route exact path={"/video-services"} component={VideoServices} />
           <Route exact path={"/live"} component={Live} />
           <Route exact path={"/discover"} component={Discover} />
+          <Route exact path={"/discover/recommendations"} component={Recommendations} />
           <Route component={NotFound} />
         </Switch>
         <Footer />

@@ -21,12 +21,12 @@ import { ReactComponent as BookIcon } from "../../assets/img/icons/Icon_Book.svg
  * />
  */
 
-function CategoryIcon({ category, isActive, type, hasBackground }) {
+function CategoryIcon({ category, isActive, type, hasBackground, className }) {
   let showLabel = type === "label" || type === "labeled";
 
   return (
     <div
-      className={`category-icon category-icon--${category} category-icon category-icon--${type}`}
+      className={`category-icon category-icon--${category} category-icon category-icon--${type} ${className}`}
     >
       <div
         className={`category-icon__icon-container category-icon__icon-container--${category} 

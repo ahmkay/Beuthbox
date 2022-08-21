@@ -1,14 +1,20 @@
+// max-content und fit-content werden nicht von IE unterstützt...
 .category-checkbutton
     width: fit-content
+    height: max-content
     display: flex
     align-items: center
     min-width: 140px
-    padding: 3px 12px
+    padding: .5em 1em
     border: 2px solid
     border-radius: 50px
     &:hover
         cursor: pointer
 
+    @media screen and (max-width: $break-mobile)
+        min-width: 75px
+input
+    display: none
 // Specific colors
 .category-checkbutton.category-checkbutton--study
     border-color: var(--color-red)
@@ -73,9 +79,9 @@
         fill: var(--color-white)
 
 svg.category-checkbutton__img
-    width: .7em
-    height: .7em
-    margin-right: 9px
+    width: .9em !important
+    height: .9em !important
+    margin-right: .5em
 
 .category-checkbutton__label
     display: inline-block
