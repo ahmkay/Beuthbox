@@ -8,7 +8,7 @@ import { ReactComponent as BookIcon } from "../../assets/img/icons/Icon_Book.svg
 /**
  * A reusable Category Checkbuton component to show a button-like element that can be used as a checkbox
  *
- * @param {category, isActive} props
+ * @param {category, isActive, value, onChange} props
  *
  *  to set the icon and the labeltext use the category prop
  *  categories are: study, campus, class, research
@@ -19,20 +19,25 @@ import { ReactComponent as BookIcon } from "../../assets/img/icons/Icon_Book.svg
  * <CategoryCheckbutton category="study" isActive />
  */
 
-function CategoryCheckbutton({ category, isActive, className }) {
-  const [active, setActive] = useState(isActive);
-
-  function toggleIsActive() {
-    setActive(!active);
-  }
+const CategoryCheckbutton = ({ category, className, onChange, value }) => {
+  const handleChange = onChange && ((e) => {
+    onChange(e.target.checked)
+})
 
   return (
-    <div
-      className={`category-checkbutton category-checkbutton--${category} ${
-        active && "category-checkbutton--isActive"
-      } ${className && className}`}
-      onClick={() => toggleIsActive()}
-    >
+    <label
+    for={category}
+    className={`category-checkbutton category-checkbutton--${category} ${
+      value && "category-checkbutton--isActive"
+    } ${className && className}`} 
+   >
+
+    <input
+      id={category}
+      type="checkbox"
+      value={value}
+      onClick={handleChange}
+   />
       {category === "study" && (
         <ColorLensIcon className="category-checkbutton__img" />
       )}
@@ -59,7 +64,8 @@ function CategoryCheckbutton({ category, isActive, className }) {
         {category === "class" && "Vorlesung"}
         {category === "research" && "Forschung"}
       </p>
-    </div>
+    </label>
+    
   );
 }
 

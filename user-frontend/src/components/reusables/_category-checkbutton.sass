@@ -1,3 +1,4 @@
+// max-content und fit-content werden nicht von IE unterstützt...
 .category-checkbutton
     width: fit-content
     height: max-content
@@ -12,7 +13,8 @@
 
     @media screen and (max-width: $break-mobile)
         min-width: 75px
-
+input
+    display: none
 // Specific colors
 .category-checkbutton.category-checkbutton--study
     border-color: var(--color-red)

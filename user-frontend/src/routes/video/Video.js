@@ -23,13 +23,14 @@ import ThumbnailGrid from "../../components/reusables/ThumbnailGrid";
 
 const Video = (props) => {
   const [video, setVideo] = useState([]);
+  const [categoryType, setCategoryType] = useState('');
   const [currentPlaylistVideos, setCurrentPlaylistVideos] = useState([]);
   const [height, setHeight] = useState(1000);
   const [copySuccess, setCopySuccess] = useState(false);
   const { id } = props.match.params;
   const videoContainerRef = useRef(null);
   const { allVideos } = useContext(DataContext);
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,7 +46,7 @@ const Video = (props) => {
         let OCid = string.slice(0, n);
         currentVideo.ocid = OCid;
         setVideo(currentVideo);
-
+        setCategoryType(currentVideo['cat_type'] === "student" ? 'study' : currentVideo['cat_type']);
         const currentPlaylistVideos = await Axios.get(
           `${BASEURL}/graphql?query={videos(filter: {categoryid: "${currentVideo.categories[0]._id}"}){name, posterImagePath, created, status, access, views, videoDuration _id}}`
         );
@@ -171,7 +172,6 @@ const Video = (props) => {
   });
 
   if (Object.keys(video).length > 0) {
-    console.log(currentPlaylistVideos, "current");
     return (
       <>
         <div className="root-container video-container__root">
@@ -183,14 +183,14 @@ const Video = (props) => {
             >
               <div className="video-container">
                 <iframe
-                  allowfullscreen
+                  allowFullscreen
                   src={`http://beuthbox-opencast.beuth-hochschule.de/paella/ui/embed.html?id=${video.ocid}`}
                   style={{ border: "none", width: "100%" }}
                   name="Paella Player"
                   scrolling="no"
-                  frameborder="0"
-                  marginheight="0px"
-                  marginwidth="0px"
+                  frameBorder="0"
+                  marginHeight="0px"
+                  marginWidth="0px"
                   className="video__paella-player"
                 ></iframe>
               </div>
@@ -212,7 +212,7 @@ const Video = (props) => {
               </div>
               <div className="video-info-container">
                 <div className="video-category-container">
-                  <CategoryIcon type="label" category="study" isActive />
+                {categoryType && <CategoryIcon type="label" category={categoryType} isActive /> } 
                   {video.tags && showTags()}
                 </div>
               </div>

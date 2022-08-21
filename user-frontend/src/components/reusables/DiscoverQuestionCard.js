@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState, useLayoutEffect, useEffect} from "react";
 import Checkbox from "@material-ui/core/Checkbox";
-import { FormControlLabel, Slider } from "@material-ui/core";
+import {FormControlLabel, Slider} from "@material-ui/core";
 import CategoryCheckbutton from "./CategoryCheckbutton";
 import FavoriteOutlined from "@material-ui/icons/FavoriteOutlined";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
@@ -19,15 +19,35 @@ const DiscoverQuestionCard = ({
   fullSize,
   hasRadiobuttonGroup,
 }) => {
-  const [isWindowMobileSize, setIsWindowMobileSize] = React.useState(
+  const [isWindowMobileSize, setIsWindowMobileSize] = useState(
     window.innerWidth < 576
   );
-  const [checked, setChecked] = React.useState(false);
-  const [selectedFame, setSelectedFame] = React.useState("");
-  const [sortedByLength, setSortedByLength] = React.useState("");
-  const [sortedByCreationdate, setsortedByCreationdate] = React.useState("");
+  const [checked, setChecked] = useState(false);
+  const [selectedFame, setSelectedFame] = useState("");
+  const [sortedByLength, setSortedByLength] = useState("");
+  const [sortedByCreationdate, setsortedByCreationdate] = useState("");
+  const [sliderValue, setSliderValue] = useState(0)
+  const [value, setValue] = useState({})
 
-  React.useLayoutEffect(() => {
+  const categoryButtonOptions = [
+    {category: 'study', text: 'Ergebnisse aus Semesterprojekten oder Abschlussarbeiten'},
+    {category: 'class', text: 'Kurzlehrfilme, Vorträge/Präsentationen, Best of Vorlesungen'},
+    {category: 'campus', text: 'Ergebnisse aus Semesterprojekten oder Abschlussarbeiten'},
+    {category: 'research', text: 'Neuste Inhalte rund um das Leben am und um den Campus'}
+  ]
+
+  const mapCategories = (index) => {
+    const category = {
+      test: 'study',
+      1: 'class',
+      2: 'campus',
+      3: 'research'
+    }[index]
+
+    return category
+  }
+
+  useLayoutEffect(() => {
     window.addEventListener("resize", () => {
       setMobileSize();
     });
@@ -43,88 +63,72 @@ const DiscoverQuestionCard = ({
   };
 
   const handleChange = (event) => {
+    const resultDependingOnType = () => {
+      if (hasCategories) {
+        result({topics: event.target.checked ? ['study', 'class', 'campus', 'research'] : []})
+      }
+      else if (hasSlider) {
+        result({videoDuration: 0})
+        setSliderValue(0)
+      }
+      else if (hasRadiobuttonGroup) {
+        result({videoLength: null});
+        result({videoCreationDate: null});
+        setSortedByLength('');
+        setsortedByCreationdate('');
+      }
+    }
     setChecked(event.target.checked);
+    resultDependingOnType()
+
   };
   const handleFameChange = (event) => {
     setSelectedFame(event.target.value);
+    result({viewFrequency: event.target.value});
   };
   const handleSortedLengthChange = (event) => {
     setSortedByLength(event.target.value);
+    setChecked(false)
+    result({videoLength: event.target.value});
   };
   const handlesortedCreationdateChange = (event) => {
     setsortedByCreationdate(event.target.value);
+    setChecked(false)
+    result({videoCreationDate: event.target.value});
   };
+
+
+  const handleCategoryChange = (input, index) => {
+    setValue(prevValue => ({...prevValue, [index]: input}))
+  }
 
   const renderCategorieButtons = () => {
     return (
       <div className="discover-question-card__category-grid">
-        {!isWindowMobileSize ? (
-          <CategoryCheckbutton
-            category="study"
-            className="discover-question-card__category"
-          />
-        ) : (
-          <CategoryIcon
-            category="study"
-            isActive // TODO: change on click
-            type="labeled"
-            className="discover-question-card__category"
-          />
-        )}
-        <p className="discover-question-card__category-description">
-          Ergebnisse aus Semesterprojekten oder Abschlussarbeiten
-        </p>
-
-        {!isWindowMobileSize ? (
-          <CategoryCheckbutton
-            category="class"
-            className="discover-question-card__category"
-          />
-        ) : (
-          <CategoryIcon
-            category="class"
-            isActive // TODO: change on click
-            type="labeled"
-            className="discover-question-card__category"
-          />
-        )}
-        <p className="discover-question-card__category-description">
-          Kurzlehrfilme, Vorträge/Präsentationen, Best of Vorlesungen
-        </p>
-
-        {!isWindowMobileSize ? (
-          <CategoryCheckbutton
-            category="campus"
-            className="discover-question-card__category"
-          />
-        ) : (
-          <CategoryIcon
-            category="campus"
-            isActive // TODO: change on click
-            type="labeled"
-            className="discover-question-card__category"
-          />
-        )}
-        <p className="discover-question-card__category-description">
-          Ergebnisse aus Semesterprojekten oder Abschlussarbeiten
-        </p>
-
-        {!isWindowMobileSize ? (
-          <CategoryCheckbutton
-            category="research"
-            className="discover-question-card__category"
-          />
-        ) : (
-          <CategoryIcon
-            category="research"
-            isActive // TODO: change on click
-            type="labeled"
-            className="discover-question-card__category"
-          />
-        )}
-        <p className="discover-question-card__category-description">
-          Neuste Inhalte rund um das Leben am und um den Campus
-        </p>
+        {categoryButtonOptions.map(({category, text}, index) => {
+          return (
+            <>
+              {!isWindowMobileSize ?
+                <CategoryCheckbutton
+                  category={category}
+                  className="discover-question-card__category"
+                  value={value[index]}
+                  onChange={(event) => handleCategoryChange(event, index)}
+                />
+                :
+                <CategoryIcon
+                  category={category}
+                  isActive // TODO: change on click
+                  type="labeled"
+                  className="discover-question-card__category"
+                />
+              }
+              <p className="discover-question-card__category-description">
+                {text}
+              </p>
+            </>
+          )
+        })}
       </div>
     );
   };
@@ -132,7 +136,7 @@ const DiscoverQuestionCard = ({
   const renderSlider = () => {
     const marks = [
       {
-        value: 5,
+        value: 0,
         label: "max 5min",
       },
       {
@@ -165,6 +169,12 @@ const DiscoverQuestionCard = ({
       return marks.findIndex((mark) => mark.value === value) + 1;
     }
 
+    function handleSliderValue(event, value) {
+      setSliderValue(value)
+      setChecked(false)
+      result({videoDuration: value});
+    }
+
     return (
       <div className="discover-question-card__slider-container">
         <Slider
@@ -176,7 +186,9 @@ const DiscoverQuestionCard = ({
           valueLabelDisplay="auto"
           marks={marks}
           max={60}
-          onChange={(e, v) => console.log(e.target, v)}
+          value={sliderValue}
+          onChange={() => { }}
+          onChangeCommitted={handleSliderValue}
         />
       </div>
     );
@@ -193,9 +205,8 @@ const DiscoverQuestionCard = ({
             onChange={handleFameChange}
           />
           <span
-            className={`category-checkbutton category-checkbutton--campus radio-button radio-button${
-              selectedFame === "rare" ? "--checked" : ""
-            }`}
+            className={`category-checkbutton category-checkbutton--campus radio-button radio-button${selectedFame === "rare" ? "--checked" : ""
+              }`}
           >
             <FavoriteBorder /> <FavoriteBorder />
           </span>{" "}
@@ -210,9 +221,8 @@ const DiscoverQuestionCard = ({
             onChange={handleFameChange}
           />
           <span
-            className={`category-checkbutton category-checkbutton--campus radio-button radio-button${
-              selectedFame === "frequently" ? "--checked" : ""
-            }`}
+            className={`category-checkbutton category-checkbutton--campus radio-button radio-button${selectedFame === "frequently" ? "--checked" : ""
+              }`}
           >
             <FavoriteOutlined /> <FavoriteOutlined />
           </span>{" "}
@@ -227,9 +237,8 @@ const DiscoverQuestionCard = ({
             onChange={handleFameChange}
           />
           <span
-            className={`category-checkbutton category-checkbutton--campus radio-button radio-button${
-              selectedFame === "irrelevant" ? "--checked" : ""
-            }`}
+            className={`category-checkbutton category-checkbutton--campus radio-button radio-button${selectedFame === "irrelevant" ? "--checked" : ""
+              }`}
           >
             <HelpOutlineOutlined />
           </span>{" "}
@@ -247,9 +256,8 @@ const DiscoverQuestionCard = ({
               onChange={handleSortedLengthChange}
             />
             <span
-              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${
-                sortedByLength === "shortestFirst" ? "--checked" : ""
-              }`}
+              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${sortedByLength === "shortestFirst" ? "--checked" : ""
+                }`}
             >
               zuerst {!isWindowMobileSize && <KeyboardArrowUp />}
             </span>
@@ -257,9 +265,8 @@ const DiscoverQuestionCard = ({
 
           <label className="discover-question-card__radio-button">
             <span
-              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${
-                sortedByLength === "shortestLast" ? "--checked" : ""
-              }`}
+              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${sortedByLength === "shortestLast" ? "--checked" : ""
+                }`}
             >
               zuletzt {!isWindowMobileSize && <KeyboardArrowDown />}
             </span>
@@ -284,9 +291,8 @@ const DiscoverQuestionCard = ({
               onChange={handlesortedCreationdateChange}
             />
             <span
-              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${
-                sortedByCreationdate === "newestFirst" ? "--checked" : ""
-              }`}
+              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${sortedByCreationdate === "newestFirst" ? "--checked" : ""
+                }`}
             >
               zuerst {!isWindowMobileSize && <KeyboardArrowUp />}
             </span>
@@ -300,9 +306,8 @@ const DiscoverQuestionCard = ({
               onChange={handlesortedCreationdateChange}
             />
             <span
-              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${
-                sortedByCreationdate === "newestLast" ? "--checked" : ""
-              }`}
+              className={`category-checkbutton category-checkbutton--campus radio-button radio-button${sortedByCreationdate === "newestLast" ? "--checked" : ""
+                }`}
             >
               zuletzt {!isWindowMobileSize && <KeyboardArrowDown />}
             </span>

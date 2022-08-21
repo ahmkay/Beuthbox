@@ -1,24 +1,38 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {useContext, useState, useEffect, useCallback} from "react";
 import Illustration from "../../assets/img/Illustration_Discover.svg";
-import { DataContext } from "../../api/DataContext";
+import {DataContext} from "../../api/DataContext";
 import DiscoverQuestionCard from "../../components/reusables/DiscoverQuestionCard";
 import Button from "../../components/reusables/Button";
+import {Link} from "react-router-dom";
 
 const Discover = () => {
-  const daten = useContext(DataContext);
-  const [result, setResult] = useState([]);
-
-  const getResult = (input) => {
-    setResult((result) => [...result, input]);
-    console.log(result);
+  const initialResult = {
+    topics: [],
+    videoDuration: 0,
+    viewFrequency: null,
+    videoCreationDate: null,
+    videoLength: null
   };
+
+  const data = useContext(DataContext);
+  const [result, setResult] = useState(initialResult);
+
+  const getResult = useCallback((input) => {
+    setResult((prevResult) => {
+      const objKey = Object.keys(input)
+      const objValue = input[objKey[0]]
+      return {...prevResult, [objKey]: objValue}
+    });
+  },
+    [result],
+  );
 
   useEffect(() => {
     console.log(result);
   }, [result]);
 
   return (
-    daten && (
+    data && (
       <div className="discover main">
         <header className="discover__header page-headline">
           <img
@@ -49,20 +63,26 @@ const Discover = () => {
             headline="Wie lang sollte das Video dauern?"
             checkboxLabel="Die Spiellänge ist mir nicht wichtig"
             hasSlider
+            result={getResult}
           />
           <DiscoverQuestionCard
             subject="Abspielhäufigkeit"
             headline="Wie bekannt sollen die Inhalte sein?"
             hasRadiobuttonGroup
             fullSize
+            result={getResult}
           />
           <DiscoverQuestionCard
             subject="Sortierung"
             headline="In welcher Reihenfolge sollen die Videos gelistet werden?"
             checkboxLabel="Die Reihenfolge der Anzeige ist mir nicht wichtig"
             hasRadiobuttonGroup
+            result={getResult}
           />
-          <Button>Ergebsnisse Anzeigen</Button>
+          <Link to={"/discover/recommendations"}>
+            <Button>Ergebsnisse Anzeigen</Button>
+          </Link>
+
         </main>
       </div>
     )
